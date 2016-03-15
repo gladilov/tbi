@@ -47,12 +47,13 @@
         xmlhttp = new XMLHttpRequest(),
         xmlhttpUrl = 'https://onesignal.com/api/v1/notifications';
         xmlhttp.open('POST', xmlhttpUrl);
-        xmlhttp.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
+        xmlhttp.setRequestHeader('Authorization', 'Basic YjY1MDc0YWUtNTU5YS00MmMwLTkwODUtNjcyMmI3NzliYmY2');
+        xmlhttp.setRequestHeader('Content-Type', 'application/json');
         xmlhttp.onreadystatechange = function() {
           navigator.notification.alert(
               'xmlhttp.onreadystatechange',
               null,
-              'ReadyState: ' + this.readyState + ', Status: ' + this.status,
+              'ReadyState: ' + this.readyState + ', Status: ' + this.status + ', ResponseText: ' + this.responseText,
               'Done'
           );
         }
