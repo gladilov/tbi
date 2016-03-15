@@ -44,7 +44,7 @@
         
         
         // Test create push (rest api)
-        xmlhttp = new XMLHttpRequest(),
+        /*xmlhttp = new XMLHttpRequest(),
         xmlhttpUrl = 'https://onesignal.com/api/v1/notifications';
         xmlhttp.open('POST', xmlhttpUrl);
         xmlhttp.setRequestHeader('Authorization', 'Basic YjY1MDc0YWUtNTU5YS00MmMwLTkwODUtNjcyMmI3NzliYmY2');
@@ -64,7 +64,39 @@
           "isAndroid": true
         };
         
-        xmlhttp.send(JSON.stringify(data));
+        xmlhttp.send(JSON.stringify(data));*/
+        
+        var data = JSON.stringify({
+          "app_id": "8393b4dd-37e7-4d54-a768-8e0b70d83a21",
+          "headings": {
+            "en": "Test Title"
+          },
+          "contents": {
+            "en": "Test Message"
+          },
+          "isAndroid": true
+        });
+
+        var xhr = new XMLHttpRequest();
+        xhr.withCredentials = true;
+
+        xhr.addEventListener("readystatechange", function () {
+          if (this.readyState === 4) {
+            console.log(this.responseText);
+            navigator.notification.alert(
+                'xmlhttp.onreadystatechange',
+                null,
+                'ReadyState: ' + this.readyState + ', Status: ' + this.status + ', ResponseText: ' + this.responseText,
+                'Done'
+            );
+          }
+        });
+
+        xhr.open("POST", "https://onesignal.com/api/v1/notifications");
+        xhr.setRequestHeader("authorization", "Basic YjY1MDc0YWUtNTU5YS00MmMwLTkwODUtNjcyMmI3NzliYmY2");
+        xhr.setRequestHeader("content-type", "application/json");
+
+        xhr.send(data);
       }
 </script>
 
