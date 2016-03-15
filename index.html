@@ -16,6 +16,22 @@
 			  $(this).toggleClass('opened');
 			});
 		  });
+      
+      document.addEventListener("deviceready", onDeviceReady, false);
+      function onDeviceReady() {
+        console.log(navigator.notification);
+        
+        function alertDismissed() {
+            // do something
+        }
+
+        navigator.notification.alert(
+            'You are the winner!',  // message
+            alertDismissed,         // callback
+            'Game Over',            // title
+            'Done'                  // buttonName
+        );
+      }
 </script>
 
 <body>
