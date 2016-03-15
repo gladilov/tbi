@@ -19,18 +19,28 @@
       
       document.addEventListener("deviceready", onDeviceReady, false);
       function onDeviceReady() {
-        console.log(navigator.notification);
-        
-        function alertDismissed() {
-            // do something
-        }
-
+        // Notification
         navigator.notification.alert(
             'You are the winner!',  // message
             null,                   // callback
             'Game Over',            // title
             'Done'                  // buttonName
         );
+        
+        // Push
+        // Enable to debug issues.
+        window.plugins.OneSignal.setLogLevel({logLevel: 4, visualLevel: 4});
+        
+        var notificationOpenedCallback = function(jsonData) {
+          console.log('didReceiveRemoteNotificationCallBack: ' + JSON.stringify(jsonData));
+        };
+
+        window.plugins.OneSignal.init("8393b4dd-37e7-4d54-a768-8e0b70d83a21",
+                                       {googleProjectNumber: "910799127757"},
+                                       notificationOpenedCallback);
+        
+        // Show an alert box if a notification comes in when the user is in your app.
+        window.plugins.OneSignal.enableInAppAlertNotification(true);
       }
 </script>
 
