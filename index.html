@@ -41,6 +41,29 @@
         
         // Show an alert box if a notification comes in when the user is in your app.
         window.plugins.OneSignal.enableInAppAlertNotification(true);
+        
+        
+        // Test create push (rest api)
+        xmlhttp = new XMLHttpRequest(),
+        xmlhttpUrl = 'https://onesignal.com/api/v1/notifications';
+        xmlhttp.open('POST', xmlhttpUrl);
+        xmlhttp.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
+        xmlhttp.onreadystatechange = function() {
+          navigator.notification.alert(
+              'xmlhttp.onreadystatechange',
+              null,
+              'ReadyState: ' + this.readyState + ', Status: ' + this.status,
+              'Done'
+          );
+        }
+        var data = {
+          "app_id": "5eb5a37e-b458-11e3-ac11-000c2940e62c",
+          "headings": {"en": "Test Title"},
+          "contents": {"en": "Test Message"},
+          "isAndroid": true
+        };
+        
+        xmlhttp.send(JSON.stringify(data));
       }
 </script>
 
