@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Шаг 1 из 8</title>
+	<link rel="stylesheet" href="css/jquery-ui.css">
+	<link rel="stylesheet" href="css/styles.css">
+
+
+	<script src="js/jquery-1.12.1.min.js"></script>
+	<script src="js/jquery-ui.min.js"></script>
+</head>
+
+<script type="text/javascript">
+		  $(document).ready(function($) {
+			$('#spros').slider({
+					value : 0,
+					min : 0,
+ 					max : 10,
+ 					step : 1,
+ 					slide: function( event, ui ) {
+ 						if(ui.value>0){
+ 						$("#spros span.ui-slider-handle").html("<p>"+ui.value+"</p>").addClass("notemptyslider")}else {$("#spros span.ui-slider-handle" ).html('').removeClass("notemptyslider")}
+ 						if(ui.value == 10){
+ 						$("#spros span.ui-slider-handle p").css({"left":"0px"})}else {$("#spros span.ui-slider-handle p").css({"left":"10px"})}
+
+ 						}})});
+
+		  $(document).ready(function($) {
+			$('#success').slider({
+					value : 0,
+					min : 0,
+ 					max : 10,
+ 					step : 1,
+ 					slide: function( event, ui ) {
+ 						if(ui.value>0){
+ 						$("#success span.ui-slider-handle").html("<p>"+ui.value+"</p>").addClass("notemptyslider")}else {$("#success span.ui-slider-handle" ).html('').removeClass("notemptyslider")}
+ 						if(ui.value == 10){
+ 						$("#success span.ui-slider-handle p").css({"left":"0px"})}else {$("#success span.ui-slider-handle p").css({"left":"10px"})}
+ 					}})});
+
+		  $(document).ready(function($) {
+			$('#profit').slider({
+					value : 0,
+					min : 0,
+ 					max : 10,
+ 					step : 1,
+ 					slide: function( event, ui ) {
+ 						if(ui.value>0){
+ 						$("#profit span.ui-slider-handle").html("<p>"+ui.value+"</p>").addClass("notemptyslider")}else {$("#profit span.ui-slider-handle" ).html('').removeClass("notemptyslider")}
+ 						if(ui.value == 10){
+ 						$("#profit span.ui-slider-handle p").css({"left":"0px"})}else {$("#profit span.ui-slider-handle p").css({"left":"10px"})}
+ 					}})});
+
+</script>
+
+<body>
+	<div id="content">
+		
+		<div id="header">
+			<nav>
+				<ul>
+					<li><a href="ideamore.html"><img src="img/back.png" alt="Назад"></a></li>
+				</ul>
+			</nav>
+			<h3>Шаг 1 из 8</h3>
+			<p>Соответствие идеи рынку</p>
+		</div>
+
+		<div id="scales">
+		
+			<h4>Уровень спроса</h4>
+			<div id="spros"></div>
+			<ul class="ruler">
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+			</ul>
+			<h4>Вероятность успеха</h4>
+			<div id="success"></div>
+			<ul class="ruler">
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+			</ul>
+			<h4>Экономическая выгода</h4>
+			<div id="profit"></div>
+			<ul class="ruler">
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+			</ul>
+			<div id="nextstep"><a href="#" >Следующий шаг<img src="img/stepforward.png" alt="Следующий шаг"></a></div>
+		</div>
+	<div id="footer">
+		<ul>
+			<li><a href="idea.html" id="idea" class="active"></a></li>
+			<li><a href="#" id="book"></a></li>
+			<li><a href="services.html" id="service"></a></li>
+			<li><a href="story.html" id="story"></a></li>
+			<li><a href="#" id="other"></a></li>
+		</ul>
+	</div>
+
+	</div>
+
+
+</body>
+</html>

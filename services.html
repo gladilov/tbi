@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Идеи</title>
+	<link rel="stylesheet" href="css/styles.css">
+	<script src="js/jquery-1.12.1.min.js"></script>
+</head>
+
+<script type="text/javascript">
+		  $(document).ready(function($) {
+			$('#accordion').find('.accordion-toggle').click(function(){
+
+			  //Expand or collapse this panel
+			  $(this).next().slideToggle('fast');
+			  $(this).toggleClass('opened');
+			});
+		  });
+</script>
+
+<body>
+	<div id="content">
+		
+		<div id="header">
+			<h3>Услуги</h3>
+		</div>
+
+		<div id="accordion" class="services">
+			<h4>Есть идея, но не знаешь, с чего начать?</h4>
+		
+		<ul id="allservices">
+			<li>
+				<div id="activecard">
+					<h4>Создание бизнес-плана</h4>
+					<p>Правильно составленный бизнес-план —
+не только ключ к сердцу инвестора,
+но и залог того, что ваше предприятие
+будет успешно развиваться.</p>
+<p>Наши эксперты помогут вам.</p>
+				<span id="price">5 — 50 т.р.</span><a href="orderplan.html">Заказать</a>
+				</div>
+			</li>
+			
+			<li>
+				<div></div>
+			</li>
+
+			<li>
+				<div></div>
+			</li>
+			
+			<li>
+				<div></div>
+			</li>
+			
+			<li>
+				<div></div>
+			</li>
+		</ul>
+
+		</div>
+
+		
+
+	<div id="footer">
+		<ul>
+			<li><a href="idea.html" id="idea"></a></li>
+			<li><a href="#" id="book"></a></li>
+			<li><a href="services.html" id="service" class="active"></a></li>
+			<li><a href="story.html" id="story"></a></li>
+			<li><a href="#" id="other"></a></li>
+		</ul>
+	</div>
+
+	</div>
+
+
+</body>
+</html>

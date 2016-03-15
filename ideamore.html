@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Smartmarker умный маркер для магнитной доски</title>
+	<link rel="stylesheet" href="css/styles.css">
+	<script src="js/jquery-1.12.1.min.js"></script>
+</head>
+
+<script type="text/javascript">
+		  $(document).ready(function($) {
+			$('#accordion').find('.accordion-toggle').click(function(){
+
+			  //Expand or collapse this panel
+			  $(this).next().slideToggle('fast');
+			  $(this).toggleClass('opened');
+			});
+		  });
+</script>
+
+<body>
+	<div id="content">
+		
+		<div id="header">
+			<nav>
+				<ul>
+					<li><a href="idea.html"><img src="img/back.png" alt="Назад"></a></li>
+					<li><a href="idea.html"><img src="img/edit.png" alt="Изменить"></a></li>
+				</ul>
+			</nav>
+			<h3>Smartmarker умный маркер
+для магнитной доски</h3>
+		</div>
+
+		<div id="accordion">
+			<div class="category">
+			<h3 class="accordion-toggle opened">Шаги реализации<span>2</span></h3>
+			<div class="accordion-content default podrobno realsteps">
+				<ul class="steps">
+					<li class="completed">1</li>
+					<li class="completed">2</li>
+					<li class="completed">3</li>
+					<li class="current">4</li>
+					<li>5</li>
+					<li>6</li>
+					<li>7</li>
+					<li>8</li>
+				</ul>
+				
+				<p>Ceйчас — Шаг 4:<a href="makeidea.html"><img src="img/forward.png" alt="Продолжить"></a></p>
+				<p>Ожидание результатов опроса</p>
+
+			</div>
+			</div>
+			
+			<div class="category">
+			<h3 class="accordion-toggle opened">Оценка идеи<span>7.4</span></h3>
+			<div class="accordion-content default podrobno">
+				<ul class="stats">
+					<li>7<br><span>Актуальность</span></li>
+					<li>7<br><span>Потенциал</span></li>
+					<li>5<br><span>Шансы на успех</span></li>
+				</ul>
+			</div>
+			</div>
+			
+			<div class="category">
+			<h3 class="accordion-toggle opened">Команда</h3>
+			<div class="accordion-content default podrobno">
+					<ol>
+					<li>Equil Smartmarket Team все должности</li>
+				</ol>
+			</div>
+			</div>
+			
+			<div class="category">
+			<h3 class="accordion-toggle opened">Описание</h3>
+			<div class="accordion-content default podrobno">
+			<p>Идейные соображения высшего порядка, а также укрепление и развитие структуры влечет за собой
+процесс внедрения и модернизации направлений прогрессивного развития. Таким образом укре-
+пление и развитие структуры представляет собой интересный эксперимент проверки соответству-
+ющий условий активизации.</p>
+			</div>
+			</div>
+			
+			<div class="category">
+			<h3 class="accordion-toggle opened">Целевая аудитория</h3>
+			<div class="accordion-content default podrobno">
+				<ol>
+					<li>Студенты</li>
+					<li>Бизнес-тренеры</li>
+					<li>Дизайнеры</li>
+				</ol>
+
+			</div>
+			</div>
+
+			<div class="category">
+			<h3 class="accordion-toggle opened">Ценности идеи</h3>
+			<div class="accordion-content default podrobno">
+				<ol>
+					<li>Сохраняет все записи в электронном формате</li>
+					<li>Можно наблюдать запись из самых
+    отдаленных мест помещения</li>
+				</ol>
+			</div>
+			</div>
+			
+			<ul id="podrobno-links">
+				<li><a href="#">Интервью</a></li>
+				<li><a href="#">Медиа</a></li>
+				<li><a href="#"><img src="img/share.png" alt=""></a></li>
+			</ul>
+
+	</div>
+
+	<div id="footer">
+		<ul>
+			<li><a href="idea.html" id="idea" class="active"></a></li>
+			<li><a href="#" id="book"></a></li>
+			<li><a href="services.html" id="service"></a></li>
+			<li><a href="story.html" id="story"></a></li>
+			<li><a href="#" id="other"></a></li>
+		</ul>
+	</div>
+
+	</div>
+
+
+</body>
+</html>
