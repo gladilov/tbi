@@ -1,185 +1,167 @@
 <!DOCTYPE html>
-<html>
+<html lang="RU-ru">
 <head>
-	<meta charset="UTF-8">
+	<meta charset="UTF-8"/>
 	<title>Идеи</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+  <link rel="stylesheet" href="css/jquery.mobile.structure-1.4.5.min.css" />
 	<link rel="stylesheet" href="css/styles.css">
-	<script src="js/jquery-1.12.1.min.js"></script>
+  <script src="js/jquery-1.12.1.min.js"></script>
+  <script src="js/jquery.mobile-1.4.5.min.js"></script>
 </head>
 
-<script type="text/javascript">
-		  $(document).ready(function($) {
-			$('#accordion').find('.accordion-toggle').click(function(){
-
-			  //Expand or collapse this panel
-			  $(this).next().slideToggle('fast');
-			  $(this).toggleClass('opened');
-			});
-		  });
-</script>
-
 <body>
-	<div id="content">
-		
-		<div id="header">
+  <div data-role="page" id="idea-list" data-theme="b">
+    <div data-role="header" id="header">
 			<nav>
 				<ul>
 					<li><a href="filteridea.html"><img src="img/filter.png" alt="Фильтр"></a></li>
 					<li><a href="addidea.html"><img src="img/add.png" alt="Добавить"></a></li>
 				</ul>
 			</nav>
-			<h3>Идеи</h3>
-		</div>
+			<h1 id="page-title">Идеи</h1>
+    </div><!-- /header -->
 
-		<div id="accordion">
-			<div class="category">
-			<h3 class="accordion-toggle">Проверяю<span>2</span></h3>
-			<div class="accordion-content">
-				<div>
-				<h4><a href="#"><img src="img/edit.png"><a href="">Мобильное приложение для сезонных аллергиков</a></h4>
-				<ul class="progress">
-					<li class="completed"></li>
-					<li class="completed"></li>
-					<li class="completed"></li>
-					<li></li>
-					<li></li>
-					<li></li>
-					<li></li>
-					<li></li>
-					<li></li>
-					<li></li>
-				</ul>
+    <div data-role="content" role="main" id="content" class="ui-content">
+      <div id="accordion">
+        <div class="category">
+        <h3 class="accordion-toggle">Проверяю<span>2</span></h3>
+        <div class="accordion-content">
+          <div>
+          <h4><a href="#" class="edit"><img src="img/edit.png"><a href="">Мобильное приложение для сезонных аллергиков</a></h4>
+          <ul class="progress">
+            <li class="completed"></li>
+            <li class="completed"></li>
+            <li class="completed"></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+          </ul>
 
-				<ul class="stats">
-					<li>7</li>
-					<li>7</li>
-					<li>5</li>
-				</ul>
-				</div>
+          <ul class="stats">
+            <li>7</li>
+            <li>7</li>
+            <li>5</li>
+          </ul>
+          </div>
 
-				<div>
-				<h4><a href="#"><img src="img/edit.png"></a><a href="#">Виртуальная система бесконтактного ощупывания</a></h4>
-				<ul class="progress">
-					<li class="completed"></li>
-					<li></li>
-					<li></li>
-					<li></li>
-					<li></li>
-					<li></li>
-					<li></li>
-					<li></li>
-					<li></li>
-					<li></li>
-				</ul>
+          <div>
+          <h4><a href="#" class="edit"><img src="img/edit.png"></a><a href="#">Виртуальная система бесконтактного ощупывания</a></h4>
+          <ul class="progress">
+            <li class="completed"></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+          </ul>
 
-				<ul class="stats">
-					<li>7</li>
-					<li>7</li>
-					<li>5</li>
-				</ul>
+          <ul class="stats">
+            <li>7</li>
+            <li>7</li>
+            <li>5</li>
+          </ul>
 
-				</div>
+          </div>
 
-			</div>
-			</div>
-			
-			<div class="category">
-			<h3 class="accordion-toggle">Реализую<span>2</span></h3>
-			<div class="accordion-content">
-				<div>
-				<h4><a href="#"><img src="img/edit.png"></a><a href="">Мобильное приложение для сезонных аллергиков</a></h4>
-				<ul class="progress">
-					<li class="completed"></li>
-					<li class="completed"></li>
-					<li class="completed"></li>
-					<li></li>
-					<li></li>
-					<li></li>
-					<li></li>
-					<li></li>
-					<li></li>
-					<li></li>
-				</ul>
+        </div>
+        </div>
+        
+        <div class="category">
+        <h3 class="accordion-toggle">Реализую<span>2</span></h3>
+        <div class="accordion-content">
+          <div>
+          <h4><a href="#" class="edit"><img src="img/edit.png"></a><a href="">Мобильное приложение для сезонных аллергиков</a></h4>
+          <ul class="progress">
+            <li class="completed"></li>
+            <li class="completed"></li>
+            <li class="completed"></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+          </ul>
 
-				<ul class="stats">
-					<li>7</li>
-					<li>7</li>
-					<li>5</li>
-				</ul>
-				</div>
+          <ul class="stats">
+            <li>7</li>
+            <li>7</li>
+            <li>5</li>
+          </ul>
+          </div>
 
 
-			<div>
-				<h4><a href="#"><img src="img/edit.png"></a><a href="ideamore.html">Smartmarker умный маркер
-для магнитной доски</a></h4>
-				<ul class="progress">
-					<li class="completed"></li>
-					<li class="completed"></li>
-					<li class="completed"></li>
-					<li class="completed"></li>
-					<li></li>
-					<li></li>
-					<li></li>
-					<li></li>
-					<li></li>
-					<li></li>
-				</ul>
+        <div>
+          <h4><a href="#" class="edit"><img src="img/edit.png"></a><a href="ideamore.html">Smartmarker умный маркер
+  для магнитной доски</a></h4>
+          <ul class="progress">
+            <li class="completed"></li>
+            <li class="completed"></li>
+            <li class="completed"></li>
+            <li class="completed"></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+          </ul>
 
-				<ul class="stats">
-					<li>7</li>
-					<li>7</li>
-					<li>5</li>
-				</ul>
+          <ul class="stats">
+            <li>7</li>
+            <li>7</li>
+            <li>5</li>
+          </ul>
 
-			</div>
+        </div>
 
-			</div>
+        </div>
 
 
-			</div>
-			
-			<div class="category">
-			<h3 class="accordion-toggle">Архив<span>4</span></h3>
-			<div class="accordion-content">
-				
-				<div>
-				<h4><a href="#"><img src="img/edit.png"></a><a href="">Виртуальная система бесконтактного ощупывания</a></h4>
-				<ul class="progress">
-					<li class="completed"></li>
-					<li></li>
-					<li></li>
-					<li></li>
-					<li></li>
-					<li></li>
-					<li></li>
-					<li></li>
-					<li></li>
-					<li></li>
-				</ul>
-				
-				<ul class="stats">
-					<li>7</li>
-					<li>7</li>
-					<li>5</li>
-				</ul>
-				</div>
+        </div>
+        
+        <div class="category">
+        <h3 class="accordion-toggle">Архив<span>4</span></h3>
+        <div class="accordion-content">
+          <div>
+          <h4><a href="#" class="edit"><img src="img/edit.png"></a><a href="">Виртуальная система бесконтактного ощупывания</a></h4>
+          <ul class="progress">
+            <li class="completed"></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+          </ul>
+          
+          <ul class="stats">
+            <li>7</li>
+            <li>7</li>
+            <li>5</li>
+          </ul>
+          </div>
 
-			</div>
-			</div>
-		</div>
+        </div>
+        </div>
+      </div>
+    </div><!-- /content -->
 
-	<div id="footer">
-		<ul>
-			<li><a href="idea.html" id="idea" class="active"></a></li>
-			<li><a href="#" id="book"></a></li>
-			<li><a href="services.html" id="service"></a></li>
-			<li><a href="story.html" id="story"></a></li>
-			<li><a href="#" id="other"></a></li>
-		</ul>
-	</div>
+    <div data-role="footer" id="footer" data-position="fixed">
+      <ul>
+        <li><a href="idea.html" id="idea" class="active"></a></li>
+        <li><a href="#" id="book"></a></li>
+        <li><a href="services.html" id="service"></a></li>
+        <li><a href="story.html" id="story"></a></li>
+        <li><a href="#" id="other"></a></li>
+      </ul>
+    </div><!-- /footer -->
+  </div><!-- /page -->
 
-	</div>
-
-
+  <script src="js/main.js"></script>
 </body>
 </html>

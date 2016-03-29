@@ -1,5 +1,6 @@
-/*FONTS*/
-
+/**
+ * FONTS
+ */
 @font-face {
     font-family: 'open_sansextrabold_italic';
     src: url('../fonts/opensans-extrabolditalic-webfont.eot');
@@ -11,7 +12,6 @@
     font-weight: normal;
     font-style: normal;
 }
-
 @font-face {
     font-family: 'open_sansextrabold';
     src: url('../fonts/opensans-extrabold-webfont.eot');
@@ -23,7 +23,6 @@
     font-weight: normal;
     font-style: normal;
 }
-
 @font-face {
     font-family: 'open_sansbold_italic';
     src: url('../fonts/opensans-bolditalic-webfont.eot');
@@ -35,7 +34,6 @@
     font-weight: normal;
     font-style: normal;
 }
-
 @font-face {
     font-family: 'open_sansbold';
     src: url('../fonts/opensans-bold-webfont.eot');
@@ -47,7 +45,6 @@
     font-weight: normal;
     font-style: normal;
 }
-
 @font-face {
     font-family: 'open_sanssemibold_italic';
     src: url('../fonts/opensans-semibolditalic-webfont.eot');
@@ -59,7 +56,6 @@
     font-weight: normal;
     font-style: normal;
 }
-
 @font-face {
     font-family: 'open_sanssemibold';
     src: url('../fonts/opensans-semibold-webfont.eot');
@@ -71,7 +67,6 @@
     font-weight: normal;
     font-style: normal;
 }
-
 @font-face {
     font-family: 'open_sansitalic';
     src: url('../fonts/opensans-italic-webfont.eot');
@@ -83,19 +78,17 @@
     font-weight: normal;
     font-style: normal;
 }
-
 @font-face {
     font-family: 'open_sansregular';
-    src: url('../fonts/opensans-regular-webfont.eot');
-    src: url('../fonts/opensans-regular-webfont.eot?#iefix') format('embedded-opentype'),
-         url('../fonts/opensans-regular-webfont.woff2') format('woff2'),
-         url('../fonts/opensans-regular-webfont.woff') format('woff'),
-         url('../fonts/opensans-regular-webfont.ttf') format('truetype'),
-         url('../fonts/opensans-regular-webfont.svg#open_sansregular') format('svg');
+    src: url('../fonts/opensans-regular.eot');
+    src: url('../fonts/opensans-regular.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/opensans-regular.woff2') format('woff2'),
+         url('../fonts/opensans-regular.woff') format('woff'),
+         url('../fonts/opensans-regular.ttf') format('truetype'),
+         url('../fonts/opensans-regular.svg#open_sansregular') format('svg');
     font-weight: normal;
     font-style: normal;
 }
-
 @font-face {
     font-family: 'open_sanslight_italic';
     src: url('../fonts/opensans-lightitalic-webfont.eot');
@@ -107,7 +100,6 @@
     font-weight: normal;
     font-style: normal;
 }
-
 @font-face {
     font-family: 'open_sanslight';
     src: url('../fonts/opensans-light-webfont.eot');
@@ -120,8 +112,10 @@
     font-style: normal;
 }
 
-/*RESET*/
-
+/**
+ * RESET
+ */
+/* http://meyerweb.com/eric/tools/css/reset/ */
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
 a, abbr, acronym, address, big, cite, code,
@@ -147,8 +141,17 @@ article, aside, details, figcaption, figure,
 footer, header, hgroup, menu, nav, section {
 	display: block;
 }
+html {
+  font-size: 14px;
+  -webkit-text-size-adjust: 100%;
+      -ms-text-size-adjust: 100%;
+          text-size-adjust: 100%;
+  -webkit-tap-highlight-color: transparent;/* + */
+}
 body {
-	line-height: 1;
+  font: normal normal 1em/1 "open_sansregular", sans-serif;
+  -webkit-tap-highlight-color: transparent;/* + */
+  -webkit-font-smoothing: antialiased;/* + */
 }
 ol, ul {
 	list-style: none;
@@ -166,44 +169,234 @@ table {
 	border-spacing: 0;
 }
 
-/*COMMON*/
 
+/**
+ *  1. Общие стили
+ */
 a {
-	text-decoration: none;
+  display: inline-block;
+  text-decoration: underline;
+  color: #cde5d7;
 }
-
-div#content {
-	padding-top:72px;
-	background: #262827; 
-	background: -webkit-radial-gradient(50% 50%, circle closest-corner, #303332, #000);
-	background: -moz-radial-gradient(50% 50%, circle closest-corner, #303332, #000);
+a:hover,
+a:focus {
+  text-decoration: none;
 }
-
-div#header {
-	overflow: hidden;
-	padding-right:25px;
-	padding-left:29px;
-	margin-bottom: 35px;
+.ui-page {
+	background-color: #262827;
+	/*background: -webkit-radial-gradient(50% 50%, circle closest-corner, #303332, #000);
+	background: -moz-radial-gradient(50% 50%, circle closest-corner, #303332, #000);*/
 }
-
-div#header h3{
-	font: bold 35px open_sansbold;
-	display: inline;
+#content {
+  padding: 0 1em;
+}
+#header {
+  padding-left: 1em;
+  padding-right: 1em;
+  border: 0;
+  color:#fff;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+#header .logo {
+  margin: 15px 0; 
+  color: #fff;
+  text-align: center;
+}
+#header .logo img {
+  display: inline-block;
+}
+#header #page-title {
+	display: block;
+  min-height: 0;
+  margin: 1em 0;
+  padding: 0;
+  text-align: left;
+	font: bold 1.286em open_sansbold;
 	color: #00ffa6;
-	margin-top:5px;
-	margin-bottom: -5px;
 }
-
-div#header nav ul li{
+div#header p {
+	font: normal 1em open_sansregular;
+	color:#00ffa6;
+  margin-top: -1em;
+  margin-bottom: 1em;
+}
+#header nav ul li {
 	display: inline-block;
-	height: 49px;
-	width: 49px;
-	margin-left:19px;
+	height: 25px;
+	width: 25px;
+	margin-left:10px;
 	float: right;
 }
+#header nav ul li:last-child{
+	margin-left:0;
+}
+#footer {
+  padding-left: 1em;
+  padding-right: 1em;
+  border: 0;
+	background-color: #212121;
+  color:#fff;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+input[type="text"],
+input[type="email"],
+input[type="password"] {
+  background-color: #ebfff9;
+}
 
-/*ИДЕИ*/
+/*Футер меню*/
+div#footer ul li {
+	display: inline;
+}
+div#footer ul li a {
+	display: block;
+	float: left;
+	width: 40px;
+	height: 40px;
+	margin-right: 39px;
+	background: url(../img/menu.png);
+}
+div#footer ul li a#other {
+	width:42px;
+	margin-right: 0;
+	float:right;
+}
 
+
+
+/** 
+ * 2. Стиль форм
+ */
+
+.tabs__caption {
+  cursor: pointer;
+}
+.tabs__caption:before,
+.tabs__caption:after {
+  display: table; 
+  content: ' ';
+}
+.tabs__caption:after {
+  clear: both;
+}
+.tabs__item {
+  float: left;
+  width: 50%;
+  text-align: center;
+  color: #636b67;
+  border-radius: 6px 6px 0 0;
+  background: #282928;
+}
+.tabs__item a {
+  padding-bottom: 10px;
+  line-height: 36px;
+  color: #cde5d7;
+  text-decoration: none;
+}
+.tabs__item_active {
+  color: #87ba92; 
+  background: #313834;
+}
+.tabs__item_active a {
+  color: #00ffa6;
+}
+.tabs__content {
+  display: none;
+  position: relative;
+  top: -10px;
+}
+.tabs__content_active {
+  display: block;
+}
+.form__field-wrap {
+  overflow: hidden;
+  width: 100%;
+  height: 40px;
+  margin-bottom: 10px; 
+  padding-right: 50px;
+  border-radius: 6px;
+  background-color: #ebfff9;
+}
+.form__field-wrap:before,
+.form__field-wrap:after {
+  display: table;
+  content: ' ';
+}
+.form__field-wrap:after {
+  clear: both;
+}
+.form__field-wrap > label {
+  position: relative;
+  float: left;
+  width: 100%;
+  margin: 0 -50px 0 0;
+}
+.form__field-wrap .ui-input-text,
+.ui-input-text {
+  padding: 0;
+  margin: 0;
+  border: 0;
+}
+.form__field-wrap input {
+  font-size: 1em;
+  width: 100%;
+  height: 40px;
+  padding: 0 0 0 30px;
+  border: none;
+  background: none;
+}
+.form__message-icon-wrap {
+  position: relative;
+  right: -50px; 
+  float: right;
+  width: 50px;
+  height: 40px;
+}
+.form__description {
+  text-align: center;
+  color: #cde5d7;
+}
+.form__license {
+  margin-right: 5px;
+}
+.form__conf {
+  margin-left: 5px;
+}
+.btn {
+  width: 100%;
+  height: 50px;
+  color: #292a29; 
+  border-radius: 6px;
+  background: #00ffa6;
+  font-size: 16px;
+  font-weight: bold;
+  border: none;
+}
+.btn_singup,
+.btn_singin {
+  margin: 30px auto;
+}
+
+
+/** 
+ * 3. Вход/Регистрация
+ */
+.ui-page#signin-signup #header .logo {
+  margin: 60px 0 30px; 
+}
+.ui-page#signin-signup #header,
+.ui-page#signin-signup #content,
+.ui-page#signin-signup #footer {
+  padding-left: 1.429em;
+  padding-right: 1.429em;
+}
+
+
+/** 
+ * ИДЕИ
+ */
 #accordion {color:white;}
 .accordion-toggle {cursor:pointer;}
 .accordion-content {display:none;}
@@ -212,48 +405,54 @@ div#header nav ul li{
 
 
 #accordion h3 {
-
-	padding: 10px 25px 15px 29px;
+  margin-left: -1em;
+  margin-right: -1em;
+	padding: 0.714em 1em;
 	color:#c3f4e0;
-	font: bold 27px open_sansbold;
+	font: bold 1em open_sansbold;
 	background: #313834;
 }
 
 #accordion div.category {
-	margin-bottom: 16px;
+	margin-bottom: 1.143em;
 }
 
 #accordion h3 span {
 	float:right;
-	margin-right: 18px;
 }
 
 #accordion h3.opened {
 	background: #606d68;
 }
 
+#accordion .accordion-content h4 {
+	margin: 1.143em 0;
+}
 #accordion .accordion-content h4 a{
-	font: normal 30px open_sansregular;
-	margin-top: 35px;
 	display: block;
-	margin-bottom: 45px;
+	padding-right: 2em;
+	font: normal 1.071em open_sansregular;
 	color: #00ffa6;
 }
-
-#accordion .accordion-content div {
-	padding-right:25px;
-	padding-left:29px;
-	margin-bottom: 50px;
+#accordion .accordion-content h4 a.edit{
+	display: block;
+	float: right;
+	height: 25px;
+	width: 25px;
+	margin:0;
+	padding:0;
 }
-
+#accordion .accordion-content div {
+	margin-bottom: 1.143em;
+}
 #accordion .accordion-content div:after{
 	content:" ";
 	display: block;
 	width:100%;
 	position: relative;
-	top:50px;
-	margin-bottom: 90px;
-	height: 3px;
+	top: 1.143em;
+	margin-bottom: 2.3em;
+	height: 1px;
 	background: -moz-linear-gradient(left, #01ffa6 0%, #feffff 100%);
 	background: -webkit-linear-gradient(left, #01ffa6 0%, #feffff 100%);
 	background: linear-gradient(left, #01ffa6 0%, #feffff 100%);
@@ -268,38 +467,23 @@ div#header nav ul li{
 	border: none;
 }
 
-#accordion .accordion-content ul.progress {
-	margin-left:-5px;
-}
-
 #accordion .accordion-content ul.progress li{
 	display: inline-block;
-	width:39px;
-	height:39px;
+	width:	20px;
+	height:	20px;
 	background: #606d68;
-	margin-right: 8px;
-	-moz-border-radius:20px;
-	-webkit-border-radius:20px;
-	border-radius:20px;
+	margin-right: 6px;
+	-webkit-border-radius:100%;
+          border-radius:100%;
 }
 
 #accordion .accordion-content ul.progress li.completed{
 	background: #c3f4e0;
 }
-
-
-#accordion .accordion-content h4 a:first-child{
-	display: block;
-	float: right;
-	height: 49px;
-	width: 49px;
-	margin-top:10px;
-}
-
 #accordion .accordion-content ul.stats {
-	margin-top:42px;
-	margin-left: 16px;
-	font: bold 28px open_sansbold;
+	margin-top:1em;
+	margin-left: 6px;
+	font: bold 1em open_sansbold;
 	color: #ebfff9;
 }
 
@@ -309,18 +493,16 @@ div#header nav ul li{
 
 #accordion .accordion-content ul.stats li:before {
 	content: url(../img/arrowup.png);
-	margin-left:30px;
+	margin-left:1em;
 	position: relative;
-	top:4px;
-	right:12px;
+	top:3px;
+	right:6px;
 }
 
 #accordion .accordion-content ul.stats li:first-child:before {
 	content: url(../img/ecsclaim.png);
-	position: relative;
 	margin-left:0px;
-	top: 8px;
-	right: 12px;
+	top: 4px;
 }
 
 #accordion .accordion-content ul.stats li:last-child:before {
@@ -346,13 +528,9 @@ div#idealist ul li.checked:after {
 	float:right;
 }
 
-/*Добавляем идеи*/
-
+/* Добавляем идеи */
 div#ideaaddform, div#orderplan {
-	padding-left: 27px;
-	padding-right: 28px;
 }
-
 div#ideaaddform a{
 	float: right;
 	position:relative;
@@ -366,11 +544,10 @@ div#ideaaddform textarea+a{
 	left: -10px;
 }
 
-
 div#ideaaddform h4 {
 	color: #c3f4e0;
-	font: bold 27px open_sansbold;
-	margin-bottom: 33px
+	font: bold 1.143em open_sansbold;
+	margin-bottom: 10px;
 }
 
 div#ideaaddform h4:before{
@@ -378,27 +555,27 @@ div#ideaaddform h4:before{
 	display: block;
 	width:100%;
 	position: relative;
-	top:50px;
-	margin-top:-40px;
-	margin-bottom: 90px;
-	height: 3px;
+	margin-bottom: 1.143em;
+	height: 1px;
 	background: -moz-linear-gradient(left, #01ffa6 0%, #feffff 100%);
 	background: -webkit-linear-gradient(left, #01ffa6 0%, #feffff 100%);
 	background: linear-gradient(left, #01ffa6 0%, #feffff 100%);
 }
 
-div#orderplan form input, div#ideaaddform form input, div#ideaaddform form textarea {
-	box-sizing: border-box;
+div#orderplan form input,
+div#ideaaddform form input,
+div#ideaaddform form textarea {
 	width: 100%;
+	margin: 0 auto 10px;
+	padding: 0.714em 0.857em;
 	background: #ebfff9;
 	border:1px solid #fff;
-	-moz-border-radius: 5px;
-	-webkit-border-radius: 5px;
-	border-radius: 5px;
-	margin: 0 auto 4px;
-	padding:28px 24px 25px;
-	font: bold 27px open_sansbold;
+	font: normal 1em open_sansregular;
 	color: #313834;
+	-webkit-border-radius: 6px;
+          border-radius: 6px;
+	-webkit-box-sizing: border-box;
+          box-sizing: border-box;
 }
 
 div#ideaaddform textarea {
@@ -536,67 +713,63 @@ ul#podrobno-links li:last-child a{
 }
 
 /*Проработка идеи*/
-
-div#header p{
-	font: normal 30px open_sansregular;
-	color:#00ffa6;
-	margin-top:10px;
-}
-
 div#scales {
-		overflow: hidden;
+  /*overflow: hidden;*/
 }
 
-div#scales h4
-{
+div#scales h3 {
 	display:block;
+	margin: 0 -1em 1em -1em;
+	padding: 0.714em 1em;
 	background: #313834;
-	padding: 19px 25px 19px 29px;
-	font: bold 27px open_sansbold;
+	font: bold 1em open_sansbold;
 	color: #c3f4e0;
-	margin-bottom: 92px;
 }
 
 #profit, #success, #spros {
-	margin: 0 auto 50px;
-	width: 89%;
+	margin: 0;
+	width: 100%;
 }
-
+div.ui-slider {
+  width: 98%;
+  height: 2px;
+  margin: 35px auto 0;
+}
+div.ui-slider .ui-slider-track,
 .ui-slider-horizontal {
-	height: 3px;
-	background: -moz-linear-gradient(left, #01ffa6 0%, #feffff 100%);
-	background: -webkit-linear-gradient(left, #01ffa6 0%, #feffff 100%);
-	background: linear-gradient(left, #01ffa6 0%, #feffff 100%);
-
+  top: 0;
+  height: 2px;
+  margin: 0 -1px;
+  background: -moz-linear-gradient(left, #01ffa6 0%, #feffff 100%);
+  background: -webkit-linear-gradient(left, #01ffa6 0%, #feffff 100%);
+  background: linear-gradient(left, #01ffa6 0%, #feffff 100%);
+  border: none;
 }
-
+div.ui-slider .ui-slider-track .ui-slider-handle,
 span.ui-slider-handle {
-	background: black;
+	/*position: relative;*/
+	top:-3px;
 	height: 14px;
 	width: 14px;
+	background: #000;
 	border:12px solid #fff;
-	-moz-border-radius:24px;
+	font: bold 1em open_sansbold;
 	-webkit-border-radius:24px;
-	border-radius:24px;
-	position: relative;
-	top:-24px;
-	box-shadow: 0 15px 15px #000;
-	font: bold 35px open_sansbold;
+          border-radius:24px;
+	-webkit-box-shadow: 0 5px 10px #000;
+          box-shadow: 0 5px 10px #000;
 }
-
 span.ui-slider-handle.notemptyslider {
 	overflow: visible;
 	background: none;
 	top:-45px;
 	border: none;
 }
-
 span.ui-slider-handle.notemptyslider:before {
 	content:url(../img/circle90.png);
 	position:relative;
 	left:-23px;
 }
-
 span.ui-slider-handle p{
 	position: relative;
 	top:-82px;
@@ -604,75 +777,68 @@ span.ui-slider-handle p{
 }
 
 ul.ruler {
-	margin-top:-25px;
-	margin-bottom: 95px;
+	margin-top: 5px;
+	margin-bottom: 20px;
 	display: block;
 	text-align: center;
 }
-
 ul.ruler li{
 	display: inline-block;
-	height:50px;
+	height:30px;
 	width:2px;
 	background: #afdac9;
 	margin-right:8%;
 }
-
 ul.ruler li:first-child{
 	position:relative;
-	top:-13px;
+	top:-15px;
 }
-
 ul.ruler li:last-child{
 	position:relative;
-	top:-13px;
+	top:-15px;
 	margin-right:0;
 }
-
 ul.ruler li:first-child:after{
 	content:'0';
 	position: relative;
-	top: 48px;
-	font: bold 35px open_sansbold;
+	top: 30px;
+	font: bold 1em open_sansbold;
 	color: #c3f4e0;
 }
-
 ul.ruler li:last-child:after{
 	content:'10';
 	position: relative;
-	top: 48px;
-	right:38px;
-	font: bold 35px open_sansbold;
+	top: 30px;
+	right:1em;
+	font: bold 1em open_sansbold;
 	color: #c3f4e0;
 }
 
 div#nextstep{
-	background: #212121;
+	/*background: #212121;
 	padding-top: 32px;
-	padding-bottom:20px;
+	padding-bottom:20px;*/
+  margin: 1em 0;
 }
-
 div#nextstep a{
 	display: block;
 	margin:auto;
-	width:94%;
+  padding: 5px 0 10px;
 	color:#212121;
 	text-align: center;
 	background: #00ffa6;
-	font: bold 35px open_sansbold;
-	-moz-border-radius: 10px;
-	-webkit-border-radius: 10px;
-	border-radius: 10px;
+	font: bold 1.143em open_sansbold;
+	-webkit-border-radius: 6px;
+          border-radius: 6px;
 }
-
 div#nextstep a img{
 	position: relative;
 	top:5px;
 	left:50px;
 }
 
-/* УСЛУГИ */
 
+/* УСЛУГИ */
 div#accordion.services {
 	padding: 0 25px 45px 29px;
 		height:100%;
@@ -814,41 +980,7 @@ div#orderplan h3#ordersuccess + p{
 	margin: 80px 0;
 }
 
-/*Футер меню*/
-
-div#footer{
-	box-sizing: border-box;
-	width:100%;
-	height: 105px;
-	background: #212121;
-	padding: 12px 22px 8px 15px;
-	border-left: 1px solid #5e615e;
-	color:#fff;
-	overflow: hidden;
-}
-
-div#footer ul li {
-	display: inline;
-}
-
-div#footer ul li a {
-	display: block;
-	float: left;
-	width: 80px;
-	height: 80px;
-	margin-right: 39px;
-	background: url(../img/menu.png);
-}
-
-div#footer ul li a#other {
-	width:84px;
-	margin-right: 0;
-	float:right;
-}
-
 /*Просматриваем истории*/
-
-
 div#accordion.stories .category:last-child{
 	margin-bottom:100px;
 }
@@ -941,26 +1073,26 @@ div#shareblock ul li {
 }
 
 div#footer ul li a#idea {background-position: 0 0;}
-div#footer ul li a#book {background-position: -80px 0;}
-div#footer ul li a#service {background-position: -160px 0;}
-div#footer ul li a#story {background-position: -240px 0;}
-div#footer ul li a#other {background-position: -320px 0;}
+div#footer ul li a#book {background-position: -40px 0;}
+div#footer ul li a#service {background-position: -80px 0;}
+div#footer ul li a#story {background-position: -120px 0;}
+div#footer ul li a#other {background-position: -160px 0;}
 
-div#footer ul li a#idea.active {background-position: 0 80px;}
-div#footer ul li a#book.active {background-position: -80px 80px;}
-div#footer ul li a#service.active {background-position: -160px 80px;}
-div#footer ul li a#story.active {background-position: -240px 80px;}
-div#footer ul li a#other.active {background-position: -320px 80px;}
+div#footer ul li a#idea.active {background-position: 0 40px;}
+div#footer ul li a#book.active {background-position: -40px 40px;}
+div#footer ul li a#service.active {background-position: -80px 40px;}
+div#footer ul li a#story.active {background-position: -120px 40px;}
+div#footer ul li a#other.active {background-position: -160px 40px;}
 
 
 @media all and (max-width: 639px){
-	div#footer {padding: 12px 25px 8px;}
+	div#footer {padding: 8px 25px 8px;}
 	div#footer ul li a {margin-right: 15px;}
 	div#footer ul li a#other {margin-right: 0;}
 }
 
 @media all and (max-width: 534px){
-	div#footer {padding: 12px 5px 8px;}
+	div#footer {padding: 8px 5px 8px;}
 	div#footer ul li a {margin-right: 5px;}
 	div#footer ul li a#other {margin-right: 0;}
 }

@@ -1,269 +1,77 @@
-<!DOCTYPE html>
-<html>
+<!DOCTYPE html> 
+<html lang="RU-ru">
 <head>
-	<meta charset="UTF-8">
-	<title>Идеи</title>
-	<link rel="stylesheet" href="css/styles.css">
-	<script src="js/jquery-1.12.1.min.js"></script>
-</head>
-
-<script type="text/javascript">
-		  $(document).ready(function($) {
-			$('#accordion').find('.accordion-toggle').click(function(){
-
-			  //Expand or collapse this panel
-			  $(this).next().slideToggle('fast');
-			  $(this).toggleClass('opened');
-			});
-		  });
-      
-      document.addEventListener("deviceready", onDeviceReady, false);
-      function onDeviceReady() {
-        // Notification
-        navigator.notification.alert(
-            'You are the winner!',  // message
-            null,                   // callback
-            'Game Over',            // title
-            'Done'                  // buttonName
-        );
-        
-        // Push
-        // Enable to debug issues.
-        window.plugins.OneSignal.setLogLevel({logLevel: 4, visualLevel: 4});
-        
-        var notificationOpenedCallback = function(jsonData) {
-          console.log('didReceiveRemoteNotificationCallBack: ' + JSON.stringify(jsonData));
-        };
-
-        window.plugins.OneSignal.init("8393b4dd-37e7-4d54-a768-8e0b70d83a21",
-                                       {googleProjectNumber: "910799127757"},
-                                       notificationOpenedCallback);
-        
-        // Show an alert box if a notification comes in when the user is in your app.
-        window.plugins.OneSignal.enableInAppAlertNotification(true);
-        
-        
-        // Test create push (rest api)
-        /*xmlhttp = new XMLHttpRequest(),
-        xmlhttpUrl = 'https://onesignal.com/api/v1/notifications';
-        xmlhttp.open('POST', xmlhttpUrl);
-        xmlhttp.setRequestHeader('Authorization', 'Basic YjY1MDc0YWUtNTU5YS00MmMwLTkwODUtNjcyMmI3NzliYmY2');
-        xmlhttp.setRequestHeader('Content-Type', 'application/json');
-        xmlhttp.onreadystatechange = function() {
-          navigator.notification.alert(
-              'xmlhttp.onreadystatechange',
-              null,
-              'ReadyState: ' + this.readyState + ', Status: ' + this.status + ', ResponseText: ' + this.responseText,
-              'Done'
-          );
-        }
-        var data = {
-          "app_id": "8393b4dd-37e7-4d54-a768-8e0b70d83a21",
-          "headings": {"en": "Test Title"},
-          "contents": {"en": "Test Message"},
-          "isAndroid": true
-        };
-        
-        xmlhttp.send(JSON.stringify(data));*/
-        
-        var data = JSON.stringify({
-          "app_id": "8393b4dd-37e7-4d54-a768-8e0b70d83a21",
-          "headings": {
-            "en": "Test Title"
-          },
-          "contents": {
-            "en": "Test Message"
-          },
-          "included_segments": ["All"],
-          "isAndroid": true
-        });
-
-        var xhr = new XMLHttpRequest();
-        xhr.withCredentials = true;
-
-        xhr.addEventListener("readystatechange", function () {
-          if (this.readyState === 4) {
-            console.log(this.responseText);
-            navigator.notification.alert(
-                'xmlhttp.onreadystatechange',
-                null,
-                'ReadyState: ' + this.readyState + ', Status: ' + this.status + ', ResponseText: ' + this.responseText,
-                'Done'
-            );
-          }
-        });
-
-        xhr.open("POST", "https://onesignal.com/api/v1/notifications");
-        xhr.setRequestHeader("authorization", "Basic YjY1MDc0YWUtNTU5YS00MmMwLTkwODUtNjcyMmI3NzliYmY2");
-        xhr.setRequestHeader("content-type", "application/json");
-
-        xhr.send(data);
-      }
-</script>
-
-<body>
-	<div id="content">
-		
-		<div id="header">
-			<nav>
-				<ul>
-					<li><a href="filteridea.html"><img src="img/filter.png" alt="Фильтр"></a></li>
-					<li><a href="addidea.html"><img src="img/add.png" alt="Добавить"></a></li>
-				</ul>
-			</nav>
-			<h3>Идеи</h3>
-		</div>
-
-		<div id="accordion">
-			<div class="category">
-			<h3 class="accordion-toggle">Проверяю<span>2</span></h3>
-			<div class="accordion-content">
-				<div>
-				<h4><a href="#"><img src="img/edit.png"><a href="">Мобильное приложение для сезонных аллергиков</a></h4>
-				<ul class="progress">
-					<li class="completed"></li>
-					<li class="completed"></li>
-					<li class="completed"></li>
-					<li></li>
-					<li></li>
-					<li></li>
-					<li></li>
-					<li></li>
-					<li></li>
-					<li></li>
-				</ul>
-
-				<ul class="stats">
-					<li>7</li>
-					<li>7</li>
-					<li>5</li>
-				</ul>
-				</div>
-
-				<div>
-				<h4><a href="#"><img src="img/edit.png"></a><a href="#">Виртуальная система бесконтактного ощупывания</a></h4>
-				<ul class="progress">
-					<li class="completed"></li>
-					<li></li>
-					<li></li>
-					<li></li>
-					<li></li>
-					<li></li>
-					<li></li>
-					<li></li>
-					<li></li>
-					<li></li>
-				</ul>
-
-				<ul class="stats">
-					<li>7</li>
-					<li>7</li>
-					<li>5</li>
-				</ul>
-
-				</div>
-
-			</div>
-			</div>
-			
-			<div class="category">
-			<h3 class="accordion-toggle">Реализую<span>2</span></h3>
-			<div class="accordion-content">
-				<div>
-				<h4><a href="#"><img src="img/edit.png"></a><a href="">Мобильное приложение для сезонных аллергиков</a></h4>
-				<ul class="progress">
-					<li class="completed"></li>
-					<li class="completed"></li>
-					<li class="completed"></li>
-					<li></li>
-					<li></li>
-					<li></li>
-					<li></li>
-					<li></li>
-					<li></li>
-					<li></li>
-				</ul>
-
-				<ul class="stats">
-					<li>7</li>
-					<li>7</li>
-					<li>5</li>
-				</ul>
-				</div>
-
-
-			<div>
-				<h4><a href="#"><img src="img/edit.png"></a><a href="ideamore.html">Smartmarker умный маркер
-для магнитной доски</a></h4>
-				<ul class="progress">
-					<li class="completed"></li>
-					<li class="completed"></li>
-					<li class="completed"></li>
-					<li class="completed"></li>
-					<li></li>
-					<li></li>
-					<li></li>
-					<li></li>
-					<li></li>
-					<li></li>
-				</ul>
-
-				<ul class="stats">
-					<li>7</li>
-					<li>7</li>
-					<li>5</li>
-				</ul>
-
-			</div>
-
-			</div>
-
-
-			</div>
-			
-			<div class="category">
-			<h3 class="accordion-toggle">Архив<span>4</span></h3>
-			<div class="accordion-content">
-				
-				<div>
-				<h4><a href="#"><img src="img/edit.png"></a><a href="">Виртуальная система бесконтактного ощупывания</a></h4>
-				<ul class="progress">
-					<li class="completed"></li>
-					<li></li>
-					<li></li>
-					<li></li>
-					<li></li>
-					<li></li>
-					<li></li>
-					<li></li>
-					<li></li>
-					<li></li>
-				</ul>
-				
-				<ul class="stats">
-					<li>7</li>
-					<li>7</li>
-					<li>5</li>
-				</ul>
-				</div>
-
-			</div>
-			</div>
-		</div>
-
-	<div id="footer">
-		<ul>
-			<li><a href="idea.html" id="idea" class="active"></a></li>
-			<li><a href="#" id="book"></a></li>
-			<li><a href="services.html" id="service"></a></li>
-			<li><a href="story.html" id="story"></a></li>
-			<li><a href="#" id="other"></a></li>
-		</ul>
-	</div>
-
-	</div>
-
-  <script src="cordova.js"></script>
+  <meta charset="UTF-8"/>
+  <title>TBI</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   
+  <link rel="stylesheet" href="css/jquery.mobile.structure-1.4.5.min.css" />
+  <link rel="stylesheet" href="css/styles.css"/>
+  <link rel="stylesheet" href="css/main.css"/>
+  <script src="js/jquery-1.12.1.min.js"></script>
+  <script src="js/jquery.mobile-1.4.5.min.js"></script>
+</head>
+<body>
+  <div data-role="page" id="signin-signup" data-theme="b">
+    <div data-role="header" id="header">
+      <div class="logo">
+        <img src="img/logo.png" width="154" height="49" />
+      </div>
+    </div><!-- /header -->
+    
+    <div data-role="content" role="main" id="content" class="ui-content">
+      <div class="container">
+        <div class="tabs">
+          <ul class="tabs__caption">
+            <li class="tabs__item tabs__item_active"><a href="#signin">Вход</a></li>
+            <li class="tabs__item"><a href="#signup">Регистрация</a></li>
+          </ul>
+          <div id="signin" class="tabs__content tabs__content_active">
+            <form  class="form">
+              <div class="form__field-wrap">
+                <label>
+                  <input type="email" class="form__field" value="demo@demo" autocomplete="off" />
+                </label>
+                <div class="form__message-icon-wrap"></div>
+              </div>
+              <div class="form__field-wrap">
+                <label>
+                  <input type="password" class="form__field form__field_password" value="demo" autocomplete="off" />
+                </label>
+                <div class="form__message-icon-wrap"></div>
+              </div>
+              <button type="submit" class="form__submit btn btn_singin">Войти</button>
+              <div class="form__description"><a href="#">Забыл пароль...</a></div>
+            </form>
+          </div>
+          
+          <div id="signup" class="tabs__content">
+            <form action="/" class="form">
+              <div class="form__field-wrap">
+                <label>
+                  <input type="text" class="form__field"/>
+                </label>
+              </div>
+              <div class="form__field-wrap">
+                <label>
+                  <input type="email" class="form__field"/>
+                </label>
+              </div>
+              <div class="form__field-wrap">
+                <label>
+                  <input type="password" class="form__field"/>
+                </label>
+              </div>
+              <button type="submit" class="btn form__submit btn_singup">Зарегистрироваться</button>
+              <div class="form__description"><a href="#" class="form__license">Лицензия</a>и<a href="#" class="form__conf">Конфиденциальность</a></div>
+            </form>
+          </div>
+          
+        </div>
+      </div>
+    </div><!-- /content -->
+  </div><!-- /page -->
+  
+  <script src="js/main.js"></script>
 </body>
 </html>
