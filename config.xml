@@ -26,15 +26,15 @@
   <preference name="DisallowOverscroll" value="true" />
   <preference name="prerendered-icon" value="false"/>
   <preference name="stay-in-webview" value="true"/>
-  <preference name="ios-statusbarstyle" value="black-translucent"/>
   <preference name="detect-data-types" value="false"/>
   <preference name="exit-on-suspend" value="false"/>
   <preference name="show-splash-screen-spinner" value="true"/>
   <preference name="auto-hide-splash-screen" value="true"/>
   <preference name="android-build-tool" value="gradle" />
+  <preference name="StatusBarOverlaysWebView" value="true" />
+  <preference name="StatusBarBackgroundColor" value="#212121" />
+  <preference name="StatusBarStyle" value="lightcontent" />
   
-  
-  <gap:plugin name="com.phonegap.plugin.statusbar" source="pgb" version="1.1.0" />
   <gap:plugin name="org.apache.cordova.device" source="pgb" version="0.3.0" />
   <gap:plugin name="org.apache.cordova.dialogs" source="pgb" version="0.3.0" />
   <gap:plugin name="org.apache.cordova.inappbrowser" source="pgb" version="0.6.0" />
@@ -42,6 +42,7 @@
   <!--<gap:plugin name="com.phonegap.plugins.pushplugin" version="2.5.0" />-->
   
   <gap:plugin name="onesignal-cordova-plugin" source="npm" />
+  <gap:plugin name="cordova-plugin-statusbar" source="npm" />
   
   <platform name="ios">
     <!-- iPhone 6 / 6+ -->
