@@ -25,7 +25,7 @@ $(function() {
   
   
   // Idea list
-  $('#idea-list #accordion').on('click', '.accordion-toggle', function() {
+  $('#accordion').on('click', '.accordion-toggle', function() {
     //Expand or collapse this panel
     $(this).next().slideToggle('fast');
     $(this).toggleClass('opened');
