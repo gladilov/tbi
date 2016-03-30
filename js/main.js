@@ -1,6 +1,9 @@
 document.addEventListener("deviceready", onDeviceReady, false);
 
 function onDeviceReady() {
+  console.log("console.log works well");
+  
+  
   // Push notification
   window.plugins.OneSignal.setLogLevel({logLevel: 4, visualLevel: 4}); // Enable to debug issues.
   var notificationOpenedCallback = function(jsonData) { console.log('didReceiveRemoteNotificationCallBack: ' + JSON.stringify(jsonData)); };
@@ -29,6 +32,29 @@ $(function() {
 				.removeClass('tabs__content_active')
 				.eq( $(this).index() ).addClass('tabs__content_active');
 	});
+  
+  $('a.fblogin').on('click', function(e){
+    var fbLoginSuccess = function (userData) {
+      console.log("UserInfo: ");
+      console.log(userData);
+    }
+
+    facebookConnectPlugin.login(['email', 'public_profile'], fbLoginSuccess,
+      function loginError (error) {
+        console.error(error)
+      }
+    );
+  });
+  $('a.fblogout').on('click', function(e){
+    facebookConnectPlugin.logout(
+      function(data){
+        console.log(data);
+      },
+      function(error){
+        console.error(error);
+      }
+    );
+  });
   
   $('#signin form').submit(function(e){
     e.preventDefault();

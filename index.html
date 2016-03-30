@@ -11,17 +11,6 @@
   <script src="js/jquery.mobile-1.4.5.min.js"></script>
 </head>
 
-<script type="text/javascript">
-  document.addEventListener("deviceready", onDeviceReady, false);
-  
-  function onDeviceReady() {
-    // StatusBar
-    if (cordova && cordova.platformId == 'android') {
-        StatusBar.backgroundColorByHexString("#212121");
-    }
-  }
-</script>
-
 <body>
   <div data-role="page" id="signin-signup" data-theme="b">
     <div data-role="header" id="header">
@@ -52,7 +41,11 @@
                 <div class="form__message-icon-wrap"></div>
               </div>
               <button type="submit" class="form__submit btn btn_singin">Войти</button>
-              <div class="form__description"><a href="#">Забыл пароль...</a></div>
+              <div class="form__description">
+                <a href="#">Забыл пароль...</a> 
+                <a href="#" class="fblogin">FB login</a> 
+                <a href="#" class="fblogout">FB logout</a>
+              </div>
             </form>
           </div>
           
