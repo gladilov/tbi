@@ -1,6 +1,21 @@
+document.addEventListener("deviceready", onDeviceReady, false);
+
+function onDeviceReady() {
+  // Push notification
+  window.plugins.OneSignal.setLogLevel({logLevel: 4, visualLevel: 4}); // Enable to debug issues.
+  var notificationOpenedCallback = function(jsonData) { console.log('didReceiveRemoteNotificationCallBack: ' + JSON.stringify(jsonData)); };
+  window.plugins.OneSignal.init("8393b4dd-37e7-4d54-a768-8e0b70d83a21", {googleProjectNumber: "910799127757"}, notificationOpenedCallback);
+  // Show an alert box if a notification comes in when the user is in your app.
+  window.plugins.OneSignal.enableInAppAlertNotification(true);
+  
+  // Status bar style
+  StatusBar.backgroundColorByHexString("#212121");
+  if (device.platform === 'iOS' && parseFloat(device.version) >= 7.0) {
+    StatusBar.overlaysWebView(false);
+  }
+}
 
 $(function() {
-
   $( document ).bind( "mobileinit", function() {
     $.mobile.allowCrossDomainPages = true;
   });
@@ -25,7 +40,7 @@ $(function() {
   
   
   // Idea list
-  $('#accordion').on('click', '.accordion-toggle', function() {
+  $('#accordion .accordion-toggle').on('click', function() {
     //Expand or collapse this panel
     $(this).next().slideToggle('fast');
     $(this).toggleClass('opened');
