@@ -33,7 +33,8 @@ $(function() {
 				.eq( $(this).index() ).addClass('tabs__content_active');
 	});
   
-  $('a.fblogin').on('click', function(e){
+  // Facebook connect
+  /*$('a.fblogin').on('click', function(e){
     var fbLoginSuccess = function (userData) {
       console.log("UserInfo: ");
       console.log(userData);
@@ -54,7 +55,7 @@ $(function() {
         console.error(error);
       }
     );
-  });
+  });*/
   
   $('#signin form').submit(function(e){
     e.preventDefault();

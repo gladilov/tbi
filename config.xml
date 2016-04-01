@@ -42,10 +42,10 @@
   <plugin name="onesignal-cordova-plugin" source="npm" />
   <plugin name="cordova-plugin-statusbar" source="npm" />
   
-  <plugin name="com.phonegap.plugins.facebookconnect" spec="0.9.0" source="pgb">
+  <!--<plugin name="com.phonegap.plugins.facebookconnect" spec="0.9.0" source="pgb">
       <param name="APP_ID" value="626906180797476" />
       <param name="APP_NAME" value="YBIConnect" />
-  </plugin>
+  </plugin>-->
   
   <platform name="ios">
     <!-- iPhone 6 / 6+ -->
