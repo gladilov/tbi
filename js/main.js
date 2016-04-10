@@ -1,24 +1,6 @@
-document.addEventListener("deviceready", onDeviceReady, false);
-
-function onDeviceReady() {
-  console.log("console.log works well");
-  
-  
-  // Push notification
-  window.plugins.OneSignal.setLogLevel({logLevel: 4, visualLevel: 4}); // Enable to debug issues.
-  var notificationOpenedCallback = function(jsonData) { console.log('didReceiveRemoteNotificationCallBack: ' + JSON.stringify(jsonData)); };
-  window.plugins.OneSignal.init("8393b4dd-37e7-4d54-a768-8e0b70d83a21", {googleProjectNumber: "910799127757"}, notificationOpenedCallback);
-  // Show an alert box if a notification comes in when the user is in your app.
-  window.plugins.OneSignal.enableInAppAlertNotification(true);
-  
-  // Status bar style
-  StatusBar.backgroundColorByHexString("#212121");
-  if (device.platform === 'iOS' && parseFloat(device.version) >= 7.0) {
-    StatusBar.overlaysWebView(false);
-  }
-}
 
 $(function() {
+
   $( document ).bind( "mobileinit", function() {
     $.mobile.allowCrossDomainPages = true;
   });
@@ -33,30 +15,6 @@ $(function() {
 				.eq( $(this).index() ).addClass('tabs__content_active');
 	});
   
-  // Facebook connect
-  /*$('a.fblogin').on('click', function(e){
-    var fbLoginSuccess = function (userData) {
-      console.log("UserInfo: ");
-      console.log(userData);
-    }
-
-    facebookConnectPlugin.login(['email', 'public_profile'], fbLoginSuccess,
-      function loginError (error) {
-        console.error(error)
-      }
-    );
-  });
-  $('a.fblogout').on('click', function(e){
-    facebookConnectPlugin.logout(
-      function(data){
-        console.log(data);
-      },
-      function(error){
-        console.error(error);
-      }
-    );
-  });*/
-  
   $('#signin form').submit(function(e){
     e.preventDefault();
     //return false;
@@ -65,13 +23,6 @@ $(function() {
     $(':mobile-pagecontainer').pagecontainer('change', 'idea.html');
   });
   
-  
-  // Idea list
-  $('#accordion .accordion-toggle').on('click', function() {
-    //Expand or collapse this panel
-    $(this).next().slideToggle('fast');
-    $(this).toggleClass('opened');
-  });
   
   
   // Idea add
