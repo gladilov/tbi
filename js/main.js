@@ -1,3 +1,8 @@
+document.addEventListener("deviceready", onDeviceReady, false);
+function onDeviceReady() {
+
+}
+
 ( function( $, undefined ) {
 
   $( document ).bind( "mobileinit", function() {
@@ -51,6 +56,18 @@
         data: $(this).serialize(),
       })
       .done(function(data, textStatus, jqXHR) {
+          console.log('done');
+          console.log(jqXHR.responseText);
+        
+          // Notification
+          navigator.notification.alert(
+            'Идея успешно сохранена!',  // message
+            null,                   // callback
+            textStatus + ' | ' + data,            // title
+            'Ок'                  // buttonName
+          );
+        
+        
           $.mobile.loading('show');
           
           data = $.parseJSON(data);
@@ -71,6 +88,15 @@
       .fail(function(jqXHR, textStatus, errorThrown) {
         console.log('fail');
         console.log(jqXHR.responseText);
+        
+        // Notification
+        navigator.notification.alert(
+          'Идея успешно сохранена!',  // message
+          null,                   // callback
+          textStatus + ' | ' + data,            // title
+          'Ок'                  // buttonName
+        );
+        
       });
       
     });
