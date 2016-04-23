@@ -14,7 +14,7 @@
 <body>
   <div data-role="page" id="idea-single" data-theme="b">
     <div data-role="header" id="header">
-      <div data-role="controlgroup" data-type="vertical" class="ui-mini ui-btn-right">
+      <div data-role="controlgroup" data-type="horizontal" class="ui-mini ui-btn-right">
         <a href="#" class="ui-btn ui-btn-ybi ui-corner-all ui-shadow ui-btn-icon-notext ui-btn-icon-right ui-icon-ybi-back" data-rel="back">Back</a>
         <a href="#" class="ui-btn ui-btn-ybi ui-corner-all ui-shadow ui-btn-icon-notext ui-btn-icon-right ui-icon-ybi-edit">Edit</a>
       </div>
@@ -32,15 +32,12 @@
             <li class="completed">3</li>
             <li class="current">4</li>
             <li>5</li>
-            <li>6</li>
-            <li>7</li>
-            <li>8</li>
           </ul>
           
           <div class="progress-info">
             <p class="step-cirrent">Ceйчас — Шаг 4:</p>
             <p class="step-cirrent-desc">Ожидание результатов опроса</p>
-            <a href="makeidea.html" class="ui-btn ui-btn-ybi ui-corner-all ui-shadow ui-btn-icon-notext ui-btn-icon-right ui-icon-ybi-forward">Go on</a>
+            <a href="ideastep-1.html" class="ui-btn ui-btn-ybi ui-corner-all ui-shadow ui-btn-icon-notext ui-btn-icon-right ui-icon-ybi-forward">Go on</a>
           </div>
         </div>
         
@@ -91,13 +88,15 @@
     </div><!-- /content -->
 
     <div data-role="footer" id="footer" data-position="fixed" data-tap-toggle="false">
-      <div id="footer-navbar" data-role="navbar" data-grid="d" data-iconpos="top">
+      <div id="footer-navbar" data-role="navbar" data-grid="c">
         <ul>
-          <li><a href="idea.html" id="btn-idea" class="ui-btn-active" data-icon="custom"></a></li>
-          <li><a href="#" id="btn-book" data-icon="custom"></a></li>
-          <li><a href="services.html" id="btn-service" data-icon="custom"></a></li>
-          <li><a href="story.html" id="btn-story" data-icon="custom"></a></li>
-          <li><a href="#" id="btn-other" data-icon="custom"></a></li>
+          <li><a href="idea.html" id="btn-idea" class="ui-btn-active">Идеи</a></li>
+          <!--<li><a href="#" id="btn-book">Книги</a></li>
+          <li><a href="services.html" id="btn-service">Услуги</a></li>
+          <li><a href="story.html" id="btn-story">Истории</a></li>-->
+          <li><a href="#" id="btn-service">Услуги</a></li>
+          <li><a href="#" id="btn-story">Истории</a></li>
+          <li><a href="#" id="btn-other" data-icon="ybi-footer-more">Еще</a></li>
         </ul>
       </div><!-- /navbar -->
     </div><!-- /footer -->

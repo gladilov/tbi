@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="RU-ru">
+<head>
+	<meta charset="UTF-8">
+	<title>Новая идея</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+  <link rel="stylesheet" href="css/jquery.mobile.structure-1.4.5.min.css" />
+	<link rel="stylesheet" href="css/styles.css">
+  <script src="js/jquery-1.12.1.min.js"></script>
+  <script src="js/jquery.mobile-1.4.5.min.js"></script>
+</head>
+
+<body>
+  <div data-role="page" id="idea-add" data-theme="d">
+    <div data-role="header" id="header">
+      <div data-role="controlgroup" data-type="horizontal" class="ui-mini ui-btn-right">
+        <a href="ideastep-1.html" class="ui-btn ui-btn-ybi ui-corner-all ui-shadow ui-btn-icon-notext ui-btn-icon-right ui-icon-ybi-add">Add</a>
+        <a href="idea.html" class="ui-btn ui-btn-ybi ui-corner-all ui-shadow ui-btn-icon-notext ui-btn-icon-right ui-icon-ybi-cancel" data-rel="back">Cancel</a>
+      </div>
+			<h1 id="page-title">Новая идея</h1>
+    </div><!-- /header -->
+
+    <div data-role="content" role="main" id="content" class="ui-content">
+      <div id="ideaaddform-wrap">
+        <form action="" id="ideaaddform">
+          <div class="form-item">
+            <label for="idea-name" class="ui-hidden-accessible">Название идеи</label>
+            <input type="text" id="idea-title" name="title" placeholder="Название идеи" data-clear-btn="true" />
+          </div>
+          <div class="form-item">
+            <label for="idea-category" class="ui-hidden-accessible">Категория</label>
+            <select name="category" id="idea-category" data-icon="ybi-carat">
+                <option value="">Категория</option>
+                <option value="Производство">Производство</option>
+                <option value="Торговля">Торговля</option>
+                <option value="ИТ">ИТ</option>
+                <option value="Высокие технологии">Высокие технологии</option>
+            </select>
+          </div>
+          <div class="form-item">
+            <label for="idea-desc" class="ui-hidden-accessible">Описание идеи</label>
+            <textarea id="idea-desc" name="description" placeholder="Описание идеи" rows="4" data-clear-btn="true"></textarea>
+          </div>
+          <div class="form-separator"></div>
+          
+          <div class="form-item form-item-idea-audience">
+            <label for="idea-audience" class="has-icon">Целевая аудитория <a href="#" class="form-item-add ui-btn ui-btn-ybi ui-btn-icon-notext ui-btn-icon-right ui-icon-ybi-add">Add item</a></label>
+            <div data-role="controlgroup" class="controlgroup">
+              <input type="text" id="idea-audience" class="multiple" name="audience" placeholder="Название группы" data-clear-btn="true" />
+            </div>
+          </div>
+          <div class="form-separator"></div>
+          
+          <div class="form-item form-item-idea-keyvalue">
+            <label for="idea-keyvalue" class="has-icon">Ключевые ценности <a href="#" class="form-item-add ui-btn ui-btn-ybi ui-btn-icon-notext ui-btn-icon-right ui-icon-ybi-add">Add item</a></label>
+            <div data-role="controlgroup" class="controlgroup">
+              <input type="text" id="idea-keyvalue" class="multiple" name="keyvalue" placeholder="Ценность" data-clear-btn="true" />
+            </div>
+          </div>
+          
+          <button type="submit" class="form__submit btn">Сохранить</button>
+        </form>
+      </div>
+    </div><!-- /content -->
+
+    <div data-role="footer" id="footer" data-position="fixed" data-tap-toggle="false">
+      <div id="footer-navbar" data-role="navbar" data-grid="c">
+        <ul>
+          <li><a href="idea.html" id="btn-idea" class="ui-btn-active">Идеи</a></li>
+          <!--<li><a href="#" id="btn-book">Книги</a></li>
+          <li><a href="services.html" id="btn-service">Услуги</a></li>
+          <li><a href="story.html" id="btn-story">Истории</a></li>-->
+          <li><a href="#" id="btn-service">Услуги</a></li>
+          <li><a href="#" id="btn-story">Истории</a></li>
+          <li><a href="#" id="btn-other" data-icon="ybi-footer-more">Еще</a></li>
+        </ul>
+      </div><!-- /navbar -->
+    </div><!-- /footer -->
+  </div><!-- /page -->
+
+  <script src="js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+	<meta charset="UTF-8">
+	<title>Шаг 2 из 5</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+  <link rel="stylesheet" href="css/jquery.mobile.structure-1.4.5.min.css" />
+	<link rel="stylesheet" href="css/styles.css">
+  <script src="js/jquery-1.12.1.min.js"></script>
+  <script src="js/jquery.mobile-1.4.5.min.js"></script>
+</head>
+
+<body>
+  <div data-role="page" id="idea-step-2" data-theme="b">
+    <div data-role="header" id="header">
+      <div data-role="controlgroup" data-type="horizontal" class="ui-mini ui-btn-right">
+        <a href="#" class="ui-btn ui-btn-ybi ui-corner-all ui-shadow ui-btn-icon-notext ui-btn-icon-right ui-icon-ybi-back" data-rel="back">Back</a>
+      </div>
+			<h1 id="page-title">Шаг 2 из 5</h1>
+    </div><!-- /header -->
+
+    <div data-role="content" role="main" id="content" class="ui-content">
+      <form action="ideastep-3.html" id="ideastep2form">
+        
+        <button class="ui-btn ui-btn-submit ui-btn-ybi ui-corner-all ui-btn-icon-right ui-icon-ybi-stepforward" type="submit" id="submit-idea-steps">Следующий шаг</button>
+      </form>
+    </div><!-- /content -->
+
+    <div data-role="footer" id="footer" data-position="fixed" data-tap-toggle="false">
+      <div id="footer-navbar" data-role="navbar" data-grid="c">
+        <ul>
+          <li><a href="idea.html" id="btn-idea" class="ui-btn-active">Идеи</a></li>
+          <!--<li><a href="#" id="btn-book">Книги</a></li>
+          <li><a href="services.html" id="btn-service">Услуги</a></li>
+          <li><a href="story.html" id="btn-story">Истории</a></li>-->
+          <li><a href="#" id="btn-service">Услуги</a></li>
+          <li><a href="#" id="btn-story">Истории</a></li>
+          <li><a href="#" id="btn-other" data-icon="ybi-footer-more">Еще</a></li>
+        </ul>
+      </div><!-- /navbar -->
+    </div><!-- /footer -->
+  </div><!-- /page -->
+</body>
+</html>
