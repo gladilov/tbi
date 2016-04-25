@@ -1,24 +1,34 @@
-document.addEventListener("deviceready", onDeviceReady, false);
-function onDeviceReady() {
 
-  // Notification
-  navigator.notification.alert(
-    'test!',  // message
-    null,                   // callback
-    'test',            // title
-    'Ок'                  // buttonName
-  );
-
-}
 
 ( function( $, undefined ) {
 
   $( document ).bind( "mobileinit", function() {
     $.mobile.allowCrossDomainPages = true;
   });
-
-  $( document ).bind( "pagecreate", function( e ) {
   
+  $(document).ready(function() {
+    document.addEventListener("deviceready", onDeviceReady, false);
+    //onDeviceReady();
+  });
+
+  function onDeviceReady() {
+
+    console.log('deviceready');
+    console.log(navigator.network.connection.type);
+
+    // Notification
+    navigator.notification.alert(
+      'test!',  // message
+      null,                   // callback
+      'test',            // title
+      'Ок'                  // buttonName
+    );
+  }
+  
+  
+  
+  $( document ).bind( "pagecreate", function( e ) {
+
     $('.tabs__caption').on('click', 'li:not(.tabs__content_active)', function() {
       $(this).addClass('tabs__item_active')
           .siblings()
