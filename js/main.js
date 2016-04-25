@@ -3,6 +3,7 @@
 ( function( $, undefined ) {
 
   $( document ).bind( "mobileinit", function() {
+    $.support.cors = true;
     $.mobile.allowCrossDomainPages = true;
   });
   
@@ -73,6 +74,7 @@
         type: "POST",
         url: "http://y-b-i.com/api/idea.php",
         data: $(this).serialize(),
+        cache: false,
       })
       .done(function(data, textStatus, jqXHR) {
           console.log('done');

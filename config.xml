@@ -3,78 +3,70 @@
 <!-- config.xml reference: https://build.phonegap.com/docs/config-xml -->
 <widget xmlns     = "http://www.w3.org/ns/widgets"
         xmlns:gap = "http://phonegap.com/ns/1.0"
-        id        = "com.ybi.app"
-        version   = "0.2">
+        id        = "com.phonegap.spitomin"
+        version   = "0.1">
         
-  <name>YBI</name>
-  <description>YBI app.</description>
+  <name>TBI</name>
+  <description>TBI app.</description>
   <author href="http://sapiens.media" email="a.gladilov@yandex.ru">Alex Gladilov</author>
   <content src="index.html"/>
   
-  <access origin="*"/>
+  <access origin="*" />
+  <!--<access origin="http://y-b-i.com" subdomains="true" />-->
+  
   <preference name="phonegap-version" value="cli-6.0.0" />
   <gap:platform name="ios" />
   <gap:platform name="android" />
   
+  <preference name="StatusBarOverlaysWebView" value="false"/>
   <preference name="permissions" value="none"/>
   <preference name="orientation" value="portrait"/>
   <preference name="target-device" value="universal"/>
-  <preference name="fullscreen" value="false" />
+  <preference name="fullscreen" value="true" />
   <preference name="webviewbounce" value="false"/>
   <preference name="UIWebViewBounce" value="false" />
   <preference name="DisallowOverscroll" value="true" />
   <preference name="prerendered-icon" value="false"/>
   <preference name="stay-in-webview" value="true"/>
+  <preference name="ios-statusbarstyle" value="black-translucent"/>
   <preference name="detect-data-types" value="false"/>
   <preference name="exit-on-suspend" value="false"/>
   <preference name="show-splash-screen-spinner" value="true"/>
   <preference name="auto-hide-splash-screen" value="true"/>
-  <preference name="android-build-tool" value="gradle" />
-  <preference name="StatusBarOverlaysWebView" value="false" />
-  <preference name="StatusBarBackgroundColor" value="#212121" />
-  <preference name="StatusBarStyle" value="lightcontent" />
   
-  <plugin name="cordova-plugin-device" spec="1.0.1" source="pgb" />
-  <plugin name="cordova-plugin-dialogs" spec="1.1.1" source="pgb" />
-  <!-- <plugin name="cordova-plugin-inappbrowser" spec="1.0.1" source="pgb" /> -->
-  <plugin name="cordova-plugin-network-information" spec="1.0.1" source="pgb" />
-  <plugin name="cordova-plugin-console" source="pgb" />
-  <plugin name="onesignal-cordova-plugin" source="npm" />
-  <plugin name="cordova-plugin-statusbar" source="npm" />
+  <gap:plugin name="com.phonegap.plugin.statusbar" source="pgb" version="1.1.0" />
+  <gap:plugin name="org.apache.cordova.device" source="pgb" version="0.3.0" />
+  <gap:plugin name="org.apache.cordova.dialogs" source="pgb" version="0.3.0" />
+  <gap:plugin name="org.apache.cordova.inappbrowser" source="pgb" version="0.6.0" />
+  <gap:plugin name="org.apache.cordova.network-information" source="pgb" version="0.2.15" />
+  <!--<gap:plugin name="com.phonegap.plugins.pushplugin" version="2.5.0" />-->
   
-  <!--<plugin name="com.phonegap.plugins.facebookconnect" spec="0.9.0" source="pgb">
-      <param name="APP_ID" value="626906180797476" />
-      <param name="APP_NAME" value="YBIConnect" />
-  </plugin>-->
-  
-  <platform name="ios">
-    <!-- iPhone 6 / 6+ -->
-    <icon src="res/ios/icon-60@3x.png" width="180" height="180" />
-    <!-- iPhone / iPod Touch  -->
-    <icon src="res/ios/icon-60.png" width="60" height="60" />
-    <icon src="res/ios/icon-60@2x.png" width="120" height="120" />
-    <icon src="res/ios/icon.png" width="57" height="57" />
-    <icon src="res/ios/icon@2x.png" width="114" height="114" />
-    <!-- Settings Icon -->
-    <icon src="res/ios/icon-small.png" width="29" height="29" />
-    <icon src="res/ios/icon-small@2x.png" width="58" height="58" />
-  </platform>
-  
-  <platform name="android">
-    <icon src="res/android/ldpi.png" qualifier="ldpi" />
-    <icon src="res/android/mdpi.png" qualifier="mdpi" />
-    <icon src="res/android/hdpi.png" qualifier="hdpi" />
-    <icon src="res/android/xhdpi.png" qualifier="xhdpi" />
-  </platform>
+  <!--<icon src="images/icons/Icon-Small.png" gap:platform="ios" width="29" height="29" />
+  <icon src="images/icons/Icon-Small-40.png" gap:platform="ios" width="40" height="40" />
+  <icon src="images/icons/Icon-Small-50.png" gap:platform="ios" width="50" height="50" />
+  <icon src="images/icons/Icon.png" gap:platform="ios" width="57" height="57" />
+  <icon src="images/icons/Icon-Small@2x.png" gap:platform="ios" width="58" height="58" />
+  <icon src="images/icons/Icon-60.png" gap:platform="ios" width="60" height="60" />
+  <icon src="images/icons/Icon-72.png" gap:platform="ios" width="72" height="72" />
+  <icon src="images/icons/Icon-76.png" gap:platform="ios" width="76" height="76" />
+  <icon src="images/icons/Icon-Small-40@2x.png" gap:platform="ios" width="80" height="80" />
+  <icon src="images/icons/Icon-Small@3x.png" gap:platform="ios" width="87" height="87" />
+  <icon src="images/icons/Icon-Small-50@2x.png" gap:platform="ios" width="100" height="100" />
+  <icon src="images/icons/Icon@2x.png" gap:platform="ios" width="114" height="114" />
+  <icon src="images/icons/Icon-60@2x.png" gap:platform="ios" width="120" height="120" />
+  <icon src="images/icons/Icon-72@2x.png" gap:platform="ios" width="144" height="144" />
+  <icon src="images/icons/Icon-76@2x.png" gap:platform="ios" width="152" height="152" />
+  <icon src="images/icons/iTunesArtwork@2x.png" gap:platform="ios" width="180" height="180" />
+  <icon src="images/icons/Icon-60@3x.png" gap:platform="ios" width="1024" height="1024" />-->
   
   <!--<gap:splash src="images/icons/screen-ipad-portrait.png" gap:platform="ios" width="1024" height="768" />-->
 
   <gap:config-file platform="ios" parent="UIStatusBarHidden">
-    <false/>
+    <true/>
   </gap:config-file>
 
   <gap:config-file platform="ios" parent="UIViewControllerBasedStatusBarAppearance">
-    <true/>
+    <false/>
   </gap:config-file>
 
 </widget>
