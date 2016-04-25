@@ -16,13 +16,6 @@
     console.log('deviceready');
     console.log(navigator.network.connection.type);
 
-    // Notification
-    navigator.notification.alert(
-      'test!',  // message
-      null,                   // callback
-      'test',            // title
-      'Ок'                  // buttonName
-    );
   }
   
   
@@ -65,6 +58,14 @@
     $('#ideaaddform').submit(function(e){
       e.preventDefault();
       
+      // Notification
+      navigator.notification.alert(
+        'form submit!',  // message
+        null,                   // callback
+        'test',            // title
+        'Ок'                  // buttonName
+      );
+      
       //console.log($(this).serialize());
       //console.log(JSON.stringify($(this).serialize()));
       
@@ -82,7 +83,7 @@
             'Идея успешно сохранена!',  // message
             null,                   // callback
             textStatus + ' | ' + data,            // title
-            'Ок'                  // buttonName
+            'ok'                  // buttonName
           );
         
         
