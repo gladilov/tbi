@@ -2,7 +2,7 @@
 <html lang="ru">
 <head>
 	<meta charset="UTF-8"/>
-	<title>Идеи</title>
+	<title>Блокнот идей</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   
   <link rel="stylesheet" href="css/jquery.mobile.structure-1.4.5.min.css" />
@@ -13,12 +13,22 @@
 
 <body>
   <div data-role="page" id="idea-list" data-theme="d">
+    <div data-role="panel" id="left-panel" data-position="left" data-position-fixed="true" data-display="overlay">
+      <ul data-role="listview" id="menu">
+        <li><a href="idea.html" id="btn-idea" class="ui-link">Блокнот идей</a></li>
+        <li><a href="#" id="btn-service" class="ui-link">Услуги</a></li>
+        <li><a href="#" id="btn-story" class="ui-link">Истории</a></li>
+        <li><a href="#" id="btn-book" class="ui-link">Книги</a></li>
+        <li><a href="#" class="ui-link">Выход</a></li>
+      </ul>
+    </div><!-- /panel -->
+  
     <div data-role="header" id="header">
+			<h1 id="page-title">Блокнот идей</h1>
       <div data-role="controlgroup" data-type="horizontal" class="ui-mini ui-btn-right">
         <a href="ideaadd.html" class="ui-btn ui-btn-ybi ui-corner-all ui-shadow ui-btn-icon-notext ui-btn-icon-right ui-icon-ybi-add">Add</a>
         <a href="#popupIdeaFilter" class="ui-btn ui-btn-ybi ui-corner-all ui-shadow ui-btn-icon-notext ui-btn-icon-right ui-icon-ybi-filter" data-rel="popup" data-transition="fade">Filter</a>
       </div>
-			<h1 id="page-title">Блокнот идей</h1>
     </div><!-- /header -->
     
     <div data-role="popup" id="popupIdeaFilter" data-overlay-theme="a" data-theme="b">
@@ -56,7 +66,7 @@
           <h3>Проверяю<span class="ui-li-count">2</span></h3>
           <ul>
             <li class="idea-item">
-              <h4 class="idea-title"><a href="ideamore.html" class="idea-link" data-icon="custom">Мобильное приложение для сезонных аллергиков</a><a href="#" class="idea-edit"></a></h4>
+              <h4 class="idea-title"><a href="ideamore.html" class="idea-link" data-icon="custom">Мобильное приложение для сезонных аллергиков</a><a href="ideaedit.html" class="idea-edit"></a></h4>
               <ul class="progress">
                 <li class="completed"></li>
                 <li class="completed"></li>
@@ -72,7 +82,7 @@
               </ul>
             </li>
             <li class="idea-item">
-              <h4 class="idea-title"><a href="ideamore.html" class="idea-link" data-icon="custom">Виртуальная система бесконтактного ощупывания</a><a href="#" class="idea-edit"></a></h4>
+              <h4 class="idea-title"><a href="ideamore.html" class="idea-link" data-icon="custom">Виртуальная система бесконтактного ощупывания</a><a href="ideaedit.html" class="idea-edit"></a></h4>
               <ul class="progress">
                 <li class="completed"></li>
                 <li></li>
@@ -93,7 +103,7 @@
           <h3>Реализую<span class="ui-li-count">4</span></h3>
           <ul>
             <li class="idea-item">
-              <h4 class="idea-title"><a href="ideamore.html" class="idea-link" data-icon="custom">Мобильное приложение для сезонных аллергиков</a><a href="#" class="idea-edit"></a></h4>
+              <h4 class="idea-title"><a href="ideamore.html" class="idea-link" data-icon="custom">Мобильное приложение для сезонных аллергиков</a><a href="ideaedit.html" class="idea-edit"></a></h4>
               <ul class="progress">
                 <li class="completed"></li>
                 <li class="completed"></li>
@@ -109,7 +119,7 @@
               </ul>
             </li>
             <li class="idea-item">
-              <h4 class="idea-title"><a href="ideamore.html" class="idea-link" data-icon="custom">Виртуальная система бесконтактного ощупывания</a><a href="#" class="idea-edit"></a></h4>
+              <h4 class="idea-title"><a href="ideamore.html" class="idea-link" data-icon="custom">Виртуальная система бесконтактного ощупывания</a><a href="ideaedit.html" class="idea-edit"></a></h4>
               <ul class="progress">
                 <li class="completed"></li>
                 <li></li>
@@ -125,7 +135,7 @@
               </ul>
             </li>
             <li class="idea-item">
-              <h4 class="idea-title"><a href="ideamore.html" class="idea-link" data-icon="custom">Мобильное приложение для сезонных аллергиков</a><a href="#" class="idea-edit"></a></h4>
+              <h4 class="idea-title"><a href="ideamore.html" class="idea-link" data-icon="custom">Мобильное приложение для сезонных аллергиков</a><a href="ideaedit.html" class="idea-edit"></a></h4>
               <ul class="progress">
                 <li class="completed"></li>
                 <li class="completed"></li>
@@ -141,7 +151,7 @@
               </ul>
             </li>
             <li class="idea-item">
-              <h4 class="idea-title"><a href="ideamore.html" class="idea-link" data-icon="custom">Виртуальная система бесконтактного ощупывания</a><a href="#" class="idea-edit"></a></h4>
+              <h4 class="idea-title"><a href="ideamore.html" class="idea-link" data-icon="custom">Виртуальная система бесконтактного ощупывания</a><a href="ideaedit.html" class="idea-edit"></a></h4>
               <ul class="progress">
                 <li class="completed"></li>
                 <li></li>
@@ -162,7 +172,7 @@
           <h3>Архив<span class="ui-li-count">1</span></h3>
           <ul>
             <li class="idea-item">
-              <h4 class="idea-title"><a href="ideamore.html" class="idea-link" data-icon="custom">Мобильное приложение для сезонных аллергиков</a><a href="#" class="idea-edit"></a></h4>
+              <h4 class="idea-title"><a href="ideamore.html" class="idea-link" data-icon="custom">Мобильное приложение для сезонных аллергиков</a><a href="ideaedit.html" class="idea-edit"></a></h4>
               <ul class="progress">
                 <li class="completed"></li>
                 <li class="completed"></li>
@@ -191,12 +201,13 @@
           <li><a href="story.html" id="btn-story">Истории</a></li>-->
           <li><a href="#" id="btn-service">Услуги</a></li>
           <li><a href="#" id="btn-story">Истории</a></li>
-          <li><a href="#" id="btn-other" data-icon="ybi-footer-more">Еще</a></li>
+          <li><a href="#left-panel" id="btn-other" data-icon="ybi-footer-more">Еще</a></li>
         </ul>
       </div><!-- /navbar -->
     </div><!-- /footer -->
   </div><!-- /page -->
-
+  
+  <script src="js/jquery.validate.min.js"></script>
   <script src="js/main.js"></script>
 </body>
 </html>

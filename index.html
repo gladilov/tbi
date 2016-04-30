@@ -8,7 +8,6 @@
   
   <link rel="stylesheet" href="css/jquery.mobile.structure-1.4.5.min.css" />
   <link rel="stylesheet" href="css/styles.css"/>
-  <link rel="stylesheet" href="css/main.css"/>
   <script src="js/jquery-1.12.1.min.js"></script>
   <script src="js/jquery.mobile-1.4.5.min.js"></script>
 </head>
@@ -28,41 +27,36 @@
             <li class="tabs__item"><a href="#signup">Регистрация</a></li>
           </ul>
           <div id="signin" class="tabs__content tabs__content_active">
-            <form  class="form">
-              <div class="form__field-wrap">
-                <label>
-                  <input type="email" class="form__field" placeholder="Ваша эл. почта" value="demo@demo" autocomplete="off" />
-                </label>
-                <div class="form__message-icon-wrap"></div>
+            <form action="" type="post" id="signin-form" data-ajax="false">
+              <div class="form-item form-item-signin-email">
+                <label for="signin-email" class="ui-hidden-accessible">Ваша эл. почта</label>
+                <input type="email" id="signin-email" class="required" name="signin-email" value="demo@demo" placeholder="Ваша эл. почта" autocomplete="off" />
               </div>
-              <div class="form__field-wrap">
-                <label>
-                  <input type="password" class="form__field form__field_password" placeholder="Пароль" value="demo" autocomplete="off" />
-                </label>
-                <div class="form__message-icon-wrap"></div>
+              <div class="form-item form-item-signin-password">
+                <label for="signin-password" class="ui-hidden-accessible">Пароль</label>
+                <input type="password" id="signin-password" class="required" name="signin-password" value="demo" placeholder="Пароль" autocomplete="off" />
               </div>
+
               <button type="submit" class="form__submit btn btn_singin">Войти</button>
               <div class="form__description"><a href="#">Забыл пароль...</a></div>
             </form>
           </div>
           
           <div id="signup" class="tabs__content">
-            <form action="/" class="form">
-              <div class="form__field-wrap">
-                <label>
-                  <input type="text" class="form__field" placeholder="Ваше имя" />
-                </label>
+            <form action="" type="post" id="signup-form" data-ajax="false">
+              <div class="form-item form-item-signup-name">
+                <label for="signup-name" class="ui-hidden-accessible">Ваше имя</label>
+                <input type="email" id="signup-name" class="required" name="signup-name" placeholder="Ваше имя" autocomplete="off" />
               </div>
-              <div class="form__field-wrap">
-                <label>
-                  <input type="email" class="form__field" placeholder="Ваша эл. почта" />
-                </label>
+              <div class="form-item form-item-signup-email">
+                <label for="signup-email" class="ui-hidden-accessible">Ваша эл. почта</label>
+                <input type="email" id="signup-email" class="required" name="signup-email" placeholder="Ваша эл. почта" autocomplete="off" />
               </div>
-              <div class="form__field-wrap">
-                <label>
-                  <input type="password" class="form__field form__field_password" placeholder="Пароль" />
-                </label>
+              <div class="form-item form-item-signup-password">
+                <label for="signup-password" class="ui-hidden-accessible">Пароль</label>
+                <input type="password" id="signup-password" class="required" name="signup-password" placeholder="Пароль" autocomplete="off" />
               </div>
+
               <button type="submit" class="btn form__submit btn_singup">Зарегистрироваться</button>
               <div class="form__description"><a href="#" class="form__license">Лицензия</a>и<a href="#" class="form__conf">Конфиденциальность</a></div>
             </form>
@@ -73,7 +67,8 @@
     </div><!-- /content -->
   </div><!-- /page -->
   
-  <script src="cordova.js"></script>
+  <!--<script src="cordova.js"></script>-->
+  <script src="js/jquery.validate.min.js"></script>
   <script src="js/main.js"></script>
 </body>
 </html>

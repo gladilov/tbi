@@ -154,7 +154,7 @@ a.active {
 #header #page-title {
 	display: block;
   min-height: 0;
-  padding: 1.5em 0;
+  padding: 1.5em 30px 1.5em 0;
   margin: 0;
   text-align: left;
 	font: normal 1.286em/1 open_sansbold;
@@ -162,9 +162,6 @@ a.active {
   text-overflow: inherit;
   overflow: visible;
   white-space: normal;
-}
-#idea-single #header #page-title {
-	padding-right: 30px;
 }
 div#header p {
 	font: normal 1em open_sansregular;
@@ -199,6 +196,21 @@ div#header p {
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
 }
+.ui-bar {
+  margin: 1em -1em;
+  padding: 0.714em 1em;
+  color: #85C9AD;
+  font: normal 1em open_sansbold;
+  background-color: #16635D;
+}
+.ui-panel {
+  background: #E0FFD3;
+}
+.ui-panel-dismiss {
+  background: rgba(0,0,0,.2);
+  -webkit-transition: all 1s ease 0s;
+          transition: all 1s ease 0s;
+}
 
 
 /*Футер меню*/
@@ -219,23 +231,95 @@ div#header p {
 /** 
  * 2. Стиль форм
  */
-input[type="text"],
-input[type="email"],
-input[type="password"],
-textarea,
-.ui-select {
+.ui-input-text input,
+.ui-input-search input,
+textarea.ui-input-text {
+  padding: 0.714em 0.857em;
+  font: normal 1em open_sansregular;
   background-color: #EBFFF9;
   color: #16635D;
+  resize: none;
+  -webkit-border-radius: 6px;
+          border-radius: 6px;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
 }
-input[type="text"]::-webkit-input-placeholder,
-input[type="email"]::-webkit-input-placeholder,
-input[type="password"]::-webkit-input-placeholder,
-textarea::-webkit-input-placeholder {
+.ui-input-text.ui-focus input,
+.ui-input-search.ui-focus input,
+textarea.ui-input-text.ui-focus {
+  -webkit-box-shadow: inset 0 0 0 1px #3BB2A7;
+          box-shadow: inset 0 0 0 1px #3BB2A7;
+}
+.ui-input-text input.error,
+.ui-input-search input.error,
+textarea.ui-input-text.error {
+  -webkit-box-shadow: inset 0 0 0 1px #f20000;
+          box-shadow: inset 0 0 0 1px #f20000;
+}
+.ui-input-text input + label.error,
+.ui-input-search input + label.error,
+textarea.ui-input-text + label.error {
+  display: none !important;
+}
+.ui-input-text input::-webkit-input-placeholder,
+.ui-input-search input::-webkit-input-placeholder,
+textarea.ui-input-text::-webkit-input-placeholder {
   color: rgba(22,99,93,.5);
 }
+.form-item .ui-input-text.ui-input-has-clear input,
+.form-item .ui-input-search.ui-input-has-clear input {
+  padding-right: 1.8em;
+}
+.ui-select {
+	font: normal 1em open_sansregular;
+  background-color: #EBFFF9;
+  color: #16635D;
+	-webkit-border-radius: 6px;
+          border-radius: 6px;
+	-webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+.ui-select .ui-btn {
+  padding: 0.714em 0.857em;
+  text-align: left;
+  font: inherit;
+}
+.line-separator {
+	display: block;
+	width: 100%;
+	position: relative;
+	margin: 1.143em 0;
+	height: 2px;
+	background: -moz-linear-gradient(left, #3BB2A7 0%, #feffff 100%);
+	background: -webkit-linear-gradient(left, #3BB2A7 0%, #feffff 100%);
+	background: linear-gradient(left, #3BB2A7 0%, #feffff 100%);
+}
+.form-item {
+	margin: .7em 0;
+}
 .form-item > label {
+  position: relative;
+	margin: 0 0 .5em;
+	font: normal 1.143em/1.2 open_sansbold;
 	color: #85C9AD;
 }
+.form-item > label.has-icon {
+  padding: 3px 30px 3px 0;
+}
+.form-item > label > .ui-btn {
+  position: absolute;
+  right: 0;
+  top: 50%;
+  margin-top: -12.5px;
+}
+.form-item .ui-controlgroup-vertical .ui-input-text {
+	margin-bottom: .7em;
+}
+.form-item .ui-controlgroup-vertical .ui-input-text:last-child {
+	margin-bottom: 0;
+}
+
+
 .tabs__caption {
   cursor: pointer;
 }
@@ -359,6 +443,9 @@ textarea::-webkit-input-placeholder {
 /** 
  * Стиль иконок (custom)
  */
+.ui-btn {
+  outline: none;
+}
 .ui-btn-ybi {
   position: relative;
 }
@@ -375,6 +462,11 @@ textarea::-webkit-input-placeholder {
 }
 .ui-header .ui-controlgroup-vertical {
   width: 25px;
+  top: 50%;
+  margin-top: -12.5px;
+}
+.ui-header .ui-controlgroup-vertical.count-2 {
+  margin-top: -28px;
 }
 .ui-popup .ui-header > .ui-btn-ybi {
   position: absolute;
@@ -485,22 +577,6 @@ textarea::-webkit-input-placeholder {
 }
 
 
-/** 
- * Вход/Регистрация
- */
-.ui-page#signin-signup #header .logo {
-  margin: 60px 0 30px; 
-}
-.ui-page#signin-signup #header,
-.ui-page#signin-signup #content,
-.ui-page#signin-signup #footer {
-  padding-left: 1.429em;
-  padding-right: 1.429em;
-}
-
-
-
-
 /**
  * Popup
  */
@@ -586,6 +662,26 @@ textarea::-webkit-input-placeholder {
   text-overflow: inherit;
   overflow: visible;
   white-space: normal;
+}
+
+
+/** 
+ * Вход/Регистрация
+ */
+.ui-page#signin-signup #header .logo {
+  margin: 60px 0 30px; 
+}
+.ui-page#signin-signup #header,
+.ui-page#signin-signup #content,
+.ui-page#signin-signup #footer {
+  padding-left: 1.429em;
+  padding-right: 1.429em;
+}
+#signin-form .form-item-signin-email {
+  margin-top: 0;
+}
+#signup-form .form-item-signup-name {
+  margin-top: 0;
 }
 
 
@@ -782,73 +878,12 @@ textarea::-webkit-input-placeholder {
  */
 #ideaaddform-wrap {}
 #ideaaddform {}
-#ideaaddform .form-item {
-}
-#ideaaddform .form-item > label {
-  position: relative;
-	margin: 0 0 .5em;
-	font: normal 1.143em/1.2 open_sansbold;
-}
-#ideaaddform .form-item > label.has-icon {
-  padding: 3px 30px 3px 0;
-}
-#ideaaddform .form-item > label > .ui-btn {
-  position: absolute;
-  right: 0;
-  top: 50%;
-  margin-top: -12.5px;
-}
-#ideaaddform .form-separator {
-	display: block;
-	width: 100%;
-	position: relative;
-	margin: 1.143em 0;
-	height: 2px;
-	background: -moz-linear-gradient(left, #3BB2A7 0%, #feffff 100%);
-	background: -webkit-linear-gradient(left, #3BB2A7 0%, #feffff 100%);
-	background: linear-gradient(left, #3BB2A7 0%, #feffff 100%);
-}
-#ideaaddform .form-item input,
-#ideaaddform .form-item textarea {
-	width: 100%;
-	margin: 0 auto 10px;
-	padding: 0.714em 0.857em;
-	/*border:1px solid #fff;*/
-	font: normal 1em open_sansregular;
-	-webkit-border-radius: 6px;
-          border-radius: 6px;
-	-webkit-box-sizing: border-box;
-          box-sizing: border-box;
-}
-#ideaaddform .form-item .ui-input-has-clear input,
-#ideaaddform .form-item .ui-input-has-clear textarea {
-  padding-right: 1.5em;
-}
-#ideaaddform .form-item textarea {
-	resize: none;
-}
-#ideaaddform ::-webkit-input-placeholder { color: rgba(22,99,93,.5); }
-#ideaaddform input::-webkit-input-placeholder,
-#ideaaddform textarea::-webkit-input-placeholder { color: rgba(22,99,93,.5); }
-
-#ideaaddform .form-item .ui-select {
-	width: 100%;
-	margin: 0 auto 10px;
-	font: normal 1em open_sansregular;
-	-webkit-border-radius: 6px;
-          border-radius: 6px;
-	-webkit-box-sizing: border-box;
-          box-sizing: border-box;
-}
-#ideaaddform .form-item .ui-select .ui-btn {
-  padding: 0.714em 0.857em;
-  text-align: left;
-  font: inherit;
-}
+#ideaaddform .form-item {}
+#ideaaddform .form-item .ui-input-text {}
 
 
 /**
- * Проработка идеи, шаги
+ * Проработка идеи, шаг 1
  */
 #idea-step-1 .ui-collapsible-content > div.item {
   margin-bottom: 2.5em;
@@ -926,6 +961,82 @@ textarea::-webkit-input-placeholder {
 }
 
 
+/**
+ * Проработка идеи, шаг 2
+ */
+#idea-step-2 .form-desc {
+  margin-bottom: 1em;
+}
+#idea-step-2 .ui-field-contain {
+  padding: .2em 0;
+}
+#idea-step-2 .ui-field-contain > label {
+  width: 100%;
+  padding: .1em 4em .1em 0;
+  margin: 0;
+  font: normal 1em open_sansbold;
+  color: #16635D;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+#idea-step-2 .ui-field-contain > .ui-input-text {
+  position: absolute;
+  top: 50%;
+  right: 0;
+  width: 3.5em;
+  margin-top: -1em;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+#idea-step-2 .ui-field-contain > .ui-input-text input {
+  min-height: 2em;
+  margin: 0;
+  padding: .3em .1em .3em .3em;
+  font: normal 1em open_sansregular;
+  -webkit-border-radius: 6px;
+          border-radius: 6px;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+
+/**
+ * Проработка идеи, шаг 3
+ */
+#idea-step-3-accordion {
+  margin-top: 2em;
+}
+
+
+/**
+ * Проработка идеи, шаг 4
+ */
+#idea-step-4 .real-unreal-status label {
+  padding: 1em;
+  text-align: center;
+  font: normal 1em/1 open_sansregular;
+  color: #16635D;
+  background: #85C9AD;
+  -webkit-border-radius: 6px;
+          border-radius: 6px;
+}
+#idea-step-4 .real-unreal-status label:after {
+  display: none;
+  right: 0;
+  width: 16px;
+  height: 14px;
+  margin-top: -7px;
+  background: url(../img/tick.png) 50% 50% no-repeat;
+}
+#idea-step-4 .real-unreal-status label.ui-radio-on:after {
+  display: block;
+}
+#idea-step-4 .real-unreal-status .ui-block-a .ui-radio {
+  margin-left: 0;
+}
+#idea-step-4 .real-unreal-status .ui-block-b .ui-radio {
+  margin-right: 0;
+}
 
 
 

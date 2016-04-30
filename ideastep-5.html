@@ -2,7 +2,7 @@
 <html lang="ru">
 <head>
 	<meta charset="UTF-8">
-	<title>Шаг 2 из 5</title>
+	<title>Шаг 5 из 5</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   
   <link rel="stylesheet" href="css/jquery.mobile.structure-1.4.5.min.css" />
@@ -12,39 +12,37 @@
 </head>
 
 <body>
-  <div data-role="page" id="idea-step-2" data-theme="b">
+  <div data-role="page" id="idea-step-5" data-theme="b">
     <div data-role="header" id="header">
-			<h1 id="page-title">Шаг 2 из 5</h1>
+			<h1 id="page-title">Шаг 5 из 5</h1>
       <div data-role="controlgroup" data-type="horizontal" class="ui-mini ui-btn-right">
         <a href="#" class="ui-btn ui-btn-ybi ui-corner-all ui-shadow ui-btn-icon-notext ui-btn-icon-right ui-icon-ybi-back" data-rel="back">Back</a>
       </div>
     </div><!-- /header -->
 
     <div data-role="content" role="main" id="content" class="ui-content">
-      <form action="ideastep-3.html" id="ideastep2form" data-ajax="false">
-        <div class="form-desc">Для каждой ценности укажите количество людей, для которых эта ценность актуальна.</div>
-        
-        <div class="form-item ui-field-contain">
-          <label for="keyvalue-1">Ценность 1:</label>
-          <input type="number" name="keyvalue-1" id="keyvalue-1" data-clear-btn="false" pattern="[0-9]*" data-icon="ui-icon-plus" class="ui-icon" placeholder="0" value="0">
+      <form action="ideamore.html" id="ideastep5form" data-ajax="false">
+        <div class="form-item">
+          <label for="idea-income" class="">Доходы</label>
+          <input type="number" id="idea-income" name="income" placeholder="Доходы" data-clear-btn="true" />
         </div>
-        <div class="form-item ui-field-contain">
-          <label for="keyvalue-3">Ценность 2:</label>
-          <input type="number" name="keyvalue-3" id="keyvalue-2" data-clear-btn="false" pattern="[0-9]*" data-icon="ui-icon-plus" class="ui-icon" placeholder="0" value="0">
+        <div class="form-item">
+          <label for="idea-investments" class="">Необходимые инвестиции</label>
+          <input type="number" id="idea-investments" name="investments" placeholder="Необходимые инвестиции" data-clear-btn="true" />
         </div>
-        <div class="form-item ui-field-contain">
-          <label for="keyvalue-3">Ценность 3:</label>
-          <input type="number" name="keyvalue-3" id="keyvalue-3" data-clear-btn="false" pattern="[0-9]*" data-icon="ui-icon-plus" class="ui-icon" placeholder="0" value="0">
+        <div class="form-item">
+          <label for="idea-investment-source-1" class="">Источники покрытия (свои)</label>
+          <input type="number" id="idea-investment-source-1" name="investment-source-1" placeholder="Источники покрытия (свои)" data-clear-btn="true" />
         </div>
-        <div class="form-item ui-field-contain">
-          <label for="keyvalue-4">Ценность 4:</label>
-          <input type="number" name="keyvalue-4" id="keyvalue-4" data-clear-btn="false" pattern="[0-9]*" data-icon="ui-icon-plus" class="ui-icon" placeholder="0" value="0">
+        <div class="form-item">
+          <label for="idea-investment-source-2" class="">Источники покрытия (кредитные)</label>
+          <input type="number" id="idea-investment-source-2" name="investment-source-2" placeholder="Источники покрытия (кредитные)" data-clear-btn="true" />
         </div>
-        <div class="form-item ui-field-contain">
-          <label for="keyvalue-5">Ценность 5:</label>
-          <input type="number" name="keyvalue-5" id="keyvalue-5" data-clear-btn="false" pattern="[0-9]*" data-icon="ui-icon-plus" class="ui-icon" placeholder="0" value="0">
+        <div class="form-item">
+          <label for="idea-investment-source-3" class="">Источники покрытия (инвестор)</label>
+          <input type="number" id="idea-investment-source-3" name="investment-source-3" placeholder="Источники покрытия (инвестор)" data-clear-btn="true" />
         </div>
-        
+
         <button class="ui-btn ui-btn-submit ui-btn-ybi ui-corner-all ui-btn-icon-right ui-icon-ybi-stepforward" type="submit" id="submit-idea-steps">Следующий шаг</button>
       </form>
     </div><!-- /content -->

@@ -21,8 +21,28 @@
   
   
   
-  $( document ).bind( "pagecreate", function( e ) {
+  $(document).on('pagecreate', function(e) {
 
+    // Panel swipe
+    if ($('#left-panel').length) {
+      $(document).on('swipeleft swiperight', function( e ) {
+        // We check if there is no open panel on the page because otherwise
+        // a swipe to close the left panel would also open the right panel (and v.v.).
+        // We do this by checking the data that the framework stores on the page element (panel: open).
+        if ( $( ".ui-page-active" ).jqmData( "panel" ) !== "open" ) {
+          if ( e.type === "swiperight" ) {
+            $( "#left-panel" ).panel( "open" );
+          } else if ( e.type === "swipeleft" ) {
+            $( "#left-panel" ).panel( "close" );
+          }
+        }
+      });
+    }
+  
+    // Form validate
+    $("form").validate();
+  
+    // Tabs 
     $('.tabs__caption').on('click', 'li:not(.tabs__content_active)', function() {
       $(this).addClass('tabs__item_active')
           .siblings()
@@ -33,16 +53,75 @@
           .eq( $(this).index() ).addClass('tabs__content_active');
     });
     
-    $('#signin form').submit(function(e){
+    // Signin form
+    $('#signin-form').submit(function(e){
       e.preventDefault();
       
-      $(':mobile-pagecontainer').pagecontainer('change', 'idea.html');
+      if ($("#signin-form:has(.required.error)").length == 0)
+        $(':mobile-pagecontainer').pagecontainer('change', 'idea.html');
+    });
+    
+    // Signup form
+    $('#signup-form').submit(function(e){
+      e.preventDefault();
+      
+      if ($("#signup-form:has(.required.error)").length == 0) {
+        $.ajax({
+          type: "POST",
+          url: "http://y-b-i.com/api/user.php",
+          data: $(this).serialize(),
+          cache: false,
+          async: 'true',
+        })
+        .done(function(data, textStatus, jqXHR) {
+            console.log('done');
+            console.log(jqXHR.responseText);
+          
+            // Notification
+            /*navigator.notification.alert(
+              'Идея успешно сохранена!',  // message
+              null,                   // callback
+              textStatus + ' | ' + data,            // title
+              'ok'                  // buttonName
+            );*/
+          
+          
+            $.mobile.loading('show');
+            
+            data = $.parseJSON(data);
+            
+            if (data.uid && data.uid != 0) {
+              console.log("Вы успешно зарегистрированы.");
+              
+              var div = $('<div/>', {
+                'data-uid': data.uid
+              }).appendTo('body');
+              
+              //$(':mobile-pagecontainer').pagecontainer('change', 'idea.html');
+            }
+
+            $.mobile.loading('hide');
+        })
+        .fail(function(jqXHR, textStatus, errorThrown) {
+          console.log('fail');
+          console.log(jqXHR.responseText);
+          
+          // Notification
+          /*navigator.notification.alert(
+            'Идея успешно сохранена!',  // message
+            null,                   // callback
+            textStatus + ' | ' + data,            // title
+            'Ок'                  // buttonName
+          );*/
+          
+        });
+      }
     });
     
     
     
-    // Idea add
-    $('#ideaaddform .form-item').on('click', 'a.form-item-add', function(e) {
+    // Form-item multiple
+    $('.form-item-multiple').on('click', 'a.form-item-add', function(e) {
         e.preventDefault();
         
         var fieldItem = $(this).parents('.form-item'),
@@ -56,16 +135,18 @@
         fieldNew.textinput();
         controlGroup.controlgroup('refresh');
     });
+    
+    
     $('#ideaaddform').submit(function(e){
       e.preventDefault();
       
       // Notification
-      navigator.notification.alert(
+      /*navigator.notification.alert(
         'form submit!',  // message
         null,                   // callback
         'test',            // title
         'Ок'                  // buttonName
-      );
+      );*/
       
       //console.log($(this).serialize());
       //console.log(JSON.stringify($(this).serialize()));
@@ -75,18 +156,19 @@
         url: "http://y-b-i.com/api/idea.php",
         data: $(this).serialize(),
         cache: false,
+        async: 'true',
       })
       .done(function(data, textStatus, jqXHR) {
           console.log('done');
           console.log(jqXHR.responseText);
         
           // Notification
-          navigator.notification.alert(
+          /*navigator.notification.alert(
             'Идея успешно сохранена!',  // message
             null,                   // callback
             textStatus + ' | ' + data,            // title
             'ok'                  // buttonName
-          );
+          );*/
         
         
           $.mobile.loading('show');
@@ -128,11 +210,13 @@
       e.preventDefault();
       $(':mobile-pagecontainer').pagecontainer('change', 'ideastep-2.html');
     });
+    
     // Idea step 2
     $('#ideastep2form').submit(function(e){
       e.preventDefault();
       $(':mobile-pagecontainer').pagecontainer('change', 'ideastep-3.html');
     });
+    
 
   });
 })( jQuery );

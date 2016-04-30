@@ -2,7 +2,7 @@
 <html lang="RU-ru">
 <head>
 	<meta charset="UTF-8">
-	<title>Новая идея</title>
+	<title>Smartmarker умный маркер для магнитной доски</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   
   <link rel="stylesheet" href="css/jquery.mobile.structure-1.4.5.min.css" />
@@ -13,9 +13,9 @@
 <body>
   <div data-role="page" id="idea-add" data-theme="d">
     <div data-role="header" id="header">
-			<h1 id="page-title">Новая идея</h1>
-      <div data-role="controlgroup" data-type="horizontal" class="ui-mini ui-btn-right">
-        <a href="#" class="ui-btn ui-btn-ybi ui-corner-all ui-shadow ui-btn-icon-notext ui-btn-icon-right ui-icon-ybi-add">Add</a>
+			<h1 id="page-title">Smartmarker умный маркер для магнитной доски</h1>
+      <div data-role="controlgroup" data-type="vertical" class="ui-mini ui-btn-right count-2">
+        <a href="idea.html" class="ui-btn ui-btn-ybi ui-corner-all ui-shadow ui-btn-icon-notext ui-btn-icon-right ui-icon-ybi-confirm">Save</a>
         <a href="idea.html" class="ui-btn ui-btn-ybi ui-corner-all ui-shadow ui-btn-icon-notext ui-btn-icon-right ui-icon-ybi-cancel" data-rel="back">Cancel</a>
       </div>
     </div><!-- /header -->
@@ -25,28 +25,29 @@
         <form action="" id="ideaaddform" data-ajax="false">
           <div class="form-item">
             <label for="idea-name" class="ui-hidden-accessible">Название идеи</label>
-            <input type="text" id="idea-title" class="required" name="title" placeholder="Название идеи" data-clear-btn="true" />
+            <input type="text" id="idea-title" name="title" placeholder="Название идеи" value="Smartmarker умный маркер для магнитной доски" data-clear-btn="true" />
           </div>
           <div class="form-item">
             <label for="idea-category" class="ui-hidden-accessible">Категория</label>
             <select name="category" id="idea-category" data-icon="ybi-carat">
-                <option value="none">Без категории</option>
                 <option value="Производство">Производство</option>
                 <option value="Торговля">Торговля</option>
                 <option value="ИТ">ИТ</option>
-                <option value="Высокие технологии">Высокие технологии</option>
+                <option value="Высокие технологии" selected>Высокие технологии</option>
             </select>
           </div>
           <div class="form-item">
             <label for="idea-desc" class="ui-hidden-accessible">Описание идеи</label>
-            <textarea id="idea-desc" class="required" name="description" placeholder="Описание идеи" rows="4" data-clear-btn="true"></textarea>
+            <textarea id="idea-desc" name="description" placeholder="Описание идеи" rows="4" data-clear-btn="true">Идейные соображения высшего порядка, а также укрепление и развитие структуры влечет за собой процесс внедрения и модернизации направлений прогрессивного развития. Таким образом укрепление и развитие структуры представляет собой интересный эксперимент проверки соответствующий условий активизации.</textarea>
           </div>
           <div class="line-separator"></div>
           
           <div class="form-item form-item-multiple form-item-idea-audience">
             <label for="idea-audience" class="has-icon">Целевая аудитория <a href="#" class="form-item-add ui-btn ui-btn-ybi ui-btn-icon-notext ui-btn-icon-right ui-icon-ybi-add">Add item</a></label>
             <div data-role="controlgroup" class="controlgroup">
-              <input type="text" id="idea-audience" class="multiple required" name="audience" placeholder="Название группы" data-clear-btn="true" />
+              <input type="text" id="idea-audience" class="multiple" name="audience" value="Студенты" placeholder="Название группы" data-clear-btn="true" />
+              <input type="text" id="idea-audience-2" class="multiple" name="audience-2" value="Бизнес-тренеры" placeholder="Название группы" data-clear-btn="true" />
+              <input type="text" id="idea-audience-3" class="multiple" name="audience-3" value="Дизайнеры" placeholder="Название группы" data-clear-btn="true" />
             </div>
           </div>
           <div class="line-separator"></div>
@@ -54,7 +55,8 @@
           <div class="form-item form-item-multiple form-item-idea-keyvalue">
             <label for="idea-keyvalue" class="has-icon">Ключевые ценности <a href="#" class="form-item-add ui-btn ui-btn-ybi ui-btn-icon-notext ui-btn-icon-right ui-icon-ybi-add">Add item</a></label>
             <div data-role="controlgroup" class="controlgroup">
-              <input type="text" id="idea-keyvalue" class="multiple required" name="keyvalue" placeholder="Ценность" data-clear-btn="true" />
+              <input type="text" id="idea-keyvalue" class="multiple" name="keyvalue" value="Сохраняет все записи в электронном формате" placeholder="Ценность" data-clear-btn="true" />
+              <input type="text" id="idea-keyvalue-2" class="multiple" name="keyvalue-2" value="Можно наблюдать запись из самых отдаленных мест помещения" placeholder="Ценность" data-clear-btn="true" />
             </div>
           </div>
           
@@ -78,7 +80,6 @@
     </div><!-- /footer -->
   </div><!-- /page -->
 
-  <script src="js/jquery.validate.min.js"></script>
   <script src="js/main.js"></script>
 </body>
 </html>
