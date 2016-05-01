@@ -62,7 +62,8 @@
     });
     
     // Signup form
-    $('#signup-form').submit(function(e){
+    //$('#signup-form').submit(function(e){
+    $('#signup-form .ui-input-btn').on('click', 'input', function(e){
       e.preventDefault();
       
       if ($("#signup-form:has(.required.error)").length == 0) {
@@ -70,7 +71,9 @@
           type: "POST",
           //dataType: 'json',
           url: "http://y-b-i.com/api/user.php",
-          data: $(this).serialize(),
+          //data: $(this).serialize(),
+          //data: JSON.stringify({"name": "Test", "mail": "test@test", "pass": "test"}),
+          data: {"name": "Test", "mail": "test@test", "pass": "test"},
           cache: false,
           async: 'true',
         })
