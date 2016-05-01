@@ -68,52 +68,52 @@
       if ($("#signup-form:has(.required.error)").length == 0) {
         $.ajax({
           type: "POST",
-          dataType: 'json',
           url: "http://y-b-i.com/api/user.php",
           data: $(this).serialize(),
           cache: false,
           async: 'true',
         })
         .done(function(data, textStatus, jqXHR) {
-            data = $.parseJSON(data);
             console.log('done');
-            console.log(data);
-
+            console.log(jqXHR.responseText);
+          
+            // Notification
+            /*navigator.notification.alert(
+              'Идея успешно сохранена!',  // message
+              null,                   // callback
+              textStatus + ' | ' + data,            // title
+              'ok'                  // buttonName
+            );*/
+          
+          
             $.mobile.loading('show');
             
+            data = $.parseJSON(data);
+            
             if (data.uid && data.uid != 0) {
+              console.log("Вы успешно зарегистрированы.");
+              
               var div = $('<div/>', {
                 'data-uid': data.uid
               }).appendTo('body');
               
-              console.log("Вы успешно зарегистрированы.");
-              // Notification
-              function alertCallback() {
-                $(':mobile-pagecontainer').pagecontainer('change', 'idea.html');
-              }
-
-              navigator.notification.alert(
-                'Вы успешно зарегистрированы! Теперь Вы можете приступить к добавлению идей.',
-                alertCallback,
-                'Регистрация',
-                'Закрыть'
-              );
+              //$(':mobile-pagecontainer').pagecontainer('change', 'idea.html');
             }
 
             $.mobile.loading('hide');
         })
         .fail(function(jqXHR, textStatus, errorThrown) {
-          data = $.parseJSON(jqXHR.responseText);
           console.log('fail');
-          console.log(data);
+          console.log(jqXHR.responseText);
           
           // Notification
-          navigator.notification.alert(
-            data.error_text,
-            null,
-            'Регистрация',
-            'Закрыть'
-          );
+          /*navigator.notification.alert(
+            'Идея успешно сохранена!',  // message
+            null,                   // callback
+            textStatus + ' | ' + data,            // title
+            'Ок'                  // buttonName
+          );*/
+          
         });
       }
     });
@@ -169,6 +169,7 @@
             textStatus + ' | ' + data,            // title
             'ok'                  // buttonName
           );*/
+        
         
           $.mobile.loading('show');
           

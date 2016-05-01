@@ -1,7 +1,6 @@
 /**
  * FONTS
  */
- 
 @font-face {
     font-family: 'open_sansregular';
     src: url('../fonts/opensans-regular.woff2') format('woff2'),
@@ -210,6 +209,32 @@ div#header p {
   background: rgba(0,0,0,.2);
   -webkit-transition: all 1s ease 0s;
           transition: all 1s ease 0s;
+}
+.ui-panel .ui-header {
+  border: none;
+  border-bottom: 1px solid #85C9AD;
+}
+.ui-panel .ui-header .ui-title {
+  font: normal 1.143em/1 open_sansbold;
+}
+.ui-panel .ui-footer {
+  padding: 1.1em 1em;
+  border-top: 1px solid #85C9AD;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+.ui-panel .ui-footer .copyright {
+  color: #999;
+}
+.ui-panel #menu > li > a {
+  border-color: #85C9AD;
+  text-decoration: none;
+}
+.ui-panel #menu > li.ui-first-child > a {
+  border-top: none;
+}
+.ui-panel #menu > li.ui-last-child > a {
+  border-bottom: none;
 }
 
 
