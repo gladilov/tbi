@@ -446,10 +446,11 @@ textarea.ui-input-text::-webkit-input-placeholder {
   margin-left: 5px;
 }
 .btn,
-.ui-btn-submit {
+.ui-btn-submit,
+.ui-input-btn {
   width: 100%;
   padding: 1em;
-  margin-top: 1.5em;
+  margin: .7em 0;
   color: #16635D; 
   border-radius: 6px;
   background: #3BB2A7;
@@ -458,10 +459,6 @@ textarea.ui-input-text::-webkit-input-placeholder {
   border: none;
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
-}
-.btn_singup,
-.btn_singin {
-  margin: 30px auto;
 }
 
 
@@ -707,6 +704,10 @@ textarea.ui-input-text::-webkit-input-placeholder {
 }
 #signup-form .form-item-signup-name {
   margin-top: 0;
+}
+#signin-form .ui-input-btn,
+#signup-form .ui-input-btn {
+  margin: 30px auto;
 }
 
 

@@ -68,12 +68,12 @@
       
       if ($("#signup-form:has(.required.error)").length == 0) {
         $.ajax({
-          type: "POST",
+          type: "GET",
           //dataType: 'json',
           url: "http://y-b-i.com/api/user.php",
           //data: $(this).serialize(),
-          //data: JSON.stringify({"name": "Test", "mail": "test@test", "pass": "test"}),
-          data: {"name": "Test", "mail": "test@test", "pass": "test"},
+          //data: JSON.stringify({"method": "post", "name": "Test", "mail": "test@test", "pass": "test"}),
+          data: {"method": "post", "name": $('#signup-form input[name=name]').val(), "mail": $('#signup-form input[name=mail]').val(), "pass": $('#signup-form input[name=pass]').val()},
           cache: false,
           async: 'true',
         })
