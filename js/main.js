@@ -68,7 +68,7 @@
       if ($("#signup-form:has(.required.error)").length == 0) {
         $.ajax({
           type: "POST",
-          dataType: 'json',
+          //dataType: 'json',
           url: "http://y-b-i.com/api/user.php",
           data: $(this).serialize(),
           cache: false,
