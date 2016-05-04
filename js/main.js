@@ -19,7 +19,84 @@
 
   }
   
-  
+  $(document).on('pageinit', '#signin-signup', function(){
+    
+    var jqxhr = $.ajax({
+        type: "POST",
+        dataType: 'json',
+        url: "http://y-b-i.com/api/user.php",
+        data: {'test': 'test'},
+        cache: false,
+        async: true,
+      })
+      .done(function(data, textStatus, jqXHR) {
+        alert( "success" );
+        alert(data.post.test);
+      })
+      .fail(function(jqXHR, textStatus, errorThrown) {
+        alert( "error" );
+      })
+      .always(function() {
+        alert( "complete" );
+      });
+    
+    // Signup form
+    /*$('#signup-form').submit(function(e){
+      e.preventDefault();
+      
+      if ($("#signup-form:has(.required.error)").length == 0) {
+        $.ajax({
+          type: "POST",
+          dataType: 'json',
+          url: "http://y-b-i.com/api/user.php",
+          data: $(this).serialize(),
+          cache: false,
+          async: 'true',
+        })
+        .done(function(data, textStatus, jqXHR) {
+            data = $.parseJSON(data);
+            console.log('done');
+            console.log(data);
+
+            $.mobile.loading('show');
+            
+            if (data.uid && data.uid != 0) {
+              var div = $('<div/>', {
+                'data-uid': data.uid
+              }).appendTo('body');
+              
+              console.log("Вы успешно зарегистрированы.");
+              // Notification
+              function alertCallback() {
+                $(':mobile-pagecontainer').pagecontainer('change', 'idea.html');
+              }
+
+              navigator.notification.alert(
+                'Вы успешно зарегистрированы! Теперь Вы можете приступить к добавлению идей.',
+                alertCallback,
+                'Регистрация',
+                'Закрыть'
+              );
+            }
+
+            $.mobile.loading('hide');
+        })
+        .fail(function(jqXHR, textStatus, errorThrown) {
+          data = $.parseJSON(jqXHR.responseText);
+          console.log('fail');
+          console.log(data);
+          
+          // Notification
+          navigator.notification.alert(
+            data.error_text,
+            null,
+            'Регистрация',
+            'Закрыть'
+          );
+        });
+      }
+    });*/
+  });
   
   $(document).on('pagecreate', function(e) {
 
@@ -62,14 +139,15 @@
     });
     
     // Signup form
-    //$('#signup-form').submit(function(e){
-    $('#signup-form .ui-input-btn').on('click', 'input', function(e){
+    /*$('#signup-form').submit(function(e){
+    //$('#signup-form .ui-input-btn').on('click', 'input', function(e){
       e.preventDefault();
       
       if ($("#signup-form:has(.required.error)").length == 0) {
         $.ajax({
           type: "GET",
           //dataType: 'json',
+          dataType: 'json',
           url: "http://y-b-i.com/api/user.php",
           //data: $(this).serialize(),
           //data: JSON.stringify({"method": "post", "name": "Test", "mail": "test@test", "pass": "test"}),
@@ -119,7 +197,7 @@
           );
         });
       }
-    });
+    });*/
     
     
     
