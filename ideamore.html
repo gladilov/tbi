@@ -13,6 +13,25 @@
 
 <body>
   <div data-role="page" id="idea-single" data-theme="b">
+    <div data-role="panel" id="left-panel" data-position="left" data-position-fixed="true" data-display="overlay">
+      <div data-role="header">
+        <h3>Меню</h3>
+      </div>
+      <div data-role="content">
+        <ul data-role="listview" id="menu">
+          <li><a href="idea.html" id="btn-idea" class="ui-link">Блокнот идей</a></li>
+          <li><a href="#" id="btn-service" class="ui-link">Услуги</a></li>
+          <li><a href="#" id="btn-story" class="ui-link">Истории</a></li>
+          <li><a href="#" id="btn-book" class="ui-link">Книги</a></li>
+          <li><a href="index.html" class="ui-link">Выход</a></li>
+        </ul>
+      </div>
+      
+      <div data-role="footer" data-position="fixed" data-tap-toggle="false">
+        <div class="copyright">Версия: 0.3</div>
+      </div>
+    </div><!-- /panel -->
+    
     <div data-role="header" id="header">
 			<h1 id="page-title">Smartmarker умный маркер для магнитной доски</h1>
       <div data-role="controlgroup" data-type="vertical" class="ui-mini ui-btn-right count-2">

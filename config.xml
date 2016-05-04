@@ -11,7 +11,9 @@
   <author href="http://sapiens.media" email="a.gladilov@yandex.ru">Alex Gladilov</author>
   <content src="index.html"/>
   
-  <access origin="*"/>
+  <!--<access origin="*"/>-->
+  <access origin="http://y-b-i.com/api/*" />
+  
   <preference name="phonegap-version" value="cli-6.0.0" />
   <gap:platform name="ios" />
   <gap:platform name="android" />
