@@ -21,27 +21,46 @@
   
   $(document).on('pageinit', '#signin-signup', function(){
     
-    var jqxhr = $.ajax({
-        type: "POST",
-        dataType: 'json',
-        url: "http://y-b-i.com/api/user.php",
-        data: {'test': 'test'},
-        cache: false,
-        async: true,
-        crossDomain: true,
-      })
-      .done(function(data, textStatus, jqXHR) {
-        alert( "success" );
-        alert(data.post.test);
-      })
-      .fail(function(jqXHR, textStatus, errorThrown) {
-        alert( "error" );
-        alert(textStatus);
-        alert(jqXHR.responseText);
-      })
-      .always(function() {
-        alert( "complete" );
-      });
+    $.post("http://y-b-i.com/api/user.php", {'test': 'post_test_ok'}, function (responseData) {
+      data = $.parseJSON(responseData);
+      alert(data.data.test);
+    });
+    
+$.ajax({
+  type: 'GET',
+  dataType: 'jsonp',
+  jsonpCallback: 'userCreate',
+  url: 'http://y-b-i.com/api/user.php',
+  data: {'method': 'POST', 'data': {'name': 'test', 'pass': '123'}},
+  cache: false,
+  async: true,
+  crossDomain: true,
+})
+.done(function(data, textStatus, jqXHR){
+  alert("success");
+  console.log(data);
+  
+  // Notification
+  navigator.notification.alert(
+    data.status,
+    null,
+    'Test ajax jsonp',
+    'Закрыть'
+  );
+})
+.fail(function(jqXHR, textStatus, errorThrown){
+  alert("error");
+  console.log(data);
+  
+  // Notification
+  navigator.notification.alert(
+    jqXHR.responseText,
+    null,
+    'Test ajax jsonp',
+    'Закрыть'
+  );
+});
+
     
     // Signup form
     /*$('#signup-form').submit(function(e){

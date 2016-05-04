@@ -203,12 +203,40 @@ div#header p {
   background-color: #16635D;
 }
 .ui-panel {
+  width: 18em;
   background: #E0FFD3;
+  z-index: 1003;
 }
 .ui-panel-dismiss {
-  background: rgba(0,0,0,.2);
-  -webkit-transition: all 1s ease 0s;
-          transition: all 1s ease 0s;
+  display: block;
+  position:fixed;
+  top: 0;
+  left: 0 !important;
+  right: 0;
+  bottom: 0;
+  overflow: hidden;
+  background: rgba(0,0,0,.4);
+  opacity: 0;
+  height: 0;
+  -webkit-transition: height 1ms ease;
+          transition: height 1ms ease;
+  -webkit-transition: opacity .4s ease;
+          transition: opacity .4s ease;
+}
+/*.ui-panel-dismiss:after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: red;
+  -webkit-transition: all 1s ease;
+          transition: all 1s ease;
+}*/
+.ui-panel-dismiss.ui-panel-dismiss-open {
+  height: 100%!important;
+  opacity: 1;
 }
 .ui-panel .ui-header {
   border: none;
