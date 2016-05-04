@@ -28,6 +28,7 @@
         data: {'test': 'test'},
         cache: false,
         async: true,
+        crossDomain: true,
       })
       .done(function(data, textStatus, jqXHR) {
         alert( "success" );
@@ -35,6 +36,8 @@
       })
       .fail(function(jqXHR, textStatus, errorThrown) {
         alert( "error" );
+        alert(textStatus);
+        alert(jqXHR.responseText);
       })
       .always(function() {
         alert( "complete" );
