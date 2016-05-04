@@ -1,13 +1,11 @@
-
-
 ( function( $, undefined ) {
 
-  $( document ).bind( "mobileinit", function() {
+  $(document).on('mobileinit', function() {
     $.support.cors = true;
     $.mobile.allowCrossDomainPages = true;
   });
   
-  $(document).ready(function() {
+  /*$(document).ready(function() {
     document.addEventListener("deviceready", onDeviceReady, false);
     //onDeviceReady();
   });
@@ -17,14 +15,22 @@
     console.log('deviceready');
     console.log(navigator.network.connection.type);
 
-  }
+  }*/
   
   $(document).on('pageinit', '#signin-signup', function(){
     
-    $.post("http://y-b-i.com/api/user.php", {'test': 'post_test_ok'}, function (responseData) {
+    /*$.post("http://y-b-i.com/api/user.php", {'test': 'post_test_ok'}, function (responseData) {
       data = $.parseJSON(responseData);
       alert(data.data.test);
-    });
+    });*/
+    
+// Notification
+navigator.notification.alert(
+  'Test start',
+  null,
+  'Test ajax jsonp',
+  'Закрыть'
+);
     
 $.ajax({
   type: 'GET',
@@ -61,7 +67,14 @@ $.ajax({
   );
 });
 
-    
+// Notification
+navigator.notification.alert(
+  'Test stop',
+  null,
+  'Test ajax jsonp',
+  'Закрыть'
+);
+
     // Signup form
     /*$('#signup-form').submit(function(e){
       e.preventDefault();
@@ -122,6 +135,43 @@ $.ajax({
   
   $(document).on('pagecreate', function(e) {
 
+  
+$.ajax({
+  type: 'GET',
+  dataType: 'jsonp',
+  jsonpCallback: 'userCreate',
+  url: 'http://y-b-i.com/api/user.php',
+  data: {'method': 'POST', 'data': {'name': 'test', 'pass': '123'}},
+  cache: false,
+  async: true,
+  crossDomain: true,
+})
+.done(function(data, textStatus, jqXHR){
+  alert("success");
+  console.log(data);
+  
+  // Notification
+  navigator.notification.alert(
+    data.status,
+    null,
+    'Test ajax jsonp',
+    'Закрыть'
+  );
+})
+.fail(function(jqXHR, textStatus, errorThrown){
+  alert("error");
+  console.log(data);
+  
+  // Notification
+  navigator.notification.alert(
+    jqXHR.responseText,
+    null,
+    'Test ajax jsonp',
+    'Закрыть'
+  );
+});
+  
+  
     // Panel swipe
     if ($('#left-panel').length) {
       $(document).on('swipeleft swiperight', function( e ) {
