@@ -25,9 +25,19 @@
     $(document).on('pageinit', '#signin-signup', function(){
       // Notification
       navigator.notification.alert(
-        'Page',
+        'pageinit',
         null,
         'signin-signup',
+        'Закрыть'
+      );
+    });
+    
+    $(document).on('pagecreate', function(e) {
+      // Notification
+      navigator.notification.alert(
+        'pagecreate',
+        null,
+        'pagecreate',
         'Закрыть'
       );
     });
