@@ -31,7 +31,8 @@ navigator.notification.alert(
   'Test ajax jsonp',
   'Закрыть'
 );
-    
+   
+/*   
 $.ajax({
   type: 'GET',
   dataType: 'jsonp',
@@ -65,7 +66,7 @@ $.ajax({
     'Test ajax jsonp',
     'Закрыть'
   );
-});
+});*/
 
 // Notification
 navigator.notification.alert(
@@ -135,7 +136,7 @@ navigator.notification.alert(
   
   $(document).on('pagecreate', function(e) {
 
-  
+  /*
 $.ajax({
   type: 'GET',
   dataType: 'jsonp',
@@ -169,7 +170,7 @@ $.ajax({
     'Test ajax jsonp',
     'Закрыть'
   );
-});
+});*/
   
   
     // Panel swipe
