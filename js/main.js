@@ -136,6 +136,14 @@ $.ajax({
   
   $(document).on('pagecreate', function(e) {
 
+    // Notification
+    navigator.notification.alert(
+      'Test start',
+      null,
+      'Test ajax jsonp',
+      'Закрыть'
+    );
+  
   /*
 $.ajax({
   type: 'GET',
