@@ -17,7 +17,7 @@
 
   }*/
   
-  $(document).on('pageinit', '#signin-signup', function(){
+  //$(document).on('pageinit', '#signin-signup', function(){
     
     /*$.post("http://y-b-i.com/api/user.php", {'test': 'post_test_ok'}, function (responseData) {
       data = $.parseJSON(responseData);
@@ -25,12 +25,12 @@
     });*/
     
 // Notification
-navigator.notification.alert(
+/*navigator.notification.alert(
   'Test start',
   null,
   'Test ajax jsonp',
   'Закрыть'
-);
+);*/
    
 /*   
 $.ajax({
@@ -69,12 +69,12 @@ $.ajax({
 });*/
 
 // Notification
-navigator.notification.alert(
+/*navigator.notification.alert(
   'Test stop',
   null,
   'Test ajax jsonp',
   'Закрыть'
-);
+);*/
 
     // Signup form
     /*$('#signup-form').submit(function(e){
@@ -132,7 +132,7 @@ navigator.notification.alert(
         });
       }
     });*/
-  });
+  //});
   
   $(document).on('pagecreate', function(e) {
 

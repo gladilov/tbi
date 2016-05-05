@@ -465,7 +465,6 @@ textarea.ui-input-text::-webkit-input-placeholder {
 }
 .form__description {
   text-align: center;
-  color: #cde5d7;
 }
 .form__license {
   margin-right: 5px;
