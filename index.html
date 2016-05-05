@@ -1,15 +1,12 @@
 <!DOCTYPE html> 
 <html lang="RU-ru">
 <head>
-  <meta charset="UTF-8"/>
-  <title>YBI</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="UTF-8" />
   <meta name="format-detection" content="telephone=no" />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>YBI</title>
   <link rel="stylesheet" href="css/jquery.mobile.structure-1.4.5.min.css" />
   <link rel="stylesheet" href="css/styles.css"/>
-  <script type="text/javascript" src="js/jquery-1.12.1.min.js"></script>
-  <script type="text/javascript" src="js/jquery.mobile-1.4.5.min.js"></script>
-  <script type="text/javascript" src="js/jquery.validate.min.js"></script>
 </head>
 <body>
   <div data-role="page" id="signin-signup" data-theme="d">
@@ -68,6 +65,12 @@
   </div><!-- /page -->
   
   <script type="text/javascript" src="cordova.js"></script>
+  <script type="text/javascript" src="js/jquery-1.12.1.min.js"></script>
+  <script type="text/javascript" src="js/jquery.mobile-1.4.5.min.js"></script>
+  <script type="text/javascript" src="js/jquery.validate.min.js"></script>
   <script type="text/javascript" src="js/main.js"></script>
+  <script type="text/javascript">
+      app.initialize();
+  </script>
 </body>
 </html>
