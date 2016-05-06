@@ -40,25 +40,16 @@
         'pagecreate',
         'Закрыть'
       );
-    });
-  }
-  
-  //$(document).on('pageinit', '#signin-signup', function(){
-    
-    /*$.post("http://y-b-i.com/api/user.php", {'test': 'post_test_ok'}, function (responseData) {
-      data = $.parseJSON(responseData);
-      alert(data.data.test);
-    });*/
-    
-// Notification
-/*navigator.notification.alert(
-  'Test start',
-  null,
-  'Test ajax jsonp',
-  'Закрыть'
-);*/
-   
-/*   
+      
+      // Notification
+      navigator.notification.alert(
+        'Test start',
+        null,
+        'Test ajax jsonp',
+        'Закрыть'
+      );
+      
+ 
 $.ajax({
   type: 'GET',
   dataType: 'jsonp',
@@ -77,7 +68,7 @@ $.ajax({
   navigator.notification.alert(
     data.status,
     null,
-    'Test ajax jsonp',
+    'Test ajax jsonp - saccess',
     'Закрыть'
   );
 })
@@ -89,18 +80,30 @@ $.ajax({
   navigator.notification.alert(
     jqXHR.responseText,
     null,
-    'Test ajax jsonp',
+    'Test ajax jsonp - error',
     'Закрыть'
   );
-});*/
+});
 
-// Notification
-/*navigator.notification.alert(
-  'Test stop',
-  null,
-  'Test ajax jsonp',
-  'Закрыть'
-);*/
+      // Notification
+      navigator.notification.alert(
+        'Test stop',
+        null,
+        'Test ajax jsonp',
+        'Закрыть'
+      );
+      
+      
+    });
+  }
+  
+  //$(document).on('pageinit', '#signin-signup', function(){
+    
+    /*$.post("http://y-b-i.com/api/user.php", {'test': 'post_test_ok'}, function (responseData) {
+      data = $.parseJSON(responseData);
+      alert(data.data.test);
+    });*/
+   
 
     // Signup form
     /*$('#signup-form').submit(function(e){
