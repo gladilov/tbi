@@ -559,13 +559,13 @@ textarea.ui-input-text::-webkit-input-placeholder {
 .ui-icon-loading { background: url(../img/ajax-loader.gif); background-size: 2.875em 2.875em; }
 
 .ui-btn-ybi.ui-icon-ybi-share {
-  width: 29px !important;
+  width: 30px !important;
   height: 26px !important;
 }
 .ui-btn-ybi.ui-icon-ybi-share:after {
-  width: 29px;
+  width: 30px;
   height: 26px;
-  margin-left: -14.5px;
+  margin-left: -15px;
   margin-top: -13px;
 }
 .ui-btn-ybi.ui-icon-ybi-stats-1.ui-btn-icon-left {
@@ -659,7 +659,7 @@ textarea.ui-input-text::-webkit-input-placeholder {
 #popupIdeaFilter .ui-radio label:after {
   display: none;
   right: 0;
-  width: 16px;
+  width: 17px;
   height: 14px;
   margin-top: -7px;
   background: url(../img/tick.png) 50% 50% no-repeat;
@@ -854,9 +854,9 @@ textarea.ui-input-text::-webkit-input-placeholder {
 	content: url("../img/greentick.png");
 	position: absolute;
 	left: 14px;
-	top: 18px;
+	top: 17px;
   width: 20px;
-  height: 16px;
+  height: 17px;
 }
 #idea-single-accordion .ui-collapsible-content .progress-info {
   position: relative;
