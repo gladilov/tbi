@@ -94,12 +94,17 @@
     <splash src="res/screen/android/splash-xhdpi.png" density="xhdpi" />
   </platform>
 
-  <gap:config-file platform="ios" parent="UIStatusBarHidden">
+  <!--<gap:config-file platform="ios" parent="UIStatusBarHidden">
     <false/>
   </gap:config-file>
 
   <gap:config-file platform="ios" parent="UIViewControllerBasedStatusBarAppearance">
     <true/>
-  </gap:config-file>
+  </gap:config-file>-->
+  
+  <key>UIStatusBarHidden</key>
+  <true/>
+  <key>UIViewControllerBasedStatusBarAppearance</key>
+  <false/>
 
 </widget>
