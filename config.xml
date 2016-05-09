@@ -103,8 +103,8 @@
   </gap:config-file>-->
   
   <key>UIStatusBarHidden</key>
-  <true/>
-  <key>UIViewControllerBasedStatusBarAppearance</key>
   <false/>
+  <key>UIViewControllerBasedStatusBarAppearance</key>
+  <true/>
 
 </widget>

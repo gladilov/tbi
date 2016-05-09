@@ -18,6 +18,7 @@
   });
 
   $.when(deviceReadyDeferred, jqmReadyDeferred).then(doWhenBothFrameworksLoaded);
+  //$.when(jqmReadyDeferred).then(doWhenBothFrameworksLoaded);
 
   function doWhenBothFrameworksLoaded() {
     // StatusBar
@@ -26,7 +27,10 @@
       StatusBar.backgroundColorByHexString("#16635D");
     }
     
+    console.log('doWhenBothFrameworksLoaded');
+    
     $(document).on('pagecreate', function(e) {
+    console.log('pagecreate');
       
       // Panel swipe
       if ($('#left-panel').length) {
