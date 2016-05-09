@@ -26,17 +26,12 @@
     if (cordova.platformId == 'android') {
       StatusBar.backgroundColorByHexString("#16635D");
     }*/
-    
-    
-    /*$(document).on('pagecontainercreate', function(event, ui) {
-      console.log('pagecontainercreate');
+
+    // App version
+    var appVersion = '0.5';
+    $(document).on('pagecontainershow', function(event, ui) {
+      $('.app-version .value').html(appVersion);
     });
-    $(document).on('pagecontainerload', function(event, ui) {
-      console.log('pagecontainerload');
-    });
-    $(document).one('pagecontainershow', function(event, ui) {
-      console.log('pagecontainershow');
-    });*/
     
     //$(document).on('pagecontainercreate', function(e) {
     //$(document).on('pagecreate', function(e) {
@@ -59,7 +54,7 @@
       
     
       // Form validate
-      //$("form").validate();
+      $('form').validate();
 
       
       // Form-item multiple
@@ -80,59 +75,110 @@
       
       
       // Signin form
+      $('#signin-form').validate();
       $('#signin-form').submit(function(e){
         e.preventDefault();
+        var $thisForm = $(this);
         
-        //if ($("#signin-form:has(.required.error)").length == 0)
-          $(':mobile-pagecontainer').pagecontainer('change', 'idea.html');
+        if ($("#signin-form:has(input.required.error)").length == 0) {
+          $.ajax({
+            type: 'GET',
+            dataType: 'jsonp',
+            jsonpCallback: 'userCheck',
+            contentType: "application/json; charset=utf-8",
+            url: 'http://y-b-i.com/api/user.php',
+            data: {'method': 'get', 'data': $(this).serialize()},
+            cache: false,
+            async: true,
+            crossDomain: true,
+          })
+          .done(function(data, textStatus, jqXHR) {
+            // Success:
+            if (data.status == 'success') {
+              $thisForm.find('.ui-input-text > input').removeClass('error');
+              $(':mobile-pagecontainer').pagecontainer('change', 'idea.html');
+            }
+            // Error:
+            else if (data.status == 'error') {
+              $thisForm.find('.ui-input-text > input').addClass('error');
+
+              navigator.notification.alert(
+                data.message,
+                null,
+                'Авторизация',
+                'Закрыть'
+              );
+            }
+          })
+          .fail(function(jqXHR, textStatus, errorThrown) {
+            navigator.notification.alert(
+              'Ошибка авторизации.',
+              null,
+              'Авторизация',
+              'Закрыть'
+            );
+          });
+        }
       });
       
       
       // Signup form
+      $('#signup-form').validate();
       $('#signup-form').submit(function(e){
         e.preventDefault();
+        var $thisForm = $(this);
         
-        $.ajax({
-          type: 'GET',
-          dataType: 'jsonp',
-          jsonpCallback: 'userCreate',
-          contentType: "application/json; charset=utf-8",
-          url: 'http://y-b-i.com/api/debug.php',
-          //data: {"method": "post", "data": $(this).serialize()},
-          data: {"method": "post", "data": "signup-form submit"},
-          cache: false,
-          async: true,
-          crossDomain: true,
-        })
-        .done(function(data, textStatus, jqXHR) {
-          //data = $.parseJSON(data);
-          //console.log('done');
-          //console.log(data);
-          
-          navigator.notification.alert(
-            'Вы успешно зарегистрированы! Теперь Вы можете приступить к добавлению идей.',
-            null,
-            'Регистрация',
-            'Закрыть'
-          );
-        })
-        .fail(function(jqXHR, textStatus, errorThrown) {
-          /*data = $.parseJSON(jqXHR.responseText);
-          console.log('fail');
-          console.log(data);*/
-          
-          navigator.notification.alert(
-            'Оштбка регистрации.',
-            null,
-            'Регистрация',
-            'Закрыть'
-          );
-        });
+        if ($("#signup-form:has(input.required.error)").length == 0) {
+          $.ajax({
+            type: 'GET',
+            dataType: 'jsonp',
+            jsonpCallback: 'userCreate',
+            contentType: "application/json; charset=utf-8",
+            url: 'http://y-b-i.com/api/user.php',
+            data: {"method": "post", "data": $(this).serialize()},
+            cache: false,
+            async: true,
+            crossDomain: true,
+          })
+          .done(function(data, textStatus, jqXHR) {
+            console.log('done');
+            console.log(data);
+            
+            // Success:
+            if (data.status == 'success') {
+              $thisForm.find('.ui-input-text > input').removeClass('error');
+              
+              navigator.notification.alert(
+                data.message,
+                function () { $(':mobile-pagecontainer').pagecontainer('change', 'idea.html'); },
+                'Регистрация',
+                'Закрыть'
+              );
+            }
+            // Error:
+            else if (data.status == 'error') {
+              $thisForm.find('.ui-input-text > input').addClass('error');
+
+              navigator.notification.alert(
+                data.message,
+                null,
+                'Регистрация',
+                'Закрыть'
+              );
+            }
+          })
+          .fail(function(jqXHR, textStatus, errorThrown) {
+            navigator.notification.alert(
+              'Ошибка регистрации.',
+              null,
+              'Регистрация',
+              'Закрыть'
+            );
+          });
+        }
       });
 
     
     //});
   }
-
-  
 })(jQuery);
