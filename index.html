@@ -2,7 +2,7 @@
 <html lang="RU-ru">
 <head>
   <meta charset="UTF-8" />
-  <meta http-equiv="Content-Security-Policy" content="default-src *.y-b-i.com; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline' *.y-b-i.com; img-src 'self' data:; font-src 'self' 'unsafe-inline' *.y-b-i.com" />
+  <meta http-equiv="Content-Security-Policy" content="default-src http://y-b-i.com; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline' http://y-b-i.com; connect-src 'self' http://y-b-i.com; img-src 'self' data:; font-src 'self' 'unsafe-inline' http://y-b-i.com" />
   <meta name="format-detection" content="telephone=no" />
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>YBI</title>
@@ -20,48 +20,46 @@
     </div><!-- /header -->
     
     <div data-role="content" role="main" id="content" class="ui-content">
-      <div class="container">
-        <div class="tabs">
-          <ul class="tabs__caption">
-            <li class="tabs__item tabs__item_active"><a href="#signin">Вход</a></li>
-            <li class="tabs__item"><a href="#signup">Регистрация</a></li>
+      <div data-role="tabs" id="tabs-signin-signup">
+        <div data-role="navbar">
+          <ul>
+            <li><a href="#tab-signin" data-ajax="false">Вход</a></li>
+            <li><a href="#tab-signup" data-ajax="false">Регистрация</a></li>
           </ul>
-          <div id="signin" class="tabs__content tabs__content_active">
-            <form method="post" id="signin-form" data-ajax="false">
-              <div class="form-item form-item-signin-email">
-                <label for="signin-email" class="ui-hidden-accessible">Ваша эл. почта</label>
-                <input type="email" id="signin-email" class="required" name="mail" value="demo@demo" placeholder="Ваша эл. почта" autocomplete="off" />
-              </div>
-              <div class="form-item form-item-signin-password">
-                <label for="signin-password" class="ui-hidden-accessible">Пароль</label>
-                <input type="password" id="signin-password" class="required" name="pass" value="demo" placeholder="Пароль" autocomplete="off" />
-              </div>
+        </div>
+        <div id="tab-signin">
+          <form method="post" id="signin-form" data-ajax="false">
+            <div class="form-item form-item-signin-email">
+              <label for="signin-email" class="ui-hidden-accessible">Ваша эл. почта</label>
+              <input type="email" id="signin-email" class="required" name="mail" value="demo@demo" placeholder="Ваша эл. почта" autocomplete="off" />
+            </div>
+            <div class="form-item form-item-signin-password">
+              <label for="signin-password" class="ui-hidden-accessible">Пароль</label>
+              <input type="password" id="signin-password" class="required" name="pass" value="demo" placeholder="Пароль" autocomplete="off" />
+            </div>
 
-              <button type="submit" class="form__submit btn btn_singin">Войти</button>
-              <div class="form__description"><a href="#">Забыл пароль...</a></div>
-            </form>
-          </div>
-          
-          <div id="signup" class="tabs__content">
-            <form method="post" id="signup-form" data-ajax="false">
-              <div class="form-item form-item-signup-name">
-                <label for="signup-name" class="ui-hidden-accessible">Ваше имя</label>
-                <input type="email" id="signup-name" class="required" name="name" placeholder="Ваше имя" autocomplete="off" />
-              </div>
-              <div class="form-item form-item-signup-email">
-                <label for="signup-email" class="ui-hidden-accessible">Ваша эл. почта</label>
-                <input type="email" id="signup-email" class="required" name="mail" placeholder="Ваша эл. почта" autocomplete="off" />
-              </div>
-              <div class="form-item form-item-signup-password">
-                <label for="signup-password" class="ui-hidden-accessible">Пароль</label>
-                <input type="password" id="signup-password" class="required" name="pass" placeholder="Пароль" autocomplete="off" />
-              </div>
+            <input type="submit" value="Войти">
+            <div class="form__description"><a href="#">Забыл пароль...</a></div>
+          </form>
+        </div>
+        <div id="tab-signup">
+          <form method="post" id="signup-form" data-ajax="false">
+            <div class="form-item form-item-signup-name">
+              <label for="signup-name" class="ui-hidden-accessible">Ваше имя</label>
+              <input type="email" id="signup-name" class="required" name="name" placeholder="Ваше имя" autocomplete="off" />
+            </div>
+            <div class="form-item form-item-signup-email">
+              <label for="signup-email" class="ui-hidden-accessible">Ваша эл. почта</label>
+              <input type="email" id="signup-email" class="required" name="mail" placeholder="Ваша эл. почта" autocomplete="off" />
+            </div>
+            <div class="form-item form-item-signup-password">
+              <label for="signup-password" class="ui-hidden-accessible">Пароль</label>
+              <input type="password" id="signup-password" class="required" name="pass" placeholder="Пароль" autocomplete="off" />
+            </div>
 
-              <input type="button" class="btn form__submit btn_singup" value="Зарегистрироваться">
-              <div class="form__description"><a href="#" class="form__license">Лицензия</a>и<a href="#" class="form__conf">Конфиденциальность</a></div>
-            </form>
-          </div>
-          
+            <input type="submit" value="Зарегистрироваться">
+            <div class="form__description"><a href="#" class="form__license">Лицензия</a>и<a href="#" class="form__conf">Конфиденциальность</a></div>
+          </form>
         </div>
       </div>
     </div><!-- /content -->
