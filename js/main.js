@@ -11,6 +11,18 @@
 
   function deviceReady() {
     deviceReadyDeferred.resolve();
+    
+    console.log('console');
+    
+    if (app) {
+      console.log(device);
+      navigator.notification.alert(
+        'Test notification',
+        null,
+        'Test',
+        'Закрыть'
+      );
+    }
   }
 
   $(document).on('mobileinit', function() {
@@ -25,7 +37,7 @@
   function doWhenBothFrameworksLoaded() {
     // StatusBar
     if (app && StatusBar) {
-      StatusBar.overlaysWebView(true);
+      StatusBar.overlaysWebView(false);
       if (cordova.platformId == 'android') {
         StatusBar.backgroundColorByHexString("#16635D");
       }
