@@ -4,9 +4,9 @@
 <widget xmlns     = "http://www.w3.org/ns/widgets"
         xmlns:gap = "http://phonegap.com/ns/1.0"
         id        = "com.ybi.app"
-        version   = "0.6.1">
+        version   = "0.6.2">
         
-  <name>YBI</name>
+  <name>Твоя Бизнес Идея</name>
   <description>YBI app.</description>
   <author href="http://sapiens.media" email="a.gladilov@yandex.ru">Alex Gladilov</author>
   <content src="index.html"/>
