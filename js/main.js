@@ -6,8 +6,6 @@
   var app = document.URL.indexOf( 'http://' ) === -1 && document.URL.indexOf( 'https://' ) === -1;
   var appVersion = '0.6.1';
 
-  alert(app);
-
   document.addEventListener('deviceready', deviceReady, false);
   if (!app) deviceReady();
 
@@ -23,7 +21,6 @@
   });
 
   $.when(deviceReadyDeferred, jqmReadyDeferred).then(doWhenBothFrameworksLoaded);
-  //$.when(jqmReadyDeferred).then(doWhenBothFrameworksLoaded);
 
   function doWhenBothFrameworksLoaded() {
     // StatusBar

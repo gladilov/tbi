@@ -1403,7 +1403,7 @@ div#shareblock ul li {
   height: 1em;
   margin: 1.5em 0 0 -5em;
   text-align: center;
-  color: #16635D;
+  color: #00FFA6;
 }
 /*.page-loader {
   position: relative;
@@ -1453,9 +1453,9 @@ div#shareblock ul li {
   50% { stroke-dasharray: 89, 200; stroke-dashoffset: -35; }
   100% { stroke-dasharray: 89, 200; stroke-dashoffset: -124; }
 }
-@-webkit-keyframes color {/* 00FFA6 */
-  100%, 0% { stroke: #16635D; }
+@-webkit-keyframes color {/* 16635D */
+  100%, 0% { stroke: #00FFA6; }
 }
 @keyframes color {
-  100%, 0% { stroke: #16635D; }
+  100%, 0% { stroke: #00FFA6; }
 }
