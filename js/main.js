@@ -4,7 +4,7 @@
   var jqmReadyDeferred = $.Deferred();
   var $pageLoader = $('.page-loader');
   var app = document.URL.indexOf( 'http://' ) === -1 && document.URL.indexOf( 'https://' ) === -1;
-  var appVersion = '0.6.1';
+  var appVersion = '0.6.2';
 
   document.addEventListener('deviceready', deviceReady, false);
   if (!app) deviceReady();
