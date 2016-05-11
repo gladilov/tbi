@@ -2,9 +2,13 @@
 
   var deviceReadyDeferred = $.Deferred();
   var jqmReadyDeferred = $.Deferred();
+  var $pageLoader = $('.page-loader');
+  var app = document.URL.indexOf( 'http://' ) === -1 && document.URL.indexOf( 'https://' ) === -1;
+
+  alert(app);
 
   document.addEventListener('deviceready', deviceReady, false);
-  //deviceReady();
+  if (!app) deviceReady();
 
   function deviceReady() {
     deviceReadyDeferred.resolve();
@@ -17,15 +21,17 @@
     jqmReadyDeferred.resolve();
   });
 
-  //$.when(deviceReadyDeferred, jqmReadyDeferred).then(doWhenBothFrameworksLoaded);
-  $.when(jqmReadyDeferred).then(doWhenBothFrameworksLoaded);
+  $.when(deviceReadyDeferred, jqmReadyDeferred).then(doWhenBothFrameworksLoaded);
+  //$.when(jqmReadyDeferred).then(doWhenBothFrameworksLoaded);
 
   function doWhenBothFrameworksLoaded() {
     // StatusBar
-    /*StatusBar.overlaysWebView(false);
-    if (cordova.platformId == 'android') {
-      StatusBar.backgroundColorByHexString("#16635D");
-    }*/
+    if (app && StatusBar) {
+      StatusBar.overlaysWebView(true);
+      if (cordova.platformId == 'android') {
+        StatusBar.backgroundColorByHexString("#16635D");
+      }
+    }
 
     // App version
     var appVersion = '0.5';
@@ -81,6 +87,8 @@
         var $thisForm = $(this);
         
         if ($("#signin-form:has(input.required.error)").length == 0) {
+          $pageLoader.show();
+          
           $.ajax({
             type: 'GET',
             dataType: 'jsonp',
@@ -95,27 +103,42 @@
           .done(function(data, textStatus, jqXHR) {
             // Success:
             if (data.status == 'success') {
-              $thisForm.find('.ui-input-text > input').removeClass('error');
-              $(':mobile-pagecontainer').pagecontainer('change', 'idea.html');
+              setTimeout(function() {
+                  $pageLoader.hide();
+                  
+                  $thisForm.find('.ui-input-text > input').removeClass('error');
+                  $(':mobile-pagecontainer').pagecontainer('change', 'idea.html');
+                }, 2000
+              );
             }
             // Error:
             else if (data.status == 'error') {
-              $thisForm.find('.ui-input-text > input').addClass('error');
+              setTimeout(function() {
+                  $pageLoader.hide();
+                  
+                  $thisForm.find('.ui-input-text > input').addClass('error');
 
-              navigator.notification.alert(
-                data.message,
-                null,
-                'Авторизация',
-                'Закрыть'
+                  navigator.notification.alert(
+                    data.message,
+                    null,
+                    'Авторизация',
+                    'Закрыть'
+                  );
+                }, 2000
               );
             }
           })
           .fail(function(jqXHR, textStatus, errorThrown) {
-            navigator.notification.alert(
-              'Ошибка авторизации.',
-              null,
-              'Авторизация',
-              'Закрыть'
+            setTimeout(function() {
+                $pageLoader.hide();
+                
+                navigator.notification.alert(
+                  'Ошибка авторизации.',
+                  null,
+                  'Авторизация',
+                  'Закрыть'
+                );
+              }, 2000
             );
           });
         }
