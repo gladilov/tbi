@@ -1402,6 +1402,8 @@ div#shareblock ul li {
   width: 10em;
   height: 1em;
   margin: 1.5em 0 0 -5em;
+  text-align: center;
+  color: #16635D;
 }
 /*.page-loader {
   position: relative;

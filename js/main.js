@@ -4,6 +4,7 @@
   var jqmReadyDeferred = $.Deferred();
   var $pageLoader = $('.page-loader');
   var app = document.URL.indexOf( 'http://' ) === -1 && document.URL.indexOf( 'https://' ) === -1;
+  var appVersion = '0.6.1';
 
   alert(app);
 
@@ -34,7 +35,6 @@
     }
 
     // App version
-    var appVersion = '0.5';
     $(document).on('pagecontainershow', function(event, ui) {
       $('.app-version .value').html(appVersion);
     });
@@ -87,7 +87,9 @@
         var $thisForm = $(this);
         
         if ($("#signin-form:has(input.required.error)").length == 0) {
-          $pageLoader.show();
+          $pageLoader.find().show();
+          $('.message', $pageLoader).text('Входим...');
+          $pageLoader.fadeIn(150);
           
           $.ajax({
             type: 'GET',
@@ -104,7 +106,8 @@
             // Success:
             if (data.status == 'success') {
               setTimeout(function() {
-                  $pageLoader.hide();
+                  $pageLoader.fadeOut(150);
+                  $('.message', $pageLoader).empty();
                   
                   $thisForm.find('.ui-input-text > input').removeClass('error');
                   $(':mobile-pagecontainer').pagecontainer('change', 'idea.html');
@@ -114,7 +117,8 @@
             // Error:
             else if (data.status == 'error') {
               setTimeout(function() {
-                  $pageLoader.hide();
+                  $pageLoader.fadeOut(150);
+                  $('.message', $pageLoader).empty();
                   
                   $thisForm.find('.ui-input-text > input').addClass('error');
 
