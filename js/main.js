@@ -112,7 +112,7 @@
                 if (app) StatusBar.show();
                 
                 $thisForm.find('.ui-input-text > input').removeClass('error');
-                $(':mobile-pagecontainer').pagecontainer('change', 'idea.html', {reloadPage: true});
+                $(':mobile-pagecontainer').pagecontainer('change', './idea.html', {reloadPage: true});
               }, 2000);
             }
             // Error:
@@ -213,12 +213,19 @@
                 
                 $thisForm.find('.ui-input-text > input').removeClass('error');
                 
-                navigator.notification.alert(
-                  data.message,
-                  function () { $(':mobile-pagecontainer').pagecontainer('change', 'idea.html', {reloadPage: true}); },
-                  'Регистрация',
-                  'Закрыть'
-                );
+                if (app) {
+                  navigator.notification.alert(
+                    data.message,
+                    //function () { $(':mobile-pagecontainer').pagecontainer('change', 'idea.html', {reloadPage: true}); },
+                    function () { $.mobile.pageContainer.pagecontainer("change", './idea.html', {reloadPage: true}); },
+                    'Регистрация',
+                    'Закрыть'
+                  );
+                }
+                else {
+                  //$(':mobile-pagecontainer').pagecontainer('change', 'idea.html', {reloadPage: true});
+                  $.mobile.pageContainer.pagecontainer("change", './idea.html', {reloadPage: true});
+                }
               }, 2000);
             }
             // Error:
