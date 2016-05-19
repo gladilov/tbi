@@ -1,18 +1,16 @@
 (function($){
 
-  var deviceReadyDeferred = $.Deferred();
-  var jqmReadyDeferred = $.Deferred();
-  var $pageLoader = $('.page-loader');
-  var app = document.URL.indexOf( 'http://' ) === -1 && document.URL.indexOf( 'https://' ) === -1;
-  var appVersion = '0.6.2';
+  var deviceReadyDeferred = $.Deferred(),
+      jqmReadyDeferred = $.Deferred(),
+      $pageLoader = $('.page-loader'),
+      app = document.URL.indexOf( 'http://' ) === -1 && document.URL.indexOf( 'https://' ) === -1,
+      appVersion = '0.6.3';
 
   document.addEventListener('deviceready', deviceReady, false);
   if (!app) deviceReady();
 
   function deviceReady() {
     deviceReadyDeferred.resolve();
-    
-    console.log('console');
     
     if (app) {
       console.log(device);
@@ -100,18 +98,23 @@
           $('.message', $pageLoader).text('Входим...');
           $pageLoader.fadeIn(150);
           
-          $.ajax({
+          var request = $.ajax({
             type: 'GET',
             dataType: 'jsonp',
             jsonpCallback: 'userCheck',
             contentType: "application/json; charset=utf-8",
             url: 'http://y-b-i.com/api/user.php',
             data: {'method': 'get', 'data': $(this).serialize()},
+            timeout: 8000,
             cache: false,
             async: true,
             crossDomain: true,
-          })
-          .done(function(data, textStatus, jqXHR) {
+          });
+          
+          var state = request.state();
+          console.log(state);
+          
+          request.done(function(data, textStatus, jqXHR) {
             // Success:
             if (data.status == 'success') {
               setTimeout(function() {
@@ -131,26 +134,52 @@
                   
                   $thisForm.find('.ui-input-text > input').addClass('error');
 
-                  navigator.notification.alert(
-                    data.message,
-                    null,
-                    'Авторизация',
-                    'Закрыть'
-                  );
+                  if (app) {
+                    navigator.notification.alert(
+                      data.message,
+                      null,
+                      'Авторизация',
+                      'Закрыть'
+                    );
+                  }
+                  else {
+                    console.log('Ошибка авторизации (data.message: "' + data.message + '")');
+                  }
                 }, 2000
               );
             }
-          })
-          .fail(function(jqXHR, textStatus, errorThrown) {
+          });
+          
+          request.fail(function(jqXHR, textStatus, errorThrown) {
             setTimeout(function() {
                 $pageLoader.hide();
                 
-                navigator.notification.alert(
-                  'Ошибка авторизации.',
-                  null,
-                  'Авторизация',
-                  'Закрыть'
-                );
+                if (textStatus == 'timeout') {
+                  if (app) {
+                    navigator.notification.alert(
+                      'Ошибка авторизации - сервер не ответил в отведенное время. Попробуйте выполнить запрос позже.',
+                      null,
+                      'Авторизация',
+                      'Закрыть'
+                    );
+                  }
+                  else {
+                    console.log('Ошибка авторизации - сервер не ответил в отведенное время. Попробуйте выполнить запрос позже.');
+                  }
+                }
+                else {
+                  if (app) {
+                    navigator.notification.alert(
+                      'Ошибка авторизации.',
+                      null,
+                      'Авторизация',
+                      'Закрыть'
+                    );
+                  }
+                  else {
+                    console.log('Ошибка авторизации (textStatus: "' + textStatus + '").');
+                  }
+                }
               }, 2000
             );
           });
