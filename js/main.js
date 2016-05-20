@@ -16,6 +16,7 @@
   $(document).on('mobileinit', function() {
     $.support.cors = true;
     $.mobile.allowCrossDomainPages = true;
+    $.mobile.pushStateEnabled = false;
     
     jqmReadyDeferred.resolve();
   });
@@ -112,7 +113,7 @@
                 if (app) StatusBar.show();
                 
                 $thisForm.find('.ui-input-text > input').removeClass('error');
-                $(':mobile-pagecontainer').pagecontainer('change', './idea.html', {reloadPage: true});
+                $(':mobile-pagecontainer').pagecontainer('change', 'idea.html', {reloadPage: false});
               }, 2000);
             }
             // Error:
@@ -217,14 +218,14 @@
                   navigator.notification.alert(
                     data.message,
                     //function () { $(':mobile-pagecontainer').pagecontainer('change', 'idea.html', {reloadPage: true}); },
-                    function () { $.mobile.pageContainer.pagecontainer("change", './idea.html', {reloadPage: true}); },
+                    function () { $.mobile.pageContainer.pagecontainer("change", 'idea.html', {reloadPage: false}); },
                     'Регистрация',
                     'Закрыть'
                   );
                 }
                 else {
                   //$(':mobile-pagecontainer').pagecontainer('change', 'idea.html', {reloadPage: true});
-                  $.mobile.pageContainer.pagecontainer("change", './idea.html', {reloadPage: true});
+                  $.mobile.pageContainer.pagecontainer("change", 'idea.html', {reloadPage: false});
                 }
               }, 2000);
             }
