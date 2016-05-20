@@ -59,8 +59,6 @@
   <plugin name="cordova-plugin-whitelist" source="npm" />
   <plugin name="cordova-plugin-splashscreen" source="npm" />
   <plugin name="cordova-plugin-wkwebview-engine" source="npm" />
-  <plugin name="cordova-plugin-transport-security" source="npm" />
-  <plugin name="cordova-custom-config" source="npm" />
   
   <!--<plugin name="com.phonegap.plugins.facebookconnect" spec="0.9.0" source="pgb">
       <param name="APP_ID" value="626906180797476" />
@@ -82,6 +80,12 @@
       <dict>
         <key>NSAllowsArbitraryLoads</key>
         <true/>
+        <!--Include to allow insecure HTTP requests-->
+        <key>NSTemporaryExceptionAllowsInsecureHTTPLoads</key>
+        <true/>
+        <!--Include to specify minimum TLS version-->
+        <key>NSTemporaryExceptionMinimumTLSVersion</key>
+        <string>TLSv1.1</string>
       </dict>
     </config-file>
   

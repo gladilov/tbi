@@ -65,7 +65,211 @@
         </div>
       </div>
     </div><!-- /content -->
-  </div><!-- /page -->
+  </div><!-- /page signin-signup -->
+  
+  <div data-role="page" id="idea-list" data-theme="d">
+    <div data-role="panel" id="left-panel" data-position="left" data-position-fixed="true" data-display="overlay">
+      <div data-role="header">
+        <h3>Меню</h3>
+      </div>
+      <div data-role="content">
+        <ul data-role="listview" id="menu">
+          <li><a href="idea.html" id="btn-idea" class="ui-link">Блокнот идей</a></li>
+          <li><a href="#" id="btn-service" class="ui-link">Услуги</a></li>
+          <li><a href="#" id="btn-story" class="ui-link">Истории</a></li>
+          <li><a href="#" id="btn-book" class="ui-link">Книги</a></li>
+          <li><a href="#" id="app-exit" class="ui-link">Выход</a></li>
+        </ul>
+      </div>
+      
+      <div data-role="footer" data-position="fixed" data-tap-toggle="false">
+        <div class="copyright"><span class="app-version">Версия: <span class="value"></span></span></div>
+      </div>
+    </div><!-- /panel -->
+  
+    <div data-role="header" id="header">
+			<h1 id="page-title">Блокнот идей</h1>
+      <div data-role="controlgroup" data-type="horizontal" class="ui-mini ui-btn-right">
+        <a href="ideaadd.html" class="ui-btn ui-btn-ybi ui-corner-all ui-shadow ui-btn-icon-notext ui-btn-icon-right ui-icon-ybi-add">Add</a>
+        <a href="#popupIdeaFilter" class="ui-btn ui-btn-ybi ui-corner-all ui-shadow ui-btn-icon-notext ui-btn-icon-right ui-icon-ybi-filter" data-rel="popup" data-transition="fade">Filter</a>
+      </div>
+    </div><!-- /header -->
+    
+    <div data-role="popup" id="popupIdeaFilter" data-overlay-theme="a" data-theme="b">
+      <div data-role="header">
+        <h2>Фильтр идей</h2>
+        <a href="#" class="ui-btn ui-btn-ybi ui-corner-all ui-shadow ui-btn-icon-notext ui-btn-right ui-icon-ybi-confirm" data-rel="back">Ok</a>
+      </div>
+      <form class="ui-content">
+        <fieldset class="filter" data-role="controlgroup" data-iconpos="right">
+          <input type="radio" name="idea-filter" id="idea-filter-a" value="f1" checked="checked">
+          <label for="idea-filter-a">Все</label>
+          <input type="radio" name="idea-filter" id="idea-filter-b" value="f2">
+          <label for="idea-filter-b">Проверяю</label>
+          <input type="radio" name="idea-filter" id="idea-filter-c" value="f3">
+          <label for="idea-filter-c">Реализую</label>
+          <input type="radio" name="idea-filter" id="idea-filter-d" value="f4">
+          <label for="idea-filter-d">Архив</label>
+        </fieldset>
+        <fieldset class="sort" data-role="controlgroup" data-iconpos="right">
+          <input type="radio" name="idea-sort" id="idea-sort-a" value="s1" checked="checked">
+          <label for="idea-sort-a">По акуальности</label>
+          <input type="radio" name="idea-sort" id="idea-sort-b" value="s2">
+          <label for="idea-sort-b">По потенциалу</label>
+          <input type="radio" name="idea-sort" id="idea-sort-c" value="s3">
+          <label for="idea-sort-c">По риску</label>
+          <input type="radio" name="idea-sort" id="idea-sort-d" value="s4">
+          <label for="idea-sort-d">По прогрессу</label>
+        </fieldset>
+      </form>
+    </div><!-- Filter popup -->
+
+    <div data-role="content" role="main" id="content" class="ui-content">
+      <div id="idea-list-accordion" class="accordion" data-role="collapsibleset" data-inset="false">
+        <div data-role="collapsible" data-content-theme="false">
+          <h3>Проверяю<span class="ui-li-count">2</span></h3>
+          <ul>
+            <li class="idea-item">
+              <h4 class="idea-title"><a href="ideamore.html" class="idea-link" data-icon="custom">Мобильное приложение для сезонных аллергиков</a><a href="ideaedit.html" class="idea-edit"></a></h4>
+              <ul class="progress">
+                <li class="completed"></li>
+                <li class="completed"></li>
+                <li class="completed"></li>
+                <li></li>
+                <li></li>
+              </ul>
+
+              <ul class="stats">
+                <li>7</li>
+                <li>7</li>
+                <li>5</li>
+              </ul>
+            </li>
+            <li class="idea-item">
+              <h4 class="idea-title"><a href="ideamore.html" class="idea-link" data-icon="custom">Виртуальная система бесконтактного ощупывания</a><a href="ideaedit.html" class="idea-edit"></a></h4>
+              <ul class="progress">
+                <li class="completed"></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+              </ul>
+
+              <ul class="stats">
+                <li>7</li>
+                <li>7</li>
+                <li>5</li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+        <div data-role="collapsible" data-content-theme="false">
+          <h3>Реализую<span class="ui-li-count">4</span></h3>
+          <ul>
+            <li class="idea-item">
+              <h4 class="idea-title"><a href="ideamore.html" class="idea-link" data-icon="custom">Мобильное приложение для сезонных аллергиков</a><a href="ideaedit.html" class="idea-edit"></a></h4>
+              <ul class="progress">
+                <li class="completed"></li>
+                <li class="completed"></li>
+                <li class="completed"></li>
+                <li></li>
+                <li></li>
+              </ul>
+
+              <ul class="stats">
+                <li>7</li>
+                <li>7</li>
+                <li>5</li>
+              </ul>
+            </li>
+            <li class="idea-item">
+              <h4 class="idea-title"><a href="ideamore.html" class="idea-link" data-icon="custom">Виртуальная система бесконтактного ощупывания</a><a href="ideaedit.html" class="idea-edit"></a></h4>
+              <ul class="progress">
+                <li class="completed"></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+              </ul>
+
+              <ul class="stats">
+                <li>7</li>
+                <li>7</li>
+                <li>5</li>
+              </ul>
+            </li>
+            <li class="idea-item">
+              <h4 class="idea-title"><a href="ideamore.html" class="idea-link" data-icon="custom">Мобильное приложение для сезонных аллергиков</a><a href="ideaedit.html" class="idea-edit"></a></h4>
+              <ul class="progress">
+                <li class="completed"></li>
+                <li class="completed"></li>
+                <li class="completed"></li>
+                <li></li>
+                <li></li>
+              </ul>
+
+              <ul class="stats">
+                <li>7</li>
+                <li>7</li>
+                <li>5</li>
+              </ul>
+            </li>
+            <li class="idea-item">
+              <h4 class="idea-title"><a href="ideamore.html" class="idea-link" data-icon="custom">Виртуальная система бесконтактного ощупывания</a><a href="ideaedit.html" class="idea-edit"></a></h4>
+              <ul class="progress">
+                <li class="completed"></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+              </ul>
+
+              <ul class="stats">
+                <li>7</li>
+                <li>7</li>
+                <li>5</li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+        <div data-role="collapsible" data-content-theme="false">
+          <h3>Архив<span class="ui-li-count">1</span></h3>
+          <ul>
+            <li class="idea-item">
+              <h4 class="idea-title"><a href="ideamore.html" class="idea-link" data-icon="custom">Мобильное приложение для сезонных аллергиков</a><a href="ideaedit.html" class="idea-edit"></a></h4>
+              <ul class="progress">
+                <li class="completed"></li>
+                <li class="completed"></li>
+                <li class="completed"></li>
+                <li></li>
+                <li></li>
+              </ul>
+
+              <ul class="stats">
+                <li>7</li>
+                <li>7</li>
+                <li>5</li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div><!-- /content -->
+
+    <div data-role="footer" id="footer" data-position="fixed" data-tap-toggle="false">
+      <div id="footer-navbar" data-role="navbar" data-grid="c">
+        <ul>
+          <li><a href="idea.html" id="btn-idea" class="ui-btn-active">Идеи</a></li>
+          <!--<li><a href="#" id="btn-book">Книги</a></li>
+          <li><a href="services.html" id="btn-service">Услуги</a></li>
+          <li><a href="story.html" id="btn-story">Истории</a></li>-->
+          <li><a href="#" id="btn-service">Услуги</a></li>
+          <li><a href="#" id="btn-story">Истории</a></li>
+          <li><a href="#left-panel" id="btn-other" data-icon="ybi-footer-more">Еще</a></li>
+        </ul>
+      </div><!-- /navbar -->
+    </div><!-- /footer -->
+  </div><!-- /page idea-list -->
   
   <div class="page-loader">
     <div class="logo"></div>
@@ -73,7 +277,7 @@
     <svg class="loader-circular" viewBox="25 25 50 50">
       <defs>
         <linearGradient id="linear" x1="0%" y1="0%" x2="100%" y2="0%">
-          <stop offset="0%"   stop-color="#00FFA6"/>
+          <stop offset="0%" stop-color="#00FFA6"/>
           <stop offset="100%" stop-color="#00FFA6"/>
         </linearGradient>
       </defs>

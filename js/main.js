@@ -16,7 +16,9 @@
   $(document).on('mobileinit', function() {
     $.support.cors = true;
     $.mobile.allowCrossDomainPages = true;
-    $.mobile.pushStateEnabled = false;
+    
+    $.mobile.hashListeningEnabled = false;/* temp */
+    $.mobile.pushStateEnabled = false;/* temp */
     
     jqmReadyDeferred.resolve();
   });
@@ -58,7 +60,26 @@
       
     
       // Form validate
-      $('form').validate();
+      //$('form').validate();
+      
+      //
+      $('#app-exit').on('click', function(e) {
+        e.preventDefault();
+        
+        if (app) {
+          navigator.notification.confirm(
+            'Выйти из приложения?'
+            , function(button) {
+                if (button == 1) {
+                    navigator.app.exitApp();
+                }
+              }
+            , 'Выйти'
+            , 'Отмена'
+          );
+        }
+        else $(':mobile-pagecontainer').pagecontainer('change', '#signin-signup');
+      });
 
       
       // Form-item multiple
@@ -113,7 +134,7 @@
                 if (app) StatusBar.show();
                 
                 $thisForm.find('.ui-input-text > input').removeClass('error');
-                $(':mobile-pagecontainer').pagecontainer('change', 'idea.html', {reloadPage: false});
+                $(':mobile-pagecontainer').pagecontainer('change', '#idea-list');
               }, 2000);
             }
             // Error:
@@ -218,14 +239,14 @@
                   navigator.notification.alert(
                     data.message,
                     //function () { $(':mobile-pagecontainer').pagecontainer('change', 'idea.html', {reloadPage: true}); },
-                    function () { $.mobile.pageContainer.pagecontainer("change", 'idea.html', {reloadPage: false}); },
+                    function () { $.mobile.pageContainer.pagecontainer("change", '#idea-list'); },
                     'Регистрация',
                     'Закрыть'
                   );
                 }
                 else {
                   //$(':mobile-pagecontainer').pagecontainer('change', 'idea.html', {reloadPage: true});
-                  $.mobile.pageContainer.pagecontainer("change", 'idea.html', {reloadPage: false});
+                  $.mobile.pageContainer.pagecontainer("change", '#idea-list');
                 }
               }, 2000);
             }
