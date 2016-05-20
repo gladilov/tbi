@@ -59,6 +59,7 @@
   <plugin name="cordova-plugin-whitelist" source="npm" />
   <plugin name="cordova-plugin-splashscreen" source="npm" />
   <plugin name="cordova-plugin-wkwebview-engine" source="npm" />
+  <plugin name="cordova-plugin-transport-security" source="npm" />
   
   <!--<plugin name="com.phonegap.plugins.facebookconnect" spec="0.9.0" source="pgb">
       <param name="APP_ID" value="626906180797476" />
@@ -75,6 +76,13 @@
   <icon src="icon.png" />
   
   <platform name="ios">
+    <config-file target="*-Info.plist" parent="NSAppTransportSecurity">
+      <dict>
+        <key>NSAllowsArbitraryLoads</key>
+        <true/>
+      </dict>
+    </config-file>
+  
     <!-- iPhone 6 / 6+ -->
     <icon src="res/icon/ios/icon-60@3x.png" width="180" height="180" />
     <!-- iPhone / iPod Touch  -->
