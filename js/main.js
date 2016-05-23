@@ -57,25 +57,21 @@
           }
         }
       });
-      
-    
-      // Form validate
-      //$('form').validate();
-      
-      //
+
+      // App exit
       $('#app-exit').on('click', function(e) {
         e.preventDefault();
         
         if (app) {
+          function appExitConfirm(buttonIndex) {
+            if (buttonIndex == "1") navigator.app.exitApp();
+          }
+
           navigator.notification.confirm(
-            'Выйти из приложения?'
-            , function(button) {
-                if (button == 1) {
-                    navigator.app.exitApp();
-                }
-              }
-            , 'Выйти'
-            , 'Отмена'
+            'Вы действительно хотите закрыть приложение?',
+             appExitConfirm,
+            'Выход из приложения',
+            ['Выйти','Отмена']
           );
         }
         else $(':mobile-pagecontainer').pagecontainer('change', '#signin-signup');
