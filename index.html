@@ -67,14 +67,15 @@
     </div><!-- /content -->
   </div><!-- /page signin-signup -->
   
+  
   <div data-role="page" id="idea-list" data-theme="d">
-    <div data-role="panel" id="left-panel" data-position="left" data-position-fixed="true" data-display="overlay">
+    <div data-role="panel" class="left-panel" data-position="left" data-position-fixed="true" data-display="overlay">
       <div data-role="header">
         <h3>Меню</h3>
       </div>
       <div data-role="content">
         <ul data-role="listview" id="menu">
-          <li><a href="idea.html" id="btn-idea" class="ui-link">Блокнот идей</a></li>
+          <li><a href="#idea-list" id="btn-idea" class="ui-link">Блокнот идей</a></li>
           <li><a href="#" id="btn-service" class="ui-link">Услуги</a></li>
           <li><a href="#" id="btn-story" class="ui-link">Истории</a></li>
           <li><a href="#" id="btn-book" class="ui-link">Книги</a></li>
@@ -86,11 +87,11 @@
         <div class="copyright"><span class="app-version">Версия: <span class="value"></span></span></div>
       </div>
     </div><!-- /panel -->
-  
+    
     <div data-role="header" id="header">
 			<h1 id="page-title">Блокнот идей</h1>
       <div data-role="controlgroup" data-type="horizontal" class="ui-mini ui-btn-right">
-        <a href="ideaadd.html" class="ui-btn ui-btn-ybi ui-corner-all ui-shadow ui-btn-icon-notext ui-btn-icon-right ui-icon-ybi-add">Add</a>
+        <a href="#idea-add" class="ui-btn ui-btn-ybi ui-corner-all ui-shadow ui-btn-icon-notext ui-btn-icon-right ui-icon-ybi-add">Add</a>
         <a href="#popupIdeaFilter" class="ui-btn ui-btn-ybi ui-corner-all ui-shadow ui-btn-icon-notext ui-btn-icon-right ui-icon-ybi-filter" data-rel="popup" data-transition="fade">Filter</a>
       </div>
     </div><!-- /header -->
@@ -129,8 +130,8 @@
         <div data-role="collapsible" data-content-theme="false">
           <h3>Проверяю<span class="ui-li-count">2</span></h3>
           <ul>
-            <li class="idea-item">
-              <h4 class="idea-title"><a href="ideamore.html" class="idea-link" data-icon="custom">Мобильное приложение для сезонных аллергиков</a><a href="ideaedit.html" class="idea-edit"></a></h4>
+            <li class="idea-item" data-iid="">
+              <h4 class="idea-title"><a href="#idea-single" class="idea-link" data-icon="custom">Мобильное приложение для сезонных аллергиков</a><a href="#idea-edit" class="idea-edit"></a></h4>
               <ul class="progress">
                 <li class="completed"></li>
                 <li class="completed"></li>
@@ -145,8 +146,8 @@
                 <li>5</li>
               </ul>
             </li>
-            <li class="idea-item">
-              <h4 class="idea-title"><a href="ideamore.html" class="idea-link" data-icon="custom">Виртуальная система бесконтактного ощупывания</a><a href="ideaedit.html" class="idea-edit"></a></h4>
+            <li class="idea-item" data-iid="">
+              <h4 class="idea-title"><a href="#idea-single" class="idea-link" data-icon="custom">Виртуальная система бесконтактного ощупывания</a><a href="#idea-edit" class="idea-edit"></a></h4>
               <ul class="progress">
                 <li class="completed"></li>
                 <li></li>
@@ -166,8 +167,8 @@
         <div data-role="collapsible" data-content-theme="false">
           <h3>Реализую<span class="ui-li-count">4</span></h3>
           <ul>
-            <li class="idea-item">
-              <h4 class="idea-title"><a href="ideamore.html" class="idea-link" data-icon="custom">Мобильное приложение для сезонных аллергиков</a><a href="ideaedit.html" class="idea-edit"></a></h4>
+            <li class="idea-item" data-iid="">
+              <h4 class="idea-title"><a href="#idea-single" class="idea-link" data-icon="custom">Мобильное приложение для сезонных аллергиков</a><a href="#idea-edit" class="idea-edit"></a></h4>
               <ul class="progress">
                 <li class="completed"></li>
                 <li class="completed"></li>
@@ -182,7 +183,7 @@
                 <li>5</li>
               </ul>
             </li>
-            <li class="idea-item">
+            <li class="idea-item" data-iid="">
               <h4 class="idea-title"><a href="ideamore.html" class="idea-link" data-icon="custom">Виртуальная система бесконтактного ощупывания</a><a href="ideaedit.html" class="idea-edit"></a></h4>
               <ul class="progress">
                 <li class="completed"></li>
@@ -198,7 +199,7 @@
                 <li>5</li>
               </ul>
             </li>
-            <li class="idea-item">
+            <li class="idea-item" data-iid="">
               <h4 class="idea-title"><a href="ideamore.html" class="idea-link" data-icon="custom">Мобильное приложение для сезонных аллергиков</a><a href="ideaedit.html" class="idea-edit"></a></h4>
               <ul class="progress">
                 <li class="completed"></li>
@@ -214,7 +215,7 @@
                 <li>5</li>
               </ul>
             </li>
-            <li class="idea-item">
+            <li class="idea-item" data-iid="">
               <h4 class="idea-title"><a href="ideamore.html" class="idea-link" data-icon="custom">Виртуальная система бесконтактного ощупывания</a><a href="ideaedit.html" class="idea-edit"></a></h4>
               <ul class="progress">
                 <li class="completed"></li>
@@ -235,7 +236,7 @@
         <div data-role="collapsible" data-content-theme="false">
           <h3>Архив<span class="ui-li-count">1</span></h3>
           <ul>
-            <li class="idea-item">
+            <li class="idea-item" data-iid="">
               <h4 class="idea-title"><a href="ideamore.html" class="idea-link" data-icon="custom">Мобильное приложение для сезонных аллергиков</a><a href="ideaedit.html" class="idea-edit"></a></h4>
               <ul class="progress">
                 <li class="completed"></li>
@@ -259,17 +260,698 @@
     <div data-role="footer" id="footer" data-position="fixed" data-tap-toggle="false">
       <div id="footer-navbar" data-role="navbar" data-grid="c">
         <ul>
-          <li><a href="idea.html" id="btn-idea" class="ui-btn-active">Идеи</a></li>
+          <li><a href="#idea-list" id="btn-idea" class="ui-btn-active">Идеи</a></li>
           <!--<li><a href="#" id="btn-book">Книги</a></li>
           <li><a href="services.html" id="btn-service">Услуги</a></li>
           <li><a href="story.html" id="btn-story">Истории</a></li>-->
           <li><a href="#" id="btn-service">Услуги</a></li>
           <li><a href="#" id="btn-story">Истории</a></li>
-          <li><a href="#left-panel" id="btn-other" data-icon="ybi-footer-more">Еще</a></li>
+          <li><a href="#" id="btn-other" data-icon="ybi-footer-more">Еще</a></li>
         </ul>
       </div><!-- /navbar -->
     </div><!-- /footer -->
-  </div><!-- /page idea-list -->
+  </div><!-- /page idea-list -->  
+  
+  
+  <div data-role="page" id="idea-single" data-theme="b" data-iid="">
+    <div data-role="panel" class="left-panel" data-position="left" data-position-fixed="true" data-display="overlay">
+      <div data-role="header">
+        <h3>Меню</h3>
+      </div>
+      <div data-role="content">
+        <ul data-role="listview" id="menu">
+          <li><a href="#idea-list" id="btn-idea" class="ui-link">Блокнот идей</a></li>
+          <li><a href="#" id="btn-service" class="ui-link">Услуги</a></li>
+          <li><a href="#" id="btn-story" class="ui-link">Истории</a></li>
+          <li><a href="#" id="btn-book" class="ui-link">Книги</a></li>
+          <li><a href="#" id="app-exit" class="ui-link">Выход</a></li>
+        </ul>
+      </div>
+      
+      <div data-role="footer" data-position="fixed" data-tap-toggle="false">
+        <div class="copyright"><span class="app-version">Версия: <span class="value"></span></span></div>
+      </div>
+    </div><!-- /panel -->
+    
+    <div data-role="header" id="header">
+			<h1 id="page-title">Smartmarker умный маркер для магнитной доски</h1>
+      <div data-role="controlgroup" data-type="vertical" class="ui-mini ui-btn-right count-2">
+        <a href="#idea-list" class="ui-btn ui-btn-ybi ui-corner-all ui-shadow ui-btn-icon-notext ui-btn-icon-right ui-icon-ybi-back">Back</a>
+        <a href="#idea-edit" class="ui-btn ui-btn-ybi ui-corner-all ui-shadow ui-btn-icon-notext ui-btn-icon-right ui-icon-ybi-edit">Edit</a>
+      </div>
+    </div><!-- /header -->
+    
+    <div data-role="content" role="main" id="content" class="ui-content">
+      <div id="idea-single-accordion" class="accordion" data-role="collapsibleset" data-inset="false">
+        <div class="steps" data-role="collapsible" data-content-theme="false">
+          <h3>Шаги реализации<span class="ui-li-count">2</span></h3>
+          <ul class="progress">
+            <li class="completed">1</li>
+            <li class="completed">2</li>
+            <li class="completed">3</li>
+            <li class="current">4</li>
+            <li>5</li>
+          </ul>
+          
+          <div class="progress-info">
+            <p class="step-cirrent">Ceйчас — Шаг 4:</p>
+            <p class="step-cirrent-desc">Ожидание результатов опроса</p>
+            <a href="#idea-step-1" class="ui-btn ui-btn-ybi ui-corner-all ui-shadow ui-btn-icon-notext ui-btn-icon-right ui-icon-ybi-forward">Go on</a>
+          </div>
+        </div>
+        
+        <div class="rating" data-role="collapsible" data-content-theme="false">
+          <h3>Оценка идеи<span class="ui-li-count">7.4</span></h3>
+          <ul class="stats">
+            <li class="stats-1"><span class="stats-value ui-btn-ybi ui-btn-icon-left ui-icon-ybi-stats-1">7</span><div class="stats-desc">Актуальность</div></li>
+            <li class="stats-2"><span class="stats-value ui-btn-ybi ui-btn-icon-left ui-icon-ybi-stats-2">7</span><div class="stats-desc">Потенциал</div></li>
+            <li class="stats-3"><span class="stats-value ui-btn-ybi ui-btn-icon-left ui-icon-ybi-stats-3">5</span><div class="stats-desc">Шансы на успех</div></li>
+          </ul>
+        </div>
+        
+        <div class="team" data-role="collapsible" data-content-theme="false">
+          <h3>Команда</h3>
+					<ol data-role="listview">
+            <li>Equil Smartmarket Team все должности</li>
+          </ol>
+        </div>
+        
+        <div class="desc" data-role="collapsible" data-content-theme="false">
+          <h3>Описание</h3>
+          <p>Идейные соображения высшего порядка, а также укрепление и развитие структуры влечет за собой процесс внедрения и модернизации направлений прогрессивного развития. Таким образом укрепление и развитие структуры представляет собой интересный эксперимент проверки соответствующий условий активизации.</p>
+        </div>
+        
+        <div class="audience" data-role="collapsible" data-content-theme="false">
+          <h3>Целевая аудитория</h3>
+          <ol data-role="listview">
+            <li>Студенты</li>
+            <li>Бизнес-тренеры</li>
+            <li>Дизайнеры</li>
+          </ol>
+        </div>
+        
+        <div class="values" data-role="collapsible" data-content-theme="false">
+          <h3>Ценности идеи</h3>
+          <ol data-role="listview">
+            <li>Сохраняет все записи в электронном формате</li>
+            <li>Можно наблюдать запись из самых отдаленных мест помещения</li>
+          </ol>
+        </div>
+      </div>
+      
+      <div class="links" data-role="controlgroup" data-type="horizontal">
+				<a href="#" class="interview-link">Интервью</a>
+				<a href="#" class="media-link">Медиа</a>
+				<a href="#" class="ui-btn ui-btn-ybi ui-corner-all ui-shadow ui-btn-icon-notext ui-btn-icon-right ui-icon-ybi-share">Share</a>
+      </div>
+    </div><!-- /content -->
+
+    <div data-role="footer" id="footer" data-position="fixed" data-tap-toggle="false">
+      <div id="footer-navbar" data-role="navbar" data-grid="c">
+        <ul>
+          <li><a href="#idea-list" id="btn-idea" class="ui-btn-active">Идеи</a></li>
+          <!--<li><a href="#" id="btn-book">Книги</a></li>
+          <li><a href="services.html" id="btn-service">Услуги</a></li>
+          <li><a href="story.html" id="btn-story">Истории</a></li>-->
+          <li><a href="#" id="btn-service">Услуги</a></li>
+          <li><a href="#" id="btn-story">Истории</a></li>
+          <li><a href="#" id="btn-other" data-icon="ybi-footer-more">Еще</a></li>
+        </ul>
+      </div><!-- /navbar -->
+    </div><!-- /footer -->
+  </div><!-- /page -->
+  
+
+  <div data-role="page" id="idea-add" data-theme="d">
+    <div data-role="panel" class="left-panel" data-position="left" data-position-fixed="true" data-display="overlay">
+      <div data-role="header">
+        <h3>Меню</h3>
+      </div>
+      <div data-role="content">
+        <ul data-role="listview" id="menu">
+          <li><a href="#idea-list" id="btn-idea" class="ui-link">Блокнот идей</a></li>
+          <li><a href="#" id="btn-service" class="ui-link">Услуги</a></li>
+          <li><a href="#" id="btn-story" class="ui-link">Истории</a></li>
+          <li><a href="#" id="btn-book" class="ui-link">Книги</a></li>
+          <li><a href="#" id="app-exit" class="ui-link">Выход</a></li>
+        </ul>
+      </div>
+      
+      <div data-role="footer" data-position="fixed" data-tap-toggle="false">
+        <div class="copyright"><span class="app-version">Версия: <span class="value"></span></span></div>
+      </div>
+    </div><!-- /panel -->
+
+    <div data-role="header" id="header">
+			<h1 id="page-title">Новая идея</h1>
+      <div data-role="controlgroup" data-type="horizontal" class="ui-mini ui-btn-right">
+        <a href="#" class="ui-btn ui-btn-ybi ui-btn-icon-notext ui-btn-icon-right ui-icon-ybi-add">Add</a>
+        <a href="idea.html" class="ui-btn ui-btn-ybi ui-btn-icon-notext ui-btn-icon-right ui-icon-ybi-cancel" data-rel="back">Cancel</a>
+      </div>
+    </div><!-- /header -->
+
+    <div data-role="content" role="main" id="content" class="ui-content">
+      <div id="ideaadd-form-wrap">
+        <form action="" id="ideaadd-form" data-ajax="false">
+          <div class="form-item">
+            <label for="idea-name" class="ui-hidden-accessible">Название идеи</label>
+            <input type="text" id="idea-title" class="required" name="title" placeholder="Название идеи" data-clear-btn="true" />
+          </div>
+          <div class="form-item">
+            <label for="idea-category" class="ui-hidden-accessible">Категория</label>
+            <select name="category" id="idea-category" data-icon="ybi-carat">
+                <option value="none">Без категории</option>
+                <option value="Производство">Производство</option>
+                <option value="Торговля">Торговля</option>
+                <option value="ИТ">ИТ</option>
+                <option value="Высокие технологии">Высокие технологии</option>
+            </select>
+          </div>
+          <div class="form-item">
+            <label for="idea-description" class="ui-hidden-accessible">Описание идеи</label>
+            <textarea id="idea-description" class="required" name="description" placeholder="Описание идеи" rows="4" data-clear-btn="true"></textarea>
+          </div>
+          <div class="form-item">
+            <label for="idea-product" class="ui-hidden-accessible">Продукт</label>
+            <input type="text" id="idea-product" class="required" name="product" placeholder="Продукт" data-clear-btn="true" />
+          </div>
+          
+          <div class="line-separator"></div>
+          <div class="form-item form-item-multiple form-item-idea-audience">
+            <label for="idea-audience" class="has-icon">Целевая аудитория <a href="#" class="form-item-add ui-btn ui-btn-ybi ui-btn-icon-notext ui-btn-icon-right ui-icon-ybi-add">Add item</a></label>
+            <div data-role="controlgroup" class="controlgroup">
+              <input type="text" id="idea-audience" class="multiple required" name="audience" placeholder="Название группы" data-clear-btn="true" />
+            </div>
+          </div>
+          
+          <div class="line-separator"></div>
+          <div class="form-item form-item-multiple form-item-idea-keyvalue">
+            <label for="idea-keyvalue" class="has-icon">Ключевые ценности <a href="#" class="form-item-add ui-btn ui-btn-ybi ui-btn-icon-notext ui-btn-icon-right ui-icon-ybi-add">Add item</a></label>
+            <div data-role="controlgroup" class="controlgroup">
+              <input type="text" id="idea-keyvalue" class="multiple required" name="keyvalue" placeholder="Ценность" data-clear-btn="true" />
+            </div>
+          </div>
+          
+          <div class="line-separator"></div>
+          <div class="form-item">
+            <label for="idea-sales-channel">Каналы сбыта</label>
+            <textarea id="idea-sales-channel" class="required" name="sales_channel" placeholder="Каналы сбыта" rows="3" data-clear-btn="true"></textarea>
+          </div>
+          
+          <div class="line-separator"></div>
+          <div class="form-item">
+            <label for="idea-competitive-advantages">Конкурентные преимущества</label>
+            <textarea id="idea-competitive-advantages" class="required" name="competitive_advantages" placeholder="Конкурентные преимущества" rows="4" data-clear-btn="true"></textarea>
+          </div>
+          
+          <div class="line-separator"></div>
+          <div class="form-item">
+            <label for="idea-team">Команда</label>
+            <textarea id="idea-team" class="required" name="team" placeholder="Команда" rows="3" data-clear-btn="true"></textarea>
+          </div>
+          
+          <div class="line-separator"></div>
+          <div class="form-item">
+            <label for="idea-necessary-resources">Необходимые ресурсы</label>
+            <textarea id="idea-necessary-resources" class="required" name="necessary_resources" placeholder="Необходимые ресурсы" rows="3" data-clear-btn="true"></textarea>
+          </div>
+          
+          <div class="line-separator"></div>
+          <div class="form-item">
+            <label for="idea-helpful-people">Полезные люди</label>
+            <textarea id="idea-helpful-people" class="required" name="helpful_people" placeholder="Полезные люди" rows="3" data-clear-btn="true"></textarea>
+          </div>
+          
+          <div class="line-separator"></div>
+          <div class="form-item">
+            <label for="idea-key-hypotheses">Ключевые гипотезы</label>
+            <textarea id="idea-key-hypotheses" class="required" name="key_hypotheses" placeholder="Ключевые гипотезы" rows="3" data-clear-btn="true"></textarea>
+            <!-- TODO: Flip switch element -->
+          </div>
+
+          <input type="hidden" name="uid" value="" />
+          
+          <button type="submit" class="ui-btn ui-btn-submit ui-btn-ybi ui-corner-all ui-btn-icon-right ui-icon-ybi-stepforward">Сохранить</button>
+        </form>
+      </div>
+    </div><!-- /content -->
+
+    <div data-role="footer" id="footer" data-position="fixed" data-tap-toggle="false">
+      <div id="footer-navbar" data-role="navbar" data-grid="c">
+        <ul>
+          <li><a href="#idea-list" id="btn-idea" class="ui-btn-active">Идеи</a></li>
+          <!--<li><a href="#" id="btn-book">Книги</a></li>
+          <li><a href="services.html" id="btn-service">Услуги</a></li>
+          <li><a href="story.html" id="btn-story">Истории</a></li>-->
+          <li><a href="#" id="btn-service">Услуги</a></li>
+          <li><a href="#" id="btn-story">Истории</a></li>
+          <li><a href="#" id="btn-other" data-icon="ybi-footer-more">Еще</a></li>
+        </ul>
+      </div><!-- /navbar -->
+    </div><!-- /footer -->
+  </div><!-- /page -->
+  
+  
+  <div data-role="page" id="idea-step-1" data-theme="b" data-iid="">
+    <div data-role="panel" class="left-panel" data-position="left" data-position-fixed="true" data-display="overlay">
+      <div data-role="header">
+        <h3>Меню</h3>
+      </div>
+      <div data-role="content">
+        <ul data-role="listview" id="menu">
+          <li><a href="#idea-list" id="btn-idea" class="ui-link">Блокнот идей</a></li>
+          <li><a href="#" id="btn-service" class="ui-link">Услуги</a></li>
+          <li><a href="#" id="btn-story" class="ui-link">Истории</a></li>
+          <li><a href="#" id="btn-book" class="ui-link">Книги</a></li>
+          <li><a href="#" id="app-exit" class="ui-link">Выход</a></li>
+        </ul>
+      </div>
+      
+      <div data-role="footer" data-position="fixed" data-tap-toggle="false">
+        <div class="copyright"><span class="app-version">Версия: <span class="value"></span></span></div>
+      </div>
+    </div><!-- /panel -->
+    
+    <div data-role="header" id="header">
+			<h1 id="page-title">Шаг 1 из 5</h1>
+      <div data-role="controlgroup" data-type="horizontal" class="ui-mini ui-btn-right">
+        <a href="#" class="ui-btn ui-btn-ybi ui-corner-all ui-shadow ui-btn-icon-notext ui-btn-icon-right ui-icon-ybi-back" data-rel="back">Back</a>
+      </div>
+    </div><!-- /header -->
+
+    <div data-role="content" role="main" id="content" class="ui-content">
+      <form action="" id="ideastep1-form" data-ajax="false">
+        <div id="idea-step-1-accordion" class="accordion" data-role="collapsibleset" data-inset="false">
+          <div class="conformity-market" data-role="collapsible" data-collapsed="false" data-content-theme="false">
+            <h3>Соответствие идеи рынку</h3>
+            <div class="item spros">
+              <p>Оцените уровень спроса (0 – нет и не предвидится, 5- не знаю, 10- уже есть оплаченные предзаказы)</p>
+              <label for="slider-spros" class="ui-hidden-accessible">Уровень спроса:</label>
+              <input type="range" name="slider-spros" id="slider-spros" min="0" max="10" step="1" value="0">
+              <ul class="ruler">
+                <li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li>
+              </ul>
+            </div>
+            <div class="item success">
+              <p>Оцените вероятность рыночного успеха проекта (входные барьеры, уровень конкуренции,риски и пр) (0-успех будет огромной удачей, 5- затрудняюсь с оценкой, 10- пока вероятность успеха очень высока)</p>
+              <label for="slider-success" class="ui-hidden-accessible">Вероятность успеха:</label>
+              <input type="range" name="slider-success" id="slider-success" min="0" max="10" step="1" value="0">
+              <ul class="ruler">
+                <li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li>
+              </ul>
+            </div>
+            <div class="item profit">
+              <p>Оцените экономическую выгоду от реализации идеи  (0-реализация идеи способна принести немного денег, 5- пока не понятно, 10-идея является до неприличия прибыльной)</p>
+              <label for="slider-profit" class="ui-hidden-accessible">Экономическая выгода:</label>
+              <input type="range" name="slider-profit" id="slider-profit" min="0" max="10" step="1" value="0">
+              <ul class="ruler">
+                <li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li>
+              </ul>
+            </div>
+          </div>
+          <div class="conformity-author" data-role="collapsible" data-content-theme="false">
+            <h3>Соответствие идеи автору проекта</h3>
+            <div class="item interest">
+              <p>Оцени свой уровень интереса к сфере данной идеи</p>
+              <label for="slider-interest" class="ui-hidden-accessible">Интерес:</label>
+              <input type="range" name="slider-interest" id="slider-interest" min="0" max="10" step="1" value="0">
+              <ul class="ruler">
+                <li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li>
+              </ul>
+            </div>
+            <div class="item experience">
+              <p>Оцени насколько у тебя/твоей команды есть необходимый для реализации опыт</p>
+              <label for="slider-experience" class="ui-hidden-accessible">Опыт:</label>
+              <input type="range" name="slider-experience" id="slider-experience" min="0" max="10" step="1" value="0">
+              <ul class="ruler">
+                <li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li>
+              </ul>
+            </div>
+            <div class="item resources">
+              <p>Оцени, есть ли у тебя достаточные ресурсы для реализации проекта, либо возможности по их привлечению</p>
+              <label for="slider-resources" class="ui-hidden-accessible">Ресурсы:</label>
+              <input type="range" name="slider-resources" id="slider-resources" min="0" max="10" step="1" value="0">
+              <ul class="ruler">
+                <li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li>
+              </ul>
+            </div>
+            <div class="item leadership">
+              <p>Оцени, насколько ты хочешь стать №1 в сфере реализации данной идеи</p>
+              <label for="slider-leadership" class="ui-hidden-accessible">Лидерство:</label>
+              <input type="range" name="slider-leadership" id="slider-leadership" min="0" max="10" step="1" value="0">
+              <ul class="ruler">
+                <li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li>
+              </ul>
+            </div>
+            <div class="item lifegoals">
+              <p>Оцени, насколько реализация данного проекта совпадает с твоими жизненными целями и потребностями</p>
+              <label for="slider-lifegoals" class="ui-hidden-accessible">Совпадение с целями и потребностями:</label>
+              <input type="range" name="slider-lifegoals" id="slider-lifegoals" min="0" max="10" step="1" value="0">
+              <ul class="ruler">
+                <li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <input type="hidden" name="uid" value="" />
+        <input type="hidden" name="iid" value="" />
+        
+        <button type="submit" class="ui-btn ui-btn-submit ui-btn-ybi ui-corner-all ui-btn-icon-right ui-icon-ybi-stepforward">Следующий шаг</button>
+      </form>
+    </div><!-- /content -->
+
+    <div data-role="footer" id="footer" data-position="fixed" data-tap-toggle="false">
+      <div id="footer-navbar" data-role="navbar" data-grid="c">
+        <ul>
+          <li><a href="#idea-list" id="btn-idea" class="ui-btn-active">Идеи</a></li>
+          <!--<li><a href="#" id="btn-book">Книги</a></li>
+          <li><a href="services.html" id="btn-service">Услуги</a></li>
+          <li><a href="story.html" id="btn-story">Истории</a></li>-->
+          <li><a href="#" id="btn-service">Услуги</a></li>
+          <li><a href="#" id="btn-story">Истории</a></li>
+          <li><a href="#" id="btn-other" data-icon="ybi-footer-more">Еще</a></li>
+        </ul>
+      </div><!-- /navbar -->
+    </div><!-- /footer -->
+  </div><!-- /page -->
+
+  
+  <div data-role="page" id="idea-step-2" data-theme="b" data-iid="">
+    <div data-role="panel" class="left-panel" data-position="left" data-position-fixed="true" data-display="overlay">
+      <div data-role="header">
+        <h3>Меню</h3>
+      </div>
+      <div data-role="content">
+        <ul data-role="listview" id="menu">
+          <li><a href="#idea-list" id="btn-idea" class="ui-link">Блокнот идей</a></li>
+          <li><a href="#" id="btn-service" class="ui-link">Услуги</a></li>
+          <li><a href="#" id="btn-story" class="ui-link">Истории</a></li>
+          <li><a href="#" id="btn-book" class="ui-link">Книги</a></li>
+          <li><a href="#" id="app-exit" class="ui-link">Выход</a></li>
+        </ul>
+      </div>
+      
+      <div data-role="footer" data-position="fixed" data-tap-toggle="false">
+        <div class="copyright"><span class="app-version">Версия: <span class="value"></span></span></div>
+      </div>
+    </div><!-- /panel -->
+    
+    <div data-role="header" id="header">
+			<h1 id="page-title">Шаг 2 из 5</h1>
+      <div data-role="controlgroup" data-type="horizontal" class="ui-mini ui-btn-right">
+        <a href="#" class="ui-btn ui-btn-ybi ui-corner-all ui-shadow ui-btn-icon-notext ui-btn-icon-right ui-icon-ybi-back" data-rel="back">Back</a>
+      </div>
+    </div><!-- /header -->
+
+    <div data-role="content" role="main" id="content" class="ui-content">
+      <form action="" id="ideastep2-form" data-ajax="false">
+        <div class="form-desc">Для каждой ценности укажите количество людей, для которых эта ценность актуальна.</div>
+        
+        <div class="form-item ui-field-contain">
+          <label for="keyvalue-1">Ценность 1:</label>
+          <input type="number" name="keyvalue-1" id="keyvalue-1" data-clear-btn="false" pattern="[0-9]*" data-icon="ui-icon-plus" class="ui-icon" placeholder="0" value="0">
+        </div>
+        <div class="form-item ui-field-contain">
+          <label for="keyvalue-2">Ценность 2:</label>
+          <input type="number" name="keyvalue-2" id="keyvalue-2" data-clear-btn="false" pattern="[0-9]*" data-icon="ui-icon-plus" class="ui-icon" placeholder="0" value="0">
+        </div>
+        <div class="form-item ui-field-contain">
+          <label for="keyvalue-3">Ценность 3:</label>
+          <input type="number" name="keyvalue-3" id="keyvalue-3" data-clear-btn="false" pattern="[0-9]*" data-icon="ui-icon-plus" class="ui-icon" placeholder="0" value="0">
+        </div>
+        <div class="form-item ui-field-contain">
+          <label for="keyvalue-4">Ценность 4:</label>
+          <input type="number" name="keyvalue-4" id="keyvalue-4" data-clear-btn="false" pattern="[0-9]*" data-icon="ui-icon-plus" class="ui-icon" placeholder="0" value="0">
+        </div>
+        <div class="form-item ui-field-contain">
+          <label for="keyvalue-5">Ценность 5:</label>
+          <input type="number" name="keyvalue-5" id="keyvalue-5" data-clear-btn="false" pattern="[0-9]*" data-icon="ui-icon-plus" class="ui-icon" placeholder="0" value="0">
+        </div>
+        
+        <button class="ui-btn ui-btn-submit ui-btn-ybi ui-corner-all ui-btn-icon-right ui-icon-ybi-stepforward" type="submit" id="submit-idea-steps">Следующий шаг</button>
+      </form>
+    </div><!-- /content -->
+
+    <div data-role="footer" id="footer" data-position="fixed" data-tap-toggle="false">
+      <div id="footer-navbar" data-role="navbar" data-grid="c">
+        <ul>
+          <li><a href="#idea-list" id="btn-idea" class="ui-btn-active">Идеи</a></li>
+          <!--<li><a href="#" id="btn-book">Книги</a></li>
+          <li><a href="services.html" id="btn-service">Услуги</a></li>
+          <li><a href="story.html" id="btn-story">Истории</a></li>-->
+          <li><a href="#" id="btn-service">Услуги</a></li>
+          <li><a href="#" id="btn-story">Истории</a></li>
+          <li><a href="#" id="btn-other" data-icon="ybi-footer-more">Еще</a></li>
+        </ul>
+      </div><!-- /navbar -->
+    </div><!-- /footer -->
+  </div><!-- /page -->
+  
+  
+  <div data-role="page" id="idea-step-3" data-theme="b">
+    <div data-role="panel" class="left-panel" data-position="left" data-position-fixed="true" data-display="overlay">
+      <div data-role="header">
+        <h3>Меню</h3>
+      </div>
+      <div data-role="content">
+        <ul data-role="listview" id="menu">
+          <li><a href="#idea-list" id="btn-idea" class="ui-link">Блокнот идей</a></li>
+          <li><a href="#" id="btn-service" class="ui-link">Услуги</a></li>
+          <li><a href="#" id="btn-story" class="ui-link">Истории</a></li>
+          <li><a href="#" id="btn-book" class="ui-link">Книги</a></li>
+          <li><a href="#" id="app-exit" class="ui-link">Выход</a></li>
+        </ul>
+      </div>
+      
+      <div data-role="footer" data-position="fixed" data-tap-toggle="false">
+        <div class="copyright"><span class="app-version">Версия: <span class="value"></span></span></div>
+      </div>
+    </div><!-- /panel -->
+    
+    <div data-role="header" id="header">
+			<h1 id="page-title">Шаг 3 из 5</h1>
+      <div data-role="controlgroup" data-type="horizontal" class="ui-mini ui-btn-right">
+        <a href="#" class="ui-btn ui-btn-ybi ui-corner-all ui-shadow ui-btn-icon-notext ui-btn-icon-right ui-icon-ybi-back" data-rel="back">Back</a>
+      </div>
+    </div><!-- /header -->
+
+    <div data-role="content" role="main" id="content" class="ui-content">
+      <form action="" id="ideastep3-form" data-ajax="false">
+        <div class="form-item">
+          <label for="idea-competitor" class="">Конкуренты</label>
+          <textarea id="idea-competitor" name="competitor" placeholder="Конкуренты" rows="4" class="required" data-clear-btn="true"></textarea>
+        </div>
+        <div class="form-item">
+          <label for="idea-link" class="">Ссылка на сайт</label>
+          <input type="text" id="idea-link" name="link" placeholder="Ссылка на сайт" data-clear-btn="true" />
+        </div>
+        <!--<div class="form-item form-item-multiple form-item-idea-plus">
+          <label for="idea-plus" class="has-icon">Плюсы <a href="#" class="form-item-add ui-btn ui-btn-ybi ui-btn-icon-notext ui-btn-icon-right ui-icon-ybi-add">Add item</a></label>
+          <div data-role="controlgroup" class="controlgroup">
+            <input type="text" id="idea-plus" class="multiple" name="plus" placeholder="Название группы" data-clear-btn="true" />
+          </div>
+        </div>
+        <div class="form-item form-item-multiple form-item-idea-minus">
+          <label for="idea-minus" class="has-icon">Минусы <a href="#" class="form-item-add ui-btn ui-btn-ybi ui-btn-icon-notext ui-btn-icon-right ui-icon-ybi-add">Add item</a></label>
+          <div data-role="controlgroup" class="controlgroup">
+            <input type="text" id="idea-minus" class="multiple" name="minus" placeholder="Название группы" data-clear-btn="true" />
+          </div>
+        </div>-->
+        <div class="form-item">
+          <label for="idea-plus" class="">Плюсы</label>
+          <textarea id="idea-plus" name="plus" placeholder="Плюсы" rows="4" data-clear-btn="true"></textarea>
+        </div>
+        <div class="form-item">
+          <label for="idea-minus" class="">Минусы</label>
+          <textarea id="idea-minus" name="minus" placeholder="Минусы" rows="4" data-clear-btn="true"></textarea>
+        </div>
+        
+        <div id="idea-step-3-accordion" class="accordion" data-role="collapsibleset" data-inset="false">
+          <div class="information-market" data-role="collapsible" data-collapsed="false" data-content-theme="false">
+            <h3>Информация о рынке</h3>
+            <div class="form-item">
+              <label for="market-size" class="">Объём</label>
+              <textarea id="market-size" name="market-size" placeholder="Объём" rows="4" data-clear-btn="true"></textarea>
+            </div>
+            <div class="form-item">
+              <label for="market-dynamics" class="">Динамика</label>
+              <textarea id="market-dynamics" name="market-dynamics" placeholder="Динамика" rows="4" data-clear-btn="true"></textarea>
+            </div>
+            <div class="form-item">
+              <label for="market-trends" class="">Тенденции</label>
+              <textarea id="market-trends" name="dynamics-trends" placeholder="Тенденции" rows="4" data-clear-btn="true"></textarea>
+            </div>
+          </div>
+        </div>
+        
+        <div class="form-item">
+          <label for="idea-step3conclusion" class="">Выводы</label>
+          <textarea id="idea-step3conclusion" name="step3conclusion" placeholder="Выводы" rows="4" data-clear-btn="true"></textarea>
+        </div>
+
+        <button class="ui-btn ui-btn-submit ui-btn-ybi ui-corner-all ui-btn-icon-right ui-icon-ybi-stepforward" type="submit" id="submit-idea-steps">Следующий шаг</button>
+      </form>
+    </div><!-- /content -->
+
+    <div data-role="footer" id="footer" data-position="fixed" data-tap-toggle="false">
+      <div id="footer-navbar" data-role="navbar" data-grid="c">
+        <ul>
+          <li><a href="#idea-list" id="btn-idea" class="ui-btn-active">Идеи</a></li>
+          <!--<li><a href="#" id="btn-book">Книги</a></li>
+          <li><a href="services.html" id="btn-service">Услуги</a></li>
+          <li><a href="story.html" id="btn-story">Истории</a></li>-->
+          <li><a href="#" id="btn-service">Услуги</a></li>
+          <li><a href="#" id="btn-story">Истории</a></li>
+          <li><a href="#" id="btn-other" data-icon="ybi-footer-more">Еще</a></li>
+        </ul>
+      </div><!-- /navbar -->
+    </div><!-- /footer -->
+  </div><!-- /page -->
+  
+  
+  <div data-role="page" id="idea-step-4" data-theme="b">
+    <div data-role="panel" class="left-panel" data-position="left" data-position-fixed="true" data-display="overlay">
+      <div data-role="header">
+        <h3>Меню</h3>
+      </div>
+      <div data-role="content">
+        <ul data-role="listview" id="menu">
+          <li><a href="#idea-list" id="btn-idea" class="ui-link">Блокнот идей</a></li>
+          <li><a href="#" id="btn-service" class="ui-link">Услуги</a></li>
+          <li><a href="#" id="btn-story" class="ui-link">Истории</a></li>
+          <li><a href="#" id="btn-book" class="ui-link">Книги</a></li>
+          <li><a href="#" id="app-exit" class="ui-link">Выход</a></li>
+        </ul>
+      </div>
+      
+      <div data-role="footer" data-position="fixed" data-tap-toggle="false">
+        <div class="copyright"><span class="app-version">Версия: <span class="value"></span></span></div>
+      </div>
+    </div><!-- /panel -->
+    
+    <div data-role="header" id="header">
+			<h1 id="page-title">Шаг 4 из 5</h1>
+      <div data-role="controlgroup" data-type="horizontal" class="ui-mini ui-btn-right">
+        <a href="#" class="ui-btn ui-btn-ybi ui-corner-all ui-shadow ui-btn-icon-notext ui-btn-icon-right ui-icon-ybi-back" data-rel="back">Back</a>
+      </div>
+    </div><!-- /header -->
+
+    <div data-role="content" role="main" id="content" class="ui-content">
+      <form action="" id="ideastep4-form" data-ajax="false">
+        <div class="form-item">
+          <label for="idea-fixed-expense" class="">Постоянные месячные расходы</label>
+          <input type="number" id="idea-fixed-expense" name="fixed-expense" placeholder="Постоянные месячные расходы" data-clear-btn="true" />
+        </div>
+        <div class="form-item">
+          <label for="idea-variable-expense" class="">Переменные расходы</label>
+          <input type="number" id="idea-variable-expense" name="variable-expense" placeholder="Переменные расходы" data-clear-btn="true" />
+        </div>
+        <div class="form-item">
+          <label for="idea-average-purchase" class="">Средняя покупка</label>
+          <input type="number" id="idea-average-purchase" name="average-purchase" placeholder="Средняя покупка" data-clear-btn="true" />
+        </div>
+        
+        <div class="real-unreal-status ui-grid-a">
+          <div class="ui-block-a">
+            <label for="idea-real">Реально</label>
+            <input type="radio" id="idea-real" name="idea-real-unreal" value="idea-real" checked="checked">
+          </div>
+          <div class="ui-block-b">
+            <label for="idea-unreal">Не реально</label>
+            <input type="radio" id="idea-unreal" name="idea-real-unreal" value="idea-unreal">
+          </div>
+        </div>
+
+        <button class="ui-btn ui-btn-submit ui-btn-ybi ui-corner-all ui-btn-icon-right ui-icon-ybi-stepforward" type="submit" id="submit-idea-steps">Следующий шаг</button>
+      </form>
+    </div><!-- /content -->
+
+    <div data-role="footer" id="footer" data-position="fixed" data-tap-toggle="false">
+      <div id="footer-navbar" data-role="navbar" data-grid="c">
+        <ul>
+          <li><a href="#idea-list" id="btn-idea" class="ui-btn-active">Идеи</a></li>
+          <!--<li><a href="#" id="btn-book">Книги</a></li>
+          <li><a href="services.html" id="btn-service">Услуги</a></li>
+          <li><a href="story.html" id="btn-story">Истории</a></li>-->
+          <li><a href="#" id="btn-service">Услуги</a></li>
+          <li><a href="#" id="btn-story">Истории</a></li>
+          <li><a href="#" id="btn-other" data-icon="ybi-footer-more">Еще</a></li>
+        </ul>
+      </div><!-- /navbar -->
+    </div><!-- /footer -->
+  </div><!-- /page -->
+  
+  
+  <div data-role="page" id="idea-step-5" data-theme="b">
+    <div data-role="panel" class="left-panel" data-position="left" data-position-fixed="true" data-display="overlay">
+      <div data-role="header">
+        <h3>Меню</h3>
+      </div>
+      <div data-role="content">
+        <ul data-role="listview" id="menu">
+          <li><a href="#idea-list" id="btn-idea" class="ui-link">Блокнот идей</a></li>
+          <li><a href="#" id="btn-service" class="ui-link">Услуги</a></li>
+          <li><a href="#" id="btn-story" class="ui-link">Истории</a></li>
+          <li><a href="#" id="btn-book" class="ui-link">Книги</a></li>
+          <li><a href="#" id="app-exit" class="ui-link">Выход</a></li>
+        </ul>
+      </div>
+      
+      <div data-role="footer" data-position="fixed" data-tap-toggle="false">
+        <div class="copyright"><span class="app-version">Версия: <span class="value"></span></span></div>
+      </div>
+    </div><!-- /panel -->
+    
+    <div data-role="header" id="header">
+			<h1 id="page-title">Шаг 5 из 5</h1>
+      <div data-role="controlgroup" data-type="horizontal" class="ui-mini ui-btn-right">
+        <a href="#" class="ui-btn ui-btn-ybi ui-corner-all ui-shadow ui-btn-icon-notext ui-btn-icon-right ui-icon-ybi-back" data-rel="back">Back</a>
+      </div>
+    </div><!-- /header -->
+
+    <div data-role="content" role="main" id="content" class="ui-content">
+      <form action="" id="ideastep5-form" data-ajax="false">
+        <div class="form-item">
+          <label for="idea-income" class="">Доходы</label>
+          <input type="number" id="idea-income" name="income" placeholder="Доходы" data-clear-btn="true" />
+        </div>
+        <div class="form-item">
+          <label for="idea-investments" class="">Необходимые инвестиции</label>
+          <input type="number" id="idea-investments" name="investments" placeholder="Необходимые инвестиции" data-clear-btn="true" />
+        </div>
+        <div class="form-item">
+          <label for="idea-investment-source-1" class="">Источники покрытия (свои)</label>
+          <input type="number" id="idea-investment-source-1" name="investment-source-1" placeholder="Источники покрытия (свои)" data-clear-btn="true" />
+        </div>
+        <div class="form-item">
+          <label for="idea-investment-source-2" class="">Источники покрытия (кредитные)</label>
+          <input type="number" id="idea-investment-source-2" name="investment-source-2" placeholder="Источники покрытия (кредитные)" data-clear-btn="true" />
+        </div>
+        <div class="form-item">
+          <label for="idea-investment-source-3" class="">Источники покрытия (инвестор)</label>
+          <input type="number" id="idea-investment-source-3" name="investment-source-3" placeholder="Источники покрытия (инвестор)" data-clear-btn="true" />
+        </div>
+
+        <button class="ui-btn ui-btn-submit ui-btn-ybi ui-corner-all ui-btn-icon-right ui-icon-ybi-stepforward" type="submit" id="submit-idea-steps">Следующий шаг</button>
+      </form>
+    </div><!-- /content -->
+
+    <div data-role="footer" id="footer" data-position="fixed" data-tap-toggle="false">
+      <div id="footer-navbar" data-role="navbar" data-grid="c">
+        <ul>
+          <li><a href="#idea-list" id="btn-idea" class="ui-btn-active">Идеи</a></li>
+          <!--<li><a href="#" id="btn-book">Книги</a></li>
+          <li><a href="services.html" id="btn-service">Услуги</a></li>
+          <li><a href="story.html" id="btn-story">Истории</a></li>-->
+          <li><a href="#" id="btn-service">Услуги</a></li>
+          <li><a href="#" id="btn-story">Истории</a></li>
+          <li><a href="#" id="btn-other" data-icon="ybi-footer-more">Еще</a></li>
+        </ul>
+      </div><!-- /navbar -->
+    </div><!-- /footer -->
+  </div><!-- /page -->
+  
   
   <div class="page-loader">
     <div class="logo"></div>
