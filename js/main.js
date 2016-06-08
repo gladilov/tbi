@@ -1,11 +1,11 @@
-(function($){
+(function($, App){
 
   var deviceReadyDeferred = $.Deferred(),
       jqmReadyDeferred = $.Deferred(),
       $pageLoader = $('.page-loader'),
       uid = 0,
       app = document.URL.indexOf( 'http://' ) === -1 && document.URL.indexOf( 'https://' ) === -1,
-      appVersion = '0.6.5';
+      appVersion = '0.6.7';
 
   document.addEventListener('deviceready', deviceReady, false);
   if (!app) deviceReady();
@@ -34,6 +34,7 @@
         StatusBar.backgroundColorByHexString("#16635D");
       }
     }
+    
 
     // App version
     $(document).on('pagecontainershow', function(event, ui) {
@@ -74,7 +75,6 @@
       });
       
       
-
       // App exit
       $('#app-exit').on('click', function(e) {
         e.preventDefault();
@@ -393,7 +393,8 @@
                 if (app) StatusBar.show();
                 
                 // Goto idea-step-1
-                $(':mobile-pagecontainer').pagecontainer('change', '#idea-step-1', {transition: 'slide'});
+                //$(':mobile-pagecontainer').pagecontainer('change', '#idea-step-1', {transition: 'slide'});
+                $(':mobile-pagecontainer').pagecontainer('change', '#idea-single', {transition: 'slide'}); // TEMP
               }, 2000);
             }
             // Error:
@@ -534,8 +535,120 @@
           $(':mobile-pagecontainer').pagecontainer('change', '#idea-list', {transition: 'slide'});
         }
       });
+      
+      
+      /* 
+       * СПИСОК ИДЕЙ - загрузка из бд и отображение списка по группам при открытии раздела "Идеи"
+       *
+       * TODO: Отображение ошибок при загрузке данных
+       *       Кэш данных
+       *       При пустом списке кнопка по-центру "Добавьте Вашу первую идею"
+       */
+      $('#idea-list').on('pagebeforeshow', function(event) {
+        var $ideaListContainer = $('#idea-list-accordion', $(this)),
+            ideaGroupStatusTitles = {1:'Проверяю', 2:'Реализую', 3:'Архив'},
+            returnData = [];
+      
+        $ideaListContainer.empty();
+      
+        var request = $.ajax({
+          type: 'GET',
+          dataType: 'jsonp',
+          jsonpCallback: 'ideasByUser',
+          contentType: "application/json; charset=utf-8",
+          url: 'http://y-b-i.com/api/idea.php',
+          data: {'method': 'get', 'data': {'uid': uid}},
+          timeout: 8000,
+          cache: false,
+          async: true,
+        });
+        request.done(function(data, textStatus, jqXHR) {
+          console.log(data);
+          if (data.status == 'success') {
+            $.each(data.items, function(groupStatus, ideaItems){
+              // Insert idea status group
+              var $ideaStatusGroupHTML = $(tpl.ideaStatusGroupHTML( {'status': groupStatus, 'title': ideaGroupStatusTitles[groupStatus], 'count': ideaItems.length} ));
+              $ideaListContainer.append($ideaStatusGroupHTML);
+              $ideaListContainer.collapsibleset('refresh');
+              
+              // Insert idea items into status group
+              var $ideaTplContainer = $('.idea-item-tpl-container', $ideaStatusGroupHTML);
+              $.each(ideaItems, function(index, item){
+                var $ideaItemHTML = $(tpl.ideaItemHTML(item));
+                if (item.step_complete > 0) {
+                  var $currentProgres = $ideaItemHTML.find('.progress li').eq(parseInt(item.step_complete) - 1);
+                  $currentProgres.addClass('completed').prevAll().addClass('completed');
+                }
+                $ideaTplContainer.append($ideaItemHTML);
+              });
+              
+            });
+          }
+          //else if (data.status == 'error') {}
+        });
+        //request.fail(function(jqXHR, textStatus, errorThrown) {});
+      });
+      
+      
+      /* 
+       * Переход по ссылке на страницу идеи
+       */
+      //$(document).on('click', '.idea-link', function(e){
+      $(document).on('click', 'a[data-iid]', function(e){
+        var hash = $(this).attr('href'),
+            iid = $(this).data('iid');
+            
+        $(hash).attr('data-iid', iid);
+      });
+      
+      
+      /* 
+       * СТРАНИЦА ОДНОЙ ИДЕЙ - загрузка из бд и отображение всех данных на странице идеи
+       *
+       * TODO: Отображение ошибок при загрузке данных
+       *       Кэш данных
+       */
+      $('#idea-single').on('pagebeforeshow', function(event) {
+        var $this = $(this),
+            iid = $this.data('iid'),
+            $pageTitle = $('#page-title', $this),
+            $ideaSingleContainer = $('#idea-single-accordion', $this);
 
-    
+        console.log(iid);
+        
+        // Очистка старых данных
+        $pageTitle.html('Заголовок идеи');
+        $ideaSingleContainer.find(' > .desc p').empty();
+        
+        var request = $.ajax({
+          type: 'GET',
+          dataType: 'jsonp',
+          jsonpCallback: 'ideasById',
+          contentType: "application/json; charset=utf-8",
+          url: 'http://y-b-i.com/api/idea.php',
+          data: {'method': 'get', 'data': {'iid': iid}},
+          timeout: 8000,
+          cache: false,
+          async: true,
+        });
+        request.done(function(data, textStatus, jqXHR) {
+          console.log(data);
+          var item = data.item[0];
+          
+          if (data.status == 'success') {
+            $pageTitle.html(item.title);
+            $ideaSingleContainer.find(' > .desc p').html(item.description);
+          }
+        });
+      });
+      
+      $('#idea-single').on('pagebeforehide', function(event) {
+        $(this).attr('data-iid', '');
+        console.log($(this).attr('data-iid'));
+      });
+      
+
     //});
   }
-})(jQuery);
+  
+})(jQuery, window.App = window.App || Object.create({}));

@@ -528,6 +528,25 @@ textarea.ui-input-text::-webkit-input-placeholder {
   margin-left: -12.5px;
   margin-top: -12.5px;
 }
+
+#idea-list #header .ui-icon-ybi-add,
+#idea-list #header .ui-icon-ybi-filter {
+  width: 35px !important;
+  height: 35px !important;
+}
+#idea-list #header .ui-icon-ybi-add:after,
+#idea-list #header .ui-icon-ybi-filter:after {
+  width: 35px !important;
+  height: 35px !important;
+  margin-left: -17.5px !important;
+  margin-top: -17.5px !important;
+}
+#idea-list #header .ui-controlgroup-horizontal {
+  margin-top: -17.5px !important;
+}
+#idea-list #header .ui-icon-ybi-add:after { background: url(../img/add@1.5x.png) no-repeat; }
+#idea-list #header .ui-icon-ybi-filter:after { background: url(../img/filter@1.5x.png) no-repeat; }
+
 .ui-icon-ybi-add:after { background: url(../img/add.png) no-repeat; }
 .ui-icon-ybi-cancel:after { background: url(../img/cancel.png) no-repeat; }
 .ui-icon-ybi-edit:after { background: url(../img/edit.png) no-repeat; }
