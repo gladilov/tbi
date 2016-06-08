@@ -76,12 +76,12 @@
       
       
       // App exit
-      $('#app-exit').on('click', function(e) {
+      $(document).on('click', '#app-exit', function(e){
         e.preventDefault();
         
         if (app) {
           function appExitConfirm(buttonIndex) {
-            if (buttonIndex == "1") navigator.app.exitApp();
+            if (buttonIndex == 1) navigator.app.exitApp();
           }
 
           navigator.notification.confirm(
