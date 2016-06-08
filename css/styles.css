@@ -153,7 +153,7 @@ a.active {
 #header #page-title {
 	display: block;
   min-height: 0;
-  padding: 1.5em 30px 1.5em 0;
+  padding: 2em 30px 2em 0;
   margin: 0;
   text-align: left;
 	font: normal 1.286em/1 open_sansbold;
@@ -529,24 +529,6 @@ textarea.ui-input-text::-webkit-input-placeholder {
   margin-top: -12.5px;
 }
 
-#idea-list #header .ui-icon-ybi-add,
-#idea-list #header .ui-icon-ybi-filter {
-  width: 35px !important;
-  height: 35px !important;
-}
-#idea-list #header .ui-icon-ybi-add:after,
-#idea-list #header .ui-icon-ybi-filter:after {
-  width: 35px !important;
-  height: 35px !important;
-  margin-left: -17.5px !important;
-  margin-top: -17.5px !important;
-}
-#idea-list #header .ui-controlgroup-horizontal {
-  margin-top: -17.5px !important;
-}
-#idea-list #header .ui-icon-ybi-add:after { background: url(../img/add@1.5x.png) no-repeat; }
-#idea-list #header .ui-icon-ybi-filter:after { background: url(../img/filter@1.5x.png) no-repeat; }
-
 .ui-icon-ybi-add:after { background: url(../img/add.png) no-repeat; }
 .ui-icon-ybi-cancel:after { background: url(../img/cancel.png) no-repeat; }
 .ui-icon-ybi-edit:after { background: url(../img/edit.png) no-repeat; }
@@ -630,6 +612,42 @@ textarea.ui-input-text::-webkit-input-placeholder {
   margin-top: -4px;
   margin-left: -6px;
 }
+
+/* Icons in header */
+#header .ui-controlgroup-horizontal {
+  margin-top: -15px !important;
+}
+#header .ui-controlgroup-vertical {
+  width: 30px;
+  top: 50%;
+  margin-top: -15px;
+}
+#header .ui-controlgroup-vertical.count-2 {
+  margin-top: -34px;
+}
+#header .ui-icon-ybi-add,
+#header .ui-icon-ybi-filter,
+#header .ui-icon-ybi-cancel,
+#header .ui-icon-ybi-back,
+#header .ui-icon-ybi-edit {
+  width: 30px !important;
+  height: 30px !important;
+}
+#header .ui-icon-ybi-add:after,
+#header .ui-icon-ybi-filter:after,
+#header .ui-icon-ybi-cancel:after,
+#header .ui-icon-ybi-back:after,
+#header .ui-icon-ybi-edit:after {
+  width: 30px !important;
+  height: 30px !important;
+  margin-left: -15px !important;
+  margin-top: -15px !important;
+}
+#header .ui-icon-ybi-add:after { background: url(../img/add@1.2x.png) no-repeat; }
+#header .ui-icon-ybi-filter:after { background: url(../img/filter@1.2x.png) no-repeat; }
+#header .ui-icon-ybi-cancel:after { background: url(../img/cancel@1.2x.png) no-repeat; }
+#header .ui-icon-ybi-back:after { background: url(../img/cancel@1.2x.png) no-repeat; }
+#header .ui-icon-ybi-edit:after { background: url(../img/edit@1.2x.png) no-repeat; }
 
 
 /**

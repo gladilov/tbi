@@ -5,7 +5,7 @@
       $pageLoader = $('.page-loader'),
       uid = 0,
       app = document.URL.indexOf( 'http://' ) === -1 && document.URL.indexOf( 'https://' ) === -1,
-      appVersion = '0.6.7';
+      appVersion = '0.6.8';
 
   document.addEventListener('deviceready', deviceReady, false);
   if (!app) deviceReady();
@@ -126,6 +126,7 @@
           $('.message', $pageLoader).text('Входим...');
           if (app) StatusBar.hide();
           $pageLoader.fadeIn(150);
+          if (app) StatusBar.show();
           
           //TMP
           $pageLoader.fadeOut(150);
@@ -463,16 +464,16 @@
       
       
       // Idea step-1 form
+      var $step1Form = $('#ideastep1-form');
       // Set current user id into form
-      $('input[name="uid"]', $('#ideastep1-form')).val(uid);
-      $('#ideastep1-form').validate();
-      $('#ideastep1-form').submit(function(e){
+      $('input[name="uid"]', $step1Form).val(uid);
+      $step1Form.validate();
+      $step1Form.submit(function(e){
         e.preventDefault();
         var $thisForm = $(this);
         
-        if ($("#ideastep1-form:has(input.required.error)").length == 0) {
-
-          $(':mobile-pagecontainer').pagecontainer('change', '#ideastep2-form', {transition: 'slide'});
+        if ($('#ideastep1-form:has(input.required.error)').length == 0) {
+          $(':mobile-pagecontainer').pagecontainer('change', '#idea-step-2', {transition: 'slide'});
         }
       });
       
@@ -486,8 +487,7 @@
         var $thisForm = $(this);
         
         if ($("#ideastep2-form:has(input.required.error)").length == 0) {
-
-          $(':mobile-pagecontainer').pagecontainer('change', '#ideastep3-form', {transition: 'slide'});
+          $(':mobile-pagecontainer').pagecontainer('change', '#idea-step-3', {transition: 'slide'});
         }
       });
       
@@ -501,8 +501,7 @@
         var $thisForm = $(this);
         
         if ($("#ideastep3-form:has(input.required.error)").length == 0) {
-
-          $(':mobile-pagecontainer').pagecontainer('change', '#ideastep4-form', {transition: 'slide'});
+          $(':mobile-pagecontainer').pagecontainer('change', '#idea-step-4', {transition: 'slide'});
         }
       });
       
@@ -516,8 +515,7 @@
         var $thisForm = $(this);
         
         if ($("#ideastep4-form:has(input.required.error)").length == 0) {
-
-          $(':mobile-pagecontainer').pagecontainer('change', '#ideastep5-form', {transition: 'slide'});
+          $(':mobile-pagecontainer').pagecontainer('change', '#idea-step-5', {transition: 'slide'});
         }
       });
       
@@ -528,11 +526,13 @@
       $('#ideastep5-form').validate();
       $('#ideastep5-form').submit(function(e){
         e.preventDefault();
-        var $thisForm = $(this);
+        var $thisForm = $(this),
+            iid = $thisForm.find('input[name="iid"]').val();
+        
+        $('#idea-single').data('iid', iid);
         
         if ($("#ideastep5-form:has(input.required.error)").length == 0) {
-
-          $(':mobile-pagecontainer').pagecontainer('change', '#idea-list', {transition: 'slide'});
+          $(':mobile-pagecontainer').pagecontainer('change', '#idea-single', {transition: 'slide'});
         }
       });
       
@@ -598,7 +598,9 @@
         var hash = $(this).attr('href'),
             iid = $(this).data('iid');
             
-        $(hash).attr('data-iid', iid);
+        if ($(this).is('.idea-step-edit')) $('.idea-step-page').find('input[name="iid"]').val(iid);
+            
+        $(hash).data('iid', iid);
       });
       
       
@@ -612,13 +614,14 @@
         var $this = $(this),
             iid = $this.data('iid'),
             $pageTitle = $('#page-title', $this),
-            $ideaSingleContainer = $('#idea-single-accordion', $this);
+            $ideaSingleContainer = $('#idea-single-accordion', $this),
+            $groupContainer = $ideaSingleContainer.children();
 
         console.log(iid);
         
         // Очистка старых данных
-        $pageTitle.html('Заголовок идеи');
-        $ideaSingleContainer.find(' > .desc p').empty();
+        //$pageTitle.html('Заголовок идеи');
+        //$ideaSingleContainer.find(' > .desc p').empty();
         
         var request = $.ajax({
           type: 'GET',
@@ -633,18 +636,72 @@
         });
         request.done(function(data, textStatus, jqXHR) {
           console.log(data);
-          var item = data.item[0];
+          var item = data.item;
           
           if (data.status == 'success') {
+            // Title
             $pageTitle.html(item.title);
+            // Description
             $ideaSingleContainer.find(' > .desc p').html(item.description);
+            
+            // Steps group
+            var $stepProgress = $('.steps .progress', $ideaSingleContainer)
+                $itemsProgress = $stepProgress.children('li'),
+                $stepProgressInfo = $stepProgress.next('.progress-info'),
+                $stepEditLink = $('.idea-step-edit', $stepProgressInfo);
+                
+            $ideaSingleContainer.find(' > .steps .ui-li-count').html(item.step_complete);
+            $groupContainer.collapsible('collapse');
+            $itemsProgress.removeClass('completed current');
+            $stepProgressInfo.show();
+            $stepEditLink.data('iid', iid);
+            
+            if (item.step_complete == '0') {
+              $('.step-current', $stepProgressInfo).html('1');
+              $stepEditLink.attr('href', '#idea-step-1');
+            }
+            else if (parseInt(item.step_complete) > 0) {
+              var $currentProgres = $itemsProgress.eq(parseInt(item.step_complete) - 1);
+              
+              $currentProgres.addClass('completed').prevAll().addClass('completed');
+              $currentProgres.next().addClass('current');
+              
+              if (parseInt(item.step_complete) < 5) {
+                $('.step-current', $stepProgressInfo).html(parseInt(item.step_complete) + 1);
+                $stepEditLink.attr('href', '#idea-step-' + (parseInt(item.step_complete) + 1));
+              }
+              else {
+                $('.step-current', $stepProgressInfo).html('1');
+                $stepEditLink.attr('href', '#idea-step-1');
+                $stepProgressInfo.hide();
+              }
+            }
+            
+            // Team group
+            $ideaSingleContainer.find(' > .team p').html(item.team);
+            
+            // Audience group
+            $audienceItemsContainer = $ideaSingleContainer.find(' > .audience ol');
+            $audienceItemsContainer.empty();
+            $.each(item.audience, function(index, val){
+              $audienceItemsContainer.append('<li>' + val + '</li>');
+            });
+            $audienceItemsContainer.listview('refresh');
+            
+            // Keyvalue group
+            $keyvalueItemsContainer = $ideaSingleContainer.find(' > .values ol');
+            $keyvalueItemsContainer.empty();
+            $.each(item.keyvalue, function(index, val){
+              $keyvalueItemsContainer.append('<li>' + val + '</li>');
+            });
+            $keyvalueItemsContainer.listview('refresh');
+
           }
         });
       });
       
       $('#idea-single').on('pagebeforehide', function(event) {
-        $(this).attr('data-iid', '');
-        console.log($(this).attr('data-iid'));
+        //$(this).removeData('iid');
       });
       
 

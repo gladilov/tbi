@@ -17,7 +17,7 @@
   <div data-role="page" id="signin-signup" data-theme="d">
     <div data-role="header" id="header">
       <div class="logo">
-        <img src="img/logo.png" width="201" height="63" />
+        <img src="img/logo.png" width="250" height="121" />
       </div>
     </div><!-- /header -->
     
@@ -176,19 +176,15 @@
     <div data-role="content" role="main" id="content" class="ui-content">
       <div id="idea-single-accordion" class="accordion" data-role="collapsibleset" data-inset="false">
         <div class="steps" data-role="collapsible" data-content-theme="false">
-          <h3>Шаги реализации<span class="ui-li-count">2</span></h3>
+          <h3>Шаги реализации<span class="ui-li-count">0</span></h3>
           <ul class="progress">
-            <li class="completed">1</li>
-            <li class="completed">2</li>
-            <li class="completed">3</li>
-            <li class="current">4</li>
-            <li>5</li>
+            <li>1</li><li>2</li><li>3</li><li>4</li><li>5</li>
           </ul>
           
           <div class="progress-info">
-            <p class="step-cirrent">Ceйчас — Шаг 4:</p>
+            <p class="step-cirrent">Ceйчас — Шаг <span class="step-current">1</span>:</p>
             <p class="step-cirrent-desc">Ожидание результатов опроса</p>
-            <a href="#idea-step-1" class="ui-btn ui-btn-ybi ui-corner-all ui-shadow ui-btn-icon-notext ui-btn-icon-right ui-icon-ybi-forward">Go on</a>
+            <a href="#idea-step-1" class="idea-step-edit ui-btn ui-btn-ybi ui-corner-all ui-shadow ui-btn-icon-notext ui-btn-icon-right ui-icon-ybi-forward" data-iid="">Go on</a>
           </div>
         </div>
         
@@ -203,9 +199,7 @@
         
         <div class="team" data-role="collapsible" data-content-theme="false">
           <h3>Команда</h3>
-					<ol data-role="listview">
-            <li>Equil Smartmarket Team все должности</li>
-          </ol>
+					<p></p>
         </div>
         
         <div class="desc" data-role="collapsible" data-content-theme="false">
@@ -215,19 +209,12 @@
         
         <div class="audience" data-role="collapsible" data-content-theme="false">
           <h3>Целевая аудитория</h3>
-          <ol data-role="listview">
-            <li>Студенты</li>
-            <li>Бизнес-тренеры</li>
-            <li>Дизайнеры</li>
-          </ol>
+          <ol data-role="listview"></ol>
         </div>
         
         <div class="values" data-role="collapsible" data-content-theme="false">
           <h3>Ценности идеи</h3>
-          <ol data-role="listview">
-            <li>Сохраняет все записи в электронном формате</li>
-            <li>Можно наблюдать запись из самых отдаленных мест помещения</li>
-          </ol>
+          <ol data-role="listview"></ol>
         </div>
       </div>
       
@@ -277,8 +264,7 @@
     <div data-role="header" id="header">
 			<h1 id="page-title">Новая идея</h1>
       <div data-role="controlgroup" data-type="horizontal" class="ui-mini ui-btn-right">
-        <a href="#" class="ui-btn ui-btn-ybi ui-btn-icon-notext ui-btn-icon-right ui-icon-ybi-add">Add</a>
-        <a href="idea.html" class="ui-btn ui-btn-ybi ui-btn-icon-notext ui-btn-icon-right ui-icon-ybi-cancel" data-rel="back">Cancel</a>
+        <a href="#idea-list" class="ui-btn ui-btn-ybi ui-btn-icon-notext ui-btn-icon-right ui-icon-ybi-cancel">Cancel</a>
       </div>
     </div><!-- /header -->
 
@@ -384,7 +370,7 @@
   </div><!-- /page -->
   
   
-  <div data-role="page" id="idea-step-1" data-theme="b" data-iid="">
+  <div data-role="page" id="idea-step-1" class="idea-step-page" data-theme="b" data-iid="">
     <div data-role="panel" class="left-panel" data-position="left" data-position-fixed="true" data-display="overlay">
       <div data-role="header">
         <h3>Меню</h3>
@@ -509,7 +495,7 @@
   </div><!-- /page -->
 
   
-  <div data-role="page" id="idea-step-2" data-theme="b" data-iid="">
+  <div data-role="page" id="idea-step-2" class="idea-step-page" data-theme="b" data-iid="">
     <div data-role="panel" class="left-panel" data-position="left" data-position-fixed="true" data-display="overlay">
       <div data-role="header">
         <h3>Меню</h3>
@@ -560,6 +546,9 @@
           <label for="keyvalue-5">Ценность 5:</label>
           <input type="number" name="keyvalue-5" id="keyvalue-5" data-clear-btn="false" pattern="[0-9]*" data-icon="ui-icon-plus" class="ui-icon" placeholder="0" value="0">
         </div>
+
+        <input type="hidden" name="uid" value="" />
+        <input type="hidden" name="iid" value="" />
         
         <button class="ui-btn ui-btn-submit ui-btn-ybi ui-corner-all ui-btn-icon-right ui-icon-ybi-stepforward" type="submit" id="submit-idea-steps">Следующий шаг</button>
       </form>
@@ -581,7 +570,7 @@
   </div><!-- /page -->
   
   
-  <div data-role="page" id="idea-step-3" data-theme="b">
+  <div data-role="page" id="idea-step-3" class="idea-step-page" data-theme="b">
     <div data-role="panel" class="left-panel" data-position="left" data-position-fixed="true" data-display="overlay">
       <div data-role="header">
         <h3>Меню</h3>
@@ -662,6 +651,9 @@
           <textarea id="idea-step3conclusion" name="step3conclusion" placeholder="Выводы" rows="4" data-clear-btn="true"></textarea>
         </div>
 
+        <input type="hidden" name="uid" value="" />
+        <input type="hidden" name="iid" value="" />
+
         <button class="ui-btn ui-btn-submit ui-btn-ybi ui-corner-all ui-btn-icon-right ui-icon-ybi-stepforward" type="submit" id="submit-idea-steps">Следующий шаг</button>
       </form>
     </div><!-- /content -->
@@ -682,7 +674,7 @@
   </div><!-- /page -->
   
   
-  <div data-role="page" id="idea-step-4" data-theme="b">
+  <div data-role="page" id="idea-step-4" class="idea-step-page" data-theme="b">
     <div data-role="panel" class="left-panel" data-position="left" data-position-fixed="true" data-display="overlay">
       <div data-role="header">
         <h3>Меню</h3>
@@ -735,6 +727,9 @@
           </div>
         </div>
 
+        <input type="hidden" name="uid" value="" />
+        <input type="hidden" name="iid" value="" />
+
         <button class="ui-btn ui-btn-submit ui-btn-ybi ui-corner-all ui-btn-icon-right ui-icon-ybi-stepforward" type="submit" id="submit-idea-steps">Следующий шаг</button>
       </form>
     </div><!-- /content -->
@@ -755,7 +750,7 @@
   </div><!-- /page -->
   
   
-  <div data-role="page" id="idea-step-5" data-theme="b">
+  <div data-role="page" id="idea-step-5" class="idea-step-page" data-theme="b">
     <div data-role="panel" class="left-panel" data-position="left" data-position-fixed="true" data-display="overlay">
       <div data-role="header">
         <h3>Меню</h3>
@@ -804,6 +799,9 @@
           <label for="idea-investment-source-3" class="">Источники покрытия (инвестор)</label>
           <input type="number" id="idea-investment-source-3" name="investment-source-3" placeholder="Источники покрытия (инвестор)" data-clear-btn="true" />
         </div>
+
+        <input type="hidden" name="uid" value="" />
+        <input type="hidden" name="iid" value="" />
 
         <button class="ui-btn ui-btn-submit ui-btn-ybi ui-corner-all ui-btn-icon-right ui-icon-ybi-stepforward" type="submit" id="submit-idea-steps">Следующий шаг</button>
       </form>
