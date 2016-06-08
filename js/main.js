@@ -60,7 +60,7 @@
         }
       });
       // Panel open on clik button "#btn-other"
-      $('#btn-other').on('click', function(e) {
+      $(document).on('click', '#btn-other', function(e){
         var $pageActive = $(this).parents('.ui-page-active');
         if ($pageActive.find('.left-panel').length) {
           console.log('left-panel exist');
