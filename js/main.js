@@ -2,11 +2,15 @@
 
   var deviceReadyDeferred = $.Deferred(),
       jqmReadyDeferred = $.Deferred(),
+      storage = $.localStorage,
       $pageLoader = $('.page-loader'),
       uid = 0,
       app = document.URL.indexOf( 'http://' ) === -1 && document.URL.indexOf( 'https://' ) === -1,
-      appVersion = '0.6.8';
+      appVersion = '0.7.0';
 
+  // Namespace storage
+  ybi = $.initNamespaceStorage('ybi');
+      
   document.addEventListener('deviceready', deviceReady, false);
   if (!app) deviceReady();
 
@@ -36,8 +40,48 @@
     }
     
 
-    // App version
+    // If user is authorized - change page to Idea list (without login form)
+    $('#signin-signup').on('pagecreate', function(event, ui) {
+      if (ybi.localStorage.isSet('userAuthorized')) {
+        var userAuthorized = ybi.localStorage.get('userAuthorized');
+        if (userAuthorized == true) { $(':mobile-pagecontainer').pagecontainer('change', '#idea-list'); }
+      }
+    });
+    
+    
+    // Idea share
+    $(document).on('click', 'a.idea-share', function(e){
+      var $activePage = $('.ui-page-active');
+      
+      if ($activePage.is('#idea-single')) {
+        var ideaTitle = $activePage.find('#page-title').text();
+        
+        // this is the complete list of currently supported params you can pass to the plugin (all optional)
+        var options = {
+          message: 'Бизнес идея "' + ideaTitle + '"', // not supported on some apps (Facebook, Instagram)
+          subject: 'Бизнес идея "' + ideaTitle + '"', // fi. for email
+          files: ['', ''], // an array of filenames either locally or remotely
+          url: 'http://www.y-b-i.com',
+          chooserTitle: 'Поделиться' // Android only, you can override the default share sheet title
+        }
+
+        var onSuccess = function(result) {
+          console.log("Share completed? " + result.completed); // On Android apps mostly return false even while it's true
+          console.log("Shared to app: " + result.app); // On Android result.app is currently empty. On iOS it's empty when sharing is cancelled (result.completed=false)
+        }
+
+        var onError = function(msg) {
+          console.log("Sharing failed with message: " + msg);
+        }
+
+        window.plugins.socialsharing.shareWithOptions(options, onSuccess, onError);
+      }
+    });
+      
+    
+    // When you load each page
     $(document).on('pagecontainershow', function(event, ui) {
+      // App version
       $('.app-version .value').html(appVersion);
     });
     
@@ -61,7 +105,8 @@
       });
       // Panel open on clik button "#btn-other"
       $(document).on('click', '#btn-other', function(e){
-        var $pageActive = $(this).parents('.ui-page-active');
+        $(document).trigger('swipeleft');
+        /*var $pageActive = $(this).parents('.ui-page-active');
         if ($pageActive.find('.left-panel').length) {
           console.log('left-panel exist');
           if ($('.ui-page-active').jqmData('panel') !== 'open') {
@@ -71,7 +116,7 @@
               $('.ui-page-active .left-panel').panel('close');
             }
           }
-        }
+        }*/
       });
       
       
@@ -129,15 +174,15 @@
           if (app) StatusBar.show();
           
           //TMP
-          $pageLoader.fadeOut(150);
-          $('.message', $pageLoader).empty();
-          $(':mobile-pagecontainer').pagecontainer('change', '#idea-list');
+          //$pageLoader.fadeOut(150);
+          //$('.message', $pageLoader).empty();
+          //$(':mobile-pagecontainer').pagecontainer('change', '#idea-list');
           
           // Reset form
-          $('.ui-input-text > input', $thisForm).removeClass('error');
-          $('input[type="email"], input[type="password"]', $thisForm).val('');
+          //$('.ui-input-text > input', $thisForm).removeClass('error');
+          //$('input[type="email"], input[type="password"]', $thisForm).val('');
           
-          /*var request = $.ajax({
+          var request = $.ajax({
             type: 'GET',
             dataType: 'jsonp',
             jsonpCallback: 'userCheck',
@@ -160,6 +205,8 @@
                 $pageLoader.fadeOut(150);
                 $('.message', $pageLoader).empty();
                 if (app) StatusBar.show();
+                
+                ybi.localStorage.set('userAuthorized', true);
                 
                 $thisForm.find('.ui-input-text > input').removeClass('error');
                 $(':mobile-pagecontainer').pagecontainer('change', '#idea-list');
@@ -224,7 +271,7 @@
                 }
               }
             }, 2000);
-          });*/
+          });
         }
       });
       
@@ -264,6 +311,8 @@
                 $pageLoader.fadeOut(150);
                 $('.message', $pageLoader).empty();
                 if (app) StatusBar.show();
+                
+                ybi.localStorage.set('userAuthorized', true);
                 
                 $thisForm.find('.ui-input-text > input').removeClass('error');
                 
@@ -643,6 +692,16 @@
             $pageTitle.html(item.title);
             // Description
             $ideaSingleContainer.find(' > .desc p').html(item.description);
+            // Product
+            $ideaSingleContainer.find(' > .product p').html(item.product);
+            // Competitive advantages
+            $ideaSingleContainer.find(' > .competitive-advantages p').html(item.competitive_advantages);
+            // Necessary resources
+            $ideaSingleContainer.find(' > .necessary-resources p').html(item.necessary_resources);
+            // Helpful people
+            $ideaSingleContainer.find(' > .helpful-people p').html(item.helpful_people);
+            // Key hypotheses
+            $ideaSingleContainer.find(' > .key-hypotheses p').html(item.key_hypotheses);
             
             // Steps group
             var $stepProgress = $('.steps .progress', $ideaSingleContainer)

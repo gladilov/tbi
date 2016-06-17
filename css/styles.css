@@ -162,6 +162,20 @@ a.active {
   overflow: visible;
   white-space: normal;
 }
+#header #page-title.with-btn-2 {
+  padding-right: 70px;
+}
+#header #page-title.with-btn-3 {
+  padding-right: 100px;
+}
+
+#idea-list #header #page-title {
+	font: normal 1.429em/1 "open_sansregular", sans-serif;
+}
+#idea-list #header #page-title strong {
+	font-family: "open_sansbold", sans-serif;
+}
+
 div#header p {
 	font: normal 1em open_sansregular;
 	color:#3BB2A7;
@@ -629,7 +643,8 @@ textarea.ui-input-text::-webkit-input-placeholder {
 #header .ui-icon-ybi-filter,
 #header .ui-icon-ybi-cancel,
 #header .ui-icon-ybi-back,
-#header .ui-icon-ybi-edit {
+#header .ui-icon-ybi-edit,
+#header .ui-icon-ybi-share2 {
   width: 30px !important;
   height: 30px !important;
 }
@@ -637,17 +652,19 @@ textarea.ui-input-text::-webkit-input-placeholder {
 #header .ui-icon-ybi-filter:after,
 #header .ui-icon-ybi-cancel:after,
 #header .ui-icon-ybi-back:after,
-#header .ui-icon-ybi-edit:after {
+#header .ui-icon-ybi-edit:after,
+#header .ui-icon-ybi-share2:after {
   width: 30px !important;
   height: 30px !important;
   margin-left: -15px !important;
   margin-top: -15px !important;
 }
-#header .ui-icon-ybi-add:after { background: url(../img/add@1.2x.png) no-repeat; }
+#header .ui-icon-ybi-add:after { background: url(../img/add@1.2x_red.png) no-repeat; }
 #header .ui-icon-ybi-filter:after { background: url(../img/filter@1.2x.png) no-repeat; }
 #header .ui-icon-ybi-cancel:after { background: url(../img/cancel@1.2x.png) no-repeat; }
 #header .ui-icon-ybi-back:after { background: url(../img/cancel@1.2x.png) no-repeat; }
 #header .ui-icon-ybi-edit:after { background: url(../img/edit@1.2x.png) no-repeat; }
+#header .ui-icon-ybi-share2:after { background: url(../img/share2@1.2x.png) no-repeat; }
 
 
 /**

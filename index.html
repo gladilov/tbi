@@ -7,11 +7,12 @@
   <meta name="viewport" content="user-scalable=no, initial-scale=1, minimum-scale=1, maximum-scale=1">
   <!--<meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, target-densitydpi=device-dpi" />-->
   <!--<meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />-->
-  <title>Бизнес Идея</title>
+  <title>Бизнес-идеи</title>
   <link rel="stylesheet" href="css/jquery.mobile.structure-1.4.5.min.css" />
   <link rel="stylesheet" href="css/styles.css"/>
   <script type="text/javascript" src="js/jquery-1.12.1.min.js"></script>
   <script type="text/javascript" src="js/jquery.validate.min.js"></script>
+  <script type="text/javascript" src="js/jquery.storageapi.min.js"></script>
 </head>
 <body>
   <div data-role="page" id="signin-signup" data-theme="d">
@@ -33,11 +34,11 @@
           <form method="post" id="signin-form">
             <div class="form-item form-item-signin-email">
               <label for="signin-email" class="ui-hidden-accessible">Ваша эл. почта</label>
-              <input type="email" id="signin-email" class="required" name="mail" value="demo@demo" placeholder="Ваша эл. почта" autocomplete="off" />
+              <input type="email" id="signin-email" class="required" name="mail" value="" placeholder="Ваша эл. почта" autocomplete="off" />
             </div>
             <div class="form-item form-item-signin-password">
               <label for="signin-password" class="ui-hidden-accessible">Пароль</label>
-              <input type="password" id="signin-password" class="required" name="pass" value="demo" placeholder="Пароль" autocomplete="off" />
+              <input type="password" id="signin-password" class="required" name="pass" value="" placeholder="Пароль" autocomplete="off" />
             </div>
 
             <input type="submit" value="Войти">
@@ -89,10 +90,10 @@
     </div><!-- /panel -->
     
     <div data-role="header" id="header">
-			<h1 id="page-title">Блокнот идей</h1>
+			<h1 id="page-title" class="with-btn-2"><strong>Блокнот</strong> идей</h1>
       <div data-role="controlgroup" data-type="horizontal" class="ui-mini ui-btn-right">
-        <a href="#idea-add" class="ui-btn ui-btn-ybi ui-corner-all ui-shadow ui-btn-icon-notext ui-btn-icon-right ui-icon-ybi-add">Add</a>
         <a href="#popupIdeaFilter" class="ui-btn ui-btn-ybi ui-corner-all ui-shadow ui-btn-icon-notext ui-btn-icon-right ui-icon-ybi-filter" data-rel="popup" data-transition="fade">Filter</a>
+        <a href="#idea-add" class="ui-btn ui-btn-ybi ui-corner-all ui-shadow ui-btn-icon-notext ui-btn-icon-right ui-icon-ybi-add">Add</a>
       </div>
     </div><!-- /header -->
     
@@ -166,10 +167,11 @@
     </div><!-- /panel -->
     
     <div data-role="header" id="header">
-			<h1 id="page-title">Заголовок идеи</h1>
-      <div data-role="controlgroup" data-type="vertical" class="ui-mini ui-btn-right count-2">
-        <a href="#idea-list" class="ui-btn ui-btn-ybi ui-corner-all ui-shadow ui-btn-icon-notext ui-btn-icon-right ui-icon-ybi-back">Back</a>
-        <a href="#idea-edit" class="ui-btn ui-btn-ybi ui-corner-all ui-shadow ui-btn-icon-notext ui-btn-icon-right ui-icon-ybi-edit">Edit</a>
+			<h1 id="page-title" class="with-btn-2">Заголовок идеи</h1>
+      <div data-role="controlgroup" data-type="horizontal" class="ui-mini ui-btn-right count-2">
+        <a href="#idea-list" class="ui-btn ui-btn-ybi ui-btn-icon-notext ui-btn-icon-right ui-icon-ybi-back">Back</a>
+        <a href="#idea-edit" class="ui-btn ui-btn-ybi ui-btn-icon-notext ui-btn-icon-right ui-icon-ybi-edit">Edit</a>
+        <a href="#" id="" class="idea-share ui-btn ui-btn-ybi ui-btn-icon-notext ui-btn-icon-right ui-icon-ybi-share2">Share</a>
       </div>
     </div><!-- /header -->
     
@@ -188,14 +190,14 @@
           </div>
         </div>
         
-        <div class="rating" data-role="collapsible" data-content-theme="false">
+        <!--<div class="rating" data-role="collapsible" data-content-theme="false">
           <h3>Оценка идеи<span class="ui-li-count">7.4</span></h3>
           <ul class="stats">
             <li class="stats-1"><span class="stats-value ui-btn-ybi ui-btn-icon-left ui-icon-ybi-stats-1">7</span><div class="stats-desc">Актуальность</div></li>
             <li class="stats-2"><span class="stats-value ui-btn-ybi ui-btn-icon-left ui-icon-ybi-stats-2">7</span><div class="stats-desc">Потенциал</div></li>
             <li class="stats-3"><span class="stats-value ui-btn-ybi ui-btn-icon-left ui-icon-ybi-stats-3">5</span><div class="stats-desc">Шансы на успех</div></li>
           </ul>
-        </div>
+        </div>-->
         
         <div class="team" data-role="collapsible" data-content-theme="false">
           <h3>Команда</h3>
@@ -204,6 +206,11 @@
         
         <div class="desc" data-role="collapsible" data-content-theme="false">
           <h3>Описание</h3>
+          <p></p>
+        </div>
+        
+        <div class="product" data-role="collapsible" data-content-theme="false">
+          <h3>Продукт</h3>
           <p></p>
         </div>
         
@@ -216,12 +223,37 @@
           <h3>Ценности идеи</h3>
           <ol data-role="listview"></ol>
         </div>
+        
+        <div class="sales-channel" data-role="collapsible" data-content-theme="false">
+          <h3>Каналы сбыта</h3>
+          <p></p>
+        </div>
+        
+        <div class="competitive-advantages" data-role="collapsible" data-content-theme="false">
+          <h3>Конкурентные преимущества</h3>
+          <p></p>
+        </div>
+        
+        <div class="necessary-resources" data-role="collapsible" data-content-theme="false">
+          <h3>Необходимые ресурсы</h3>
+          <p></p>
+        </div>
+        
+        <div class="helpful-people" data-role="collapsible" data-content-theme="false">
+          <h3>Полезные люди</h3>
+          <p></p>
+        </div>
+        
+        <div class="key-hypotheses" data-role="collapsible" data-content-theme="false">
+          <h3>Ключевые гипотезы</h3>
+          <p></p>
+        </div>
       </div>
       
       <div class="links" data-role="controlgroup" data-type="horizontal">
 				<a href="#" class="interview-link">Интервью</a>
 				<a href="#" class="media-link">Медиа</a>
-				<a href="#" class="ui-btn ui-btn-ybi ui-corner-all ui-shadow ui-btn-icon-notext ui-btn-icon-right ui-icon-ybi-share">Share</a>
+				<a href="#" class="idea-share ui-btn ui-btn-ybi ui-corner-all ui-shadow ui-btn-icon-notext ui-btn-icon-right ui-icon-ybi-share">Share</a>
       </div>
     </div><!-- /content -->
 
