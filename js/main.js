@@ -94,17 +94,24 @@
       //else console.log('0');
       //console.log($(document).pagecontainer( "getActivePage" ));
       document.addEventListener('backbutton', function(e){
-        alert('backbutton');
         e.preventDefault();
         
         //navigator.app.backHistory();
         //window.history.back();
-        history.back();
-        //$.mobile.back();
-        //history.go(0);
+        //history.back();
+        $.mobile.back();
+        //history.go(-1);
         //parent.history.back();
       });
-
+    });
+    
+    $('#app-back').on('click', function(){
+      //navigator.app.backHistory();
+      //window.history.back();
+      //history.back();
+      //$.mobile.back();
+      //history.go(-1);
+      //parent.history.back();
     });
     
     //$(document).on('pagecontainercreate', function(e) {
