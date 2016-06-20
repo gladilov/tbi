@@ -22,7 +22,7 @@
     $.support.cors = true;
     $.mobile.allowCrossDomainPages = true;
     
-    $.mobile.hashListeningEnabled = false;/* temp */
+    if (device.platform === "iOS") { $.mobile.hashListeningEnabled = false;/* temp */ }
     $.mobile.pushStateEnabled = false;/* temp */
     
     jqmReadyDeferred.resolve();
@@ -97,6 +97,8 @@
         alert('backbutton');
         e.preventDefault();
         navigator.app.backHistory();
+        //window.history.back();
+        //history.go(0);
       });
 
     });
