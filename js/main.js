@@ -96,22 +96,34 @@
       document.addEventListener('backbutton', function(e){
         e.preventDefault();
         
-        //navigator.app.backHistory();
+        navigator.app.backHistory();
         //window.history.back();
         //history.back();
-        $.mobile.back();
+        //$.mobile.back();
         //history.go(-1);
         //parent.history.back();
       });
     });
     
-    $('#app-back').on('click', function(){
-      //navigator.app.backHistory();
-      //window.history.back();
-      //history.back();
-      //$.mobile.back();
-      //history.go(-1);
-      //parent.history.back();
+    $('#app-back1').on('click', function(){
+      e.preventDefault();
+      window.history.back();
+    });
+    $('#app-back2').on('click', function(){
+      e.preventDefault();
+      history.back();
+    });
+    $('#app-back3').on('click', function(){
+      e.preventDefault();
+      $.mobile.back();
+    });
+    $('#app-back4').on('click', function(){
+      e.preventDefault();
+      history.go(-1);
+    });
+    $('#app-back5').on('click', function(){
+      e.preventDefault();
+      parent.history.back();
     });
     
     //$(document).on('pagecontainercreate', function(e) {
