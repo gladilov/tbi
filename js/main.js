@@ -105,23 +105,23 @@
       });
     });
     
-    $('#app-back1').on('click', function(){
+    $('#app-back1').on('click', function(e){
       e.preventDefault();
       window.history.back();
     });
-    $('#app-back2').on('click', function(){
+    $('#app-back2').on('click', function(e){
       e.preventDefault();
       history.back();
     });
-    $('#app-back3').on('click', function(){
+    $('#app-back3').on('click', function(e){
       e.preventDefault();
       $.mobile.back();
     });
-    $('#app-back4').on('click', function(){
+    $('#app-back4').on('click', function(e){
       e.preventDefault();
       history.go(-1);
     });
-    $('#app-back5').on('click', function(){
+    $('#app-back5').on('click', function(e){
       e.preventDefault();
       parent.history.back();
     });
