@@ -98,7 +98,9 @@
         e.preventDefault();
         
         //navigator.app.backHistory();
-        window.history.back();
+        //window.history.back();
+        history.back();
+        //$.mobile.back();
         //history.go(0);
         //parent.history.back();
       });
