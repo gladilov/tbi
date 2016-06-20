@@ -96,8 +96,8 @@
       document.addEventListener('backbutton', function(e){
         e.preventDefault();
         
-        navigator.app.backHistory();
-        //window.history.back();
+        //navigator.app.backHistory();
+        window.history.back();
         //history.back();
         //$.mobile.back();
         //history.go(-1);
@@ -105,6 +105,10 @@
       });
     });
     
+    $('#app-back0').on('click', function(e){
+      e.preventDefault();
+      navigator.app.backHistory();
+    });
     $('#app-back1').on('click', function(e){
       e.preventDefault();
       window.history.back();
