@@ -6,8 +6,8 @@
         id        = "com.ybi.app"
         version   = "0.7.0">
         
-  <name>Бизнес Идея</name>
-  <description>YBI app.</description>
+  <name>Бизнес Идеи</name>
+  <description>Блокнот бизнес идей</description>
   <author href="http://sapiens.media" email="a.gladilov@yandex.ru">Alex Gladilov</author>
   <content src="index.html"/>
   
