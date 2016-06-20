@@ -83,6 +83,22 @@
     $(document).on('pagecontainershow', function(event, ui) {
       // App version
       $('.app-version .value').html(appVersion);
+      
+
+    
+    
+      // Device back button
+      var $page = $(':mobile-pagecontainer').pagecontainer('getActivePage')[0].id;
+      console.log($page);
+      //if ($page.is('#signin-signup')) console.log('1');
+      //else console.log('0');
+      //console.log($(document).pagecontainer( "getActivePage" ));
+      document.addEventListener('backbutton', function(e){
+        alert('backbutton');
+        e.preventDefault();
+        navigator.app.backHistory();
+      });
+
     });
     
     //$(document).on('pagecontainercreate', function(e) {
