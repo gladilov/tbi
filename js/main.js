@@ -22,7 +22,7 @@
     $.support.cors = true;
     $.mobile.allowCrossDomainPages = true;
     
-    if (device.platform === "iOS") { $.mobile.hashListeningEnabled = false;/* temp */ }
+    if (app && device.platform === "iOS") { $.mobile.hashListeningEnabled = false;/* temp */ }
     $.mobile.pushStateEnabled = false;/* temp */
     
     jqmReadyDeferred.resolve();
@@ -96,9 +96,11 @@
       document.addEventListener('backbutton', function(e){
         alert('backbutton');
         e.preventDefault();
-        navigator.app.backHistory();
-        //window.history.back();
+        
+        //navigator.app.backHistory();
+        window.history.back();
         //history.go(0);
+        //parent.history.back();
       });
 
     });
