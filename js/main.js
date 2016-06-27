@@ -114,7 +114,8 @@ console.log(window.history);
         e.preventDefault();
 
         if ($('.ui-page-active').attr('id') == 'idea-list') {
-          $('#app-exit', $('#idea-list')).trigger('click');
+          $('#idea-list #app-exit').trigger('click');
+          alert('q');
         }
         else {
           //if (app && device.platform === "iOS") 
