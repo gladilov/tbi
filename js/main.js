@@ -40,8 +40,16 @@
       }
     }
     
-    console.log(ybi);
     
+    console.log(ybi);
+    ybi.localStorage.set('ybi_userAuthorized', true);
+    storage.set('userAuthorized', true);
+    
+    var ybi_userAuthorized = ybi.localStorage.get('ybi_userAuthorized');
+    var userAuthorized = storage.get('userAuthorized');
+    
+    alert(ybi_userAuthorized);
+    alert(userAuthorized);
     
     
 
@@ -107,14 +115,16 @@ console.log(window.history);
       document.addEventListener('backbutton', function(e){
         e.preventDefault();
         
-        if ($page == 'idea-list') {
+        $('#app-exit').trigger('click');
+        
+        /*if ($page == 'idea-list') {
           
           if (!app) return false;
         }
         else {
           $('#app-exit').trigger('click');
           return false;
-        }
+        }*/
         
         
         //navigator.app.backHistory();
@@ -126,7 +136,7 @@ console.log(window.history);
       });
     });
     
-    $('#app-back0').on('click', function(e){
+    /*$('#app-back0').on('click', function(e){
       e.preventDefault();
       navigator.app.backHistory();
     });
@@ -149,7 +159,7 @@ console.log(window.history);
     $('#app-back5').on('click', function(e){
       e.preventDefault();
       parent.history.back();
-    });
+    });*/
     
     //$(document).on('pagecontainercreate', function(e) {
     //$(document).on('pagecreate', function(e) {
