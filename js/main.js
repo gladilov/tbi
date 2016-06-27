@@ -35,6 +35,7 @@
     if(typeof data.toPage == "object" && data.toPage.is('#idea-list') && typeof data.absUrl == "undefined") {
       if (ybi.localStorage.isSet('userAuthorized')) {
         userAuthorized = ybi.localStorage.get('userAuthorized');
+        uid = ybi.localStorage.get('userAuthorizedUid');
       }
       
       if (userAuthorized === false) {
@@ -196,7 +197,9 @@ console.log(window.history);
           function appExitConfirm(buttonIndex) {
             if (buttonIndex == 1) {
               ybi.localStorage.set('userAuthorized', false);
+              ybi.localStorage.remove('userAuthorizedUid');
               userAuthorized = false;
+              uid = 0;
               navigator.app.exitApp();
             }
           }
@@ -279,6 +282,7 @@ console.log(window.history);
                 if (app) StatusBar.show();
                 
                 ybi.localStorage.set('userAuthorized', true);
+                ybi.localStorage.set('userAuthorizedUid', data.uid);
                 userAuthorized = true;
                 
                 // Set var "uid"
@@ -389,6 +393,7 @@ console.log(window.history);
                 if (app) StatusBar.show();
                 
                 ybi.localStorage.set('userAuthorized', true);
+                ybi.localStorage.set('userAuthorizedUid', data.uid);
                 userAuthorized = true;
                 
                 // Set var "uid"
