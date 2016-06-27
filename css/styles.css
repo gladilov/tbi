@@ -170,10 +170,11 @@ a.active {
 }
 
 #idea-list #header #page-title {
-	font: normal 1.429em/1 "open_sansregular", sans-serif;
+	/*font: normal 1.429em/1 "open_sansregular", sans-serif;*/
+  font-size: 1.429em;
 }
 #idea-list #header #page-title strong {
-	font-family: "open_sansbold", sans-serif;
+	/*font-family: "open_sansbold", sans-serif;*/
 }
 
 div#header p {
@@ -679,6 +680,9 @@ textarea.ui-input-text::-webkit-input-placeholder {
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
 }
+.ui-popup.w90 {
+  /*width: 90%;*/
+}
 .ui-popup .ui-header {
   border-color: #3BB2A7;
 }
@@ -689,6 +693,7 @@ textarea.ui-input-text::-webkit-input-placeholder {
   font: normal 1.143em open_sansbold;
   color: #3BB2A7;
 }
+
 #popupIdeaFilter {
   top: -21px;
   left: 3px;
@@ -708,6 +713,22 @@ textarea.ui-input-text::-webkit-input-placeholder {
 #popupIdeaFilter .ui-radio label.ui-radio-on:after {
   display: block;
 }
+
+#popup-forgot-password-popup {
+  min-width: 90%;
+}
+#popup-forgot-password-popup .ui-header .ui-title {
+  padding-right: 3em;
+}
+
+#popup-license-popup {
+  min-width: 90%;
+}
+
+#popup-confidentiality-popup {
+  min-width: 90%;
+}
+
 
 
 /**

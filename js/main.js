@@ -45,7 +45,12 @@
     }
     
     $(document).on('pagecontainerbeforechange', function(e, data) {
-      alert("pagecontainerbeforechange: " + data.toPage[0].id);
+
+      if( typeof data.toPage == "object" && typeof data.absUrl == "undefined" && userAuthorized === false) {
+        alert("first loading");
+        data.toPage = $("#signin-signup");
+      }
+      
       
       /*
       console.log("1 userAuthorized = " + userAuthorized);
@@ -98,7 +103,7 @@
       $('.app-version .value').html(appVersion);
       
       
-      alert("pagecontainerbeforeshow: " + data.toPage[0].id);
+      //alert("pagecontainerbeforeshow: " + data.toPage[0].id);
       
       var $page = data.toPage,
           pageId = $page.attr('id');
