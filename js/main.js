@@ -30,70 +30,28 @@
     jqmReadyDeferred.resolve();
   });
   
+  // First page before load - check userAuthorized
   $(document).on('pagecontainerbeforechange', function(e, data) {
-    alert("pagecontainerbeforechange");
-    
-    if( typeof data.toPage == "object" && typeof data.absUrl == "undefined"/* && userAuthorized === false*/) {
-      alert("first loading");
-      data.toPage = $("#signin-signup");
+    if(typeof data.toPage == "object" && data.toPage.is('#idea-list') && typeof data.absUrl == "undefined") {
+      if (ybi.localStorage.isSet('userAuthorized')) {
+        userAuthorized = ybi.localStorage.get('userAuthorized');
+      }
+      alert(userAuthorized);
+      
+      if (userAuthorized === false) {
+        data.toPage = $("#signin-signup");
+      }
     }
   });
 
   $.when(deviceReadyDeferred, jqmReadyDeferred).then(doWhenBothFrameworksLoaded);
-
+  
   function doWhenBothFrameworksLoaded() {
-    // Static variables
-    //var userAuthorized = ybi.localStorage.get('ybi_userAuthorized');
-    //var userAuthorized = storage.get('userAuthorized');
-    //var wuserAuthorized = wstorage.getItem('wuserAuthorized');
-    
-    
-    if (ybi.localStorage.isSet('userAuthorized')) {
-      userAuthorized = ybi.localStorage.get('userAuthorized');
-      //alert('first userAuthorized: ' + userAuthorized);
-    }
+
     
     $(document).on('pagecontainerbeforechange', function(e, data) {
-      //alert("pagecontainerbeforechange");
-      
-      if (typeof data.toPage !== "object") return;
-      
 
-      
-      
       /*
-      console.log("1 userAuthorized = " + userAuthorized);
-      alert("1 userAuthorized = " + userAuthorized);
-      
-      if (userAuthorized === false) {
-        console.log("2 userAuthorized === false");
-        alert("2 userAuthorized === false");
-      }
-      else {
-        console.log("2 userAuthorized === true");
-        alert("2 userAuthorized === true");
-      }
-      
-      if (!userAuthorized) {
-        console.log("3 !userAuthorized");
-        alert("3 !userAuthorized");
-      }
-      else {
-        console.log("3 userAuthorized");
-        alert("3 userAuthorized");
-      }
-    
-      if (data.toPage[0].id == 'loading') {
-        console.log("4 page = 'loading'");
-        alert("4 page = 'loading'");
-      }
-    
-      if (typeof data.prevPage == 'undefined') {
-        console.log("5 data.prevPage = 'undefined'");
-        alert("5 data.prevPage = 'undefined'");
-      }
-      
-      
       if (userAuthorized === false && data.toPage[0].id == "idea-list" && typeof data.options.fromPage == "undefined") {
         $.mobile.pageContainer.pagecontainer('change', '#signin-signup');
         $('#loading').removeAttr('style');
@@ -108,13 +66,8 @@
     
     
     $(document).on('pagecontainerbeforeshow', function(e, data) {
-      //alert("pagecontainerbeforeshow");
-      
       // App version
       $('.app-version .value').html(appVersion);
-      
-      
-      //alert("pagecontainerbeforeshow: " + data.toPage[0].id);
       
       var $page = data.toPage,
           pageId = $page.attr('id');
