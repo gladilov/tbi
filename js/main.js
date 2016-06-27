@@ -36,6 +36,7 @@
       if (ybi.localStorage.isSet('userAuthorized')) {
         userAuthorized = ybi.localStorage.get('userAuthorized');
         uid = ybi.localStorage.get('userAuthorizedUid');
+        $('input[name="uid"]').val(uid);
       }
       
       if (userAuthorized === false) {
@@ -111,12 +112,13 @@ console.log(window.history);
       //console.log($(document).pagecontainer( "getActivePage" ));
       document.addEventListener('backbutton', function(e){
         e.preventDefault();
-        console.log('backbutton');
+
         if ($('.ui-page-active').attr('id') == 'idea-list') {
           $('#app-exit').trigger('click');
         }
         else {
-          if (app && device.platform === "iOS") 
+          //if (app && device.platform === "iOS") 
+          if (app) 
             window.history.back();
         }
         
@@ -200,6 +202,7 @@ console.log(window.history);
               ybi.localStorage.remove('userAuthorizedUid');
               userAuthorized = false;
               uid = 0;
+              $('input[name="uid"]').val('');
               navigator.app.exitApp();
             }
           }
@@ -213,6 +216,7 @@ console.log(window.history);
         }
         else {
           uid = 0;
+          $('input[name="uid"]').val('');
           $(':mobile-pagecontainer').pagecontainer('change', '#signin-signup');
         }
       });
@@ -288,8 +292,8 @@ console.log(window.history);
                 // Set var "uid"
                 uid = data.uid;
                 
-                $thisForm.find('.ui-input-text > input').removeClass('error');
                 $(':mobile-pagecontainer').pagecontainer('change', '#idea-list');
+                $thisForm.find('.ui-input-text > input').removeClass('error').val('');
               }, 2000);
             }
             // Error:
@@ -398,9 +402,7 @@ console.log(window.history);
                 
                 // Set var "uid"
                 uid = data.uid;
-                
-                $thisForm.find('.ui-input-text > input').removeClass('error');
-                
+
                 if (app) {
                   navigator.notification.alert(
                     data.message,
@@ -414,6 +416,8 @@ console.log(window.history);
                   //$(':mobile-pagecontainer').pagecontainer('change', 'idea.html', {reloadPage: true});
                   $.mobile.pageContainer.pagecontainer("change", '#idea-list');
                 }
+                
+                $thisForm.find('.ui-input-text > input').removeClass('error').val('');
               }, 2000);
             }
             // Error:
@@ -527,11 +531,13 @@ console.log(window.history);
       
       // Idea add form
       // Set current user id into form
-      $('input[name="uid"]', $('#ideaadd-form')).val(uid);
+      //$('input[name="uid"]', $('#ideaadd-form')).val(uid);
       $('#ideaadd-form').validate();
       $('#ideaadd-form').submit(function(e){
         e.preventDefault();
         var $thisForm = $(this);
+        
+        console.log($('input[name="uid"]').val());
         
         if ($("#ideaadd-form:has(input.required.error)").length == 0) {
           // Show splash
