@@ -41,31 +41,68 @@
     
     if (ybi.localStorage.isSet('userAuthorized')) {
       userAuthorized = ybi.localStorage.get('userAuthorized');
-      alert('first userAuthorized: ' + userAuthorized);
+      //alert('first userAuthorized: ' + userAuthorized);
     }
     
     $(document).on('pagecontainerbeforechange', function(e, data) {
-      console.log('pagecontainerbeforechange');
-      console.log(data);
       
-      if (!userAuthorized && data.toPage[0].id == "idea-list" && typeof data.options.fromPage == "undefined") {
+      console.log("1 userAuthorized = " + userAuthorized);
+      alert("1 userAuthorized = " + userAuthorized);
+      
+      if (userAuthorized === false) {
+        console.log("2 userAuthorized === false");
+        alert("2 userAuthorized === false");
+      }
+      else {
+        console.log("2 userAuthorized === true");
+        alert("2 userAuthorized === true");
+      }
+      
+      if (!userAuthorized) {
+        console.log("3 !userAuthorized");
+        alert("3 !userAuthorized");
+      }
+      else {
+        console.log("3 userAuthorized");
+        alert("3 userAuthorized");
+      }
+    
+      if (data.toPage[0].id == 'loading') {
+        console.log("4 page = 'loading'");
+        alert("4 page = 'loading'");
+      }
+    
+      if (typeof data.prevPage == 'undefined') {
+        console.log("5 data.prevPage = 'undefined'");
+        alert("5 data.prevPage = 'undefined'");
+      }
+      
+      
+      if (userAuthorized === false && data.toPage[0].id == "loading" && typeof data.options.fromPage == "undefined") {
         /*$.mobile.pageContainer.pagecontainer("change", "#p2", {
             transition: "flip"
         });*/
-        $(':mobile-pagecontainer').pagecontainer('change', '#signin-signup');
+        $.mobile.pageContainer.pagecontainer('change', '#signin-signup');
+        $('#loading').removeAttr('style');
+        e.preventDefault();
+      }
+      else if (userAuthorized === true && data.toPage[0].id == "loading" && typeof data.options.fromPage == "undefined") {
+        $.mobile.pageContainer.pagecontainer('change', '#idea-list');
+        $('#loading').removeAttr('style');
         e.preventDefault();
       }
     });
     
     
     $(document).on('pagecontainerbeforeshow', function(e, data) {
-      e.preventDefault();
+      // App version
+      $('.app-version .value').html(appVersion);
       
-     
+      
       var $page = data.toPage,
           pageId = $page.attr('id');
           
-      alert('pagecontainerbeforeshow 1 (page: ' + pageId + ')');
+      //alert('pagecontainerbeforeshow 1 (page: ' + pageId + ')');
           
       /*if (pageId == 'signin-signup') alert('pagecontainerbeforeshow 2');
       
@@ -125,8 +162,8 @@
         if (userAuthorized === true) { /*$(':mobile-pagecontainer').pagecontainer('change', '#idea-list');*/ }
       }
     });
-    
-    
+      
+      
     // Idea share
     $(document).on('click', 'a.idea-share', function(e){
       var $activePage = $('.ui-page-active');
@@ -159,8 +196,6 @@
     
     // When you load each page
     $(document).on('pagecontainershow', function(event, ui) {
-      // App version
-      $('.app-version .value').html(appVersion);
       
 console.log(window.history);
     
@@ -240,18 +275,7 @@ console.log(window.history);
       });
       // Panel open on clik button "#btn-other"
       $(document).on('click', '#btn-other', function(e){
-        $(document).trigger('swipeleft');
-        /*var $pageActive = $(this).parents('.ui-page-active');
-        if ($pageActive.find('.left-panel').length) {
-          console.log('left-panel exist');
-          if ($('.ui-page-active').jqmData('panel') !== 'open') {
-            if (e.type === 'swiperight') {
-              $('.ui-page-active .left-panel').panel('open');
-            } else if (e.type === 'swipeleft') {
-              $('.ui-page-active .left-panel').panel('close');
-            }
-          }
-        }*/
+        $(document).trigger('swiperight');
       });
       
       
@@ -534,6 +558,27 @@ console.log(window.history);
               }
             }, 2000);
           });
+        }
+      });
+      
+      
+      // Forgot password form
+      $('#forgot-password-form').validate();
+      $('#forgot-password-form').submit(function(e){
+        e.preventDefault();
+        var $thisForm = $(this);
+        
+        if ($("#forgot-password-form:has(input.required.error)").length == 0) {
+          $thisForm.parents('#popup-forgot-password').find('.ui-icon-ybi-cancel').trigger('click');
+          
+          if (app) {
+            setTimeout(function() { 
+              window.plugins.toast.showLongBottom('Пароль отправлен Вам на почту.', function(a){}, function(b){});
+            }, 750);
+          }
+          else {
+            setTimeout(function() { alert('Пароль отправлен Вам на почту.'); }, 750);
+          }
         }
       });
       
