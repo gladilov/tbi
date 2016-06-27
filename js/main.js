@@ -5,6 +5,7 @@
       storage = $.localStorage,
       $pageLoader = $('.page-loader'),
       uid = 0,
+      userAuthorized = false,
       app = document.URL.indexOf( 'http://' ) === -1 && document.URL.indexOf( 'https://' ) === -1,
       appVersion = '0.7.0';
 
@@ -12,6 +13,8 @@
   var ybi = $.initNamespaceStorage('ybi');
   var storage = $.localStorage;
   var wstorage = window.localStorage;
+  
+  alert(ybi.localStorage.get('ybi_userAuthorized'));
       
   document.addEventListener('deviceready', deviceReady, false);
   if (!app) deviceReady();
@@ -33,6 +36,54 @@
   $.when(deviceReadyDeferred, jqmReadyDeferred).then(doWhenBothFrameworksLoaded);
 
   function doWhenBothFrameworksLoaded() {
+    // Static variables
+    //var userAuthorized = ybi.localStorage.get('ybi_userAuthorized');
+    //var userAuthorized = storage.get('userAuthorized');
+    //var wuserAuthorized = wstorage.getItem('wuserAuthorized');
+    
+    
+    if (ybi.localStorage.isSet('userAuthorized')) {
+      userAuthorized = ybi.localStorage.get('ybi_userAuthorized');
+    }
+    
+    $(document).on('pagecontainerbeforeshow', function(e, data) {
+      //e.preventDefault();
+     
+      var $page = data.toPage,
+          pageId = $page.attr('id');
+      
+      if ($page.is('#signin-signup')) {
+        //alert(pageId);
+        //alert(userAuthorized);
+        //console.log(pageId);
+        
+        console.log(userAuthorized);
+        if (userAuthorized === true) { $(':mobile-pagecontainer').pagecontainer('change', '#idea-list'); }
+        
+      }
+     
+      // ... load the document then insert it into the DOM ...
+      // at some point, either in this callback, or through
+      // some other async means, call resolve, passing in
+      // the following args, plus a jQuery collection object
+      // containing the DOM element for the page.
+     
+      //data.deferred.resolve( data.absUrl, data.options, page );
+     
+    });
+    
+    
+    /*console.log(ybi);
+    ybi.localStorage.set('ybi_userAuthorized', true);
+    storage.set('userAuthorized', true);
+    wstorage.setItem('wuserAuthorized', true);*/
+
+    
+    /*alert('ybi_userAuthorized: ' + ybi_userAuthorized);
+    alert('userAuthorized: ' + userAuthorized);
+    alert('wuserAuthorized: ' + wuserAuthorized);*/
+    
+    
     // StatusBar
     if (app && StatusBar) {
       StatusBar.overlaysWebView(false);
@@ -40,34 +91,18 @@
         StatusBar.backgroundColorByHexString("#16635D");
       }
     }
-    
-    
-    console.log(ybi);
-    ybi.localStorage.set('ybi_userAuthorized', true);
-    storage.set('userAuthorized', true);
-    wstorage.setItem('wuserAuthorized', true);
-    
-    var ybi_userAuthorized = ybi.localStorage.get('ybi_userAuthorized');
-    var userAuthorized = storage.get('userAuthorized');
-    var wuserAuthorized = wstorage.getItem('wuserAuthorized');
-    
-    alert('ybi_userAuthorized: ' + ybi_userAuthorized);
-    alert('userAuthorized: ' + userAuthorized);
-    alert('wuserAuthorized: ' + wuserAuthorized);
-    
-    
 
     // If user is authorized - change page to Idea list (without login form)
     $('#signin-signup').on('pagecreate', function(event, ui) {
       if (ybi.localStorage.isSet('userAuthorized')) {
         var userAuthorized = ybi.localStorage.get('userAuthorized');
-        if (userAuthorized === true) { alert('storage ybi'); /*$(':mobile-pagecontainer').pagecontainer('change', '#idea-list');*/ }
+        if (userAuthorized === true) { /*$(':mobile-pagecontainer').pagecontainer('change', '#idea-list');*/ }
       }
       
       
       if (storage.isSet('userAuthorized')) {
         var userAuthorized = storage.get('userAuthorized');
-        if (userAuthorized === true) { alert('storage'); /*$(':mobile-pagecontainer').pagecontainer('change', '#idea-list');*/ }
+        if (userAuthorized === true) { /*$(':mobile-pagecontainer').pagecontainer('change', '#idea-list');*/ }
       }
     });
     
