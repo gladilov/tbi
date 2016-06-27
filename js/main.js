@@ -80,12 +80,12 @@
       }
       
       
-      if (userAuthorized === false && data.toPage[0].id == "loading" && typeof data.options.fromPage == "undefined") {
+      if (userAuthorized === false && data.toPage[0].id == "idea-list" && typeof data.options.fromPage == "undefined") {
         $.mobile.pageContainer.pagecontainer('change', '#signin-signup');
         $('#loading').removeAttr('style');
         e.preventDefault();
       }
-      else if (userAuthorized === true && data.toPage[0].id == "loading" && typeof data.options.fromPage == "undefined") {
+      else if (userAuthorized === true && data.toPage[0].id == "idea-list" && typeof data.options.fromPage == "undefined") {
         $.mobile.pageContainer.pagecontainer('change', '#idea-list');
         $('#loading').removeAttr('style');
         e.preventDefault();
