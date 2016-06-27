@@ -26,6 +26,7 @@
   $(document).on('mobileinit', function() {
     $.support.cors = true;
     $.mobile.allowCrossDomainPages = true;
+    $.mobile.initializePage = false;
     
     if (app && device.platform === "iOS") { $.mobile.hashListeningEnabled = false;/* temp */ }
     $.mobile.pushStateEnabled = false;/* temp */
