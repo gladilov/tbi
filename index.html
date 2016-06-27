@@ -922,9 +922,11 @@
   <script type="text/javascript" src="js/main.js"></script>
   <script type="text/javascript" src="js/jquery.mobile-1.4.5.min.js"></script>
   <script type="text/javascript">
-    /*(function($){
+    (function($){
+      alert('q');
+      alert($.mobile.autoInitializePage);
       jQuery.mobile.initializePage();
-    })(jQuery);*/
+    })(jQuery);
   </script>
 </body>
 </html>

@@ -60,8 +60,6 @@
   <plugin name="cordova-plugin-splashscreen" source="npm" />
   <plugin name="cordova-plugin-wkwebview-engine" source="npm" />
   
-  <plugin name="cordova-plugin-exitapp" source="npm" />
-  
   <plugin name="cordova-plugin-x-toast" source="npm" />
   <plugin name="cordova-plugin-x-socialsharing" source="npm" />
   

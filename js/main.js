@@ -68,44 +68,8 @@
       
       var $page = data.toPage,
           pageId = $page.attr('id');
-          
-      //alert('pagecontainerbeforeshow 1 (page: ' + pageId + ')');
-          
-      /*if (pageId == 'signin-signup') alert('pagecontainerbeforeshow 2');
-      
-      if ($page.is('#signin-signup')) {
-        alert('pagecontainerbeforeshow 3');
-        
-        alert('second userAuthorized: ' + userAuthorized);
 
-        
-        if (!userAuthorized) {
-          $(':mobile-pagecontainer').pagecontainer('change', '#signin-signup');
-        }
-        else { $(':mobile-pagecontainer').pagecontainer('change', '#idea-add'); }
-        
-      }*/
-     
-      // ... load the document then insert it into the DOM ...
-      // at some point, either in this callback, or through
-      // some other async means, call resolve, passing in
-      // the following args, plus a jQuery collection object
-      // containing the DOM element for the page.
-     
-      //data.deferred.resolve( data.absUrl, data.options, page );
-     
     });
-    
-    
-    /*console.log(ybi);
-    ybi.localStorage.set('ybi_userAuthorized', true);
-    storage.set('userAuthorized', true);
-    wstorage.setItem('wuserAuthorized', true);*/
-
-    
-    /*alert('ybi_userAuthorized: ' + ybi_userAuthorized);
-    alert('userAuthorized: ' + userAuthorized);
-    alert('wuserAuthorized: ' + wuserAuthorized);*/
     
     
     // StatusBar
@@ -115,20 +79,6 @@
         StatusBar.backgroundColorByHexString("#16635D");
       }
     }
-
-    // If user is authorized - change page to Idea list (without login form)
-    $('#signin-signup').on('pagecreate', function(event, ui) {
-      if (ybi.localStorage.isSet('userAuthorized')) {
-        var userAuthorized = ybi.localStorage.get('userAuthorized');
-        if (userAuthorized === true) { /*$(':mobile-pagecontainer').pagecontainer('change', '#idea-list');*/ }
-      }
-      
-      
-      if (storage.isSet('userAuthorized')) {
-        var userAuthorized = storage.get('userAuthorized');
-        if (userAuthorized === true) { /*$(':mobile-pagecontainer').pagecontainer('change', '#idea-list');*/ }
-      }
-    });
       
       
     // Idea share
@@ -176,6 +126,7 @@ console.log(window.history);
       document.addEventListener('backbutton', function(e){
         e.preventDefault();
         
+        //if ($('.ui-page-active').attr('id') == 'idea-list') {}
         $('#app-exit').trigger('click');
         
         /*if ($page == 'idea-list') {
@@ -194,7 +145,7 @@ console.log(window.history);
         //$.mobile.back();
         //history.go(-1);
         //parent.history.back();
-      });
+      }, false);
     });
     
     /*$('#app-back0').on('click', function(e){
