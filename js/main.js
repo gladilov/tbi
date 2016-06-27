@@ -47,6 +47,14 @@
     $(document).on('pagecontainerbeforechange', function(e, data) {
       console.log('pagecontainerbeforechange');
       console.log(data);
+      
+      if (!userAuthorized && data.toPage[0].id == "idea-list" && typeof data.options.fromPage == "undefined") {
+        /*$.mobile.pageContainer.pagecontainer("change", "#p2", {
+            transition: "flip"
+        });*/
+        $(':mobile-pagecontainer').pagecontainer('change', '#signin-signup');
+        e.preventDefault();
+      }
     });
     
     
@@ -59,7 +67,7 @@
           
       alert('pagecontainerbeforeshow 1 (page: ' + pageId + ')');
           
-      if (pageId == 'signin-signup') alert('pagecontainerbeforeshow 2');
+      /*if (pageId == 'signin-signup') alert('pagecontainerbeforeshow 2');
       
       if ($page.is('#signin-signup')) {
         alert('pagecontainerbeforeshow 3');
@@ -67,10 +75,12 @@
         alert('second userAuthorized: ' + userAuthorized);
 
         
-        if (!userAuthorized) { $(':mobile-pagecontainer').pagecontainer('change', '#signin-signup'); }
+        if (!userAuthorized) {
+          $(':mobile-pagecontainer').pagecontainer('change', '#signin-signup');
+        }
         else { $(':mobile-pagecontainer').pagecontainer('change', '#idea-add'); }
         
-      }
+      }*/
      
       // ... load the document then insert it into the DOM ...
       // at some point, either in this callback, or through
