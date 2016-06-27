@@ -9,7 +9,8 @@
       appVersion = '0.7.0';
 
   // Namespace storage
-  ybi = $.initNamespaceStorage('ybi');
+  var ybi = $.initNamespaceStorage('ybi');
+  var storage = $.localStorage;
       
   document.addEventListener('deviceready', deviceReady, false);
   if (!app) deviceReady();
@@ -39,12 +40,22 @@
       }
     }
     
+    console.log(ybi);
+    
+    
+    
 
     // If user is authorized - change page to Idea list (without login form)
     $('#signin-signup').on('pagecreate', function(event, ui) {
       if (ybi.localStorage.isSet('userAuthorized')) {
         var userAuthorized = ybi.localStorage.get('userAuthorized');
-        if (userAuthorized == true) { $(':mobile-pagecontainer').pagecontainer('change', '#idea-list'); }
+        if (userAuthorized === true) { alert('storage ybi'); /*$(':mobile-pagecontainer').pagecontainer('change', '#idea-list');*/ }
+      }
+      
+      
+      if (storage.isSet('userAuthorized')) {
+        var userAuthorized = storage.get('userAuthorized');
+        if (userAuthorized === true) { alert('storage'); /*$(':mobile-pagecontainer').pagecontainer('change', '#idea-list');*/ }
       }
     });
     
@@ -84,7 +95,7 @@
       // App version
       $('.app-version .value').html(appVersion);
       
-
+console.log(window.history);
     
     
       // Device back button
@@ -96,8 +107,18 @@
       document.addEventListener('backbutton', function(e){
         e.preventDefault();
         
+        if ($page == 'idea-list') {
+          
+          if (!app) return false;
+        }
+        else {
+          $('#app-exit').trigger('click');
+          return false;
+        }
+        
+        
         //navigator.app.backHistory();
-        window.history.back();
+        //window.history.back();
         //history.back();
         //$.mobile.back();
         //history.go(-1);
@@ -252,6 +273,7 @@
                 if (app) StatusBar.show();
                 
                 ybi.localStorage.set('userAuthorized', true);
+                storage.set('userAuthorized', true);
                 
                 $thisForm.find('.ui-input-text > input').removeClass('error');
                 $(':mobile-pagecontainer').pagecontainer('change', '#idea-list');
@@ -358,6 +380,7 @@
                 if (app) StatusBar.show();
                 
                 ybi.localStorage.set('userAuthorized', true);
+                storage.set('userAuthorized', true);
                 
                 $thisForm.find('.ui-input-text > input').removeClass('error');
                 
@@ -439,6 +462,30 @@
         }
       });
       
+      
+      // Idea filter form
+      $('#idea-filter-sort-form').on('change', 'input', function(e){
+        var $thisForm = $(this).parents('form'),
+            $inputChange = $(this),
+            $ideaList = $('#idea-list #idea-list-accordion'),
+            type;
+        
+        if ($inputChange.val().substr(0, 1) == 'f') {
+          type = 'filter';
+          
+          if ($inputChange.val().substr(1, 1) == '0') {
+            $ideaList.children('.idea-status-group').show();
+          }
+          else {
+            $ideaList.children('.idea-status-group').hide();
+            $ideaList.children('.idea-status-group').filter('[data-status="' + $inputChange.val().substr(1, 1) + '"]').show();
+          }
+        }
+        else { type = 'sort'; }
+        
+        console.log($(this).val());
+        console.log(type);
+      });
       
       // Idea add form
       // Set current user id into form

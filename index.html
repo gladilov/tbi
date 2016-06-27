@@ -90,7 +90,7 @@
     </div><!-- /panel -->
     
     <div data-role="header" id="header">
-			<h1 id="page-title" class="with-btn-2"><strong>Блокнот</strong> идей</h1>
+			<h1 id="page-title" class="with-btn-2">Блокнот идей</h1>
       <div data-role="controlgroup" data-type="horizontal" class="ui-mini ui-btn-right">
         <a href="#popupIdeaFilter" class="ui-btn ui-btn-ybi ui-corner-all ui-shadow ui-btn-icon-notext ui-btn-icon-right ui-icon-ybi-filter" data-rel="popup" data-transition="fade">Filter</a>
         <a href="#idea-add" class="ui-btn ui-btn-ybi ui-corner-all ui-shadow ui-btn-icon-notext ui-btn-icon-right ui-icon-ybi-add">Add</a>
@@ -102,15 +102,15 @@
         <h2>Фильтр идей</h2>
         <a href="#" class="ui-btn ui-btn-ybi ui-corner-all ui-shadow ui-btn-icon-notext ui-btn-right ui-icon-ybi-confirm" data-rel="back">Ok</a>
       </div>
-      <form class="ui-content">
+      <form id="idea-filter-sort-form" class="ui-content">
         <fieldset class="filter" data-role="controlgroup" data-iconpos="right">
-          <input type="radio" name="idea-filter" id="idea-filter-a" value="f1" checked="checked">
+          <input type="radio" name="idea-filter" id="idea-filter-a" value="f0" checked="checked">
           <label for="idea-filter-a">Все</label>
-          <input type="radio" name="idea-filter" id="idea-filter-b" value="f2">
+          <input type="radio" name="idea-filter" id="idea-filter-b" value="f1">
           <label for="idea-filter-b">Проверяю</label>
-          <input type="radio" name="idea-filter" id="idea-filter-c" value="f3">
+          <input type="radio" name="idea-filter" id="idea-filter-c" value="f2">
           <label for="idea-filter-c">Реализую</label>
-          <input type="radio" name="idea-filter" id="idea-filter-d" value="f4">
+          <input type="radio" name="idea-filter" id="idea-filter-d" value="f3">
           <label for="idea-filter-d">Архив</label>
         </fieldset>
         <fieldset class="sort" data-role="controlgroup" data-iconpos="right">
