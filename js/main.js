@@ -29,6 +29,15 @@
     
     jqmReadyDeferred.resolve();
   });
+  
+  $(document).on('pagecontainerbeforechange', function(e, data) {
+    alert("pagecontainerbeforechange");
+    
+    if( typeof data.toPage == "object" && typeof data.absUrl == "undefined"/* && userAuthorized === false*/) {
+      alert("first loading");
+      data.toPage = $("#signin-signup");
+    }
+  });
 
   $.when(deviceReadyDeferred, jqmReadyDeferred).then(doWhenBothFrameworksLoaded);
 
@@ -44,19 +53,12 @@
       //alert('first userAuthorized: ' + userAuthorized);
     }
     
-    $(document).on('pagecontainerbeforetransition', function(e, data) {
-      alert("pagecontainerbeforetransition");
-    });
-    
     $(document).on('pagecontainerbeforechange', function(e, data) {
-      alert("pagecontainerbeforechange");
+      //alert("pagecontainerbeforechange");
       
       if (typeof data.toPage !== "object") return;
       
-      if( typeof data.toPage == "object" && typeof data.absUrl == "undefined"/* && userAuthorized === false*/) {
-        alert("first loading");
-        data.toPage = $("#signin-signup");
-      }
+
       
       
       /*
@@ -106,7 +108,7 @@
     
     
     $(document).on('pagecontainerbeforeshow', function(e, data) {
-      alert("pagecontainerbeforeshow");
+      //alert("pagecontainerbeforeshow");
       
       // App version
       $('.app-version .value').html(appVersion);
