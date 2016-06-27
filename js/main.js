@@ -11,11 +11,7 @@
 
   // Namespace storage
   var ybi = $.initNamespaceStorage('ybi');
-  //var storage = $.localStorage;
-  //var wstorage = window.localStorage;
-  
-  alert(userAuthorized);
-      
+
   document.addEventListener('deviceready', deviceReady, false);
   if (!app) deviceReady();
 
@@ -26,7 +22,7 @@
   $(document).on('mobileinit', function() {
     $.support.cors = true;
     $.mobile.allowCrossDomainPages = true;
-    $.mobile.initializePage = false;
+    //$.mobile.initializePage = false;
     
     if (app && device.platform === "iOS") { $.mobile.hashListeningEnabled = false;/* temp */ }
     $.mobile.pushStateEnabled = false;/* temp */
@@ -45,25 +41,33 @@
     
     if (ybi.localStorage.isSet('userAuthorized')) {
       userAuthorized = ybi.localStorage.get('userAuthorized');
+      alert('first userAuthorized: ' + userAuthorized);
     }
     
+    $(document).on('pagecontainerbeforechange', function(e, data) {
+      console.log('pagecontainerbeforechange');
+      console.log(data);
+    });
+    
+    
     $(document).on('pagecontainerbeforeshow', function(e, data) {
-      //e.preventDefault();
+      e.preventDefault();
+      
      
       var $page = data.toPage,
           pageId = $page.attr('id');
           
-      alert('pagecontainerbeforeshow');
+      alert('pagecontainerbeforeshow 1 (page: ' + pageId + ')');
+          
       if (pageId == 'signin-signup') alert('pagecontainerbeforeshow 2');
       
       if ($page.is('#signin-signup')) {
         alert('pagecontainerbeforeshow 3');
         
-        alert(userAuthorized);
-        //console.log(pageId);
+        alert('second userAuthorized: ' + userAuthorized);
+
         
-        console.log(userAuthorized);
-        if (userAuthorized === true) { $(':mobile-pagecontainer').pagecontainer('change', '#idea-list'); }
+        if (!userAuthorized) { $(':mobile-pagecontainer').pagecontainer('change', '#signin-signup'); }
         else { $(':mobile-pagecontainer').pagecontainer('change', '#idea-add'); }
         
       }
@@ -328,7 +332,10 @@ console.log(window.history);
                 if (app) StatusBar.show();
                 
                 ybi.localStorage.set('userAuthorized', true);
-                storage.set('userAuthorized', true);
+                userAuthorized = true;
+                
+                // Set var "uid"
+                uid = data.uid;
                 
                 $thisForm.find('.ui-input-text > input').removeClass('error');
                 $(':mobile-pagecontainer').pagecontainer('change', '#idea-list');
@@ -435,7 +442,10 @@ console.log(window.history);
                 if (app) StatusBar.show();
                 
                 ybi.localStorage.set('userAuthorized', true);
-                storage.set('userAuthorized', true);
+                userAuthorized = true;
+                
+                // Set var "uid"
+                uid = data.uid;
                 
                 $thisForm.find('.ui-input-text > input').removeClass('error');
                 
