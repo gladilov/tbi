@@ -57,7 +57,7 @@
   <plugin name="onesignal-cordova-plugin" source="npm" />
   <plugin name="cordova-plugin-statusbar" source="npm" />
   <plugin name="cordova-plugin-whitelist" source="npm" />
-  <!--<plugin name="cordova-plugin-splashscreen" source="npm" />-->
+  <plugin name="cordova-plugin-splashscreen" source="npm" />
   <plugin name="cordova-plugin-wkwebview-engine" source="npm" />
   
   <plugin name="cordova-plugin-x-toast" source="npm" />
