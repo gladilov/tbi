@@ -11,8 +11,10 @@
 
   // Namespace storage
   var ybi = $.initNamespaceStorage('ybi');
-  var storage = $.localStorage;
-  var wstorage = window.localStorage;
+  //var storage = $.localStorage;
+  //var wstorage = window.localStorage;
+  
+  alert(userAuthorized);
       
   document.addEventListener('deviceready', deviceReady, false);
   if (!app) deviceReady();
@@ -49,9 +51,13 @@
      
       var $page = data.toPage,
           pageId = $page.attr('id');
+          
+      alert('pagecontainerbeforeshow');
+      if (pageId == 'signin-signup') alert('pagecontainerbeforeshow 2');
       
       if ($page.is('#signin-signup')) {
-        //alert(pageId);
+        alert('pagecontainerbeforeshow 3');
+        
         alert(userAuthorized);
         //console.log(pageId);
         
