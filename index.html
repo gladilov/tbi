@@ -15,60 +15,10 @@
   <script type="text/javascript" src="js/jquery.storageapi.min.js"></script>
 </head>
 <body>
-  <div data-role="page" id="signin-signup" data-theme="d">
-    <div data-role="header" id="header">
-      <div class="logo">
-        <img src="img/logo.png" width="250" height="121" />
-      </div>
-    </div><!-- /header -->
-    
-    <div data-role="content" role="main" id="content" class="ui-content">
-      <div data-role="tabs" id="tabs-signin-signup">
-        <div data-role="navbar">
-          <ul>
-            <li><a href="#tab-signin" data-ajax="false">Вход</a></li>
-            <li><a href="#tab-signup" data-ajax="false">Регистрация</a></li>
-          </ul>
-        </div>
-        <div id="tab-signin">
-          <form method="post" id="signin-form">
-            <div class="form-item form-item-signin-email">
-              <label for="signin-email" class="ui-hidden-accessible">Ваша эл. почта</label>
-              <input type="email" id="signin-email" class="required" name="mail" value="" placeholder="Ваша эл. почта" autocomplete="off" />
-            </div>
-            <div class="form-item form-item-signin-password">
-              <label for="signin-password" class="ui-hidden-accessible">Пароль</label>
-              <input type="password" id="signin-password" class="required" name="pass" value="" placeholder="Пароль" autocomplete="off" />
-            </div>
+  <div data-role="page" id="loading" class="" style="display:block; top: 0; left: 0; width: 100%; min-height: 100%; position: absolute; overflow: visible; overflow-x: hidden; background-color:#E0FFD3; z-index:100;" data-theme="d">
+  </div><!-- /page loading -->  
 
-            <input type="submit" value="Войти">
-            <div class="form__description"><a href="#">Забыл пароль...</a></div>
-          </form>
-        </div>
-        <div id="tab-signup">
-          <form method="post" id="signup-form" data-ajax="false">
-            <div class="form-item form-item-signup-name">
-              <label for="signup-name" class="ui-hidden-accessible">Ваше имя</label>
-              <input type="text" id="signup-name" class="required" name="name" placeholder="Ваше имя" autocomplete="off" />
-            </div>
-            <div class="form-item form-item-signup-email">
-              <label for="signup-email" class="ui-hidden-accessible">Ваша эл. почта</label>
-              <input type="email" id="signup-email" class="required" name="mail" placeholder="Ваша эл. почта" autocomplete="off" />
-            </div>
-            <div class="form-item form-item-signup-password">
-              <label for="signup-password" class="ui-hidden-accessible">Пароль</label>
-              <input type="password" id="signup-password" class="required" name="pass" placeholder="Пароль" autocomplete="off" />
-            </div>
 
-            <input type="submit" value="Зарегистрироваться">
-            <div class="form__description"><a href="#" class="form__license">Лицензия</a>и<a href="#" class="form__conf">Конфиденциальность</a></div>
-          </form>
-        </div>
-      </div>
-    </div><!-- /content -->
-  </div><!-- /page signin-signup -->
-  
-  
   <div data-role="page" id="idea-list" data-theme="d">
     <div data-role="panel" class="left-panel" data-position="left" data-position-fixed="true" data-display="overlay">
       <div data-role="header">
@@ -144,6 +94,96 @@
       </div><!-- /navbar -->
     </div><!-- /footer -->
   </div><!-- /page idea-list -->  
+  
+  
+  <div data-role="page" id="signin-signup" data-theme="d">
+    <div data-role="header" id="header">
+      <div class="logo">
+        <img src="img/logo.png" width="250" height="121" />
+      </div>
+    </div><!-- /header -->
+    
+    <div data-role="popup" id="popup-forgot-password" class="w90" data-overlay-theme="a" data-theme="b">
+      <div data-role="header">
+        <h2>Забыли пароль</h2>
+        <a href="#" class="ui-btn ui-btn-ybi ui-corner-all ui-shadow ui-btn-icon-notext ui-btn-right ui-icon-ybi-cancel" data-rel="back">Ok</a>
+      </div>
+      <form method="post" id="forgot-password-form" class="ui-content">
+        <div class="form-item form-item-forgot-password-email">
+          <label for="forgot-password-email" class="ui-hidden-accessible">Ваша эл. почта</label>
+          <input type="email" id="forgot-password-email" class="required" name="mail" value="" placeholder="Ваша эл. почта" autocomplete="off" />
+        </div>
+        
+        <input type="submit" value="Напомнить проль">
+      </form>
+    </div><!-- Forgot password popup -->
+    
+    <div data-role="popup" id="popup-license" class="w90" data-overlay-theme="a" data-theme="b">
+      <div data-role="header">
+        <h2>Лицензия</h2>
+        <a href="#" class="ui-btn ui-btn-ybi ui-corner-all ui-shadow ui-btn-icon-notext ui-btn-right ui-icon-ybi-cancel" data-rel="back">Ok</a>
+      </div>
+      <div class="ui-content">
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam tincidunt fermentum mauris, sed faucibus arcu tempus ac. Donec vel blandit ipsum. Duis nibh ipsum, sagittis et nunc sit amet, scelerisque fermentum elit. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.</p>
+        <p>Phasellus dolor nibh, maximus sed turpis vel, sodales placerat tellus. Nunc tincidunt bibendum nibh vitae blandit. Sed sit amet condimentum libero. Praesent ut congue lacus. Aliquam in scelerisque erat.</p>
+      </div>
+    </div><!-- License popup -->
+    
+    <div data-role="popup" id="popup-confidentiality" class="w90" data-overlay-theme="a" data-theme="b">
+      <div data-role="header">
+        <h2>Конфиденциальность</h2>
+        <a href="#" class="ui-btn ui-btn-ybi ui-corner-all ui-shadow ui-btn-icon-notext ui-btn-right ui-icon-ybi-cancel" data-rel="back">Ok</a>
+      </div>
+      <div class="ui-content">
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam tincidunt fermentum mauris, sed faucibus arcu tempus ac. Donec vel blandit ipsum. Duis nibh ipsum, sagittis et nunc sit amet, scelerisque fermentum elit. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Phasellus dolor nibh, maximus sed turpis vel, sodales placerat tellus. Nunc tincidunt bibendum nibh vitae blandit. Sed sit amet condimentum libero. Praesent ut congue lacus. Aliquam in scelerisque erat.</p>
+      </div>
+    </div><!-- Confidentiality popup -->
+    
+    <div data-role="content" role="main" id="content" class="ui-content">
+      <div data-role="tabs" id="tabs-signin-signup">
+        <div data-role="navbar">
+          <ul>
+            <li><a href="#tab-signin" data-ajax="false">Вход</a></li>
+            <li><a href="#tab-signup" data-ajax="false">Регистрация</a></li>
+          </ul>
+        </div>
+        <div id="tab-signin">
+          <form method="post" id="signin-form">
+            <div class="form-item form-item-signin-email">
+              <label for="signin-email" class="ui-hidden-accessible">Ваша эл. почта</label>
+              <input type="email" id="signin-email" class="required" name="mail" value="" placeholder="Ваша эл. почта" autocomplete="off" />
+            </div>
+            <div class="form-item form-item-signin-password">
+              <label for="signin-password" class="ui-hidden-accessible">Пароль</label>
+              <input type="password" id="signin-password" class="required" name="pass" value="" placeholder="Пароль" autocomplete="off" />
+            </div>
+
+            <input type="submit" value="Войти">
+            <div class="form__description"><a href="#popup-forgot-password" data-rel="popup" data-transition="fade" data-position-to="window">Забыл пароль...</a></div>
+          </form>
+        </div>
+        <div id="tab-signup">
+          <form method="post" id="signup-form" data-ajax="false">
+            <div class="form-item form-item-signup-name">
+              <label for="signup-name" class="ui-hidden-accessible">Ваше имя</label>
+              <input type="text" id="signup-name" class="required" name="name" placeholder="Ваше имя" autocomplete="off" />
+            </div>
+            <div class="form-item form-item-signup-email">
+              <label for="signup-email" class="ui-hidden-accessible">Ваша эл. почта</label>
+              <input type="email" id="signup-email" class="required" name="mail" placeholder="Ваша эл. почта" autocomplete="off" />
+            </div>
+            <div class="form-item form-item-signup-password">
+              <label for="signup-password" class="ui-hidden-accessible">Пароль</label>
+              <input type="password" id="signup-password" class="required" name="pass" placeholder="Пароль" autocomplete="off" />
+            </div>
+
+            <input type="submit" value="Зарегистрироваться">
+            <div class="form__description"><a href="#popup-license" class="form__license" data-rel="popup" data-transition="fade" data-position-to="window">Лицензия</a>и<a href="#popup-confidentiality" class="form__conf" data-rel="popup" data-transition="fade" data-position-to="window">Конфиденциальность</a></div>
+          </form>
+        </div>
+      </div>
+    </div><!-- /content -->
+  </div><!-- /page signin-signup -->
   
   
   <div data-role="page" id="idea-single" data-theme="b" data-iid="">
