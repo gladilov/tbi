@@ -114,8 +114,31 @@ console.log(window.history);
         e.preventDefault();
 
         if ($('.ui-page-active').attr('id') == 'idea-list') {
-          $('#idea-list #app-exit').trigger('click');
-          alert('q');
+          //$('#idea-list #app-exit').trigger('click');
+          if (app) {
+            function appExitConfirm(buttonIndex) {
+              if (buttonIndex == 1) {
+                ybi.localStorage.set('userAuthorized', false);
+                ybi.localStorage.remove('userAuthorizedUid');
+                userAuthorized = false;
+                uid = 0;
+                $('input[name="uid"]').val('');
+                navigator.app.exitApp();
+              }
+            }
+
+            navigator.notification.confirm(
+              'Вы действительно хотите закрыть приложение?',
+               appExitConfirm,
+              'Выход из приложения',
+              ['Выйти','Отмена']
+            );
+          }
+          else {
+            uid = 0;
+            $('input[name="uid"]').val('');
+            $(':mobile-pagecontainer').pagecontainer('change', '#signin-signup');
+          }
         }
         else {
           //if (app && device.platform === "iOS") 
