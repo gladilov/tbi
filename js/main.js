@@ -11,6 +11,7 @@
   // Namespace storage
   var ybi = $.initNamespaceStorage('ybi');
   var storage = $.localStorage;
+  var wstorage = window.localStorage;
       
   document.addEventListener('deviceready', deviceReady, false);
   if (!app) deviceReady();
@@ -44,12 +45,15 @@
     console.log(ybi);
     ybi.localStorage.set('ybi_userAuthorized', true);
     storage.set('userAuthorized', true);
+    wstorage.setItem('wuserAuthorized', true);
     
     var ybi_userAuthorized = ybi.localStorage.get('ybi_userAuthorized');
     var userAuthorized = storage.get('userAuthorized');
+    var wuserAuthorized = wstorage.getItem('wuserAuthorized');
     
-    alert(ybi_userAuthorized);
-    alert(userAuthorized);
+    alert('ybi_userAuthorized: ' + ybi_userAuthorized);
+    alert('userAuthorized: ' + userAuthorized);
+    alert('wuserAuthorized: ' + wuserAuthorized);
     
     
 
