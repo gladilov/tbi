@@ -252,7 +252,11 @@ console.log(window.history);
         
         if (app) {
           function appExitConfirm(buttonIndex) {
-            if (buttonIndex == 1) navigator.app.exitApp();
+            if (buttonIndex == 1) {
+              ybi.localStorage.set('userAuthorized', false);
+              userAuthorized = false;
+              navigator.app.exitApp();
+            }
           }
 
           navigator.notification.confirm(
