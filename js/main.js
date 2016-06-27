@@ -44,9 +44,16 @@
       //alert('first userAuthorized: ' + userAuthorized);
     }
     
+    $(document).on('pagecontainerbeforetransition', function(e, data) {
+      alert("pagecontainerbeforetransition");
+    });
+    
     $(document).on('pagecontainerbeforechange', function(e, data) {
-
-      if( typeof data.toPage == "object" && typeof data.absUrl == "undefined" && userAuthorized === false) {
+      alert("pagecontainerbeforechange");
+      
+      if (typeof data.toPage !== "object") return;
+      
+      if( typeof data.toPage == "object" && typeof data.absUrl == "undefined"/* && userAuthorized === false*/) {
         alert("first loading");
         data.toPage = $("#signin-signup");
       }
@@ -99,6 +106,8 @@
     
     
     $(document).on('pagecontainerbeforeshow', function(e, data) {
+      alert("pagecontainerbeforeshow");
+      
       // App version
       $('.app-version .value').html(appVersion);
       
