@@ -22,12 +22,10 @@
   $(document).on('mobileinit', function() {
     $.support.cors = true;
     $.mobile.allowCrossDomainPages = true;
-    //$.mobile.initializePage = false;
+    $.mobile.autoInitializePage = false;
     
     if (app && device.platform === "iOS") { $.mobile.hashListeningEnabled = false;/* temp */ }
     $.mobile.pushStateEnabled = false;/* temp */
-    
-    $.mobile.initializePage();
     
     jqmReadyDeferred.resolve();
   });
@@ -46,10 +44,8 @@
   });
 
   $.when(deviceReadyDeferred, jqmReadyDeferred).then(doWhenBothFrameworksLoaded);
-  
-  function doWhenBothFrameworksLoaded() {
 
-    
+  function doWhenBothFrameworksLoaded() {
     $(document).on('pagecontainerbeforechange', function(e, data) {
 
       /*
