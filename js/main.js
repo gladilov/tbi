@@ -14,7 +14,7 @@
   var storage = $.localStorage;
   var wstorage = window.localStorage;
   
-  alert(ybi.localStorage.get('ybi_userAuthorized'));
+  alert(ybi.localStorage.get('userAuthorized'));
       
   document.addEventListener('deviceready', deviceReady, false);
   if (!app) deviceReady();
@@ -43,7 +43,7 @@
     
     
     if (ybi.localStorage.isSet('userAuthorized')) {
-      userAuthorized = ybi.localStorage.get('ybi_userAuthorized');
+      userAuthorized = ybi.localStorage.get('userAuthorized');
     }
     
     $(document).on('pagecontainerbeforeshow', function(e, data) {
@@ -54,7 +54,7 @@
       
       if ($page.is('#signin-signup')) {
         //alert(pageId);
-        //alert(userAuthorized);
+        alert(userAuthorized);
         //console.log(pageId);
         
         console.log(userAuthorized);
