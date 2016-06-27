@@ -13,8 +13,6 @@
   var ybi = $.initNamespaceStorage('ybi');
   var storage = $.localStorage;
   var wstorage = window.localStorage;
-  
-  alert(ybi.localStorage.get('userAuthorized'));
       
   document.addEventListener('deviceready', deviceReady, false);
   if (!app) deviceReady();
@@ -59,6 +57,7 @@
         
         console.log(userAuthorized);
         if (userAuthorized === true) { $(':mobile-pagecontainer').pagecontainer('change', '#idea-list'); }
+        else { $(':mobile-pagecontainer').pagecontainer('change', '#idea-add'); }
         
       }
      
