@@ -46,22 +46,7 @@
   $.when(deviceReadyDeferred, jqmReadyDeferred).then(doWhenBothFrameworksLoaded);
 
   function doWhenBothFrameworksLoaded() {
-    $(document).on('pagecontainerbeforechange', function(e, data) {
 
-      /*
-      if (userAuthorized === false && data.toPage[0].id == "idea-list" && typeof data.options.fromPage == "undefined") {
-        $.mobile.pageContainer.pagecontainer('change', '#signin-signup');
-        $('#loading').removeAttr('style');
-        e.preventDefault();
-      }
-      else if (userAuthorized === true && data.toPage[0].id == "idea-list" && typeof data.options.fromPage == "undefined") {
-        $.mobile.pageContainer.pagecontainer('change', '#idea-list');
-        $('#loading').removeAttr('style');
-        e.preventDefault();
-      }*/
-    });
-    
-    
     $(document).on('pagecontainerbeforeshow', function(e, data) {
       // App version
       $('.app-version .value').html(appVersion);
@@ -125,9 +110,15 @@ console.log(window.history);
       //console.log($(document).pagecontainer( "getActivePage" ));
       document.addEventListener('backbutton', function(e){
         e.preventDefault();
+        console.log('backbutton');
+        if ($('.ui-page-active').attr('id') == 'idea-list') {
+          $('#app-exit').trigger('click');
+        }
+        else {
+          if (app && device.platform === "iOS") 
+            window.history.back();
+        }
         
-        //if ($('.ui-page-active').attr('id') == 'idea-list') {}
-        $('#app-exit').trigger('click');
         
         /*if ($page == 'idea-list') {
           
