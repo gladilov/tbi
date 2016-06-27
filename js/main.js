@@ -37,6 +37,7 @@
         userAuthorized = ybi.localStorage.get('userAuthorized');
         uid = ybi.localStorage.get('userAuthorizedUid');
         $('input[name="uid"]').val(uid);
+        alert(uid);
       }
       
       if (userAuthorized === false) {
@@ -312,6 +313,7 @@ console.log(window.history);
                 ybi.localStorage.set('userAuthorized', true);
                 ybi.localStorage.set('userAuthorizedUid', data.uid);
                 userAuthorized = true;
+                $('input[name="uid"]').val(uid);
                 
                 // Set var "uid"
                 uid = data.uid;
@@ -423,6 +425,7 @@ console.log(window.history);
                 ybi.localStorage.set('userAuthorized', true);
                 ybi.localStorage.set('userAuthorizedUid', data.uid);
                 userAuthorized = true;
+                $('input[name="uid"]').val(uid);
                 
                 // Set var "uid"
                 uid = data.uid;
@@ -561,8 +564,6 @@ console.log(window.history);
         e.preventDefault();
         var $thisForm = $(this);
         
-        console.log($('input[name="uid"]').val());
-        
         if ($("#ideaadd-form:has(input.required.error)").length == 0) {
           // Show splash
           $('.message', $pageLoader).text('Добавляем...');
@@ -675,7 +676,7 @@ console.log(window.history);
       // Idea step-1 form
       var $step1Form = $('#ideastep1-form');
       // Set current user id into form
-      $('input[name="uid"]', $step1Form).val(uid);
+      //$('input[name="uid"]', $step1Form).val(uid);
       $step1Form.validate();
       $step1Form.submit(function(e){
         e.preventDefault();
@@ -689,7 +690,7 @@ console.log(window.history);
       
       // Idea step-2 form
       // Set current user id into form
-      $('input[name="uid"]', $('#ideastep2-form')).val(uid);
+      //$('input[name="uid"]', $('#ideastep2-form')).val(uid);
       $('#ideastep2-form').validate();
       $('#ideastep2-form').submit(function(e){
         e.preventDefault();
@@ -703,7 +704,7 @@ console.log(window.history);
       
       // Idea step-3 form
       // Set current user id into form
-      $('input[name="uid"]', $('#ideastep3-form')).val(uid);
+      //$('input[name="uid"]', $('#ideastep3-form')).val(uid);
       $('#ideastep3-form').validate();
       $('#ideastep3-form').submit(function(e){
         e.preventDefault();
@@ -717,7 +718,7 @@ console.log(window.history);
       
       // Idea step-4 form
       // Set current user id into form
-      $('input[name="uid"]', $('#ideastep4-form')).val(uid);
+      //$('input[name="uid"]', $('#ideastep4-form')).val(uid);
       $('#ideastep4-form').validate();
       $('#ideastep4-form').submit(function(e){
         e.preventDefault();
@@ -731,7 +732,7 @@ console.log(window.history);
       
       // Idea step-5 form
       // Set current user id into form
-      $('input[name="uid"]', $('#ideastep5-form')).val(uid);
+      //$('input[name="uid"]', $('#ideastep5-form')).val(uid);
       $('#ideastep5-form').validate();
       $('#ideastep5-form').submit(function(e){
         e.preventDefault();
@@ -754,6 +755,7 @@ console.log(window.history);
        *       При пустом списке кнопка по-центру "Добавьте Вашу первую идею"
        */
       $('#idea-list').on('pagebeforeshow', function(event) {
+        alert('uid: ' + uid);
         var $ideaListContainer = $('#idea-list-accordion', $(this)),
             ideaGroupStatusTitles = {1:'Проверяю', 2:'Реализую', 3:'Архив'},
             returnData = [];
@@ -774,6 +776,7 @@ console.log(window.history);
         request.done(function(data, textStatus, jqXHR) {
           console.log(data);
           if (data.status == 'success') {
+            alert('success');
             $.each(data.items, function(groupStatus, ideaItems){
               // Insert idea status group
               var $ideaStatusGroupHTML = $(tpl.ideaStatusGroupHTML( {'status': groupStatus, 'title': ideaGroupStatusTitles[groupStatus], 'count': ideaItems.length} ));
