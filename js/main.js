@@ -27,6 +27,8 @@
     if (app && device.platform === "iOS") { $.mobile.hashListeningEnabled = false;/* temp */ }
     $.mobile.pushStateEnabled = false;/* temp */
     
+    $.mobile.initializePage();
+    
     jqmReadyDeferred.resolve();
   });
   
@@ -36,7 +38,6 @@
       if (ybi.localStorage.isSet('userAuthorized')) {
         userAuthorized = ybi.localStorage.get('userAuthorized');
       }
-      alert(userAuthorized);
       
       if (userAuthorized === false) {
         data.toPage = $("#signin-signup");
