@@ -32,7 +32,7 @@
   
   // First page before load - check userAuthorized
   $(document).on('pagecontainerbeforechange', function(e, data) {
-    if(typeof data.toPage == "object" && data.toPage.is('#idea-list') && typeof data.absUrl == "undefined") {
+    if (typeof data.toPage == "object" && data.toPage.is('#idea-list') && typeof data.absUrl == "undefined") {
       if (ybi.localStorage.isSet('userAuthorized')) {
         userAuthorized = ybi.localStorage.get('userAuthorized');
         uid = ybi.localStorage.get('userAuthorizedUid');
@@ -56,7 +56,54 @@
       
       var $page = data.toPage,
           pageId = $page.attr('id');
-
+          
+      // Page "Idea-list" before show
+      if (typeof data.toPage == "object" && data.toPage.is('#idea-list')) {
+        alert('uid: ' + uid);
+        var $ideaListContainer = $('#idea-list-accordion', $(this)),
+            ideaGroupStatusTitles = {1:'Проверяю', 2:'Реализую', 3:'Архив'},
+            returnData = [];
+      
+        $ideaListContainer.empty();
+      
+        var request = $.ajax({
+          type: 'GET',
+          dataType: 'jsonp',
+          jsonpCallback: 'ideasByUser',
+          contentType: "application/json; charset=utf-8",
+          url: 'http://y-b-i.com/api/idea.php',
+          data: {'method': 'get', 'data': {'uid': uid}},
+          timeout: 8000,
+          cache: false,
+          async: true,
+        });
+        request.done(function(data, textStatus, jqXHR) {
+          console.log(data);
+          if (data.status == 'success') {
+            alert('success');
+            $.each(data.items, function(groupStatus, ideaItems){
+              // Insert idea status group
+              var $ideaStatusGroupHTML = $(tpl.ideaStatusGroupHTML( {'status': groupStatus, 'title': ideaGroupStatusTitles[groupStatus], 'count': ideaItems.length} ));
+              $ideaListContainer.append($ideaStatusGroupHTML);
+              $ideaListContainer.collapsibleset('refresh');
+              
+              // Insert idea items into status group
+              var $ideaTplContainer = $('.idea-item-tpl-container', $ideaStatusGroupHTML);
+              $.each(ideaItems, function(index, item){
+                var $ideaItemHTML = $(tpl.ideaItemHTML(item));
+                if (item.step_complete > 0) {
+                  var $currentProgres = $ideaItemHTML.find('.progress li').eq(parseInt(item.step_complete) - 1);
+                  $currentProgres.addClass('completed').prevAll().addClass('completed');
+                }
+                $ideaTplContainer.append($ideaItemHTML);
+              });
+              
+            });
+          }
+          //else if (data.status == 'error') {}
+        });
+        //request.fail(function(jqXHR, textStatus, errorThrown) {});
+      }
     });
     
     
@@ -166,31 +213,7 @@ console.log(window.history);
         //parent.history.back();
       }, false);
     });
-    
-    /*$('#app-back0').on('click', function(e){
-      e.preventDefault();
-      navigator.app.backHistory();
-    });
-    $('#app-back1').on('click', function(e){
-      e.preventDefault();
-      window.history.back();
-    });
-    $('#app-back2').on('click', function(e){
-      e.preventDefault();
-      history.back();
-    });
-    $('#app-back3').on('click', function(e){
-      e.preventDefault();
-      $.mobile.back();
-    });
-    $('#app-back4').on('click', function(e){
-      e.preventDefault();
-      history.go(-1);
-    });
-    $('#app-back5').on('click', function(e){
-      e.preventDefault();
-      parent.history.back();
-    });*/
+
     
     //$(document).on('pagecontainercreate', function(e) {
     //$(document).on('pagecreate', function(e) {
@@ -755,7 +778,7 @@ console.log(window.history);
        *       При пустом списке кнопка по-центру "Добавьте Вашу первую идею"
        */
       $('#idea-list').on('pagebeforeshow', function(event) {
-        alert('uid: ' + uid);
+        /*
         var $ideaListContainer = $('#idea-list-accordion', $(this)),
             ideaGroupStatusTitles = {1:'Проверяю', 2:'Реализую', 3:'Архив'},
             returnData = [];
@@ -776,7 +799,6 @@ console.log(window.history);
         request.done(function(data, textStatus, jqXHR) {
           console.log(data);
           if (data.status == 'success') {
-            alert('success');
             $.each(data.items, function(groupStatus, ideaItems){
               // Insert idea status group
               var $ideaStatusGroupHTML = $(tpl.ideaStatusGroupHTML( {'status': groupStatus, 'title': ideaGroupStatusTitles[groupStatus], 'count': ideaItems.length} ));
@@ -799,6 +821,7 @@ console.log(window.history);
           //else if (data.status == 'error') {}
         });
         //request.fail(function(jqXHR, textStatus, errorThrown) {});
+        */
       });
       
       
