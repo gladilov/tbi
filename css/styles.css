@@ -110,6 +110,7 @@ table {
 }
 
 
+
 /**
  *  1. Общие стили
  */
@@ -123,6 +124,15 @@ a:focus,
 a.active {
   text-decoration: none;
   color: #3BB2A7;
+}
+.text-center {
+  text-align: center;
+}
+.text-left {
+  text-align: left;
+}
+.text-right {
+  text-align: right;
 }
 .ui-page {
 	background-color: #E0FFD3;
@@ -1449,7 +1459,7 @@ div#shareblock ul li {
 .page-loader {
   display: none;
   overflow: hidden;
-  position: absolute;
+  position: fixed;
   top: 0;
   bottom: 0;
   left: 0;
@@ -1457,6 +1467,7 @@ div#shareblock ul li {
   margin: 0;
   padding: 0;
   background: #262827;
+  z-index: 1000;
 }
 .page-loader .logo {
   position: absolute;
