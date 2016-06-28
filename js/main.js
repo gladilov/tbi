@@ -37,7 +37,6 @@
         userAuthorized = ybi.localStorage.get('userAuthorized');
         uid = ybi.localStorage.get('userAuthorizedUid');
         $('input[name="uid"]').val(uid);
-        alert(uid);
       }
       
       if (userAuthorized === false) {
@@ -55,11 +54,8 @@
       // App version
       $('.app-version .value').html(appVersion);
       
-          
       // Page "Idea-list"
       if ($page.is('#idea-list')) {
-        alert('uid: ' + uid);
-        
         // Hide loading container
         $('.text-loading', $page).hide();
         
@@ -82,7 +78,6 @@
         });
         request.done(function(data, textStatus, jqXHR) {
           if (data.status == 'success') {
-            alert('success');
             $.each(data.items, function(groupStatus, ideaItems){
               // Insert idea status group
               var $ideaStatusGroupHTML = $(tpl.ideaStatusGroupHTML( {'status': groupStatus, 'title': ideaGroupStatusTitles[groupStatus], 'count': ideaItems.length} ));
