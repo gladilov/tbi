@@ -212,7 +212,7 @@
 			<h1 id="page-title" class="with-btn-2">Заголовок идеи</h1>
       <div data-role="controlgroup" data-type="horizontal" class="ui-mini ui-btn-right count-2">
         <a href="#idea-list" class="ui-btn ui-btn-ybi ui-btn-icon-notext ui-btn-icon-right ui-icon-ybi-back">Back</a>
-        <a href="#idea-edit" class="ui-btn ui-btn-ybi ui-btn-icon-notext ui-btn-icon-right ui-icon-ybi-edit">Edit</a>
+        <a href="#idea-add" class="idea-edit ui-btn ui-btn-ybi ui-btn-icon-notext ui-btn-icon-right ui-icon-ybi-edit" data-iid="">Edit</a>
         <a href="#" id="" class="idea-share ui-btn ui-btn-ybi ui-btn-icon-notext ui-btn-icon-right ui-icon-ybi-share2">Share</a>
       </div>
     </div><!-- /header -->
@@ -315,7 +315,7 @@
   </div><!-- /page -->
   
 
-  <div data-role="page" id="idea-add" data-theme="d">
+  <div data-role="page" id="idea-add" data-theme="d" data-iid="">
     <div data-role="panel" class="left-panel" data-position="left" data-position-fixed="true" data-display="overlay">
       <div data-role="header">
         <h3>Меню</h3>
@@ -336,9 +336,9 @@
     </div><!-- /panel -->
 
     <div data-role="header" id="header">
-			<h1 id="page-title">Новая идея</h1>
+			<h1 id="page-title">Бизнес идея</h1>
       <div data-role="controlgroup" data-type="horizontal" class="ui-mini ui-btn-right">
-        <a href="#idea-list" class="ui-btn ui-btn-ybi ui-btn-icon-notext ui-btn-icon-right ui-icon-ybi-cancel">Cancel</a>
+        <a href="#" class="ui-btn ui-btn-ybi ui-btn-icon-notext ui-btn-icon-right ui-icon-ybi-cancel" data-rel="back">Cancel</a>
       </div>
     </div><!-- /header -->
 
@@ -422,6 +422,7 @@
           </div>
 
           <input type="hidden" name="uid" value="" />
+          <input type="hidden" name="iid" value="" />
           
           <button type="submit" class="ui-btn ui-btn-submit ui-btn-ybi ui-corner-all ui-btn-icon-right ui-icon-ybi-stepforward">Сохранить</button>
         </form>

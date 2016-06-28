@@ -54,7 +54,13 @@
       // App version
       $('.app-version .value').html(appVersion);
       
-      // Page "Idea-list"
+      /* 
+       * СПИСОК ИДЕЙ - загрузка из бд и отображение списка по группам при открытии раздела "Идеи"
+       *
+       * TODO: Отображение ошибок при загрузке данных
+       *       Кэш данных
+       *       При пустом списке кнопка по-центру "Добавьте Вашу первую идею"
+       */
       if ($page.is('#idea-list')) {
         // Hide loading container
         $('.text-loading', $page).hide();
@@ -101,6 +107,39 @@
         });
         //request.fail(function(jqXHR, textStatus, errorThrown) {});
       }
+      
+      /* 
+       * СТРАНИЦА ДОБАВЛЕНИЯ/РЕДАКТИРОВАНИЯ ИДЕИ - загрузка из бд и отображение всех данных в форме
+       *
+       * TODO: Отображение ошибок при загрузке данных
+       *       Кэш данных
+       */
+      if ($page.is('#idea-add')) {
+        var iid = $page.data('iid'),
+            ideaData = $page.data('ideaData'),
+            $pageTitle = $('#page-title', $page),
+            $ideaAddForm = $('#ideaadd-form', $page);
+        
+        // Reset form field error class
+        $('.ui-input-text > input, textarea, select', $ideaAddForm).removeClass('error');
+        
+        if (ideaData && typeof ideaData == "object") {
+          $pageTitle.text(ideaData.title);
+          $('#idea-title', $ideaAddForm).val(ideaData.title);
+          $('#idea-category option[value="' + ideaData.category + '"]', $ideaAddForm).attr('selected', 'selected');
+          $('#idea-description', $ideaAddForm).val(ideaData.description);
+          $('#idea-product', $ideaAddForm).val(ideaData.product);
+          
+          console.log(ideaData);
+        }
+        else {
+          // Reset form
+          $('.ui-input-text > .ui-input-clear', $ideaAddForm).addClass('ui-input-clear-hidden');
+          $('input[type="text"], textarea', $ideaAddForm).val('');
+          $('select', $ideaAddForm).val('none');
+          $('input[name="iid"]', $ideaAddForm).val('');
+        }
+      } 
     }
   });
 
@@ -149,12 +188,12 @@
     // When you load each page
     $(document).on('pagecontainershow', function(event, ui) {
       
-console.log(window.history);
+      //console.log(window.history);
     
     
       // Device back button
       var $page = $(':mobile-pagecontainer').pagecontainer('getActivePage')[0].id;
-      console.log($page);
+      //console.log($page);
       //if ($page.is('#signin-signup')) console.log('1');
       //else console.log('0');
       //console.log($(document).pagecontainer( "getActivePage" ));
@@ -193,18 +232,7 @@ console.log(window.history);
           if (app) 
             window.history.back();
         }
-        
-        
-        /*if ($page == 'idea-list') {
-          
-          if (!app) return false;
-        }
-        else {
-          $('#app-exit').trigger('click');
-          return false;
-        }*/
-        
-        
+
         //navigator.app.backHistory();
         //window.history.back();
         //history.back();
@@ -585,7 +613,12 @@ console.log(window.history);
       $('#ideaadd-form').validate();
       $('#ideaadd-form').submit(function(e){
         e.preventDefault();
-        var $thisForm = $(this);
+        var $thisForm = $(this),
+            method = 'post',
+            iid = $('input[name="iid"]', $thisForm).val();
+            
+        if (iid) method = 'put';
+        console.log(method);
         
         if ($("#ideaadd-form:has(input.required.error)").length == 0) {
           // Show splash
@@ -599,7 +632,7 @@ console.log(window.history);
             jsonpCallback: 'ideaAdd',
             contentType: "application/json; charset=utf-8",
             url: 'http://y-b-i.com/api/idea.php',
-            data: {"method": "post", "data": $(this).serialize()},
+            data: {"method": method, "data": $(this).serialize()},
             timeout: 8000,
             cache: false,
             async: true,
@@ -608,18 +641,13 @@ console.log(window.history);
           var state = request.state();
           
           request.done(function(data, textStatus, jqXHR) {
+            console.log(data);
             // Success:
             if (data.status == 'success') {
-              setTimeout(function() {
-                // Reset form
-                $('.ui-input-text > input, textarea, select', $thisForm).removeClass('error');
-                $('.ui-input-text > .ui-input-clear', $thisForm).addClass('ui-input-clear-hidden');
-                $('input[type="text"], textarea', $thisForm).val('');
-                $('select', $thisForm).val('none');
-                
+              /*setTimeout(function() {
                 // Set current idea id
                 $('input[name="iid"]', $('#ideastep1-form')).val(data.iid);
-                $('#ideastep1-form').attr('data-iid', data.iid); // DEBUG
+                //$('#ideastep1-form').attr('data-iid', data.iid); // DEBUG
                 
                 // Hide splash
                 $pageLoader.fadeOut(150);
@@ -629,7 +657,14 @@ console.log(window.history);
                 // Goto idea-step-1
                 //$(':mobile-pagecontainer').pagecontainer('change', '#idea-step-1', {transition: 'slide'});
                 $(':mobile-pagecontainer').pagecontainer('change', '#idea-single', {transition: 'slide'}); // TEMP
-              }, 2000);
+                
+                // Reset form
+                $('.ui-input-text > input, textarea, select', $thisForm).removeClass('error');
+                $('.ui-input-text > .ui-input-clear', $thisForm).addClass('ui-input-clear-hidden');
+                $('input[type="text"], textarea', $thisForm).val('');
+                $('select', $thisForm).val('none');
+                $('input[name="iid"]', $thisForm).val('');
+              }, 2000);*/
             }
             // Error:
             else if (data.status == 'error') {
@@ -769,72 +804,23 @@ console.log(window.history);
         }
       });
       
-      
+
       /* 
-       * СПИСОК ИДЕЙ - загрузка из бд и отображение списка по группам при открытии раздела "Идеи"
-       *
-       * TODO: Отображение ошибок при загрузке данных
-       *       Кэш данных
-       *       При пустом списке кнопка по-центру "Добавьте Вашу первую идею"
+       * Переход по ссылке на страницу одной идеи/редактирования идеи
        */
-      $('#idea-list').on('pagebeforeshow', function(event) {
-        /*
-        var $ideaListContainer = $('#idea-list-accordion', $(this)),
-            ideaGroupStatusTitles = {1:'Проверяю', 2:'Реализую', 3:'Архив'},
-            returnData = [];
-      
-        $ideaListContainer.empty();
-      
-        var request = $.ajax({
-          type: 'GET',
-          dataType: 'jsonp',
-          jsonpCallback: 'ideasByUser',
-          contentType: "application/json; charset=utf-8",
-          url: 'http://y-b-i.com/api/idea.php',
-          data: {'method': 'get', 'data': {'uid': uid}},
-          timeout: 8000,
-          cache: false,
-          async: true,
-        });
-        request.done(function(data, textStatus, jqXHR) {
-          console.log(data);
-          if (data.status == 'success') {
-            $.each(data.items, function(groupStatus, ideaItems){
-              // Insert idea status group
-              var $ideaStatusGroupHTML = $(tpl.ideaStatusGroupHTML( {'status': groupStatus, 'title': ideaGroupStatusTitles[groupStatus], 'count': ideaItems.length} ));
-              $ideaListContainer.append($ideaStatusGroupHTML);
-              $ideaListContainer.collapsibleset('refresh');
-              
-              // Insert idea items into status group
-              var $ideaTplContainer = $('.idea-item-tpl-container', $ideaStatusGroupHTML);
-              $.each(ideaItems, function(index, item){
-                var $ideaItemHTML = $(tpl.ideaItemHTML(item));
-                if (item.step_complete > 0) {
-                  var $currentProgres = $ideaItemHTML.find('.progress li').eq(parseInt(item.step_complete) - 1);
-                  $currentProgres.addClass('completed').prevAll().addClass('completed');
-                }
-                $ideaTplContainer.append($ideaItemHTML);
-              });
-              
-            });
-          }
-          //else if (data.status == 'error') {}
-        });
-        //request.fail(function(jqXHR, textStatus, errorThrown) {});
-        */
-      });
-      
-      
-      /* 
-       * Переход по ссылке на страницу идеи
-       */
-      //$(document).on('click', '.idea-link', function(e){
       $(document).on('click', 'a[data-iid]', function(e){
         var hash = $(this).attr('href'),
             iid = $(this).data('iid');
             
-        if ($(this).is('.idea-step-edit')) $('.idea-step-page').find('input[name="iid"]').val(iid);
-            
+        if ($(this).is('.idea-step-edit')) { 
+          $('.idea-step-page').find('input[name="iid"]').val(iid);
+        }
+        
+        if ($(this).is('.idea-edit')) {
+          $('input[name="iid"]', $('#ideaadd-form')).val(iid);
+          $(hash).data('ideaData', $('#idea-single').data('ideaData'));
+        }
+        
         $(hash).data('iid', iid);
       });
       
@@ -850,10 +836,11 @@ console.log(window.history);
             iid = $this.data('iid'),
             $pageTitle = $('#page-title', $this),
             $ideaSingleContainer = $('#idea-single-accordion', $this),
-            $groupContainer = $ideaSingleContainer.children();
+            $groupContainer = $ideaSingleContainer.children(),
+            $ideaEditLink = $('.idea-edit', $this);
 
-        console.log(iid);
-        
+        $ideaEditLink.data('iid', iid);
+            
         // Очистка старых данных
         //$pageTitle.html('Заголовок идеи');
         //$ideaSingleContainer.find(' > .desc p').empty();
@@ -870,10 +857,12 @@ console.log(window.history);
           async: true,
         });
         request.done(function(data, textStatus, jqXHR) {
-          console.log(data);
+          //console.log(data);
           var item = data.item;
           
           if (data.status == 'success') {
+            $this.data('ideaData', item);
+            
             // Title
             $pageTitle.html(item.title);
             // Description

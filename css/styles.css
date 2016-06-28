@@ -837,14 +837,14 @@ textarea.ui-input-text::-webkit-input-placeholder {
   font: normal 1.071em open_sansregular;
   text-decoration: none;
 }
-#idea-list-accordion .ui-collapsible-content .idea-edit {
+#idea-list-accordion .ui-collapsible-content .idea-forward-link {
   position: absolute;
   right: 0;
   top: 50%;
   width: 25px;
   height: 25px;
   margin-top: -13px;
-  background: url(../img/edit.png) 50% 50% no-repeat;
+  background: url(../img/forward.png) 50% 50% no-repeat;
 }
 #idea-list-accordion .ui-collapsible-content ul.progress {
   margin-bottom: 1em;
