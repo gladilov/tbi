@@ -1545,3 +1545,14 @@ div#shareblock ul li {
 @keyframes color {
   100%, 0% { stroke: #00FFA6; }
 }
+
+#page-splash {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1000;
+  background-color: #E0FFD3;
+}

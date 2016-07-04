@@ -7,7 +7,7 @@
       uid = 0,
       userAuthorized = false,
       app = document.URL.indexOf( 'http://' ) === -1 && document.URL.indexOf( 'https://' ) === -1,
-      appVersion = '0.7.1';
+      appVersion = '0.7.2';
 
   // Namespace storage
   var ybi = $.initNamespaceStorage('ybi');
@@ -146,6 +146,9 @@
   $.when(deviceReadyDeferred, jqmReadyDeferred).then(doWhenBothFrameworksLoaded);
 
   function doWhenBothFrameworksLoaded() {
+    // CSS Splash container
+    $('#page-splash').fadeOut(500);
+    
     // StatusBar
     if (app && StatusBar) {
       StatusBar.overlaysWebView(false);
@@ -222,6 +225,9 @@
             );
           }
           else {
+            ybi.localStorage.set('userAuthorized', false);
+            ybi.localStorage.remove('userAuthorizedUid');
+            userAuthorized = false;
             uid = 0;
             $('input[name="uid"]').val('');
             $(':mobile-pagecontainer').pagecontainer('change', '#signin-signup');

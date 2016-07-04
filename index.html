@@ -466,7 +466,7 @@
     </div><!-- /panel -->
     
     <div data-role="header" id="header">
-			<h1 id="page-title">Шаг 1 из 5</h1>
+			<h1 id="page-title">1. Нужно ли это рынку?</h1>
       <div data-role="controlgroup" data-type="horizontal" class="ui-mini ui-btn-right">
         <a href="#" class="ui-btn ui-btn-ybi ui-corner-all ui-shadow ui-btn-icon-notext ui-btn-icon-right ui-icon-ybi-back" data-rel="back">Back</a>
       </div>
@@ -478,8 +478,8 @@
           <div class="conformity-market" data-role="collapsible" data-collapsed="false" data-content-theme="false">
             <h3>Соответствие идеи рынку</h3>
             <div class="item spros">
-              <p>Оцените уровень спроса (0 – нет и не предвидится, 5- не знаю, 10- уже есть оплаченные предзаказы)</p>
-              <label for="slider-spros" class="ui-hidden-accessible">Уровень спроса:</label>
+              <p>Текущий объём рынка для реализации моей бизнес-идеи (0 – крайне небольшой локальный рынок, 5 - средний национальный рынок, 10 - большой глобальный рынок)</p>
+              <label for="slider-spros" class="ui-hidden-accessible">Объём рынка:</label>
               <input type="range" name="slider-spros" id="slider-spros" min="0" max="10" step="1" value="0">
               <ul class="ruler">
                 <li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li>
@@ -645,7 +645,7 @@
   </div><!-- /page -->
   
   
-  <div data-role="page" id="idea-step-3" class="idea-step-page" data-theme="b">
+  <div data-role="page" id="idea-step-3" class="idea-step-page" data-theme="b" data-iid="">
     <div data-role="panel" class="left-panel" data-position="left" data-position-fixed="true" data-display="overlay">
       <div data-role="header">
         <h3>Меню</h3>
@@ -749,7 +749,7 @@
   </div><!-- /page -->
   
   
-  <div data-role="page" id="idea-step-4" class="idea-step-page" data-theme="b">
+  <div data-role="page" id="idea-step-4" class="idea-step-page" data-theme="b" data-iid="">
     <div data-role="panel" class="left-panel" data-position="left" data-position-fixed="true" data-display="overlay">
       <div data-role="header">
         <h3>Меню</h3>
@@ -825,7 +825,7 @@
   </div><!-- /page -->
   
   
-  <div data-role="page" id="idea-step-5" class="idea-step-page" data-theme="b">
+  <div data-role="page" id="idea-step-5" class="idea-step-page" data-theme="b" data-iid="">
     <div data-role="panel" class="left-panel" data-position="left" data-position-fixed="true" data-display="overlay">
       <div data-role="header">
         <h3>Меню</h3>
@@ -911,6 +911,8 @@
       <circle class="path" cx="50" cy="50" r="20" fill="none" stroke="url(#linear)" stroke-width="1px" stroke-miterlimit="10"/>
     </svg>
   </div>
+  
+  <div id="page-splash"></div>
   
   <script type="text/javascript" src="cordova.js"></script>
   <script type="text/javascript" src="js/get-data.js"></script>
