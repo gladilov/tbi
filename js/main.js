@@ -17,6 +17,7 @@
 
   function deviceReady() {
     deviceReadyDeferred.resolve();
+    alert('deviceReady');
   }
 
   $(document).on('mobileinit', function() {
@@ -28,6 +29,7 @@
     $.mobile.pushStateEnabled = false;/* temp */
     
     jqmReadyDeferred.resolve();
+    alert('mobileinit');
   });
 
   $.when(deviceReadyDeferred, jqmReadyDeferred).then(doWhenBothFrameworksLoaded);
