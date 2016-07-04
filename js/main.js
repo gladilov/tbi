@@ -19,7 +19,7 @@
   function deviceReady() {
     deviceReadyDeferred.resolve();
     
-    var devicePlatform = device.platform;
+    if (app && device && device.platform) devicePlatform = device.platform;
   }
 
   $(document).on('mobileinit', function() {
