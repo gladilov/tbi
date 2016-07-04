@@ -45,103 +45,7 @@
     }
   });
   
-  // Before page show
-  $(document).on('pagecontainerbeforeshow', function(e, data) {
-    if (typeof data.toPage == "object") {
-      var $page = data.toPage,
-          pageId = $page.attr('id');
-          
-      // App version
-      $('.app-version .value').html(appVersion);
-      
-      /* 
-       * СПИСОК ИДЕЙ - загрузка из бд и отображение списка по группам при открытии раздела "Идеи"
-       *
-       * TODO: Отображение ошибок при загрузке данных
-       *       Кэш данных
-       *       При пустом списке кнопка по-центру "Добавьте Вашу первую идею"
-       */
-      if ($page.is('#idea-list')) {
-        // Hide loading container
-        $('.text-loading', $page).hide();
-        
-        var $ideaListContainer = $('#idea-list-accordion', $(this)),
-            ideaGroupStatusTitles = {1:'Проверяю', 2:'Реализую', 3:'Архив'},
-            returnData = [];
-      
-        $ideaListContainer.empty();
-      
-        var request = $.ajax({
-          type: 'GET',
-          dataType: 'jsonp',
-          jsonpCallback: 'ideasByUser',
-          contentType: "application/json; charset=utf-8",
-          url: 'http://y-b-i.com/api/idea.php',
-          data: {'method': 'get', 'data': {'uid': uid}},
-          timeout: 8000,
-          cache: false,
-          async: true,
-        });
-        request.done(function(data, textStatus, jqXHR) {
-          if (data.status == 'success') {
-            $.each(data.items, function(groupStatus, ideaItems){
-              // Insert idea status group
-              var $ideaStatusGroupHTML = $(tpl.ideaStatusGroupHTML( {'status': groupStatus, 'title': ideaGroupStatusTitles[groupStatus], 'count': ideaItems.length} ));
-              $ideaListContainer.append($ideaStatusGroupHTML);
-              $ideaListContainer.collapsibleset('refresh');
-              
-              // Insert idea items into status group
-              var $ideaTplContainer = $('.idea-item-tpl-container', $ideaStatusGroupHTML);
-              $.each(ideaItems, function(index, item){
-                var $ideaItemHTML = $(tpl.ideaItemHTML(item));
-                if (item.step_complete > 0) {
-                  var $currentProgres = $ideaItemHTML.find('.progress li').eq(parseInt(item.step_complete) - 1);
-                  $currentProgres.addClass('completed').prevAll().addClass('completed');
-                }
-                $ideaTplContainer.append($ideaItemHTML);
-              });
-              
-            });
-          }
-          //else if (data.status == 'error') {}
-        });
-        //request.fail(function(jqXHR, textStatus, errorThrown) {});
-      }
-      
-      /* 
-       * СТРАНИЦА ДОБАВЛЕНИЯ/РЕДАКТИРОВАНИЯ ИДЕИ - загрузка из бд и отображение всех данных в форме
-       *
-       * TODO: Отображение ошибок при загрузке данных
-       *       Кэш данных
-       */
-      if ($page.is('#idea-add')) {
-        var iid = $page.data('iid'),
-            ideaData = $page.data('ideaData'),
-            $pageTitle = $('#page-title', $page),
-            $ideaAddForm = $('#ideaadd-form', $page);
-        
-        // Reset form field error class
-        $('.ui-input-text > input, textarea, select', $ideaAddForm).removeClass('error');
-        
-        if (ideaData && typeof ideaData == "object") {
-          $pageTitle.text(ideaData.title);
-          $('#idea-title', $ideaAddForm).val(ideaData.title);
-          $('#idea-category option[value="' + ideaData.category + '"]', $ideaAddForm).attr('selected', 'selected');
-          $('#idea-description', $ideaAddForm).val(ideaData.description);
-          $('#idea-product', $ideaAddForm).val(ideaData.product);
-          
-          console.log(ideaData);
-        }
-        else {
-          // Reset form
-          $('.ui-input-text > .ui-input-clear', $ideaAddForm).addClass('ui-input-clear-hidden');
-          $('input[type="text"], textarea', $ideaAddForm).val('');
-          $('select', $ideaAddForm).val('none');
-          $('input[name="iid"]', $ideaAddForm).val('');
-        }
-      } 
-    }
-  });
+
 
   $.when(deviceReadyDeferred, jqmReadyDeferred).then(doWhenBothFrameworksLoaded);
 
@@ -829,6 +733,105 @@
         
         $(hash).data('iid', iid);
       });
+      
+      
+  // Before page show
+  $(document).on('pagecontainerbeforeshow', function(e, data) {
+    if (typeof data.toPage == "object") {
+      var $page = data.toPage,
+          pageId = $page.attr('id');
+          
+      // App version
+      $('.app-version .value').html(appVersion);
+      
+      /* 
+       * СПИСОК ИДЕЙ - загрузка из бд и отображение списка по группам при открытии раздела "Идеи"
+       *
+       * TODO: Отображение ошибок при загрузке данных
+       *       Кэш данных
+       *       При пустом списке кнопка по-центру "Добавьте Вашу первую идею"
+       */
+      if ($page.is('#idea-list')) {
+        // Hide loading container
+        $('.text-loading', $page).hide();
+        
+        var $ideaListContainer = $('#idea-list-accordion', $(this)),
+            ideaGroupStatusTitles = {1:'Проверяю', 2:'Реализую', 3:'Архив'},
+            returnData = [];
+      
+        $ideaListContainer.empty();
+      
+        var request = $.ajax({
+          type: 'GET',
+          dataType: 'jsonp',
+          jsonpCallback: 'ideasByUser',
+          contentType: "application/json; charset=utf-8",
+          url: 'http://y-b-i.com/api/idea.php',
+          data: {'method': 'get', 'data': {'uid': uid}},
+          timeout: 8000,
+          cache: false,
+          async: true,
+        });
+        request.done(function(data, textStatus, jqXHR) {
+          if (data.status == 'success') {
+            $.each(data.items, function(groupStatus, ideaItems){
+              // Insert idea status group
+              var $ideaStatusGroupHTML = $(tpl.ideaStatusGroupHTML( {'status': groupStatus, 'title': ideaGroupStatusTitles[groupStatus], 'count': ideaItems.length} ));
+              $ideaListContainer.append($ideaStatusGroupHTML);
+              $ideaListContainer.collapsibleset('refresh');
+              
+              // Insert idea items into status group
+              var $ideaTplContainer = $('.idea-item-tpl-container', $ideaStatusGroupHTML);
+              $.each(ideaItems, function(index, item){
+                var $ideaItemHTML = $(tpl.ideaItemHTML(item));
+                if (item.step_complete > 0) {
+                  var $currentProgres = $ideaItemHTML.find('.progress li').eq(parseInt(item.step_complete) - 1);
+                  $currentProgres.addClass('completed').prevAll().addClass('completed');
+                }
+                $ideaTplContainer.append($ideaItemHTML);
+              });
+              
+            });
+          }
+          //else if (data.status == 'error') {}
+        });
+        //request.fail(function(jqXHR, textStatus, errorThrown) {});
+      }
+      
+      /* 
+       * СТРАНИЦА ДОБАВЛЕНИЯ/РЕДАКТИРОВАНИЯ ИДЕИ - загрузка из бд и отображение всех данных в форме
+       *
+       * TODO: Отображение ошибок при загрузке данных
+       *       Кэш данных
+       */
+      if ($page.is('#idea-add')) {
+        var iid = $page.data('iid'),
+            ideaData = $page.data('ideaData'),
+            $pageTitle = $('#page-title', $page),
+            $ideaAddForm = $('#ideaadd-form', $page);
+        
+        // Reset form field error class
+        $('.ui-input-text > input, textarea, select', $ideaAddForm).removeClass('error');
+        
+        if (ideaData && typeof ideaData == "object") {
+          $pageTitle.text(ideaData.title);
+          $('#idea-title', $ideaAddForm).val(ideaData.title);
+          $('#idea-category option[value="' + ideaData.category + '"]', $ideaAddForm).attr('selected', 'selected');
+          $('#idea-description', $ideaAddForm).val(ideaData.description);
+          $('#idea-product', $ideaAddForm).val(ideaData.product);
+          
+          console.log(ideaData);
+        }
+        else {
+          // Reset form
+          $('.ui-input-text > .ui-input-clear', $ideaAddForm).addClass('ui-input-clear-hidden');
+          $('input[type="text"], textarea', $ideaAddForm).val('');
+          $('select', $ideaAddForm).val('none');
+          $('input[name="iid"]', $ideaAddForm).val('');
+        }
+      } 
+    }
+  });
       
       
       /* 
