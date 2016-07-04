@@ -469,7 +469,7 @@
           
           if (app) {
             setTimeout(function() { 
-              window.plugins.toast.showLongBottom('Пароль отправлен Вам на почту.', function(a){}, function(b){});
+              //window.plugins.toast.showLongBottom('Пароль отправлен Вам на почту.', function(a){}, function(b){});
             }, 750);
           }
           else {
