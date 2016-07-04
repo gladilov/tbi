@@ -2,6 +2,7 @@
 
   var deviceReadyDeferred = $.Deferred(),
       jqmReadyDeferred = $.Deferred(),
+      //storage = $.localStorage,
       $pageLoader = $('.page-loader'),
       uid = 0,
       userAuthorized = false,
@@ -24,7 +25,7 @@
     $.mobile.allowCrossDomainPages = true;
     $.mobile.autoInitializePage = true;
     
-    //if (app && device.platform === "iOS") { $.mobile.hashListeningEnabled = false;/* temp */ }
+    if (app && device.platform === "iOS") { $.mobile.hashListeningEnabled = false;/* temp */ }
     $.mobile.pushStateEnabled = false;/* temp */
     
     jqmReadyDeferred.resolve();
