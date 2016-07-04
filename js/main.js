@@ -26,8 +26,6 @@
     $.mobile.autoInitializePage = true;
     
     //if (app && device.platform === "iOS") { $.mobile.hashListeningEnabled = false;/* temp */ }
-    var devicePlatform = device.platform;
-    alert(devicePlatform);
     $.mobile.pushStateEnabled = false;/* temp */
     
     jqmReadyDeferred.resolve();
@@ -37,6 +35,10 @@
   $.when(deviceReadyDeferred, jqmReadyDeferred).then(doWhenBothFrameworksLoaded);
 
   function doWhenBothFrameworksLoaded() {
+    //if (app && device.platform === "iOS") { $.mobile.hashListeningEnabled = false;/* temp */ }
+    var devicePlatform = device.platform;
+    alert(devicePlatform);
+    
     // CSS Splash container
     $('#page-splash').fadeOut(500);
     
