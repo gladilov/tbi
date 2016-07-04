@@ -7,6 +7,7 @@
       uid = 0,
       userAuthorized = false,
       app = document.URL.indexOf( 'http://' ) === -1 && document.URL.indexOf( 'https://' ) === -1,
+      devicePlatform = 'web',
       appVersion = '0.7.3';
 
   // Namespace storage
@@ -17,26 +18,27 @@
 
   function deviceReady() {
     deviceReadyDeferred.resolve();
-    alert('deviceReady');
+    
+    var devicePlatform = device.platform;
   }
 
   $(document).on('mobileinit', function() {
     $.support.cors = true;
     $.mobile.allowCrossDomainPages = true;
     $.mobile.autoInitializePage = true;
-    
-    //if (app && device.platform === "iOS") { $.mobile.hashListeningEnabled = false;/* temp */ }
+    $.mobile.hashListeningEnabled = true;
+
     $.mobile.pushStateEnabled = false;/* temp */
     
     jqmReadyDeferred.resolve();
-    alert('mobileinit');
   });
 
   $.when(deviceReadyDeferred, jqmReadyDeferred).then(doWhenBothFrameworksLoaded);
 
   function doWhenBothFrameworksLoaded() {
     //if (app && device.platform === "iOS") { $.mobile.hashListeningEnabled = false;/* temp */ }
-    var devicePlatform = device.platform;
+    if (devicePlatform === "iOS") { $.mobile.hashListeningEnabled = false; }
+    
     alert(devicePlatform);
     
     // CSS Splash container
