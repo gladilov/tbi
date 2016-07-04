@@ -7,7 +7,7 @@
       uid = 0,
       userAuthorized = false,
       app = document.URL.indexOf( 'http://' ) === -1 && document.URL.indexOf( 'https://' ) === -1,
-      appVersion = '0.7.3';
+      appVersion = '0.7.4';
 
   // Namespace storage
   var ybi = $.initNamespaceStorage('ybi');
