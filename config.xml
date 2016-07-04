@@ -60,7 +60,7 @@
   <plugin name="cordova-plugin-splashscreen" source="npm" />
   <plugin name="cordova-plugin-wkwebview-engine" source="npm" />
   
-  <plugin name="cordova-plugin-x-toast" source="npm" />
+  <!--<plugin name="cordova-plugin-x-toast" source="npm" />-->
   <plugin name="cordova-plugin-x-socialsharing" source="npm" />
   
   <!--<plugin name="com.phonegap.plugins.facebookconnect" spec="0.9.0" source="pgb">
