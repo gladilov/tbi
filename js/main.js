@@ -7,7 +7,6 @@
       uid = 0,
       userAuthorized = false,
       app = document.URL.indexOf( 'http://' ) === -1 && document.URL.indexOf( 'https://' ) === -1,
-      devicePlatform = 'web',
       appVersion = '0.7.3';
 
   // Namespace storage
@@ -18,8 +17,6 @@
 
   function deviceReady() {
     deviceReadyDeferred.resolve();
-    
-    if (app && device && device.platform) devicePlatform = device.platform;
   }
 
   $(document).on('mobileinit', function() {
@@ -36,10 +33,8 @@
   $.when(deviceReadyDeferred, jqmReadyDeferred).then(doWhenBothFrameworksLoaded);
 
   function doWhenBothFrameworksLoaded() {
-    //if (app && device.platform === "iOS") { $.mobile.hashListeningEnabled = false;/* temp */ }
-    if (devicePlatform === "iOS") { $.mobile.hashListeningEnabled = false; }
-    
-    alert(devicePlatform);
+    if (app && device && device.platform && device.platform == 'IOS') { $.mobile.hashListeningEnabled = false;/* temp */ }
+    alert(device.platform);
     
     // CSS Splash container
     $('#page-splash').fadeOut(500);
