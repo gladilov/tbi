@@ -79,6 +79,7 @@
 
     <div data-role="content" role="main" id="content" class="ui-content">
       <p class="text-loading text-center">Загрузка данных..</p>
+      <p class="text-empty-data text-center">Нет данных</p>
       <div id="idea-list-accordion" class="accordion" data-role="collapsibleset" data-inset="false"></div>
     </div><!-- /content -->
 
@@ -222,7 +223,11 @@
         <div class="steps" data-role="collapsible" data-content-theme="false">
           <h3>Шаги реализации<span class="ui-li-count">0</span></h3>
           <ul class="progress">
-            <li>1</li><li>2</li><li>3</li><li>4</li><li>5</li>
+            <li><a href="#idea-step-1" class="idea-step-edit" data-iid="">1</a></li>
+            <li><a href="#idea-step-2" class="idea-step-edit" data-iid="">2</a></li>
+            <li><a href="#idea-step-3" class="idea-step-edit" data-iid="">3</a></li>
+            <li><a href="#idea-step-4" class="idea-step-edit" data-iid="">4</a></li>
+            <li><a href="#idea-step-5" class="idea-step-edit" data-iid="">5</a></li>
           </ul>
           
           <div class="progress-info">
@@ -243,7 +248,7 @@
         
         <div class="team" data-role="collapsible" data-content-theme="false">
           <h3>Команда</h3>
-					<p></p>
+					<ol data-role="listview"></ol>
         </div>
         
         <div class="desc" data-role="collapsible" data-content-theme="false">
@@ -268,27 +273,27 @@
         
         <div class="sales-channel" data-role="collapsible" data-content-theme="false">
           <h3>Каналы сбыта</h3>
-          <p></p>
+          <ol data-role="listview"></ol>
         </div>
         
         <div class="competitive-advantages" data-role="collapsible" data-content-theme="false">
           <h3>Конкурентные преимущества</h3>
-          <p></p>
+          <ol data-role="listview"></ol>
         </div>
         
         <div class="necessary-resources" data-role="collapsible" data-content-theme="false">
           <h3>Необходимые ресурсы</h3>
-          <p></p>
+          <ol data-role="listview"></ol>
         </div>
         
         <div class="helpful-people" data-role="collapsible" data-content-theme="false">
           <h3>Полезные люди</h3>
-          <p></p>
+          <ol data-role="listview"></ol>
         </div>
         
         <div class="key-hypotheses" data-role="collapsible" data-content-theme="false">
           <h3>Ключевые гипотезы</h3>
-          <p></p>
+          <ol data-role="listview"></ol>
         </div>
       </div>
       
@@ -385,39 +390,51 @@
           </div>
           
           <div class="line-separator"></div>
-          <div class="form-item">
-            <label for="idea-sales-channel">Каналы сбыта</label>
-            <textarea id="idea-sales-channel" class="required" name="sales_channel" placeholder="Каналы сбыта" rows="3" data-clear-btn="true"></textarea>
+          <div class="form-item form-item-multiple form-item-idea-sales-channel">
+            <label for="idea-sales-channel" class="has-icon">Каналы сбыта <a href="#" class="form-item-add ui-btn ui-btn-ybi ui-btn-icon-notext ui-btn-icon-right ui-icon-ybi-add">Add item</a></label>
+            <div data-role="controlgroup" class="controlgroup">
+              <input type="text" id="idea-sales-channel" class="multiple required" name="sales_channel" placeholder="Каналы сбыта" data-clear-btn="true" />
+            </div>
           </div>
           
           <div class="line-separator"></div>
-          <div class="form-item">
-            <label for="idea-competitive-advantages">Конкурентные преимущества</label>
-            <textarea id="idea-competitive-advantages" class="required" name="competitive_advantages" placeholder="Конкурентные преимущества" rows="4" data-clear-btn="true"></textarea>
+          <div class="form-item form-item-multiple form-item-idea-competitive-advantages">
+            <label for="idea-competitive-advantages" class="has-icon">Конкурентные преимущества <a href="#" class="form-item-add ui-btn ui-btn-ybi ui-btn-icon-notext ui-btn-icon-right ui-icon-ybi-add">Add item</a></label>
+            <div data-role="controlgroup" class="controlgroup">
+              <input type="text" id="idea-competitive-advantages" class="multiple required" name="competitive_advantages" placeholder="Конкурентные преимущества" data-clear-btn="true" />
+            </div>
           </div>
           
           <div class="line-separator"></div>
-          <div class="form-item">
-            <label for="idea-team">Команда</label>
-            <textarea id="idea-team" class="required" name="team" placeholder="Команда" rows="3" data-clear-btn="true"></textarea>
+          <div class="form-item form-item-multiple form-item-idea-team">
+            <label for="idea-team" class="has-icon">Команда <a href="#" class="form-item-add ui-btn ui-btn-ybi ui-btn-icon-notext ui-btn-icon-right ui-icon-ybi-add">Add item</a></label>
+            <div data-role="controlgroup" class="controlgroup">
+              <input type="text" id="idea-team" class="multiple required" name="team" placeholder="Команда" data-clear-btn="true" />
+            </div>
           </div>
           
           <div class="line-separator"></div>
-          <div class="form-item">
-            <label for="idea-necessary-resources">Необходимые ресурсы</label>
-            <textarea id="idea-necessary-resources" class="required" name="necessary_resources" placeholder="Необходимые ресурсы" rows="3" data-clear-btn="true"></textarea>
+          <div class="form-item form-item-multiple form-item-idea-necessary-resources">
+            <label for="idea-necessary-resources" class="has-icon">Необходимые ресурсы <a href="#" class="form-item-add ui-btn ui-btn-ybi ui-btn-icon-notext ui-btn-icon-right ui-icon-ybi-add">Add item</a></label>
+            <div data-role="controlgroup" class="controlgroup">
+              <input type="text" id="idea-necessary-resources" class="multiple required" name="necessary_resources" placeholder="Необходимые ресурсы" data-clear-btn="true" />
+            </div>
           </div>
           
           <div class="line-separator"></div>
-          <div class="form-item">
-            <label for="idea-helpful-people">Полезные люди</label>
-            <textarea id="idea-helpful-people" class="required" name="helpful_people" placeholder="Полезные люди" rows="3" data-clear-btn="true"></textarea>
+          <div class="form-item form-item-multiple form-item-idea-helpful-people">
+            <label for="idea-helpful-people" class="has-icon">Полезные люди <a href="#" class="form-item-add ui-btn ui-btn-ybi ui-btn-icon-notext ui-btn-icon-right ui-icon-ybi-add">Add item</a></label>
+            <div data-role="controlgroup" class="controlgroup">
+              <input type="text" id="idea-helpful-people" class="multiple required" name="helpful_people" placeholder="Полезные люди" data-clear-btn="true" />
+            </div>
           </div>
           
           <div class="line-separator"></div>
-          <div class="form-item">
-            <label for="idea-key-hypotheses">Ключевые гипотезы</label>
-            <textarea id="idea-key-hypotheses" class="required" name="key_hypotheses" placeholder="Ключевые гипотезы" rows="3" data-clear-btn="true"></textarea>
+          <div class="form-item form-item-multiple form-item-idea-key-hypotheses">
+            <label for="idea-key-hypotheses" class="has-icon">Ключевые гипотезы <a href="#" class="form-item-add ui-btn ui-btn-ybi ui-btn-icon-notext ui-btn-icon-right ui-icon-ybi-add">Add item</a></label>
+            <div data-role="controlgroup" class="controlgroup">
+              <input type="text" id="idea-key-hypotheses" class="multiple required" name="key_hypotheses" placeholder="Ключевые гипотезы" data-clear-btn="true" />
+            </div>
             <!-- TODO: Flip switch element -->
           </div>
 
@@ -474,80 +491,34 @@
 
     <div data-role="content" role="main" id="content" class="ui-content">
       <form action="" id="ideastep1-form" data-ajax="false">
-        <div id="idea-step-1-accordion" class="accordion" data-role="collapsibleset" data-inset="false">
-          <div class="conformity-market" data-role="collapsible" data-collapsed="false" data-content-theme="false">
-            <h3>Соответствие идеи рынку</h3>
-            <div class="item spros">
-              <p>Текущий объём рынка для реализации моей бизнес-идеи (0 – крайне небольшой локальный рынок, 5 - средний национальный рынок, 10 - большой глобальный рынок)</p>
-              <label for="slider-spros" class="ui-hidden-accessible">Объём рынка:</label>
-              <input type="range" name="slider-spros" id="slider-spros" min="0" max="10" step="1" value="0">
-              <ul class="ruler">
-                <li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li>
-              </ul>
-            </div>
-            <div class="item success">
-              <p>Оцените вероятность рыночного успеха проекта (входные барьеры, уровень конкуренции,риски и пр) (0-успех будет огромной удачей, 5- затрудняюсь с оценкой, 10- пока вероятность успеха очень высока)</p>
-              <label for="slider-success" class="ui-hidden-accessible">Вероятность успеха:</label>
-              <input type="range" name="slider-success" id="slider-success" min="0" max="10" step="1" value="0">
-              <ul class="ruler">
-                <li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li>
-              </ul>
-            </div>
-            <div class="item profit">
-              <p>Оцените экономическую выгоду от реализации идеи  (0-реализация идеи способна принести немного денег, 5- пока не понятно, 10-идея является до неприличия прибыльной)</p>
-              <label for="slider-profit" class="ui-hidden-accessible">Экономическая выгода:</label>
-              <input type="range" name="slider-profit" id="slider-profit" min="0" max="10" step="1" value="0">
-              <ul class="ruler">
-                <li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li>
-              </ul>
-            </div>
+        <div class="sliders-items">
+          <div class="item item-market-volume">
+            <p>Текущий объём рынка для реализации моей бизнес-идеи (0 – крайне небольшой локальный рынок, 5 - средний национальный рынок, 10 - большой глобальный рынок)</p>
+            <label for="market-volume" class="ui-hidden-accessible">Объём рынка:</label>
+            <input type="range" name="market_volume" id="market-volume" min="0" max="10" step="1" value="0">
+            <ul class="ruler">
+              <li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li>
+            </ul>
           </div>
-          <div class="conformity-author" data-role="collapsible" data-content-theme="false">
-            <h3>Соответствие идеи автору проекта</h3>
-            <div class="item interest">
-              <p>Оцени свой уровень интереса к сфере данной идеи</p>
-              <label for="slider-interest" class="ui-hidden-accessible">Интерес:</label>
-              <input type="range" name="slider-interest" id="slider-interest" min="0" max="10" step="1" value="0">
-              <ul class="ruler">
-                <li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li>
-              </ul>
-            </div>
-            <div class="item experience">
-              <p>Оцени насколько у тебя/твоей команды есть необходимый для реализации опыт</p>
-              <label for="slider-experience" class="ui-hidden-accessible">Опыт:</label>
-              <input type="range" name="slider-experience" id="slider-experience" min="0" max="10" step="1" value="0">
-              <ul class="ruler">
-                <li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li>
-              </ul>
-            </div>
-            <div class="item resources">
-              <p>Оцени, есть ли у тебя достаточные ресурсы для реализации проекта, либо возможности по их привлечению</p>
-              <label for="slider-resources" class="ui-hidden-accessible">Ресурсы:</label>
-              <input type="range" name="slider-resources" id="slider-resources" min="0" max="10" step="1" value="0">
-              <ul class="ruler">
-                <li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li>
-              </ul>
-            </div>
-            <div class="item leadership">
-              <p>Оцени, насколько ты хочешь стать №1 в сфере реализации данной идеи</p>
-              <label for="slider-leadership" class="ui-hidden-accessible">Лидерство:</label>
-              <input type="range" name="slider-leadership" id="slider-leadership" min="0" max="10" step="1" value="0">
-              <ul class="ruler">
-                <li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li>
-              </ul>
-            </div>
-            <div class="item lifegoals">
-              <p>Оцени, насколько реализация данного проекта совпадает с твоими жизненными целями и потребностями</p>
-              <label for="slider-lifegoals" class="ui-hidden-accessible">Совпадение с целями и потребностями:</label>
-              <input type="range" name="slider-lifegoals" id="slider-lifegoals" min="0" max="10" step="1" value="0">
-              <ul class="ruler">
-                <li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li>
-              </ul>
-            </div>
+          <div class="item item-market-type">
+            <p>Рынок для реализации моей бизнес-идеи является (0 – падающим, 5 - стабильным, 10 - быстрорастущим)</p>
+            <label for="market-type" class="ui-hidden-accessible">Тип рынка:</label>
+            <input type="range" name="market_type" id="market-type" min="0" max="10" step="1" value="0">
+            <ul class="ruler">
+              <li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li>
+            </ul>
+          </div>
+          <div class="item item-client-interest">
+            <p>Какой процент из тех потенциальных клиентов, с которыми я пообщался, высказали свою заинтересованность в продукте?</p>
+            <label for="client-interest" class="ui-hidden-accessible">Заинтересованность клиентов:</label>
+            <input type="range" name="client_interest" id="client-interest" min="0" max="100" step="10" value="0">
+            <ul class="ruler">
+              <li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li>
+            </ul>
           </div>
         </div>
 
-        <input type="hidden" name="uid" value="" />
+        <input type="hidden" name="gpa" value="0" />
         <input type="hidden" name="iid" value="" />
         
         <button type="submit" class="ui-btn ui-btn-submit ui-btn-ybi ui-corner-all ui-btn-icon-right ui-icon-ybi-stepforward">Следующий шаг</button>
@@ -591,7 +562,7 @@
     </div><!-- /panel -->
     
     <div data-role="header" id="header">
-			<h1 id="page-title">Шаг 2 из 5</h1>
+			<h1 id="page-title">2. Хочу ли я этим заниматься?</h1>
       <div data-role="controlgroup" data-type="horizontal" class="ui-mini ui-btn-right">
         <a href="#" class="ui-btn ui-btn-ybi ui-corner-all ui-shadow ui-btn-icon-notext ui-btn-icon-right ui-icon-ybi-back" data-rel="back">Back</a>
       </div>
@@ -599,30 +570,34 @@
 
     <div data-role="content" role="main" id="content" class="ui-content">
       <form action="" id="ideastep2-form" data-ajax="false">
-        <div class="form-desc">Для каждой ценности укажите количество людей, для которых эта ценность актуальна.</div>
-        
-        <div class="form-item ui-field-contain">
-          <label for="keyvalue-1">Ценность 1:</label>
-          <input type="number" name="keyvalue-1" id="keyvalue-1" data-clear-btn="false" pattern="[0-9]*" data-icon="ui-icon-plus" class="ui-icon" placeholder="0" value="0">
-        </div>
-        <div class="form-item ui-field-contain">
-          <label for="keyvalue-2">Ценность 2:</label>
-          <input type="number" name="keyvalue-2" id="keyvalue-2" data-clear-btn="false" pattern="[0-9]*" data-icon="ui-icon-plus" class="ui-icon" placeholder="0" value="0">
-        </div>
-        <div class="form-item ui-field-contain">
-          <label for="keyvalue-3">Ценность 3:</label>
-          <input type="number" name="keyvalue-3" id="keyvalue-3" data-clear-btn="false" pattern="[0-9]*" data-icon="ui-icon-plus" class="ui-icon" placeholder="0" value="0">
-        </div>
-        <div class="form-item ui-field-contain">
-          <label for="keyvalue-4">Ценность 4:</label>
-          <input type="number" name="keyvalue-4" id="keyvalue-4" data-clear-btn="false" pattern="[0-9]*" data-icon="ui-icon-plus" class="ui-icon" placeholder="0" value="0">
-        </div>
-        <div class="form-item ui-field-contain">
-          <label for="keyvalue-5">Ценность 5:</label>
-          <input type="number" name="keyvalue-5" id="keyvalue-5" data-clear-btn="false" pattern="[0-9]*" data-icon="ui-icon-plus" class="ui-icon" placeholder="0" value="0">
+        <div class="sliders-items">
+          <div class="item item-market-volume">
+            <p>Оцени, насколько реализация данного проекта совпадает с твоими жизненными целями, органичениями и потребностями</p>
+            <label for="author-conformity" class="ui-hidden-accessible">Оценка соответствия:</label>
+            <input type="range" name="author_conformity" id="author-conformity" min="0" max="10" step="1" value="0">
+            <ul class="ruler">
+              <li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li>
+            </ul>
+          </div>
+          <div class="item item-market-type">
+            <p>Оцени свой уровень интересна к сфере данной идеи</p>
+            <label for="author-interest" class="ui-hidden-accessible">Оценка интереса:</label>
+            <input type="range" name="author_interest" id="author-interest" min="0" max="10" step="1" value="0">
+            <ul class="ruler">
+              <li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li>
+            </ul>
+          </div>
+          <div class="item item-client-interest">
+            <p>Оцени, насколько ты хочешь стать №1 в сфере реализации данной идеи</p>
+            <label for="author-leadership" class="ui-hidden-accessible">Оценка лидерства:</label>
+            <input type="range" name="author_leadership" id="author-leadership" min="0" max="10" step="1" value="0">
+            <ul class="ruler">
+              <li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li>
+            </ul>
+          </div>
         </div>
 
-        <input type="hidden" name="uid" value="" />
+        <input type="hidden" name="gpa" value="0" />
         <input type="hidden" name="iid" value="" />
         
         <button class="ui-btn ui-btn-submit ui-btn-ybi ui-corner-all ui-btn-icon-right ui-icon-ybi-stepforward" type="submit" id="submit-idea-steps">Следующий шаг</button>
@@ -666,7 +641,7 @@
     </div><!-- /panel -->
     
     <div data-role="header" id="header">
-			<h1 id="page-title">Шаг 3 из 5</h1>
+			<h1 id="page-title">3. Можно ли это реализовать?</h1>
       <div data-role="controlgroup" data-type="horizontal" class="ui-mini ui-btn-right">
         <a href="#" class="ui-btn ui-btn-ybi ui-corner-all ui-shadow ui-btn-icon-notext ui-btn-icon-right ui-icon-ybi-back" data-rel="back">Back</a>
       </div>
@@ -675,6 +650,25 @@
     <div data-role="content" role="main" id="content" class="ui-content">
       <form action="" id="ideastep3-form" data-ajax="false">
         <div class="form-item">
+          <label for="technical-capability">Реализация данной идеи является технически возможной?</label>
+          <select name="technical_capability" id="technical-capability" data-icon="ybi-carat">
+            <option value="none">Выберите</option>
+            <option value="Да">Да</option>
+            <option value="Нет">Нет</option>
+          </select>
+        </div>
+        <div class="form-item">
+          <label for="economic-benefits">Реализация данной идеи является экономически выгодной в сравнении с конкурентными решениями?</label>
+          <select name="economic_benefits" id="economic-benefits" data-icon="ybi-carat">
+            <option value="none">Выберите</option>
+            <option value="Да">Да</option>
+            <option value="На том же уровне">На том же уровне</option>
+            <option value="Нет">Нет</option>
+          </select>
+        </div>
+      
+      
+        <!--<div class="form-item">
           <label for="idea-competitor" class="">Конкуренты</label>
           <textarea id="idea-competitor" name="competitor" placeholder="Конкуренты" rows="4" class="required" data-clear-btn="true"></textarea>
         </div>
@@ -682,7 +676,7 @@
           <label for="idea-link" class="">Ссылка на сайт</label>
           <input type="text" id="idea-link" name="link" placeholder="Ссылка на сайт" data-clear-btn="true" />
         </div>
-        <!--<div class="form-item form-item-multiple form-item-idea-plus">
+        <div class="form-item form-item-multiple form-item-idea-plus">
           <label for="idea-plus" class="has-icon">Плюсы <a href="#" class="form-item-add ui-btn ui-btn-ybi ui-btn-icon-notext ui-btn-icon-right ui-icon-ybi-add">Add item</a></label>
           <div data-role="controlgroup" class="controlgroup">
             <input type="text" id="idea-plus" class="multiple" name="plus" placeholder="Название группы" data-clear-btn="true" />
@@ -693,7 +687,7 @@
           <div data-role="controlgroup" class="controlgroup">
             <input type="text" id="idea-minus" class="multiple" name="minus" placeholder="Название группы" data-clear-btn="true" />
           </div>
-        </div>-->
+        </div>
         <div class="form-item">
           <label for="idea-plus" class="">Плюсы</label>
           <textarea id="idea-plus" name="plus" placeholder="Плюсы" rows="4" data-clear-btn="true"></textarea>
@@ -724,9 +718,8 @@
         <div class="form-item">
           <label for="idea-step3conclusion" class="">Выводы</label>
           <textarea id="idea-step3conclusion" name="step3conclusion" placeholder="Выводы" rows="4" data-clear-btn="true"></textarea>
-        </div>
+        </div>-->
 
-        <input type="hidden" name="uid" value="" />
         <input type="hidden" name="iid" value="" />
 
         <button class="ui-btn ui-btn-submit ui-btn-ybi ui-corner-all ui-btn-icon-right ui-icon-ybi-stepforward" type="submit" id="submit-idea-steps">Следующий шаг</button>

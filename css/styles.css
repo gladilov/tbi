@@ -134,6 +134,11 @@ a.active {
 .text-right {
   text-align: right;
 }
+.text-loading {
+}
+.text-empty-data {
+  display: none;
+}
 .ui-page {
 	background-color: #E0FFD3;
   color: #16635D;
@@ -930,6 +935,13 @@ textarea.ui-input-text::-webkit-input-placeholder {
   width: 20px;
   height: 17px;
 }
+#idea-single-accordion .ui-collapsible-content .progress li a {
+  display: inline-block;
+  width: 100%;
+  text-decoration: none;
+  color: inherit;
+  line-height: 1;
+}
 #idea-single-accordion .ui-collapsible-content .progress-info {
   position: relative;
   padding-right: 30px;
@@ -1008,14 +1020,94 @@ textarea.ui-input-text::-webkit-input-placeholder {
 
 
 /**
- * Проработка идеи, шаг 1
+ * Оценка идеи, все формы
  */
-#idea-step-1 .ui-collapsible-content > div.item {
+/* Слайдер */
+.idea-step-page form .sliders-items > div.item {
   margin-bottom: 2.5em;
 }
-#idea-step-1 .ui-collapsible-content > div.item:last-child {
+/*#idea-step-1 .sliders-items > div.item:last-child {
   margin-bottom: 0;
+}*/
+.idea-step-page form .ui-slider {
+  height: 4px;
+  margin: 20px .5em 17px;
 }
+.idea-step-page form .ui-slider input {
+  display: none;
+}
+.idea-step-page form .ui-slider .ui-slider-track {
+  top: 0;
+  height: 4px;
+  margin: 0;
+  border: none;
+  background: -moz-linear-gradient(left, #3BB2A7 0%, #feffff 100%);
+  background: -webkit-linear-gradient(left, #3BB2A7 0%, #feffff 100%);
+  background: linear-gradient(left, #3BB2A7 0%, #feffff 100%);
+}
+.idea-step-page form .ui-slider .ui-slider-track .ui-slider-handle {
+	height: 12px;
+	width: 12px;
+  margin: -18px 0 0 -18px;
+	background: #474742;
+	border:12px solid #fff;
+	font: normal 1em/1 open_sansbold;
+	-webkit-border-radius:24px;
+          border-radius:24px;
+	-webkit-box-shadow: 0 5px 10px #474742;
+          box-shadow: 0 5px 10px #474742;
+}
+.idea-step-page form ul.ruler {
+  margin: -7px .5em 17px;
+}
+.idea-step-page form ul.ruler:after {
+	clear: both;
+	display: block;
+	content: '';
+}
+.idea-step-page form ul.ruler li {
+  position: relative;
+	float: left;
+	height: 30px;
+	width: 10%;
+	background: transparent;
+	font: normal 1em open_sansbold;
+	color: #85C9AD;
+  border-right: 1px solid #85C9AD;
+  border-left: 1px solid #85C9AD;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+.idea-step-page form ul.ruler li:first-child{
+  border-left-width: 2px;
+}
+.idea-step-page form ul.ruler li:last-child{
+  text-align: right;
+  border-right-width: 2px
+}
+.idea-step-page form ul.ruler li:first-child:after{
+	content:'0';
+	position: relative;
+	top: 30px;
+  left: -5px;
+}
+.idea-step-page form ul.ruler li:last-child:after{
+	content:'10';
+	position: relative;
+	top: 30px;
+  right: -9px;
+}
+
+
+/**
+ * Проработка идеи, шаг 1
+ */
+#idea-step-1 .sliders-items > div.item {
+  margin-bottom: 2.5em;
+}
+/*#idea-step-1 .sliders-items > div.item:last-child {
+  margin-bottom: 0;
+}*/
 #idea-step-1 .ui-slider {
   height: 4px;
   margin: 20px .5em 17px;
@@ -1083,6 +1175,13 @@ textarea.ui-input-text::-webkit-input-placeholder {
 	position: relative;
 	top: 30px;
   right: -9px;
+}
+#idea-step-1 .item-client-interest ul.ruler li:first-child:after{
+	content:'0%';
+}
+#idea-step-1 .item-client-interest ul.ruler li:last-child:after{
+	content:'100%';
+  right: -5px;
 }
 
 

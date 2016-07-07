@@ -7,7 +7,7 @@
       uid = 0,
       userAuthorized = false,
       app = document.URL.indexOf( 'http://' ) === -1 && document.URL.indexOf( 'https://' ) === -1,
-      appVersion = '0.7.5';
+      appVersion = '0.7.6';
 
   // Namespace storage
   var ybi = $.initNamespaceStorage('ybi');
@@ -32,7 +32,7 @@
   
   // First page before load - check userAuthorized
   $(document).on('pagecontainerbeforechange', function(e, data) {
-    if (typeof data.toPage == "object" && data.toPage.is('#idea-list') && typeof data.absUrl == "undefined") {
+    if (typeof data.toPage === "object" && data.toPage.is('#idea-list') && typeof data.absUrl === "undefined") {
       if (ybi.localStorage.isSet('userAuthorized')) {
         userAuthorized = ybi.localStorage.get('userAuthorized');
         uid = ybi.localStorage.get('userAuthorizedUid');
@@ -47,7 +47,7 @@
   
   // Before page show
   $(document).on('pagecontainerbeforeshow', function(e, data) {
-    if (typeof data.toPage == "object") {
+    if (typeof data.toPage === "object") {
       var $page = data.toPage,
           $pageTitle = $('#page-title', $page);
           
@@ -82,26 +82,37 @@
           cache: false,
           async: true,
         });
+        
         request.done(function(data, textStatus, jqXHR) {
+          console.log(data);
+
           if (data.status == 'success') {
-            $.each(data.items, function(groupStatus, ideaItems){
-              // Insert idea status group
-              var $ideaStatusGroupHTML = $(tpl.ideaStatusGroupHTML( {'status': groupStatus, 'title': ideaGroupStatusTitles[groupStatus], 'count': ideaItems.length} ));
-              $ideaListContainer.append($ideaStatusGroupHTML);
-              $ideaListContainer.collapsibleset('refresh');
-              
-              // Insert idea items into status group
-              var $ideaTplContainer = $('.idea-item-tpl-container', $ideaStatusGroupHTML);
-              $.each(ideaItems, function(index, item){
-                var $ideaItemHTML = $(tpl.ideaItemHTML(item));
-                if (item.step_complete > 0) {
-                  var $currentProgres = $ideaItemHTML.find('.progress li').eq(parseInt(item.step_complete) - 1);
-                  $currentProgres.addClass('completed').prevAll().addClass('completed');
-                }
-                $ideaTplContainer.append($ideaItemHTML);
+            if (data.items && !$.isEmptyObject(data.items)) {
+              // Hide empty text
+              $('.text-empty-data', $page).hide();
+            
+              $.each(data.items, function(groupStatus, ideaItems){
+                // Insert idea status group
+                var $ideaStatusGroupHTML = $(tpl.ideaStatusGroupHTML( {'status': groupStatus, 'title': ideaGroupStatusTitles[groupStatus], 'count': ideaItems.length} ));
+                $ideaListContainer.append($ideaStatusGroupHTML);
+                $ideaListContainer.collapsibleset('refresh');
+                
+                // Insert idea items into status group
+                var $ideaTplContainer = $('.idea-item-tpl-container', $ideaStatusGroupHTML);
+                $.each(ideaItems, function(index, item){
+                  var $ideaItemHTML = $(tpl.ideaItemHTML(item));
+                  if (item.step_complete > 0) {
+                    var $currentProgres = $ideaItemHTML.find('.progress li').eq(parseInt(item.step_complete) - 1);
+                    $currentProgres.addClass('completed').prevAll().addClass('completed');
+                  }
+                  $ideaTplContainer.append($ideaItemHTML);
+                });
               });
-              
-            });
+            }
+            else {
+            // Show empty text
+            $('.text-empty-data', $page).show();
+            }
           }
           //else if (data.status == 'error') {}
         });
@@ -126,19 +137,21 @@
         $('#idea-category option[value="none"]', $ideaAddForm).attr('selected', 'selected');
         $('#idea-category', $ideaAddForm).selectmenu('refresh', true);
         $('#idea-category-button > span', $ideaAddForm).text($('#idea-category option[value="none"]', $ideaAddForm).text());
-        $('.form-item-idea-audience, .form-item-idea-keyvalue', $ideaAddForm).find('.ui-input-text:not(:first-child)').detach();
+        //$('.form-item-idea-audience, .form-item-idea-keyvalue', $ideaAddForm).find('.ui-input-text:not(:first-child)').detach();
+        $('.form-item-multiple', $ideaAddForm).find('.ui-input-text:not(:first-child)').detach();
         $('input[type="text"], textarea, select', $ideaAddForm).removeClass('error');
             
-        // Idea update - insert data from idea to form
-        if (ideaData && typeof ideaData == "object") {
+        // Idea form update - insert data from idea to form
+        if (ideaData && typeof ideaData === "object") {
           $pageTitle.text(ideaData.title);
           $('#idea-title', $ideaAddForm).val(ideaData.title).textinput('refresh');
+          $('#idea-category option', $ideaAddForm).attr('selected', false);
           $('#idea-category option[value="' + ideaData.category + '"]', $ideaAddForm).attr('selected', 'selected');
           $('#idea-category', $ideaAddForm).selectmenu('refresh', true);
           $('#idea-description', $ideaAddForm).val(ideaData.description);
           $('#idea-product', $ideaAddForm).val(ideaData.product);
           
-          if (ideaData.audience) {
+          if (ideaData.audience && $.isArray(ideaData.audience)) {
             if (ideaData.audience.length == 1) {
               $('#idea-audience', $ideaAddForm).val(ideaData.audience[0]);
             }
@@ -154,28 +167,117 @@
             }
           }
           
-          if (ideaData.keyvalue) {
+          if (ideaData.keyvalue && $.isArray(ideaData.keyvalue)) {
             if (ideaData.keyvalue.length == 1) {
               $('#idea-keyvalue', $ideaAddForm).val(ideaData.keyvalue[0]);
             }
             else {
-              var $audienceAddItem = $('.form-item-idea-keyvalue .form-item-add', $ideaAddForm);
+              var $keyvalueAddItem = $('.form-item-idea-keyvalue .form-item-add', $ideaAddForm);
               $.each(ideaData.keyvalue, function(i, val) {
                 if (i == 0) { $('#idea-keyvalue', $ideaAddForm).val(val); }
                 else {
-                  $audienceAddItem.trigger('click');
+                  $keyvalueAddItem.trigger('click');
                   $('#idea-keyvalue-' + (i + 1), $ideaAddForm).val(val);
                 }
               });
             }
           }
           
-          $('#idea-sales-channel', $ideaAddForm).val(ideaData.sales_channel);
-          $('#idea-competitive-advantages', $ideaAddForm).val(ideaData.competitive_advantages);
-          $('#idea-team', $ideaAddForm).val(ideaData.team);
-          $('#idea-necessary-resources', $ideaAddForm).val(ideaData.necessary_resources);
-          $('#idea-helpful-people', $ideaAddForm).val(ideaData.helpful_people);
-          $('#idea-key-hypotheses', $ideaAddForm).val(ideaData.key_hypotheses);
+          if (ideaData.sales_channel && $.isArray(ideaData.sales_channel)) {
+            if (ideaData.sales_channel.length == 1) {
+              $('#idea-sales-channel', $ideaAddForm).val(ideaData.keyvalue[0]);
+            }
+            else {
+              var $salesChannelAddItem = $('.form-item-idea-sales-channel .form-item-add', $ideaAddForm);
+              $.each(ideaData.sales_channel, function(i, val) {
+                if (i == 0) { $('#idea-sales-channel', $ideaAddForm).val(val); }
+                else {
+                  $salesChannelAddItem.trigger('click');
+                  $('#idea-sales-channel-' + (i + 1), $ideaAddForm).val(val);
+                }
+              });
+            }
+          }
+          
+          if (ideaData.competitive_advantages && $.isArray(ideaData.competitive_advantages)) {
+            if (ideaData.competitive_advantages.length == 1) {
+              $('#idea-competitive-advantages', $ideaAddForm).val(ideaData.keyvalue[0]);
+            }
+            else {
+              var $competitiveAdvantagesAddItem = $('.form-item-idea-competitive-advantages .form-item-add', $ideaAddForm);
+              $.each(ideaData.competitive_advantages, function(i, val) {
+                if (i == 0) { $('#idea-competitive-advantages', $ideaAddForm).val(val); }
+                else {
+                  $competitiveAdvantagesAddItem.trigger('click');
+                  $('#idea-competitive-advantages-' + (i + 1), $ideaAddForm).val(val);
+                }
+              });
+            }
+          }
+          
+          if (ideaData.team && $.isArray(ideaData.team)) {
+            if (ideaData.team.length == 1) {
+              $('#idea-team', $ideaAddForm).val(ideaData.team[0]);
+            }
+            else {
+              var $teamAddItem = $('.form-item-idea-team .form-item-add', $ideaAddForm);
+              $.each(ideaData.team, function(i, val) {
+                if (i == 0) { $('#idea-team', $ideaAddForm).val(val); }
+                else {
+                  $teamAddItem.trigger('click');
+                  $('#idea-team-' + (i + 1), $ideaAddForm).val(val);
+                }
+              });
+            }
+          }
+          
+          if (ideaData.necessary_resources && $.isArray(ideaData.necessary_resources)) {
+            if (ideaData.necessary_resources.length == 1) {
+              $('#idea-necessary-resources', $ideaAddForm).val(ideaData.necessary_resources[0]);
+            }
+            else {
+              var $necessaryResourcesAddItem = $('.form-item-idea-necessary-resources .form-item-add', $ideaAddForm);
+              $.each(ideaData.necessary_resources, function(i, val) {
+                if (i == 0) { $('#idea-necessary-resources', $ideaAddForm).val(val); }
+                else {
+                  $necessaryResourcesAddItem.trigger('click');
+                  $('#idea-necessary-resources-' + (i + 1), $ideaAddForm).val(val);
+                }
+              });
+            }
+          }
+          
+          if (ideaData.helpful_people && $.isArray(ideaData.helpful_people)) {
+            if (ideaData.helpful_people.length == 1) {
+              $('#idea-helpful-people', $ideaAddForm).val(ideaData.helpful_people[0]);
+            }
+            else {
+              var $helpfulPeopleAddItem = $('.form-item-idea-helpful-people .form-item-add', $ideaAddForm);
+              $.each(ideaData.helpful_people, function(i, val) {
+                if (i == 0) { $('#idea-helpful-people', $ideaAddForm).val(val); }
+                else {
+                  $helpfulPeopleAddItem.trigger('click');
+                  $('#idea-helpful-people-' + (i + 1), $ideaAddForm).val(val);
+                }
+              });
+            }
+          }
+          
+          if (ideaData.key_hypotheses && $.isArray(ideaData.key_hypotheses)) {
+            if (ideaData.key_hypotheses.length == 1) {
+              $('#idea-key-hypotheses', $ideaAddForm).val(ideaData.key_hypotheses[0]);
+            }
+            else {
+              var $keyHypothesesAddItem = $('.form-item-idea-key-hypotheses .form-item-add', $ideaAddForm);
+              $.each(ideaData.key_hypotheses, function(i, val) {
+                if (i == 0) { $('#idea-key-hypotheses', $ideaAddForm).val(val); }
+                else {
+                  $keyHypothesesAddItem.trigger('click');
+                  $('#idea-key-hypotheses-' + (i + 1), $ideaAddForm).val(val);
+                }
+              });
+            }
+          }
 
           $ideaAddForm.find('div.ui-input-text input[type="text"]').each(function(i, el) {
             if ($(this).val() != '') {
@@ -185,13 +287,159 @@
           
           console.log(ideaData);
         }
-      } 
+      }
+      
+      /* 
+       * СТРАНИЦА ПО ОЦЕНКЕ ИДЕИ: ШАГ 1 - загрузка из бд и отображение всех данных в форме
+       *
+       * TODO: Отображение ошибок при загрузке данных
+       *       Кэш данных
+       */
+      if ($page.is('#idea-step-1')) {
+        var iid = $page.data('iid'),
+            $thisForm = $('#ideastep1-form', $page);
+
+        // Reset form
+        $('.sliders-items .ui-slider-input', $thisForm).val('0').slider('refresh');
+        $('input[name="gpa"]', $thisForm).val('0');
+        
+        var request = $.ajax({
+          type: 'GET',
+          dataType: 'jsonp',
+          jsonpCallback: 'ideaStep1',
+          contentType: "application/json; charset=utf-8",
+          url: 'http://y-b-i.com/api/ideaSteps.php',
+          data: {'method': 'get', 'data': {'iid': iid}},
+          timeout: 8000,
+          cache: false,
+          async: true,
+        });
+        
+        request.done(function(data, textStatus, jqXHR) {
+          console.log(data);
+          // Success:
+          if (data.status == 'success') {
+            // Idea form update - insert data from idea to form
+            if (data.item && !$.isEmptyObject(data.item)) {
+              $('#market-volume', $thisForm).val(data.item.market_volume).slider('refresh');
+              $('#market-type', $thisForm).val(data.item.market_type).slider('refresh');
+              $('#client-interest', $thisForm).val(data.item.client_interest).slider('refresh');
+              $('input[name="gpa"]', $thisForm).val(data.item.gpa);
+              
+              $thisForm.data('updateStatus', true);
+            }
+            else {
+              $thisForm.data('updateStatus', false);
+            }
+          }
+        });
+      }
+      
+      /* 
+       * СТРАНИЦА ПО ОЦЕНКЕ ИДЕИ: ШАГ 2 - загрузка из бд и отображение всех данных в форме
+       *
+       * TODO: Отображение ошибок при загрузке данных
+       *       Кэш данных
+       */
+      if ($page.is('#idea-step-2')) {
+        var iid = $page.data('iid'),
+            $thisForm = $('#ideastep2-form', $page);
+            
+        // Reset form
+        $('.sliders-items .ui-slider-input', $thisForm).val('0').slider('refresh');
+        $('input[name="gpa"]', $thisForm).val('0');
+        
+        var request = $.ajax({
+          type: 'GET',
+          dataType: 'jsonp',
+          jsonpCallback: 'ideaStep2',
+          contentType: "application/json; charset=utf-8",
+          url: 'http://y-b-i.com/api/ideaSteps.php',
+          data: {'method': 'get', 'data': {'iid': iid}},
+          timeout: 8000,
+          cache: false,
+          async: true,
+        });
+        
+        request.done(function(data, textStatus, jqXHR) {
+          console.log(data);
+          // Success:
+          if (data.status == 'success') {
+            // Idea form update - insert data from idea to form
+            if (data.item && !$.isEmptyObject(data.item)) {
+              $('#author-conformity', $thisForm).val(data.item.author_conformity).slider('refresh');
+              $('#author-interest', $thisForm).val(data.item.author_interest).slider('refresh');
+              $('#author-leadership', $thisForm).val(data.item.author_leadership).slider('refresh');
+              $('input[name="gpa"]', $thisForm).val(data.item.gpa);
+              
+              $thisForm.data('updateStatus', true);
+            }
+            else {
+              $thisForm.data('updateStatus', false);
+            }
+          }
+        });
+      }
+      
+      /* 
+       * СТРАНИЦА ПО ОЦЕНКЕ ИДЕИ: ШАГ 3 - загрузка из бд и отображение всех данных в форме
+       *
+       * TODO: Отображение ошибок при загрузке данных
+       *       Кэш данных
+       */
+      if ($page.is('#idea-step-3')) {
+        var iid = $page.data('iid'),
+            $thisForm = $('#ideastep3-form', $page);
+
+        // Reset form
+        $('select option', $thisForm).attr('selected', false);
+        $('select option[value="none"]', $thisForm).attr('selected', 'selected');
+        $('select', $thisForm).selectmenu('refresh', true);
+        $('#technical-capability-button > span', $thisForm).text($('#technical-capability option[value="none"]', $thisForm).text());
+        $('#economic-benefits-button > span', $thisForm).text($('#economic-benefits option[value="none"]', $thisForm).text());
+        
+        var request = $.ajax({
+          type: 'GET',
+          dataType: 'jsonp',
+          jsonpCallback: 'ideaStep3',
+          contentType: "application/json; charset=utf-8",
+          url: 'http://y-b-i.com/api/ideaSteps.php',
+          data: {'method': 'get', 'data': {'iid': iid}},
+          timeout: 8000,
+          cache: false,
+          async: true,
+        });
+        
+        request.done(function(data, textStatus, jqXHR) {
+          console.log(data);
+          // Success:
+          if (data.status == 'success') {
+            // Idea form update - insert data from idea to form
+            if (data.item && !$.isEmptyObject(data.item)) {
+              $('#technical-capability option', $thisForm).attr('selected', false);
+              $('#technical-capability option[value="' + data.item.technical_capability + '"]', $thisForm).attr('selected', 'selected');
+              $('#technical-capability', $thisForm).selectmenu('refresh', true);
+              $('#technical-capability-button > span', $thisForm).text(data.item.technical_capability);
+              $('#economic-benefits option', $thisForm).attr('selected', false);
+              $('#economic-benefits option[value="' + data.item.economic_benefits + '"]', $thisForm).attr('selected', 'selected');
+              $('#economic-benefits', $thisForm).selectmenu('refresh', true);
+              $('#economic-benefits-button > span', $thisForm).text(data.item.economic_benefits);
+              
+              $thisForm.data('updateStatus', true);
+            }
+            else {
+              $thisForm.data('updateStatus', false);
+            }
+          }
+        });
+      }
+      
     }
   });
   
   // Before page hide
   $(document).on('pagecontainerbeforehide', function(e, data) {
-    if (typeof data.prevPage == "object") {
+    if (typeof data.prevPage === "object") {
       var $page = data.prevPage;
           
       /* 
@@ -828,43 +1076,221 @@
       
       // Idea step-1 form
       var $step1Form = $('#ideastep1-form');
-      // Set current user id into form
-      //$('input[name="uid"]', $step1Form).val(uid);
-      $step1Form.validate();
+      //$step1Form.validate();
       $step1Form.submit(function(e){
         e.preventDefault();
-        var $thisForm = $(this);
+        var $thisForm = $(this)
+            formUpdateStatus = $thisForm.data('updateStatus'),
+            $marketVolume = $('#market-volume', $thisForm),
+            $marketType = $('#market-type', $thisForm),
+            $clientInterest = $('#client-interest', $thisForm),
+            $gpa = $('input[name="gpa"]', $thisForm),
+            gpaMessage = '',
+            iid = $('input[name="iid"]', $thisForm).val(),
+            method = 'post';
         
-        if ($('#ideastep1-form:has(input.required.error)').length == 0) {
-          $(':mobile-pagecontainer').pagecontainer('change', '#idea-step-2', {transition: 'slide'});
+        if (formUpdateStatus === true) method = 'put';
+        
+        var GPA = parseFloat(((parseInt($marketVolume.val()) + parseInt($marketType.val()) + parseInt($clientInterest.val() / 10)) / 3).toFixed(1));
+        $gpa.val(GPA);
+        
+        // GPA Messages
+        if (GPA <= 4.7) { gpaMessage = 'Целесообразно подумать о том, как можно видоизменить данную идею, либо отказаться от неё, чтобы не тратить время на то, что мало кому нужно, кроме тебя.'; }
+        else if (GPA > 4.7 && GPA <= 7.3) { gpaMessage = 'Данная бизнес-идея имеет хороший рыночный потенциал.'; }
+        else if (GPA > 7.3) { gpaMessage = 'Данная бизнес-идея имеет огромный рыночный потенциал.'; }
+        
+        if (formUpdateStatus === false) {
+          if (app) {
+            navigator.notification.confirm(
+              'Я действительно изучил данный вопрос и дал корректные ответы, а не просто, нажал кнопку «Далее»',
+              formConfirm,
+              'Оценка идеи',
+              ['Да','Нет']
+            );
+          }
+          else {
+            if (confirm('Я действительно изучил данный вопрос и дал корректные ответы, а не просто, нажал кнопку «Далее»')) {
+              formConfirm(1);
+            }
+          }
+        }
+        else formConfirm(1);
+        
+        function formConfirm(buttonIndex) {
+          if (buttonIndex == 1) {
+            if (app) {
+              if (GPA <= 4.7) {
+                $('#idea-single').data('iid', iid);
+                navigator.notification.alert(gpaMessage, function () { $.mobile.pageContainer.pagecontainer("change", '#idea-single'); }, 'Оценка идеи', 'Закрыть');
+              }
+              else { navigator.notification.alert(gpaMessage, formSaveDataAndRedirect, 'Оценка идеи', 'Закрыть'); }
+              
+            }
+            else {
+              alert(gpaMessage);
+              if (GPA <= 4.7) {
+                $('#idea-single').data('iid', iid);
+                $.mobile.pageContainer.pagecontainer("change", '#idea-single');
+              }
+              else { formSaveDataAndRedirect(); }
+            }
+
+          }
+        }
+
+        function formSaveDataAndRedirect() {
+          var request = $.ajax({
+            type: 'GET',
+            dataType: 'jsonp',
+            jsonpCallback: 'ideaStep1',
+            contentType: "application/json; charset=utf-8",
+            url: 'http://y-b-i.com/api/ideaSteps.php',
+            data: {"method": method, "data": $thisForm.serialize()},
+            timeout: 8000,
+            cache: false,
+            async: true,
+          });
+          
+          request.done(function(data, textStatus, jqXHR) {
+            console.log(data);
+            
+            if (data.status == 'success') {
+              console.log(iid);
+              $('#idea-step-2').data('iid', iid);
+              $(':mobile-pagecontainer').pagecontainer('change', '#idea-step-2', {transition: 'slide'});
+            }
+          });
         }
       });
       
       
       // Idea step-2 form
-      // Set current user id into form
-      //$('input[name="uid"]', $('#ideastep2-form')).val(uid);
-      $('#ideastep2-form').validate();
+      //$('#ideastep2-form').validate();
       $('#ideastep2-form').submit(function(e){
         e.preventDefault();
-        var $thisForm = $(this);
+        var $thisForm = $(this)
+            formUpdateStatus = $thisForm.data('updateStatus'),
+            $authorConformity = $('#author-conformity', $thisForm),
+            $authorInterest = $('#author-interest', $thisForm),
+            $authorLeadership = $('#author-leadership', $thisForm),
+            $gpa = $('input[name="gpa"]', $thisForm),
+            gpaMessage = '',
+            iid = $('input[name="iid"]', $thisForm).val(),
+            method = 'post';
         
-        if ($("#ideastep2-form:has(input.required.error)").length == 0) {
-          $(':mobile-pagecontainer').pagecontainer('change', '#idea-step-3', {transition: 'slide'});
+        if (formUpdateStatus === true) method = 'put';
+        
+        var GPA = parseInt((parseInt($authorConformity.val()) + parseInt($authorInterest.val()) + parseInt($authorLeadership.val())) / 3);
+        $gpa.val(GPA);
+        
+        // GPA Messages
+        if (GPA <= 7) { gpaMessage = 'Возможно, данная идея не соответствует тебе, как автору данного проекта.'; }
+        else if (GPA > 7 && GPA <= 9) { gpaMessage = 'Данная бизнес-идея неплохо подходит тебе.'; }
+        else if (GPA > 9) { gpaMessage = 'Похоже, это твоя тема.'; }
+        
+        if (app) {
+          if (GPA <= 7) {
+            $('#idea-single').data('iid', iid);
+            navigator.notification.alert(gpaMessage, function () { $.mobile.pageContainer.pagecontainer("change", '#idea-single'); }, 'Оценка идеи', 'Закрыть');
+          }
+          else { navigator.notification.alert(gpaMessage, formSaveDataAndRedirect, 'Оценка идеи', 'Закрыть'); }
+          
+        }
+        else {
+          alert(gpaMessage);
+          if (GPA <= 7) {
+            $('#idea-single').data('iid', iid);
+            $.mobile.pageContainer.pagecontainer("change", '#idea-single');
+          }
+          else { formSaveDataAndRedirect(); }
+        }
+        
+        function formSaveDataAndRedirect() {
+          var request = $.ajax({
+            type: 'GET',
+            dataType: 'jsonp',
+            jsonpCallback: 'ideaStep2',
+            contentType: "application/json; charset=utf-8",
+            url: 'http://y-b-i.com/api/ideaSteps.php',
+            data: {"method": method, "data": $thisForm.serialize()},
+            timeout: 8000,
+            cache: false,
+            async: true,
+          });
+          
+          request.done(function(data, textStatus, jqXHR) {
+            console.log(data);
+            
+            if (data.status == 'success') {
+              $('#idea-step-3').data('iid', iid);
+              $(':mobile-pagecontainer').pagecontainer('change', '#idea-step-3', {transition: 'slide'});
+            }
+          });
         }
       });
       
       
       // Idea step-3 form
-      // Set current user id into form
-      //$('input[name="uid"]', $('#ideastep3-form')).val(uid);
-      $('#ideastep3-form').validate();
+      //$('#ideastep3-form').validate();
       $('#ideastep3-form').submit(function(e){
         e.preventDefault();
-        var $thisForm = $(this);
+        var $thisForm = $(this)
+            formUpdateStatus = $thisForm.data('updateStatus'),
+            $technicalCapability = $('#technical-capability', $thisForm),
+            $economicBenefits = $('#economic-benefits', $thisForm),
+            gpaMessage = '',
+            iid = $('input[name="iid"]', $thisForm).val(),
+            method = 'post';
         
-        if ($("#ideastep3-form:has(input.required.error)").length == 0) {
-          $(':mobile-pagecontainer').pagecontainer('change', '#idea-step-4', {transition: 'slide'});
+        if (formUpdateStatus === true) method = 'put';
+        
+        if ($technicalCapability.val() != 'none' && $economicBenefits.val() != 'none') {
+          if ($technicalCapability.val() == 'Нет' || $economicBenefits.val() == 'Нет') {
+            gpaMessage = 'Целесообразно более глубоко проработать технические аспекты.';
+            $('#idea-single').data('iid', iid);
+
+            if (app) {
+              navigator.notification.alert(gpaMessage, function () { $.mobile.pageContainer.pagecontainer("change", '#idea-single'); }, 'Оценка идеи', 'Закрыть');
+            }
+            else {
+              alert(gpaMessage);
+              $.mobile.pageContainer.pagecontainer("change", '#idea-single');
+            }
+          }
+          else if ($technicalCapability.val() != 'Нет' || $economicBenefits.val() != 'Нет') {
+            gpaMessage = 'Данная бизнес-идея имеет хороший рыночный потенциал.';
+            
+            if (app) {
+              navigator.notification.alert(gpaMessage, formSaveDataAndRedirect, 'Оценка идеи', 'Закрыть');
+            }
+            else {
+              alert(gpaMessage);
+              formSaveDataAndRedirect();
+            }
+          }
+        }
+        
+        function formSaveDataAndRedirect() {
+          var request = $.ajax({
+            type: 'GET',
+            dataType: 'jsonp',
+            jsonpCallback: 'ideaStep3',
+            contentType: "application/json; charset=utf-8",
+            url: 'http://y-b-i.com/api/ideaSteps.php',
+            data: {"method": method, "data": $thisForm.serialize()},
+            timeout: 8000,
+            cache: false,
+            async: true,
+          });
+          
+          request.done(function(data, textStatus, jqXHR) {
+            console.log(data);
+            
+            if (data.status == 'success') {
+              $('#idea-step-4').data('iid', iid);
+              $(':mobile-pagecontainer').pagecontainer('change', '#idea-step-4', {transition: 'slide'});
+            }
+          });
         }
       });
       
@@ -951,33 +1377,26 @@
           cache: false,
           async: true,
         });
+        
         request.done(function(data, textStatus, jqXHR) {
-          //console.log(data);
-          var item = data.item;
+          console.log(data);
           
           if (data.status == 'success') {
+            var item = data.item;
             $this.data('ideaData', item);
             
+            // Single value fields:
             // Title
             $pageTitle.html(item.title);
             // Description
             $ideaSingleContainer.find(' > .desc p').html(item.description);
             // Product
             $ideaSingleContainer.find(' > .product p').html(item.product);
-            // Sales channel
-            $ideaSingleContainer.find(' > .sales-channel p').html(item.sales_channel);
-            // Competitive advantages
-            $ideaSingleContainer.find(' > .competitive-advantages p').html(item.competitive_advantages);
-            // Necessary resources
-            $ideaSingleContainer.find(' > .necessary-resources p').html(item.necessary_resources);
-            // Helpful people
-            $ideaSingleContainer.find(' > .helpful-people p').html(item.helpful_people);
-            // Key hypotheses
-            $ideaSingleContainer.find(' > .key-hypotheses p').html(item.key_hypotheses);
             
             // Steps group
             var $stepProgress = $('.steps .progress', $ideaSingleContainer)
                 $itemsProgress = $stepProgress.children('li'),
+                $itemsProgressLink = $itemsProgress.children('a'),
                 $stepProgressInfo = $stepProgress.next('.progress-info'),
                 $stepEditLink = $('.idea-step-edit', $stepProgressInfo);
                 
@@ -985,6 +1404,7 @@
             $groupContainer.collapsible('collapse');
             $itemsProgress.removeClass('completed current');
             $stepProgressInfo.show();
+            $itemsProgressLink.data('iid', iid);
             $stepEditLink.data('iid', iid);
             
             if (item.step_complete == '0') {
@@ -1008,9 +1428,7 @@
               }
             }
             
-            // Team group
-            $ideaSingleContainer.find(' > .team p').html(item.team);
-            
+            // Multiple value fields:
             // Audience group
             $audienceItemsContainer = $ideaSingleContainer.find(' > .audience ol');
             $audienceItemsContainer.empty();
@@ -1026,6 +1444,54 @@
               $keyvalueItemsContainer.append('<li>' + val + '</li>');
             });
             $keyvalueItemsContainer.listview('refresh');
+            
+            // Sales channel group
+            $salesChannelItemsContainer = $ideaSingleContainer.find(' > .sales-channel ol');
+            $salesChannelItemsContainer.empty();
+            $.each(item.sales_channel, function(index, val){
+              $salesChannelItemsContainer.append('<li>' + val + '</li>');
+            });
+            $salesChannelItemsContainer.listview('refresh');
+            
+            // Competitive advantages group
+            $competitiveAdvantagesItemsContainer = $ideaSingleContainer.find(' > .competitive-advantages ol');
+            $competitiveAdvantagesItemsContainer.empty();
+            $.each(item.competitive_advantages, function(index, val){
+              $competitiveAdvantagesItemsContainer.append('<li>' + val + '</li>');
+            });
+            $competitiveAdvantagesItemsContainer.listview('refresh');
+            
+            // Team group
+            $teamItemsContainer = $ideaSingleContainer.find(' > .team ol');
+            $teamItemsContainer.empty();
+            $.each(item.team, function(index, val){
+              $teamItemsContainer.append('<li>' + val + '</li>');
+            });
+            $teamItemsContainer.listview('refresh');
+            
+            // Necessary resources group
+            $necessaryResourcesItemsContainer = $ideaSingleContainer.find(' > .necessary-resources ol');
+            $necessaryResourcesItemsContainer.empty();
+            $.each(item.necessary_resources, function(index, val){
+              $necessaryResourcesItemsContainer.append('<li>' + val + '</li>');
+            });
+            $necessaryResourcesItemsContainer.listview('refresh');
+            
+            // Helpful people group
+            $helpfulPeopleItemsContainer = $ideaSingleContainer.find(' > .helpful-people ol');
+            $helpfulPeopleItemsContainer.empty();
+            $.each(item.helpful_people, function(index, val){
+              $helpfulPeopleItemsContainer.append('<li>' + val + '</li>');
+            });
+            $helpfulPeopleItemsContainer.listview('refresh');
+            
+            // Key hypotheses group
+            $keyHypothesesItemsContainer = $ideaSingleContainer.find(' > .key-hypotheses ol');
+            $keyHypothesesItemsContainer.empty();
+            $.each(item.key_hypotheses, function(index, val){
+              $keyHypothesesItemsContainer.append('<li>' + val + '</li>');
+            });
+            $keyHypothesesItemsContainer.listview('refresh');
 
           }
         });
