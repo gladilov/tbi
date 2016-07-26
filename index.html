@@ -1,939 +1,654 @@
 <!DOCTYPE html>
 <html lang="RU-ru">
-<head>
-  <meta charset="UTF-8" />
-  <meta http-equiv="Content-Security-Policy" content="default-src http://y-b-i.com; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline' http://y-b-i.com; connect-src 'self' http://y-b-i.com; img-src 'self' data:; font-src 'self' 'unsafe-inline' http://y-b-i.com" />
-  <meta name="format-detection" content="telephone=no" />
-  <meta name="viewport" content="user-scalable=no, initial-scale=1, minimum-scale=1, maximum-scale=1">
-  <!--<meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, target-densitydpi=device-dpi" />-->
-  <!--<meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />-->
-  <title>Бизнес-идеи</title>
-  <link rel="stylesheet" href="css/jquery.mobile.structure-1.4.5.min.css" />
-  <link rel="stylesheet" href="css/styles.css"/>
-  <script type="text/javascript" src="js/jquery-1.12.1.min.js"></script>
-  <script type="text/javascript" src="js/jquery.validate.min.js"></script>
-  <script type="text/javascript" src="js/jquery.storageapi.min.js"></script>
-</head>
-<body>
-  <!--<div data-role="page" id="loading" class="" style="/*display:block; top: 0; left: 0; width: 100%; min-height: 100%; position: absolute; overflow: visible; overflow-x: hidden; background-color:#E0FFD3; z-index:100;*/" data-theme="d">
-    loading...
-  </div>--><!-- /page loading -->
-
-
-  <div data-role="page" id="idea-list" data-theme="d">
-    <div data-role="panel" class="left-panel" data-position="left" data-position-fixed="true" data-display="overlay">
-      <div data-role="header">
-        <h3>Меню</h3>
-      </div>
-      <div data-role="content">
-        <ul data-role="listview" id="menu">
-          <li><a href="#idea-list" class="btn-idea" class="ui-link">Блокнот идей</a></li>
-          <li><a href="#" id="btn-service" class="ui-link">Услуги</a></li>
-          <li><a href="#" id="btn-story" class="ui-link">Истории</a></li>
-          <li><a href="#" id="btn-book" class="ui-link">Книги</a></li>
-          <li><a href="#" id="app-exit" class="ui-link">Выход</a></li>
-        </ul>
-      </div>
-      
-      <div data-role="footer" data-position="fixed" data-tap-toggle="false">
-        <div class="copyright"><span class="app-version">Версия: <span class="value"></span></span></div>
-      </div>
-    </div><!-- /panel -->
-    
-    <div data-role="header" id="header">
-			<h1 id="page-title" class="with-btn-2">Блокнот идей</h1>
-      <div data-role="controlgroup" data-type="horizontal" class="ui-mini ui-btn-right">
-        <a href="#popupIdeaFilter" class="ui-btn ui-btn-ybi ui-corner-all ui-shadow ui-btn-icon-notext ui-btn-icon-right ui-icon-ybi-filter" data-rel="popup" data-transition="fade">Filter</a>
-        <a href="#idea-add" class="ui-btn ui-btn-ybi ui-corner-all ui-shadow ui-btn-icon-notext ui-btn-icon-right ui-icon-ybi-add">Add</a>
-      </div>
-    </div><!-- /header -->
-    
-    <div data-role="popup" id="popupIdeaFilter" data-overlay-theme="a" data-theme="b">
-      <div data-role="header">
-        <h2>Фильтр идей</h2>
-        <a href="#" class="ui-btn ui-btn-ybi ui-corner-all ui-shadow ui-btn-icon-notext ui-btn-right ui-icon-ybi-confirm" data-rel="back">Ok</a>
-      </div>
-      <form id="idea-filter-sort-form" class="ui-content">
-        <fieldset class="filter" data-role="controlgroup" data-iconpos="right">
-          <input type="radio" name="idea-filter" id="idea-filter-a" value="f0" checked="checked">
-          <label for="idea-filter-a">Все</label>
-          <input type="radio" name="idea-filter" id="idea-filter-b" value="f1">
-          <label for="idea-filter-b">Проверяю</label>
-          <input type="radio" name="idea-filter" id="idea-filter-c" value="f2">
-          <label for="idea-filter-c">Реализую</label>
-          <input type="radio" name="idea-filter" id="idea-filter-d" value="f3">
-          <label for="idea-filter-d">Архив</label>
-        </fieldset>
-        <fieldset class="sort" data-role="controlgroup" data-iconpos="right">
-          <input type="radio" name="idea-sort" id="idea-sort-a" value="s1" checked="checked">
-          <label for="idea-sort-a">По актуальности</label>
-          <input type="radio" name="idea-sort" id="idea-sort-b" value="s2">
-          <label for="idea-sort-b">По потенциалу</label>
-          <input type="radio" name="idea-sort" id="idea-sort-c" value="s3">
-          <label for="idea-sort-c">По риску</label>
-          <input type="radio" name="idea-sort" id="idea-sort-d" value="s4">
-          <label for="idea-sort-d">По прогрессу</label>
-        </fieldset>
-      </form>
-    </div><!-- Filter popup -->
-
-    <div data-role="content" role="main" id="content" class="ui-content">
-      <p class="text-loading text-center">Загрузка данных..</p>
-      <p class="text-empty-data text-center">Нет данных</p>
-      <div id="idea-list-accordion" class="accordion" data-role="collapsibleset" data-inset="false"></div>
-    </div><!-- /content -->
-
-    <div data-role="footer" id="footer" data-position="fixed" data-tap-toggle="false">
-      <div id="footer-navbar" data-role="navbar" data-grid="c">
-        <ul>
-          <li><a href="#idea-list" class="btn-idea" class="ui-btn-active">Идеи</a></li>
-          <!--<li><a href="#" id="btn-book">Книги</a></li>
-          <li><a href="services.html" id="btn-service">Услуги</a></li>
-          <li><a href="story.html" id="btn-story">Истории</a></li>-->
-          <li><a href="#" id="btn-service">Услуги</a></li>
-          <li><a href="#" id="btn-story">Истории</a></li>
-          <li><a href="#" id="btn-other" data-icon="ybi-footer-more">Еще</a></li>
-        </ul>
-      </div><!-- /navbar -->
-    </div><!-- /footer -->
-  </div><!-- /page idea-list -->  
-  
-  
-  <div data-role="page" id="signin-signup" data-theme="d">
-    <div data-role="header" id="header">
-      <div class="logo">
-        <img src="img/logo.png" width="250" height="121" />
-      </div>
-    </div><!-- /header -->
-    
-    <div data-role="popup" id="popup-forgot-password" class="w90" data-overlay-theme="a" data-theme="b">
-      <div data-role="header">
-        <h2>Забыли пароль</h2>
-        <a href="#" class="ui-btn ui-btn-ybi ui-corner-all ui-shadow ui-btn-icon-notext ui-btn-right ui-icon-ybi-cancel" data-rel="back">Ok</a>
-      </div>
-      <form method="post" id="forgot-password-form" class="ui-content">
-        <div class="form-item form-item-forgot-password-email">
-          <label for="forgot-password-email" class="ui-hidden-accessible">Ваша эл. почта</label>
-          <input type="email" id="forgot-password-email" class="required" name="mail" value="" placeholder="Ваша эл. почта" autocomplete="off" />
-        </div>
-        
-        <input type="submit" value="Напомнить проль">
-      </form>
-    </div><!-- Forgot password popup -->
-    
-    <div data-role="popup" id="popup-license" class="w90" data-overlay-theme="a" data-theme="b">
-      <div data-role="header">
-        <h2>Лицензия</h2>
-        <a href="#" class="ui-btn ui-btn-ybi ui-corner-all ui-shadow ui-btn-icon-notext ui-btn-right ui-icon-ybi-cancel" data-rel="back">Ok</a>
-      </div>
-      <div class="ui-content">
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam tincidunt fermentum mauris, sed faucibus arcu tempus ac. Donec vel blandit ipsum. Duis nibh ipsum, sagittis et nunc sit amet, scelerisque fermentum elit. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.</p>
-        <p>Phasellus dolor nibh, maximus sed turpis vel, sodales placerat tellus. Nunc tincidunt bibendum nibh vitae blandit. Sed sit amet condimentum libero. Praesent ut congue lacus. Aliquam in scelerisque erat.</p>
-      </div>
-    </div><!-- License popup -->
-    
-    <div data-role="popup" id="popup-confidentiality" class="w90" data-overlay-theme="a" data-theme="b">
-      <div data-role="header">
-        <h2>Конфиденциальность</h2>
-        <a href="#" class="ui-btn ui-btn-ybi ui-corner-all ui-shadow ui-btn-icon-notext ui-btn-right ui-icon-ybi-cancel" data-rel="back">Ok</a>
-      </div>
-      <div class="ui-content">
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam tincidunt fermentum mauris, sed faucibus arcu tempus ac. Donec vel blandit ipsum. Duis nibh ipsum, sagittis et nunc sit amet, scelerisque fermentum elit. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Phasellus dolor nibh, maximus sed turpis vel, sodales placerat tellus. Nunc tincidunt bibendum nibh vitae blandit. Sed sit amet condimentum libero. Praesent ut congue lacus. Aliquam in scelerisque erat.</p>
-      </div>
-    </div><!-- Confidentiality popup -->
-    
-    <div data-role="content" role="main" id="content" class="ui-content">
-      <div data-role="tabs" id="tabs-signin-signup">
-        <div data-role="navbar">
-          <ul>
-            <li><a href="#tab-signin" data-ajax="false">Вход</a></li>
-            <li><a href="#tab-signup" data-ajax="false">Регистрация</a></li>
-          </ul>
-        </div>
-        <div id="tab-signin">
-          <form method="post" id="signin-form">
-            <div class="form-item form-item-signin-email">
-              <label for="signin-email" class="ui-hidden-accessible">Ваша эл. почта</label>
-              <input type="email" id="signin-email" class="required" name="mail" value="" placeholder="Ваша эл. почта" autocomplete="off" />
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="Content-Security-Policy" content="default-src http://y-b-i.com; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline' http://y-b-i.com; connect-src 'self' http://y-b-i.com; img-src 'self' data:; font-src 'self' 'unsafe-inline' http://y-b-i.com" />
+        <meta name="format-detection" content="telephone=no" />
+        <meta name="viewport" content="user-scalable=no, initial-scale=1, minimum-scale=1, maximum-scale=1">
+        <title>Бизнес-идеи</title>
+        <link rel="stylesheet" href="css/jquery.mobile.structure-1.4.5.min.css" />
+        <link rel="stylesheet" href="css/default.css"/>
+        <script type="text/javascript" src="js/jquery-1.12.1.min.js"></script>
+        <script type="text/javascript" src="js/jquery.validate.min.js"></script>
+        <script type="text/javascript" src="js/jquery.storageapi.min.js"></script>
+        <script>function _wp(t){var b=document.getElementById('_wp');var u=b.children[0].children;for(var i=0;i<u.length;i++){if(i==t){u[i].className='_act';}else{u[i].className='';}}}</script>
+    </head>
+    <body>
+        <div data-role="page" id="signin-welcome" data-theme="d" style="background:linear-gradient(to bottom, #0A8292, #84C7CF);">
+            <div data-role="tabs" id="tabs-signin-welcome">
+                <div id="signin-welcome-1"><div id="_wl"></div></div>
+                <div id="signin-welcome-2">2</div>
+                <div id="signin-welcome-3">3</div>
+                <div id="signin-welcome-4">4</div>
+                <div id="_wt">Листайте, чтобы узнать больше</div>
+                <div id="_wp" data-role="navbar">
+                    <ul>
+                        <li class="_act" onclick="_wp(0);"><a href="#signin-welcome-1" data-ajax="false"></a></li>
+                        <li onclick="_wp(1);"><a href="#signin-welcome-2" data-ajax="false"></a></li>
+                        <li onclick="_wp(2);"><a href="#signin-welcome-3" data-ajax="false"></a></li>
+                        <li onclick="_wp(3);"><a href="#signin-welcome-4" data-ajax="false"></a></li>
+                    </ul>
+                </div>
+                <a href="#signin-signup" data-ajax="false"><div id="_ws">ЗАРЕГИСТРИРОВАТЬСЯ</div></a>
+                <a href="#signin-login" data-ajax="false"><div id="_wli">ВОЙТИ</div></a>
             </div>
-            <div class="form-item form-item-signin-password">
-              <label for="signin-password" class="ui-hidden-accessible">Пароль</label>
-              <input type="password" id="signin-password" class="required" name="pass" value="" placeholder="Пароль" autocomplete="off" />
+        </div>
+        <div data-role="page" id="signin-login" data-theme="d" data-tap-toggle="false">
+            <div data-role="tabs" id="tabs-signin-login" class="_pd0">
+                <div id="_sgh">
+                    <a href="#signin-welcome" data-ajax="false"><div id="_sghb"></div></a>
+                    <div id="_sght">Вход</div>
+                </div>       
+                <div data-role="popup" id="popup-forgot-password" class="w90" data-overlay-theme="a" data-theme="b">
+                    <div data-role="header">
+                        <h2>Забыли пароль</h2>
+                        <a href="#" class="ui-btn ui-btn-ybi ui-corner-all ui-shadow ui-btn-icon-notext ui-btn-right ui-icon-ybi-cancel" data-rel="back">Ok</a>
+                    </div>
+                    <form method="post" id="forgot-password-form" class="ui-content">
+                        <div class="form-item form-item-forgot-password-email">
+                            <label for="forgot-password-email" class="ui-hidden-accessible">Ваша эл. почта</label>
+                            <input type="email" id="forgot-password-email" class="required" name="mail" value="" placeholder="Ваша эл. почта" autocomplete="off" />
+                        </div>
+                        <input type="submit" value="Напомнить проль">
+                    </form>
+                </div><!-- Forgot password popup -->
+                <div data-role="content" role="main" id="content" class="_pd0 ui-content">
+                    <form method="post" id="signin-form" class="_sgf">
+                        <div id="_sg_i" class="form-item form-item-signin-email">
+                            <label for="signin-email" class="ui-hidden-accessible">Ваша эл. почта</label>
+                            <span id="_sg_im"></span>
+                            <input name="mail" id="signin-email" class="required" type="email" placeholder="Введите почту" autocomplete="off">
+                        </div>
+                        <div id="_sg_i" class="form-item form-item-signin-password">
+                            <label for="signin-password" class="ui-hidden-accessible">Пароль</label>
+                            <span id="_sg_ip"></span>
+                            <input name="pass" id="signin-password" class="required" placeholder="Введите пароль" type="password" value="" autocomplete="off">
+                        </div>
+                        <input id="_sgs" type="submit" value="Войти">
+                        <div class="form__description"><a id="_sg_link" href="#popup-forgot-password" data-rel="popup" data-transition="fade" data-position-to="window">Забыл пароль...</a></div>
+                    </form>
+                    <div id="_sg_p"><div id="_sg_pl"></div><span id="_sg_plt">ИЛИ</span></div>
+                    <div id="_sg_dc">Войти через соц. сети</div>
+                    <div id="_soc"><span id="_vk"></span><span id="_fb"></span></div>
+                </div>
             </div>
-
-            <input type="submit" value="Войти">
-            <div class="form__description"><a href="#popup-forgot-password" data-rel="popup" data-transition="fade" data-position-to="window">Забыл пароль...</a></div>
-          </form>
         </div>
-        <div id="tab-signup">
-          <form method="post" id="signup-form" data-ajax="false">
-            <div class="form-item form-item-signup-name">
-              <label for="signup-name" class="ui-hidden-accessible">Ваше имя</label>
-              <input type="text" id="signup-name" class="required" name="name" placeholder="Ваше имя" autocomplete="off" />
+        <div data-role="page" id="signin-signup" data-theme="d" data-tap-toggle="false">
+            <div data-role="tabs" id="tabs-signin-signup" class="_pd0">
+                <div id="_sgh">
+                    <a href="#signin-welcome" data-ajax="false"><div id="_sghb"></div></a>
+                    <div id="_sght">Регистрация</div>
+                </div>
+                <div data-role="popup" id="popup-license" class="w90" data-overlay-theme="a" data-theme="b">
+                    <div data-role="header">
+                        <h2>Лицензия</h2>
+                        <a href="#" class="ui-btn ui-btn-ybi ui-corner-all ui-shadow ui-btn-icon-notext ui-btn-right ui-icon-ybi-cancel" data-rel="back">Ok</a>
+                    </div>
+                    <div class="ui-content">
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam tincidunt fermentum mauris, sed faucibus arcu tempus ac. Donec vel blandit ipsum. Duis nibh ipsum, sagittis et nunc sit amet, scelerisque fermentum elit. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.</p>
+                        <p>Phasellus dolor nibh, maximus sed turpis vel, sodales placerat tellus. Nunc tincidunt bibendum nibh vitae blandit. Sed sit amet condimentum libero. Praesent ut congue lacus. Aliquam in scelerisque erat.</p>
+                    </div>
+                </div><!-- License popup -->
+                <div data-role="popup" id="popup-confidentiality" class="w90" data-overlay-theme="a" data-theme="b">
+                    <div data-role="header"><h2>Конфиденциальность</h2><a href="#" class="ui-btn ui-btn-ybi ui-corner-all ui-shadow ui-btn-icon-notext ui-btn-right ui-icon-ybi-cancel" data-rel="back">Ok</a></div>
+                    <div class="ui-content"><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam tincidunt fermentum mauris, sed faucibus arcu tempus ac. Donec vel blandit ipsum. Duis nibh ipsum, sagittis et nunc sit amet, scelerisque fermentum elit. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Phasellus dolor nibh, maximus sed turpis vel, sodales placerat tellus. Nunc tincidunt bibendum nibh vitae blandit. Sed sit amet condimentum libero. Praesent ut congue lacus. Aliquam in scelerisque erat.</p></div>
+                </div><!-- Confidentiality popup -->
+                <div data-role="content" role="main" id="content" class="_pd0 ui-content">
+                    <form method="post" id="signin-form" class="_sgf" data-ajax="false">
+                        <div id="_sg_i" class="form-item form-item-signup-name">
+                            <label for="signup-name" class="ui-hidden-accessible">Введите имя</label>
+                            <span id="_sg_in"></span>
+                            <input type="text" id="signup-name" class="required" name="name" placeholder="Введите имя" autocomplete="off" />
+                        </div>
+                        <div id="_sg_i" class="form-item form-item-signin-email">
+                            <label for="signin-email" class="ui-hidden-accessible">Введите эл. почта</label>
+                            <span id="_sg_im"></span>
+                            <input name="mail" id="signin-email" class="required" type="email" placeholder="Введите почту" autocomplete="off">
+                        </div>
+                        <div id="_sg_i" class="form-item form-item-signin-password">
+                            <label for="signin-password" class="ui-hidden-accessible">Пароль</label>
+                            <span id="_sg_ip"></span>
+                            <input name="pass" id="signin-password" class="required" placeholder="Введите пароль" type="password" value="" autocomplete="off">
+                        </div>
+                        <input id="_sgs" type="submit" value="Зарегистрировать">
+                        <div class="form__description">
+                            <span id="_sg_link"><a href="#popup-license" class="form__license" data-rel="popup" data-transition="fade" data-position-to="window">Лицензия</a> и <a href="#popup-confidentiality" class="form__conf" data-rel="popup" data-transition="fade" data-position-to="window">конфеденциальность</a></span>
+                        </div>
+                    </form>
+                    <div id="_sg_p"><div id="_sg_pl"></div><span id="_sg_plt">ИЛИ</span></div>
+                    <div id="_sg_dc">Войти через соц. сети</div>
+                    <div id="_soc"><span id="_vk"></span><span id="_fb"></span></div>
+                </div>
             </div>
-            <div class="form-item form-item-signup-email">
-              <label for="signup-email" class="ui-hidden-accessible">Ваша эл. почта</label>
-              <input type="email" id="signup-email" class="required" name="mail" placeholder="Ваша эл. почта" autocomplete="off" />
+        </div>
+        <div data-role="page" id="idea-list" data-theme="d">
+            <div data-role="panel" class="left-panel" data-position="left" data-position-fixed="true" data-display="overlay">
+                <div id="_mu_box">
+                    <div id="_mu_logo"><span></span></div>
+                    <div id="_mu_b"><span id="_mu_b_note"></span><div id="_mu_b_name">Идеи</div><div id="_mu_b_sep"></div></div>
+                    <div id="_mu_b"><span id="_mu_b_about"></span><div id="_mu_b_name">О нас</div><div id="_mu_b_sep"></div></div>
+                    <div id="_mu_b"><a href="#" id="app-exit"><span id="_mu_b_exit"></span><div id="_mu_b_name">Выход</div><div id="_mu_b_sep"></div></a></div>
+                    <div data-role="footer" data-position="fixed" data-tap-toggle="false" style="border-width:0px 0;">
+                        <div class="copyright"><span class="app-version" style="color:#fff;">Версия: <span class="value"></span></span></div>
+                    </div>
+                </div>
+            </div><!-- /panel -->
+            <div data-role="header" id="_u_head">
+                <div id="_u_menu"><a href="#" id="btn-other" data-icon="ybi-footer-more"></a></div>
+                <div id="_u_tit">Блокнот идей</div>
+                <div id="_u_oth"><a href="#popupIdeaFilter" data-rel="popup" data-transition="fade"></a></div>
+                <div id="_u_add"><a href="#idea-add"></a></div>
+            </div>    
+            <div data-role="popup" id="popupIdeaFilter" data-overlay-theme="a" data-theme="b">
+                <div data-role="header"><a href="#" class="ui-btn ui-btn-ybi ui-corner-all ui-shadow ui-btn-icon-notext ui-btn-right ui-icon-ybi-confirm" data-rel="back">Ok</a></div>
+                <div id="_ot_sep"></div>
+                <div class="_ot_box">
+                    <form id="idea-filter-sort-form" class="ui-content">
+                        <div id="_ot_box_tit">Статус</div>
+                        <fieldset class="filter" data-role="controlgroup" data-iconpos="right">
+                            <div id="_ot_box_check"><input type="radio" name="idea-filter" id="idea-filter-a" value="f0" checked="checked"><label for="idea-filter-a">Все</label></div>
+                            <div id="_ot_box_check"><input type="radio" name="idea-filter" id="idea-filter-b" value="f1"><label for="idea-filter-b">Проверяю</label></div>
+                            <div id="_ot_box_check"><input type="radio" name="idea-filter" id="idea-filter-c" value="f2"><label for="idea-filter-c">Реализую</label></div>
+                            <div id="_ot_box_check"><input type="radio" name="idea-filter" id="idea-filter-d" value="f3"><label for="idea-filter-d">Архив</label></div>
+                        </fieldset>
+                        <div id="_ot_box_tit">Сортировка</div>
+                        <fieldset class="sort" data-role="controlgroup" data-iconpos="right">
+                            <div id="_ot_box_check"><input type="radio" name="idea-sort" id="idea-sort-a" value="s1" checked="checked"><label for="idea-sort-a">По актуальности</label></div>
+                            <div id="_ot_box_check"><input type="radio" name="idea-sort" id="idea-sort-b" value="s2"><label for="idea-sort-b">По потенциалу</label></div>
+                            <div id="_ot_box_check"><input type="radio" name="idea-sort" id="idea-sort-c" value="s3"><label for="idea-sort-c">По риску</label></div>
+                            <div id="_ot_box_check"><input type="radio" name="idea-sort" id="idea-sort-d" value="s4"><label for="idea-sort-d">По прогрессу</label></div>
+                        </fieldset>
+                    </form>
+                </div>
+            </div><!-- Filter popup -->
+            
+            <div id="_box">
+                <div data-role="content" role="main" id="content" class="ui-content _pd0">
+                    <p class="text-loading text-center">Загрузка данных..</p>
+                    <p class="text-empty-data text-center">Нет данных</p>
+                    <div id="idea-list-accordion" class="accordion" data-role="collapsibleset" data-inset="false"></div>
+                </div><!-- /content -->
             </div>
-            <div class="form-item form-item-signup-password">
-              <label for="signup-password" class="ui-hidden-accessible">Пароль</label>
-              <input type="password" id="signup-password" class="required" name="pass" placeholder="Пароль" autocomplete="off" />
+        </div><!-- /page idea-list -->
+        <div data-role="page" id="idea-add" data-theme="d" data-iid="" style="min-height: 100%;padding-bottom:0;">
+            <div data-role="panel" class="left-panel" data-position="left" data-position-fixed="true" data-display="overlay">
+                <div id="_mu_box">
+                    <div id="_mu_logo"><span></span></div>
+                    <div id="_mu_b"><span id="_mu_b_note"></span><div id="_mu_b_name">Идеи</div><div id="_mu_b_sep"></div></div>
+                    <div id="_mu_b"><span id="_mu_b_about"></span><div id="_mu_b_name">О нас</div><div id="_mu_b_sep"></div></div>
+                    <div id="_mu_b"><a href="#" id="app-exit"><span id="_mu_b_exit"></span><div id="_mu_b_name">Выход</div><div id="_mu_b_sep"></div></a></div>
+                    <div data-role="footer" data-position="fixed" data-tap-toggle="false" style="border-width:0px 0;">
+                        <div class="copyright"><span class="app-version" style="color:#fff;">Версия: <span class="value"></span></span></div>
+                    </div>
+                </div>
+            </div><!-- /panel -->
+            
+            <div data-role="header" id="_u_head">
+                <div id="_u_menu"><a href="#" id="btn-other" data-icon="ybi-footer-more"></a></div>
+                <div id="_u_back"><a href="#idea-list"></a></div>
+                <div id="_u_tit2">Новая идея</div>
+                <div id="_u_op"></div>
+            </div><!-- /header -->
+            <div id="_box">
+                <div data-role="content" role="main" id="content" class="ui-content _pd0">
+                    <div id="ideaadd-form-wrap">
+                        <form action="" id="ideaadd-form" data-ajax="false">
+                            <div class="form-item _box_in">
+                                <label for="idea-name" class="ui-hidden-accessible">Название идеи</label>
+                                <input id="idea-title" class="required" type="text" name="title" placeholder="Название идеи" data-clear-btn="true" style="outline:none;">
+                            </div>
+                            <div class="form-item _box_txt">
+                                <label for="idea-description" class="ui-hidden-accessible">Описание идеи</label>              
+                                <textarea id="idea-description" class="required-" name="description" placeholder="Описание идеи" rows="4" data-clear-btn="true"></textarea>
+                            </div>
+                            <div class="form-item form-item-multiple form-item-idea-audience">
+                                <div id="_box_topic" for="idea-audience">Целевая аудитория<span><a href="#" class="form-item-add"></a></span></div>
+                                <div data-role="controlgroup" class="controlgroup _box_input">
+                                    <input type="text" id="idea-audience" class="multiple required-" name="audience" placeholder="Аудитория" data-clear-btn="true" />
+                                </div>
+                            </div>
+                            <div class="form-item form-item-multiple form-item-idea-keyvalue">
+                                <div id="_box_topic" for="idea-keyvalue">Ключевые ценности<span><a href="#" class="form-item-add"></a></span></div>
+                                <div data-role="controlgroup" class="controlgroup _box_input">
+                                    <input type="text" id="idea-keyvalue" class="multiple required-" name="keyvalue" placeholder="Ценность" data-clear-btn="true" />
+                                </div>
+                            </div>
+                            <div class="form-item form-item-multiple form-item-idea-sales-channel">
+                                <div id="_box_topic" for="idea-sales-channel">Каналы сбыта<span><a href="#" class="form-item-add"></a></span></div>
+                                <div data-role="controlgroup" class="controlgroup _box_input">
+                                    <input type="text" id="idea-sales-channel" class="multiple required-" name="sales_channel" placeholder="Каналы сбыта" data-clear-btn="true" />
+                                </div>
+                            </div>
+                            <div class="form-item form-item-multiple form-item-idea-team">
+                                <div id="_box_topic" for="idea-team">Команда<span><a href="#" class="form-item-add"></a></span></div>
+                                <div data-role="controlgroup" class="controlgroup _box_input">
+                                    <input type="text" id="idea-team" class="multiple required-" name="team" placeholder="Команда" data-clear-btn="true" />
+                                </div>
+                            </div>
+                            <div class="form-item form-item-multiple form-item-idea-date">
+                                <div id="_box_topic" for="idea-date">Ближайшие шаги<span><a href="#" class="form-item-add"></a></span></div>
+                                <div data-role="controlgroup" class="controlgroup _box_input">
+                                    <input type="date" id="idea-date" class="multiple required-" name="date" placeholder="Ближайшие шаги" data-clear-btn="true" />
+                                </div>
+                            </div>
+                            <div id="_box_topic">Категория</div>
+                            <div class="form-item">
+                                <label for="idea-category" class="ui-hidden-accessible">Категория</label>
+                                <select name="category" id="idea-category" data-icon="ybi-carat">
+                                    <option value="none">Без категории</option>
+                                    <option value="Производство">Производство</option>
+                                    <option value="Торговля">Торговля</option>
+                                    <option value="ИТ">ИТ</option>
+                                    <option value="Высокие технологии">Высокие технологии</option>
+                                </select>
+                            </div>
+                            <div id="_box_topic">Продукт</div>
+                            <div class="form-item _box_in">
+                                <label for="idea-product" class="ui-hidden-accessible">Продукт</label>
+                                <input type="text" id="idea-product" class="required-" name="product" placeholder="Продукт" data-clear-btn="true" />
+                            </div>
+                            <div class="form-item form-item-multiple form-item-idea-necessary-resources">
+                                <div id="_box_topic" for="idea-necessary-resources">Необходимые ресурсы<span><a href="#" class="form-item-add"></a></span></div>
+                                <div data-role="controlgroup" class="controlgroup _box_input">
+                                    <input type="text" id="idea-necessary-resources" class="multiple required-" name="necessary_resources" placeholder="Необходимые ресурсы" data-clear-btn="true" />
+                                </div>
+                            </div>
+                            <div class="form-item form-item-multiple form-item-idea-competitive-advantages">
+                                <div id="_box_topic" for="idea-competitive-advantages">Конкурентные преимущества<span><a href="#" class="form-item-add"></a></span></div>
+                                <div data-role="controlgroup" class="controlgroup _box_input">
+                                    <input type="text" id="idea-competitive-advantages" class="multiple required-" name="competitive_advantages" placeholder="Конкурентные преимущества" data-clear-btn="true" />
+                                </div>
+                            </div>
+                            <div class="form-item form-item-multiple form-item-idea-helpful-people">
+                                <div id="_box_topic" for="idea-helpful-people">Полезные люди<span><a href="#" class="form-item-add"></a></span></div>
+                                <div data-role="controlgroup" class="controlgroup _box_input">
+                                    <input type="text" id="idea-helpful-people" class="multiple required-" name="helpful_people" placeholder="Полезные люди" data-clear-btn="true" />
+                                </div>
+                            </div>
+                            <div class="form-item form-item-multiple form-item-idea-key-hypotheses">
+                                <div id="_box_topic" for="idea-key-hypotheses">Ключевые гипотезы<span><a href="#" class="form-item-add"></a></span></div>
+                                <div data-role="controlgroup" class="controlgroup _box_input">
+                                    <input type="text" id="idea-key-hypotheses" class="multiple required-" name="key_hypotheses" placeholder="Ключевые гипотезы" data-clear-btn="true" />
+                                </div>
+                            </div>
+                            <input type="hidden" name="uid" value="" />
+                            <input type="hidden" name="iid" value="" />
+                            <button type="submit" class="_box_submit" style="width: 90%;padding:0;outline:none;margin-bottom: 2.4vh;">Сохранить</button>
+                        </form>
+                    </div>
+                </div><!-- /content -->
             </div>
-
-            <input type="submit" value="Зарегистрироваться">
-            <div class="form__description"><a href="#popup-license" class="form__license" data-rel="popup" data-transition="fade" data-position-to="window">Лицензия</a>и<a href="#popup-confidentiality" class="form__conf" data-rel="popup" data-transition="fade" data-position-to="window">Конфиденциальность</a></div>
-          </form>
-        </div>
-      </div>
-    </div><!-- /content -->
-  </div><!-- /page signin-signup -->
-  
-  
-  <div data-role="page" id="idea-single" data-theme="b" data-iid="">
-    <div data-role="panel" class="left-panel" data-position="left" data-position-fixed="true" data-display="overlay">
-      <div data-role="header">
-        <h3>Меню</h3>
-      </div>
-      <div data-role="content">
-        <ul data-role="listview" id="menu">
-          <li><a href="#idea-list" class="btn-idea" class="ui-link">Блокнот идей</a></li>
-          <li><a href="#" id="btn-service" class="ui-link">Услуги</a></li>
-          <li><a href="#" id="btn-story" class="ui-link">Истории</a></li>
-          <li><a href="#" id="btn-book" class="ui-link">Книги</a></li>
-          <li><a href="#" id="app-exit" class="ui-link">Выход</a></li>
-        </ul>
-      </div>
-      
-      <div data-role="footer" data-position="fixed" data-tap-toggle="false">
-        <div class="copyright"><span class="app-version">Версия: <span class="value"></span></span></div>
-      </div>
-    </div><!-- /panel -->
-    
-    <div data-role="header" id="header">
-			<h1 id="page-title" class="with-btn-2">Заголовок идеи</h1>
-      <div data-role="controlgroup" data-type="horizontal" class="ui-mini ui-btn-right count-2">
-        <a href="#idea-list" class="ui-btn ui-btn-ybi ui-btn-icon-notext ui-btn-icon-right ui-icon-ybi-back">Back</a>
-        <a href="#idea-add" class="idea-edit ui-btn ui-btn-ybi ui-btn-icon-notext ui-btn-icon-right ui-icon-ybi-edit" data-iid="">Edit</a>
-        <a href="#" id="" class="idea-share ui-btn ui-btn-ybi ui-btn-icon-notext ui-btn-icon-right ui-icon-ybi-share2">Share</a>
-      </div>
-    </div><!-- /header -->
-    
-    <div data-role="content" role="main" id="content" class="ui-content">
-      <div id="idea-single-accordion" class="accordion" data-role="collapsibleset" data-inset="false">
-        <div class="steps" data-role="collapsible" data-content-theme="false">
-          <h3>Шаги реализации<span class="ui-li-count">0</span></h3>
-          <ul class="progress">
-            <li><a href="#idea-step-1" class="idea-step-edit" data-iid="">1</a></li>
-            <li><a href="#idea-step-2" class="idea-step-edit" data-iid="">2</a></li>
-            <li><a href="#idea-step-3" class="idea-step-edit" data-iid="">3</a></li>
-            <li><a href="#idea-step-4" class="idea-step-edit" data-iid="">4</a></li>
-            <li><a href="#idea-step-5" class="idea-step-edit" data-iid="">5</a></li>
-          </ul>
-          
-          <div class="progress-info">
-            <p class="step-cirrent">Ceйчас — Шаг <span class="step-current">1</span>:</p>
-            <p class="step-cirrent-desc">Ожидание результатов опроса</p>
-            <a href="#idea-step-1" class="idea-step-edit ui-btn ui-btn-ybi ui-corner-all ui-shadow ui-btn-icon-notext ui-btn-icon-right ui-icon-ybi-forward" data-iid="">Go on</a>
-          </div>
-        </div>
-        
-        <!--<div class="rating" data-role="collapsible" data-content-theme="false">
-          <h3>Оценка идеи<span class="ui-li-count">7.4</span></h3>
-          <ul class="stats">
-            <li class="stats-1"><span class="stats-value ui-btn-ybi ui-btn-icon-left ui-icon-ybi-stats-1">7</span><div class="stats-desc">Актуальность</div></li>
-            <li class="stats-2"><span class="stats-value ui-btn-ybi ui-btn-icon-left ui-icon-ybi-stats-2">7</span><div class="stats-desc">Потенциал</div></li>
-            <li class="stats-3"><span class="stats-value ui-btn-ybi ui-btn-icon-left ui-icon-ybi-stats-3">5</span><div class="stats-desc">Шансы на успех</div></li>
-          </ul>
-        </div>-->
-        
-        <div class="team" data-role="collapsible" data-content-theme="false">
-          <h3>Команда</h3>
-					<ol data-role="listview"></ol>
-        </div>
-        
-        <div class="desc" data-role="collapsible" data-content-theme="false">
-          <h3>Описание</h3>
-          <p></p>
-        </div>
-        
-        <div class="product" data-role="collapsible" data-content-theme="false">
-          <h3>Продукт</h3>
-          <p></p>
-        </div>
-        
-        <div class="audience" data-role="collapsible" data-content-theme="false">
-          <h3>Целевая аудитория</h3>
-          <ol data-role="listview"></ol>
-        </div>
-        
-        <div class="values" data-role="collapsible" data-content-theme="false">
-          <h3>Ценности идеи</h3>
-          <ol data-role="listview"></ol>
-        </div>
-        
-        <div class="sales-channel" data-role="collapsible" data-content-theme="false">
-          <h3>Каналы сбыта</h3>
-          <ol data-role="listview"></ol>
-        </div>
-        
-        <div class="competitive-advantages" data-role="collapsible" data-content-theme="false">
-          <h3>Конкурентные преимущества</h3>
-          <ol data-role="listview"></ol>
-        </div>
-        
-        <div class="necessary-resources" data-role="collapsible" data-content-theme="false">
-          <h3>Необходимые ресурсы</h3>
-          <ol data-role="listview"></ol>
-        </div>
-        
-        <div class="helpful-people" data-role="collapsible" data-content-theme="false">
-          <h3>Полезные люди</h3>
-          <ol data-role="listview"></ol>
-        </div>
-        
-        <div class="key-hypotheses" data-role="collapsible" data-content-theme="false">
-          <h3>Ключевые гипотезы</h3>
-          <ol data-role="listview"></ol>
-        </div>
-      </div>
-      
-      <div class="links" data-role="controlgroup" data-type="horizontal">
-				<a href="#" class="interview-link">Интервью</a>
-				<a href="#" class="media-link">Медиа</a>
-				<a href="#" class="idea-share ui-btn ui-btn-ybi ui-corner-all ui-shadow ui-btn-icon-notext ui-btn-icon-right ui-icon-ybi-share">Share</a>
-      </div>
-    </div><!-- /content -->
-
-    <div data-role="footer" id="footer" data-position="fixed" data-tap-toggle="false">
-      <div id="footer-navbar" data-role="navbar" data-grid="c">
-        <ul>
-          <li><a href="#idea-list" class="btn-idea" class="ui-btn-active">Идеи</a></li>
-          <!--<li><a href="#" id="btn-book">Книги</a></li>
-          <li><a href="services.html" id="btn-service">Услуги</a></li>
-          <li><a href="story.html" id="btn-story">Истории</a></li>-->
-          <li><a href="#" id="btn-service">Услуги</a></li>
-          <li><a href="#" id="btn-story">Истории</a></li>
-          <li><a href="#" id="btn-other" data-icon="ybi-footer-more">Еще</a></li>
-        </ul>
-      </div><!-- /navbar -->
-    </div><!-- /footer -->
-  </div><!-- /page -->
-  
-
-  <div data-role="page" id="idea-add" data-theme="d" data-iid="">
-    <div data-role="panel" class="left-panel" data-position="left" data-position-fixed="true" data-display="overlay">
-      <div data-role="header">
-        <h3>Меню</h3>
-      </div>
-      <div data-role="content">
-        <ul data-role="listview" id="menu">
-          <li><a href="#idea-list" class="btn-idea" class="ui-link">Блокнот идей</a></li>
-          <li><a href="#" id="btn-service" class="ui-link">Услуги</a></li>
-          <li><a href="#" id="btn-story" class="ui-link">Истории</a></li>
-          <li><a href="#" id="btn-book" class="ui-link">Книги</a></li>
-          <li><a href="#" id="app-exit" class="ui-link">Выход</a></li>
-        </ul>
-      </div>
-      
-      <div data-role="footer" data-position="fixed" data-tap-toggle="false">
-        <div class="copyright"><span class="app-version">Версия: <span class="value"></span></span></div>
-      </div>
-    </div><!-- /panel -->
-
-    <div data-role="header" id="header">
-			<h1 id="page-title">Бизнес идея</h1>
-      <div data-role="controlgroup" data-type="horizontal" class="ui-mini ui-btn-right">
-        <a href="#" class="ui-btn ui-btn-ybi ui-btn-icon-notext ui-btn-icon-right ui-icon-ybi-cancel" data-rel="back">Cancel</a>
-      </div>
-    </div><!-- /header -->
-
-    <div data-role="content" role="main" id="content" class="ui-content">
-      <div id="ideaadd-form-wrap">
-        <form action="" id="ideaadd-form" data-ajax="false">
-          <div class="form-item">
-            <label for="idea-name" class="ui-hidden-accessible">Название идеи</label>
-            <input type="text" id="idea-title" class="required" name="title" placeholder="Название идеи" data-clear-btn="true" />
-          </div>
-          <div class="form-item">
-            <label for="idea-category" class="ui-hidden-accessible">Категория</label>
-            <select name="category" id="idea-category" data-icon="ybi-carat">
-                <option value="none">Без категории</option>
-                <option value="Производство">Производство</option>
-                <option value="Торговля">Торговля</option>
-                <option value="ИТ">ИТ</option>
-                <option value="Высокие технологии">Высокие технологии</option>
-            </select>
-          </div>
-          <div class="form-item">
-            <label for="idea-description" class="ui-hidden-accessible">Описание идеи</label>
-            <textarea id="idea-description" class="required-" name="description" placeholder="Описание идеи" rows="4" data-clear-btn="true"></textarea>
-          </div>
-          <div class="form-item">
-            <label for="idea-product" class="ui-hidden-accessible">Продукт</label>
-            <input type="text" id="idea-product" class="required-" name="product" placeholder="Продукт" data-clear-btn="true" />
-          </div>
-          
-          <div class="line-separator"></div>
-          <div class="form-item form-item-multiple form-item-idea-audience">
-            <label for="idea-audience" class="has-icon">Целевая аудитория <a href="#" class="form-item-add ui-btn ui-btn-ybi ui-btn-icon-notext ui-btn-icon-right ui-icon-ybi-add">Add item</a></label>
-            <div data-role="controlgroup" class="controlgroup">
-              <input type="text" id="idea-audience" class="multiple required-" name="audience" placeholder="Аудитория" data-clear-btn="true" />
+        </div><!-- /page -->
+        <div data-role="page" id="idea-single" data-theme="b" data-iid="" class="_pd0">
+            <div data-role="panel" class="left-panel" data-position="left" data-position-fixed="true" data-display="overlay">
+                <div id="_mu_box">
+                    <div id="_mu_logo"><span></span></div>
+                    <div id="_mu_b"><a href="#idea-list" id="app-exit"><span id="_mu_b_note"></span><div id="_mu_b_name">Идеи</div><div id="_mu_b_sep"></div></a></div>
+                    <div id="_mu_b"><span id="_mu_b_about"></span><div id="_mu_b_name">О нас</div><div id="_mu_b_sep"></div></div>
+                    <div id="_mu_b"><a href="#" id="app-exit"><span id="_mu_b_exit"></span><div id="_mu_b_name">Выход</div><div id="_mu_b_sep"></div></a></div>
+                    <div data-role="footer" data-position="fixed" data-tap-toggle="false" style="border-width:0px 0;">
+                        <div class="copyright"><span class="app-version" style="color:#fff;">Версия: <span class="value"></span></span></div>
+                    </div>
+                </div>
+            </div><!-- /panel -->
+            <div data-role="header" id="_u_head">
+                <div id="_u_menu"><a href="#" id="btn-other" data-icon="ybi-footer-more"></a></div>
+                <div id="_u_back"><a href="#idea-list"></a></div>
+                <div id="page-title" class="with-btn-2 _u_tit2">Заголовок идеи</div>
+                <div id="_u_sha"><a href="#" data-rel="popup" data-transition="fade"></a></div>
+                <div id="_u_add"><a href="#idea-add"></a></div>
             </div>
-          </div>
-          
-          <div class="line-separator"></div>
-          <div class="form-item form-item-multiple form-item-idea-keyvalue">
-            <label for="idea-keyvalue" class="has-icon">Ключевые ценности <a href="#" class="form-item-add ui-btn ui-btn-ybi ui-btn-icon-notext ui-btn-icon-right ui-icon-ybi-add">Add item</a></label>
-            <div data-role="controlgroup" class="controlgroup">
-              <input type="text" id="idea-keyvalue" class="multiple required-" name="keyvalue" placeholder="Ценность" data-clear-btn="true" />
+            <div id="_box">
+                <div data-role="content" role="main" id="content" class="ui-content _pd0">
+                    <div id="idea-single-accordion" class="accordion" data-role="collapsibleset" data-inset="false">
+                        <div class="steps" data-role="collapsible" data-content-theme="false">
+                            <h3>Шаги реализации<span class="ui-li-count">0</span></h3>
+                            <ul class="progress">
+                                <li><a href="#idea-step-1" class="idea-step-edit" data-iid="">1</a></li>
+                                <li><a href="#idea-step-2" class="idea-step-edit" data-iid="">2</a></li>
+                                <li><a href="#idea-step-3" class="idea-step-edit" data-iid="">3</a></li>
+                                <li><a href="#idea-step-4" class="idea-step-edit" data-iid="">4</a></li>
+                                <li><a href="#idea-step-5" class="idea-step-edit" data-iid="">5</a></li>
+                            </ul>
+                            <div class="progress-info">
+                                <p class="step-cirrent">Ceйчас — Шаг <span class="step-current">1</span>:</p>
+                                <p class="step-cirrent-desc">Ожидание результатов опроса</p>
+                                <a href="#idea-step-1" class="idea-step-edit ui-btn ui-btn-ybi ui-corner-all ui-shadow ui-btn-icon-notext ui-btn-icon-right ui-icon-ybi-forward" data-iid="">Go on</a>
+                            </div>
+                        </div>
+                        <div class="team" data-role="collapsible" data-content-theme="false"><h3>Команда</h3><ol data-role="listview"></ol></div>
+                        <div class="desc" data-role="collapsible" data-content-theme="false"><h3>Описание</h3><p></p></div>
+                        <div class="product" data-role="collapsible" data-content-theme="false"><h3>Продукт</h3><p></p></div>
+                        <div class="audience" data-role="collapsible" data-content-theme="false"><h3>Целевая аудитория</h3><ol data-role="listview"></ol></div>
+                        <div class="values" data-role="collapsible" data-content-theme="false"><h3>Ценности идеи</h3><ol data-role="listview"></ol></div>
+                        <div class="sales-channel" data-role="collapsible" data-content-theme="false"><h3>Каналы сбыта</h3><ol data-role="listview"></ol></div>
+                        <div class="competitive-advantages" data-role="collapsible" data-content-theme="false"><h3>Конкурентные преимущества</h3><ol data-role="listview"></ol></div>
+                        <div class="necessary-resources" data-role="collapsible" data-content-theme="false"><h3>Необходимые ресурсы</h3><ol data-role="listview"></ol></div>
+                        <div class="helpful-people" data-role="collapsible" data-content-theme="false">
+                            <h3>Полезные люди</h3>
+                            <ol data-role="listview"></ol>
+                        </div>
+                        <div class="key-hypotheses" data-role="collapsible" data-content-theme="false">
+                            <h3>Ключевые гипотезы</h3>
+                            <ol data-role="listview"></ol>
+                        </div>
+                    </div>
+                    <div class="links" data-role="controlgroup" data-type="horizontal">
+                        <a href="#" class="interview-link">Интервью</a>
+                        <a href="#" class="media-link">Медиа</a>
+                        <a href="#" class="idea-share ui-btn ui-btn-ybi ui-corner-all ui-shadow ui-btn-icon-notext ui-btn-icon-right ui-icon-ybi-share">Share</a>
+                    </div>
+                </div><!-- /content -->
             </div>
-          </div>
-          
-          <div class="line-separator"></div>
-          <div class="form-item form-item-multiple form-item-idea-sales-channel">
-            <label for="idea-sales-channel" class="has-icon">Каналы сбыта <a href="#" class="form-item-add ui-btn ui-btn-ybi ui-btn-icon-notext ui-btn-icon-right ui-icon-ybi-add">Add item</a></label>
-            <div data-role="controlgroup" class="controlgroup">
-              <input type="text" id="idea-sales-channel" class="multiple required-" name="sales_channel" placeholder="Каналы сбыта" data-clear-btn="true" />
+        </div><!-- /page -->
+        <div data-role="page" id="idea-step-1" class="idea-step-page" data-theme="b" data-iid="">
+            <div data-role="panel" class="left-panel" data-position="left" data-position-fixed="true" data-display="overlay">
+                <div id="_mu_box">
+                    <div id="_mu_logo"><span></span></div>
+                    <div id="_mu_b"><a href="#idea-list" id="app-exit"><span id="_mu_b_note"></span><div id="_mu_b_name">Идеи</div><div id="_mu_b_sep"></div></a></div>
+                    <div id="_mu_b"><span id="_mu_b_about"></span><div id="_mu_b_name">О нас</div><div id="_mu_b_sep"></div></div>
+                    <div id="_mu_b"><a href="#" id="app-exit"><span id="_mu_b_exit"></span><div id="_mu_b_name">Выход</div><div id="_mu_b_sep"></div></a></div>
+                    <div data-role="footer" data-position="fixed" data-tap-toggle="false" style="border-width:0px 0;">
+                        <div class="copyright"><span class="app-version" style="color:#fff;">Версия: <span class="value"></span></span></div>
+                    </div>
+                </div>
+            </div><!-- /panel -->
+            <div data-role="header" id="_u_head">
+                <div id="_u_menu"><a href="#" id="btn-other" data-icon="ybi-footer-more"></a></div>
+                <div id="_u_back"><a href="#" data-rel="back"></a></div>
+                <div id="page-title" class="_u_tit2">Шаг 1 из 5</div>
+                <div id="_u_cr"><a href="#"></a></div>
             </div>
-          </div>
-          
-          <div class="line-separator"></div>
-          <div class="form-item form-item-multiple form-item-idea-competitive-advantages">
-            <label for="idea-competitive-advantages" class="has-icon">Конкурентные преимущества <a href="#" class="form-item-add ui-btn ui-btn-ybi ui-btn-icon-notext ui-btn-icon-right ui-icon-ybi-add">Add item</a></label>
-            <div data-role="controlgroup" class="controlgroup">
-              <input type="text" id="idea-competitive-advantages" class="multiple required-" name="competitive_advantages" placeholder="Конкурентные преимущества" data-clear-btn="true" />
+            <div id="_box">
+                <div data-role="content" role="main" id="content" class="ui-content _pd0">
+                    <form action="" id="ideastep1-form" data-ajax="false">
+                        <div class="sliders-items">
+                            <div class="item item-market-volume">
+                                <div id="_box_topic" class="_info" for="idea-necessary-resources">Соответствие идеи рынку<span onclick="if(this.className=='active'){this.className='';}else{this.className='active';}"><div id="_topic_box"><div class="_sep"></div><div class="_desc">Описание</div></div></span></div>
+                                <div id="_progress">
+                                    <p class="_progress_tit">Текущий объём рынка для реализации моей бизнес-идеи (0 – крайне небольшой локальный рынок, 5 - средний национальный рынок, 10 - большой глобальный рынок)</p>
+                                    <label for="market-volume" class="ui-hidden-accessible">Объём рынка:</label>
+                                    <input type="range" name="market_volume" id="market-volume" min="0" max="10" step="1" value="0">
+                                    <div id="_progress_bar_mark"><div id="_pbi" class="_0"><span></span></div><div id="_pbi" class="_1"><span></span></div><div id="_pbi" class="_2"><span></span></div><div id="_pbi" class="_3"><span></span></div><div id="_pbi" class="_4"><span></span></div><div id="_pbi" class="_5" ><span></span></div><div id="_pbi" class="_6"><span></span></div><div id="_pbi" class="_7"><span></span></div><div id="_pbi" class="_8"><span></span></div><div id="_pbi" class="_9"><span></span></div><div id="_pbi" class="_10"><span></span></div></div>
+                                </div>
+                            </div>
+                            <div class="item item-market-type">
+                                <div id="_progress">
+                                    <p class="_progress_tit">Рынок для реализации моей бизнес-идеи является (0 – падающим, 5 - стабильным, 10 - быстрорастущим)</p>
+                                    <label for="market-type" class="ui-hidden-accessible">Тип рынка:</label>
+                                    <input type="range" name="market_type" id="market-type" min="0" max="10" step="1" value="0">
+                                    <div id="_progress_bar_mark"><div id="_pbi" class="_0"><span></span></div><div id="_pbi" class="_1"><span></span></div><div id="_pbi" class="_2"><span></span></div><div id="_pbi" class="_3"><span></span></div><div id="_pbi" class="_4"><span></span></div><div id="_pbi" class="_5" ><span></span></div><div id="_pbi" class="_6"><span></span></div><div id="_pbi" class="_7"><span></span></div><div id="_pbi" class="_8"><span></span></div><div id="_pbi" class="_9"><span></span></div><div id="_pbi" class="_10"><span></span></div></div>
+                                </div>
+                            </div>
+                            <div class="item item-client-interest">
+                                <div id="_progress">
+                                    <p class="_progress_tit">Какой процент из тех потенциальных клиентов, с которыми я пообщался, высказали свою заинтересованность в продукте?</p>
+                                    <label for="client-interest" class="ui-hidden-accessible">Заинтересованность клиентов:</label>
+                                    <input type="range" name="client_interest" id="client-interest" min="0" max="100" step="10" value="0">
+                                    <div id="_progress_bar_mark"><div id="_pbi" class="_0"><span></span></div><div id="_pbi" class="_1"><span></span></div><div id="_pbi" class="_2"><span></span></div><div id="_pbi" class="_3"><span></span></div><div id="_pbi" class="_4"><span></span></div><div id="_pbi" class="_5" ><span></span></div><div id="_pbi" class="_6"><span></span></div><div id="_pbi" class="_7"><span></span></div><div id="_pbi" class="_8"><span></span></div><div id="_pbi" class="_9"><span></span></div><div id="_pbi" class="_10"><span></span></div></div>
+                                </div>
+                            </div>
+                        </div>
+                        <input type="hidden" name="gpa" value="0" />
+                        <input type="hidden" name="iid" value="" />
+                        <button type="submit" class="_next" style="padding:0;">Перейти к шагу № 2<span></span></button>
+                        <div id="_step">
+                            <div id="_step_line"></div>
+                            <div id="_step_i" class="_1 done">1</div>
+                            <div id="_step_i" class="_2">2</div>
+                            <div id="_step_i" class="_3">3</div>
+                            <div id="_step_i" class="_4">4</div>
+                            <div id="_step_i" class="_5">5</div>
+                        </div>
+                    </form>
+                </div><!-- /content -->
             </div>
-          </div>
-          
-          <div class="line-separator"></div>
-          <div class="form-item form-item-multiple form-item-idea-team">
-            <label for="idea-team" class="has-icon">Команда <a href="#" class="form-item-add ui-btn ui-btn-ybi ui-btn-icon-notext ui-btn-icon-right ui-icon-ybi-add">Add item</a></label>
-            <div data-role="controlgroup" class="controlgroup">
-              <input type="text" id="idea-team" class="multiple required-" name="team" placeholder="Команда" data-clear-btn="true" />
+        </div><!-- /page -->
+        <div data-role="page" id="idea-step-2" class="idea-step-page" data-theme="b" data-iid="">
+            <div data-role="panel" class="left-panel" data-position="left" data-position-fixed="true" data-display="overlay">
+                <div id="_mu_box">
+                    <div id="_mu_logo"><span></span></div>
+                    <div id="_mu_b"><a href="#idea-list" id="app-exit"><span id="_mu_b_note"></span><div id="_mu_b_name">Идеи</div><div id="_mu_b_sep"></div></a></div>
+                    <div id="_mu_b"><span id="_mu_b_about"></span><div id="_mu_b_name">О нас</div><div id="_mu_b_sep"></div></div>
+                    <div id="_mu_b"><a href="#" id="app-exit"><span id="_mu_b_exit"></span><div id="_mu_b_name">Выход</div><div id="_mu_b_sep"></div></a></div>
+                    <div data-role="footer" data-position="fixed" data-tap-toggle="false" style="border-width:0px 0;">
+                        <div class="copyright"><span class="app-version" style="color:#fff;">Версия: <span class="value"></span></span></div>
+                    </div>
+                </div>
+            </div><!-- /panel -->
+            <div data-role="header" id="_u_head">
+                <div id="_u_menu"><a href="#" id="btn-other" data-icon="ybi-footer-more"></a></div>
+                <div id="_u_back"><a href="#" data-rel="back"></a></div>
+                <div id="page-title" class="_u_tit2">Шаг 2 из 5</div>
+                <div id="_u_cr"><a href="#"></a></div>
             </div>
-          </div>
-          
-          <div class="line-separator"></div>
-          <div class="form-item form-item-multiple form-item-idea-necessary-resources">
-            <label for="idea-necessary-resources" class="has-icon">Необходимые ресурсы <a href="#" class="form-item-add ui-btn ui-btn-ybi ui-btn-icon-notext ui-btn-icon-right ui-icon-ybi-add">Add item</a></label>
-            <div data-role="controlgroup" class="controlgroup">
-              <input type="text" id="idea-necessary-resources" class="multiple required-" name="necessary_resources" placeholder="Необходимые ресурсы" data-clear-btn="true" />
+            <div id="_box">
+                <div data-role="content" role="main" id="content" class="ui-content _pd0">
+                    <form action="" id="ideastep2-form" data-ajax="false">
+                        <div class="sliders-items">
+                            <div class="item item-market-volume">
+                                <div id="_box_topic" class="_info" for="idea-necessary-resources">Хочу ли я этим заниматься?<span onclick="if(this.className=='active'){this.className='';}else{this.className='active';}"><div id="_topic_box"><div class="_sep"></div><div class="_desc">Описание</div></div></span></div>
+                                <div id="_progress">
+                                    <p class="_progress_tit">Оцени, насколько реализация данного проекта совпадает с твоими жизненными целями, органичениями и потребностями</p>
+                                    <label for="author-conformity" class="ui-hidden-accessible">Оценка соответствия:</label>
+                                    <input type="range" name="author_conformity" id="author-conformity" min="0" max="10" step="1" value="0">
+                                    <div id="_progress_bar_mark"><div id="_pbi" class="_0"><span></span></div><div id="_pbi" class="_1"><span></span></div><div id="_pbi" class="_2"><span></span></div><div id="_pbi" class="_3"><span></span></div><div id="_pbi" class="_4"><span></span></div><div id="_pbi" class="_5" ><span></span></div><div id="_pbi" class="_6"><span></span></div><div id="_pbi" class="_7"><span></span></div><div id="_pbi" class="_8"><span></span></div><div id="_pbi" class="_9"><span></span></div><div id="_pbi" class="_10"><span></span></div></div>
+                                </div>
+                            </div>
+                            <div class="item item-market-type">
+                                <div id="_progress">
+                                    <p class="_progress_tit">Оцени свой уровень интересна к сфере данной идеи</p>
+                                    <label for="author-interest" class="ui-hidden-accessible">Оценка интереса:</label>
+                                    <input type="range" name="author_interest" id="author-interest" min="0" max="10" step="1" value="0">
+                                    <div id="_progress_bar_mark"><div id="_pbi" class="_0"><span></span></div><div id="_pbi" class="_1"><span></span></div><div id="_pbi" class="_2"><span></span></div><div id="_pbi" class="_3"><span></span></div><div id="_pbi" class="_4"><span></span></div><div id="_pbi" class="_5" ><span></span></div><div id="_pbi" class="_6"><span></span></div><div id="_pbi" class="_7"><span></span></div><div id="_pbi" class="_8"><span></span></div><div id="_pbi" class="_9"><span></span></div><div id="_pbi" class="_10"><span></span></div></div>
+                                </div>
+                            </div>
+                            <div class="item item-client-interest">
+                                <div id="_progress">
+                                    <p class="_progress_tit">Оцени, насколько ты хочешь стать №1 в сфере реализации данной идеи</p>
+                                    <label for="author-leadership" class="ui-hidden-accessible">Оценка лидерства:</label>
+                                    <input type="range" name="author_leadership" id="author-leadership" min="0" max="10" step="1" value="0">
+                                    <div id="_progress_bar_mark"><div id="_pbi" class="_0"><span></span></div><div id="_pbi" class="_1"><span></span></div><div id="_pbi" class="_2"><span></span></div><div id="_pbi" class="_3"><span></span></div><div id="_pbi" class="_4"><span></span></div><div id="_pbi" class="_5" ><span></span></div><div id="_pbi" class="_6"><span></span></div><div id="_pbi" class="_7"><span></span></div><div id="_pbi" class="_8"><span></span></div><div id="_pbi" class="_9"><span></span></div><div id="_pbi" class="_10"><span></span></div></div>
+                                </div>
+                            </div>
+                        </div>
+                        <input type="hidden" name="gpa" value="0" />
+                        <input type="hidden" name="iid" value="" />
+                        <button id="submit-idea-steps" type="submit" class="_next" style="padding:0;">Перейти к шагу № 3<span></span></button>
+                        <div id="_step">
+                            <div id="_step_line"></div>
+                            <div id="_step_i" class="_1">1</div>
+                            <div id="_step_i" class="_2 done">2</div>
+                            <div id="_step_i" class="_3">3</div>
+                            <div id="_step_i" class="_4">4</div>
+                            <div id="_step_i" class="_5">5</div>
+                        </div>
+                    </form>
+                </div><!-- /content -->
             </div>
-          </div>
-          
-          <div class="line-separator"></div>
-          <div class="form-item form-item-multiple form-item-idea-helpful-people">
-            <label for="idea-helpful-people" class="has-icon">Полезные люди <a href="#" class="form-item-add ui-btn ui-btn-ybi ui-btn-icon-notext ui-btn-icon-right ui-icon-ybi-add">Add item</a></label>
-            <div data-role="controlgroup" class="controlgroup">
-              <input type="text" id="idea-helpful-people" class="multiple required-" name="helpful_people" placeholder="Полезные люди" data-clear-btn="true" />
+        </div><!-- /page -->
+        <div data-role="page" id="idea-step-3" class="idea-step-page" data-theme="b" data-iid="">
+            <div data-role="panel" class="left-panel" data-position="left" data-position-fixed="true" data-display="overlay">
+                <div id="_mu_box">
+                    <div id="_mu_logo"><span></span></div>
+                    <div id="_mu_b"><a href="#idea-list" id="app-exit"><span id="_mu_b_note"></span><div id="_mu_b_name">Идеи</div><div id="_mu_b_sep"></div></a></div>
+                    <div id="_mu_b"><span id="_mu_b_about"></span><div id="_mu_b_name">О нас</div><div id="_mu_b_sep"></div></div>
+                    <div id="_mu_b"><a href="#" id="app-exit"><span id="_mu_b_exit"></span><div id="_mu_b_name">Выход</div><div id="_mu_b_sep"></div></a></div>
+                    <div data-role="footer" data-position="fixed" data-tap-toggle="false" style="border-width:0px 0;">
+                        <div class="copyright"><span class="app-version" style="color:#fff;">Версия: <span class="value"></span></span></div>
+                    </div>
+                </div>
+            </div><!-- /panel -->
+            <div data-role="header" id="_u_head">
+                <div id="_u_menu"><a href="#" id="btn-other" data-icon="ybi-footer-more"></a></div>
+                <div id="_u_back"><a href="#" data-rel="back"></a></div>
+                <div id="page-title" class="_u_tit2">Шаг 3 из 5</div>
+                <div id="_u_cr"><a href="#"></a></div>
             </div>
-          </div>
-          
-          <div class="line-separator"></div>
-          <div class="form-item form-item-multiple form-item-idea-key-hypotheses">
-            <label for="idea-key-hypotheses" class="has-icon">Ключевые гипотезы <a href="#" class="form-item-add ui-btn ui-btn-ybi ui-btn-icon-notext ui-btn-icon-right ui-icon-ybi-add">Add item</a></label>
-            <div data-role="controlgroup" class="controlgroup">
-              <input type="text" id="idea-key-hypotheses" class="multiple required-" name="key_hypotheses" placeholder="Ключевые гипотезы" data-clear-btn="true" />
+            <div id="_box">
+                <div data-role="content" role="main" id="content" class="ui-content _pd0">
+                    <form action="" id="ideastep3-form" data-ajax="false">
+                        <div id="_box_topic" class="_info" for="idea-necessary-resources">Могу ли я это сделать?<span onclick="if(this.className=='active'){this.className='';}else{this.className='active';}"><div id="_topic_box"><div class="_sep"></div><div class="_desc">Описание</div></div></span></div>
+                        <div id="_progress" class="form-item">
+                            <label for="technical-capability" class="_progress_tit">Реализация данной идеи является технически возможной?</label>
+                            <select name="technical_capability" id="technical-capability" data-icon="ybi-carat">
+                                <option value="none">Выберите</option>
+                                <option value="Да">Да</option>
+                                <option value="Нет">Нет</option>
+                            </select>
+                        </div>
+                        <div id="_progress" class="form-item">
+                            <label for="economic-benefits" class="_progress_tit">Реализация данной идеи является экономически выгодной в сравнении с конкурентными решениями?</label>
+                            <select name="economic_benefits" id="economic-benefits" data-icon="ybi-carat">
+                                <option value="none">Выберите</option>
+                                <option value="Да">Да</option>
+                                <option value="На том же уровне">На том же уровне</option>
+                                <option value="Нет">Нет</option>
+                            </select>
+                        </div>
+                        <input type="hidden" name="iid" value="" />
+                        <button id="submit-idea-steps" type="submit" class="_next" style="padding:0;">Перейти к шагу № 4<span></span></button>
+                        <div id="_step">
+                            <div id="_step_line"></div>
+                            <div id="_step_i" class="_1">1</div>
+                            <div id="_step_i" class="_2">2</div>
+                            <div id="_step_i" class="_3 done">3</div>
+                            <div id="_step_i" class="_4">4</div>
+                            <div id="_step_i" class="_5">5</div>
+                        </div>
+                    </form>
+                </div><!-- /content -->
             </div>
-            <!-- TODO: Flip switch element -->
-          </div>
-
-          <input type="hidden" name="uid" value="" />
-          <input type="hidden" name="iid" value="" />
-          
-          <button type="submit" class="ui-btn ui-btn-submit ui-btn-ybi ui-corner-all ui-btn-icon-right ui-icon-ybi-stepforward">Сохранить</button>
-        </form>
-      </div>
-    </div><!-- /content -->
-
-    <div data-role="footer" id="footer" data-position="fixed" data-tap-toggle="false">
-      <div id="footer-navbar" data-role="navbar" data-grid="c">
-        <ul>
-          <li><a href="#idea-list" class="btn-idea" class="ui-btn-active">Идеи</a></li>
-          <!--<li><a href="#" id="btn-book">Книги</a></li>
-          <li><a href="services.html" id="btn-service">Услуги</a></li>
-          <li><a href="story.html" id="btn-story">Истории</a></li>-->
-          <li><a href="#" id="btn-service">Услуги</a></li>
-          <li><a href="#" id="btn-story">Истории</a></li>
-          <li><a href="#" id="btn-other" data-icon="ybi-footer-more">Еще</a></li>
-        </ul>
-      </div><!-- /navbar -->
-    </div><!-- /footer -->
-  </div><!-- /page -->
-  
-  
-  <div data-role="page" id="idea-step-1" class="idea-step-page" data-theme="b" data-iid="">
-    <div data-role="panel" class="left-panel" data-position="left" data-position-fixed="true" data-display="overlay">
-      <div data-role="header">
-        <h3>Меню</h3>
-      </div>
-      <div data-role="content">
-        <ul data-role="listview" id="menu">
-          <li><a href="#idea-list" class="btn-idea" class="ui-link">Блокнот идей</a></li>
-          <li><a href="#" id="btn-service" class="ui-link">Услуги</a></li>
-          <li><a href="#" id="btn-story" class="ui-link">Истории</a></li>
-          <li><a href="#" id="btn-book" class="ui-link">Книги</a></li>
-          <li><a href="#" id="app-exit" class="ui-link">Выход</a></li>
-        </ul>
-      </div>
-      
-      <div data-role="footer" data-position="fixed" data-tap-toggle="false">
-        <div class="copyright"><span class="app-version">Версия: <span class="value"></span></span></div>
-      </div>
-    </div><!-- /panel -->
-    
-    <div data-role="header" id="header">
-			<h1 id="page-title">1. Нужно ли это рынку?</h1>
-      <div data-role="controlgroup" data-type="horizontal" class="ui-mini ui-btn-right">
-        <a href="#idea-single" class="ui-btn ui-btn-ybi ui-corner-all ui-shadow ui-btn-icon-notext ui-btn-icon-right ui-icon-ybi-back">Close</a>
-      </div>
-    </div><!-- /header -->
-
-    <div data-role="content" role="main" id="content" class="ui-content">
-      <form action="" id="ideastep1-form" data-ajax="false">
-        <div class="sliders-items">
-          <div class="item item-market-volume">
-            <p>Текущий объём рынка для реализации моей бизнес-идеи (0 – крайне небольшой локальный рынок, 5 - средний национальный рынок, 10 - большой глобальный рынок)</p>
-            <label for="market-volume" class="ui-hidden-accessible">Объём рынка:</label>
-            <input type="range" name="market_volume" id="market-volume" min="0" max="10" step="1" value="0">
-            <ul class="ruler">
-              <li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li>
-            </ul>
-          </div>
-          <div class="item item-market-type">
-            <p>Рынок для реализации моей бизнес-идеи является (0 – падающим, 5 - стабильным, 10 - быстрорастущим)</p>
-            <label for="market-type" class="ui-hidden-accessible">Тип рынка:</label>
-            <input type="range" name="market_type" id="market-type" min="0" max="10" step="1" value="0">
-            <ul class="ruler">
-              <li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li>
-            </ul>
-          </div>
-          <div class="item item-client-interest">
-            <p>Какой процент из тех потенциальных клиентов, с которыми я пообщался, высказали свою заинтересованность в продукте?</p>
-            <label for="client-interest" class="ui-hidden-accessible">Заинтересованность клиентов:</label>
-            <input type="range" name="client_interest" id="client-interest" min="0" max="100" step="10" value="0">
-            <ul class="ruler">
-              <li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li>
-            </ul>
-          </div>
-        </div>
-
-        <input type="hidden" name="gpa" value="0" />
-        <input type="hidden" name="iid" value="" />
-        
-        <button type="submit" class="ui-btn ui-btn-submit ui-btn-ybi ui-corner-all ui-btn-icon-right ui-icon-ybi-stepforward">Следующий шаг</button>
-      </form>
-    </div><!-- /content -->
-
-    <div data-role="footer" id="footer" data-position="fixed" data-tap-toggle="false">
-      <div id="footer-navbar" data-role="navbar" data-grid="c">
-        <ul>
-          <li><a href="#idea-list" class="btn-idea" class="ui-btn-active">Идеи</a></li>
-          <!--<li><a href="#" id="btn-book">Книги</a></li>
-          <li><a href="services.html" id="btn-service">Услуги</a></li>
-          <li><a href="story.html" id="btn-story">Истории</a></li>-->
-          <li><a href="#" id="btn-service">Услуги</a></li>
-          <li><a href="#" id="btn-story">Истории</a></li>
-          <li><a href="#" id="btn-other" data-icon="ybi-footer-more">Еще</a></li>
-        </ul>
-      </div><!-- /navbar -->
-    </div><!-- /footer -->
-  </div><!-- /page -->
-
-  
-  <div data-role="page" id="idea-step-2" class="idea-step-page" data-theme="b" data-iid="">
-    <div data-role="panel" class="left-panel" data-position="left" data-position-fixed="true" data-display="overlay">
-      <div data-role="header">
-        <h3>Меню</h3>
-      </div>
-      <div data-role="content">
-        <ul data-role="listview" id="menu">
-          <li><a href="#idea-list" class="btn-idea" class="ui-link">Блокнот идей</a></li>
-          <li><a href="#" id="btn-service" class="ui-link">Услуги</a></li>
-          <li><a href="#" id="btn-story" class="ui-link">Истории</a></li>
-          <li><a href="#" id="btn-book" class="ui-link">Книги</a></li>
-          <li><a href="#" id="app-exit" class="ui-link">Выход</a></li>
-        </ul>
-      </div>
-      
-      <div data-role="footer" data-position="fixed" data-tap-toggle="false">
-        <div class="copyright"><span class="app-version">Версия: <span class="value"></span></span></div>
-      </div>
-    </div><!-- /panel -->
-    
-    <div data-role="header" id="header">
-			<h1 id="page-title">2. Хочу ли я этим заниматься?</h1>
-      <div data-role="controlgroup" data-type="horizontal" class="ui-mini ui-btn-right">
-        <a href="#idea-single" class="ui-btn ui-btn-ybi ui-corner-all ui-shadow ui-btn-icon-notext ui-btn-icon-right ui-icon-ybi-back">Close</a>
-      </div>
-    </div><!-- /header -->
-
-    <div data-role="content" role="main" id="content" class="ui-content">
-      <form action="" id="ideastep2-form" data-ajax="false">
-        <div class="sliders-items">
-          <div class="item item-market-volume">
-            <p>Оцени, насколько реализация данного проекта совпадает с твоими жизненными целями, органичениями и потребностями</p>
-            <label for="author-conformity" class="ui-hidden-accessible">Оценка соответствия:</label>
-            <input type="range" name="author_conformity" id="author-conformity" min="0" max="10" step="1" value="0">
-            <ul class="ruler">
-              <li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li>
-            </ul>
-          </div>
-          <div class="item item-market-type">
-            <p>Оцени свой уровень интересна к сфере данной идеи</p>
-            <label for="author-interest" class="ui-hidden-accessible">Оценка интереса:</label>
-            <input type="range" name="author_interest" id="author-interest" min="0" max="10" step="1" value="0">
-            <ul class="ruler">
-              <li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li>
-            </ul>
-          </div>
-          <div class="item item-client-interest">
-            <p>Оцени, насколько ты хочешь стать №1 в сфере реализации данной идеи</p>
-            <label for="author-leadership" class="ui-hidden-accessible">Оценка лидерства:</label>
-            <input type="range" name="author_leadership" id="author-leadership" min="0" max="10" step="1" value="0">
-            <ul class="ruler">
-              <li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li>
-            </ul>
-          </div>
-        </div>
-
-        <input type="hidden" name="gpa" value="0" />
-        <input type="hidden" name="iid" value="" />
-        
-        <button class="ui-btn ui-btn-submit ui-btn-ybi ui-corner-all ui-btn-icon-right ui-icon-ybi-stepforward" type="submit" id="submit-idea-steps">Следующий шаг</button>
-      </form>
-    </div><!-- /content -->
-
-    <div data-role="footer" id="footer" data-position="fixed" data-tap-toggle="false">
-      <div id="footer-navbar" data-role="navbar" data-grid="c">
-        <ul>
-          <li><a href="#idea-list" class="btn-idea" class="ui-btn-active">Идеи</a></li>
-          <!--<li><a href="#" id="btn-book">Книги</a></li>
-          <li><a href="services.html" id="btn-service">Услуги</a></li>
-          <li><a href="story.html" id="btn-story">Истории</a></li>-->
-          <li><a href="#" id="btn-service">Услуги</a></li>
-          <li><a href="#" id="btn-story">Истории</a></li>
-          <li><a href="#" id="btn-other" data-icon="ybi-footer-more">Еще</a></li>
-        </ul>
-      </div><!-- /navbar -->
-    </div><!-- /footer -->
-  </div><!-- /page -->
-  
-  
-  <div data-role="page" id="idea-step-3" class="idea-step-page" data-theme="b" data-iid="">
-    <div data-role="panel" class="left-panel" data-position="left" data-position-fixed="true" data-display="overlay">
-      <div data-role="header">
-        <h3>Меню</h3>
-      </div>
-      <div data-role="content">
-        <ul data-role="listview" id="menu">
-          <li><a href="#idea-list" class="btn-idea" class="ui-link">Блокнот идей</a></li>
-          <li><a href="#" id="btn-service" class="ui-link">Услуги</a></li>
-          <li><a href="#" id="btn-story" class="ui-link">Истории</a></li>
-          <li><a href="#" id="btn-book" class="ui-link">Книги</a></li>
-          <li><a href="#" id="app-exit" class="ui-link">Выход</a></li>
-        </ul>
-      </div>
-      
-      <div data-role="footer" data-position="fixed" data-tap-toggle="false">
-        <div class="copyright"><span class="app-version">Версия: <span class="value"></span></span></div>
-      </div>
-    </div><!-- /panel -->
-    
-    <div data-role="header" id="header">
-			<h1 id="page-title">3. Можно ли это реализовать?</h1>
-      <div data-role="controlgroup" data-type="horizontal" class="ui-mini ui-btn-right">
-        <a href="#idea-single" class="ui-btn ui-btn-ybi ui-corner-all ui-shadow ui-btn-icon-notext ui-btn-icon-right ui-icon-ybi-back">Close</a>
-      </div>
-    </div><!-- /header -->
-
-    <div data-role="content" role="main" id="content" class="ui-content">
-      <form action="" id="ideastep3-form" data-ajax="false">
-        <div class="form-item">
-          <label for="technical-capability">Реализация данной идеи является технически возможной?</label>
-          <select name="technical_capability" id="technical-capability" data-icon="ybi-carat">
-            <option value="none">Выберите</option>
-            <option value="Да">Да</option>
-            <option value="Нет">Нет</option>
-          </select>
-        </div>
-        <div class="form-item">
-          <label for="economic-benefits">Реализация данной идеи является экономически выгодной в сравнении с конкурентными решениями?</label>
-          <select name="economic_benefits" id="economic-benefits" data-icon="ybi-carat">
-            <option value="none">Выберите</option>
-            <option value="Да">Да</option>
-            <option value="На том же уровне">На том же уровне</option>
-            <option value="Нет">Нет</option>
-          </select>
-        </div>
-      
-      
-        <!--<div class="form-item">
-          <label for="idea-competitor" class="">Конкуренты</label>
-          <textarea id="idea-competitor" name="competitor" placeholder="Конкуренты" rows="4" class="required" data-clear-btn="true"></textarea>
-        </div>
-        <div class="form-item">
-          <label for="idea-link" class="">Ссылка на сайт</label>
-          <input type="text" id="idea-link" name="link" placeholder="Ссылка на сайт" data-clear-btn="true" />
-        </div>
-        <div class="form-item form-item-multiple form-item-idea-plus">
-          <label for="idea-plus" class="has-icon">Плюсы <a href="#" class="form-item-add ui-btn ui-btn-ybi ui-btn-icon-notext ui-btn-icon-right ui-icon-ybi-add">Add item</a></label>
-          <div data-role="controlgroup" class="controlgroup">
-            <input type="text" id="idea-plus" class="multiple" name="plus" placeholder="Название группы" data-clear-btn="true" />
-          </div>
-        </div>
-        <div class="form-item form-item-multiple form-item-idea-minus">
-          <label for="idea-minus" class="has-icon">Минусы <a href="#" class="form-item-add ui-btn ui-btn-ybi ui-btn-icon-notext ui-btn-icon-right ui-icon-ybi-add">Add item</a></label>
-          <div data-role="controlgroup" class="controlgroup">
-            <input type="text" id="idea-minus" class="multiple" name="minus" placeholder="Название группы" data-clear-btn="true" />
-          </div>
-        </div>
-        <div class="form-item">
-          <label for="idea-plus" class="">Плюсы</label>
-          <textarea id="idea-plus" name="plus" placeholder="Плюсы" rows="4" data-clear-btn="true"></textarea>
-        </div>
-        <div class="form-item">
-          <label for="idea-minus" class="">Минусы</label>
-          <textarea id="idea-minus" name="minus" placeholder="Минусы" rows="4" data-clear-btn="true"></textarea>
-        </div>
-        
-        <div id="idea-step-3-accordion" class="accordion" data-role="collapsibleset" data-inset="false">
-          <div class="information-market" data-role="collapsible" data-collapsed="false" data-content-theme="false">
-            <h3>Информация о рынке</h3>
-            <div class="form-item">
-              <label for="market-size" class="">Объём</label>
-              <textarea id="market-size" name="market-size" placeholder="Объём" rows="4" data-clear-btn="true"></textarea>
+        </div><!-- /page -->
+        <div data-role="page" id="idea-step-4" class="idea-step-page" data-theme="b" data-iid="">
+            <div data-role="panel" class="left-panel" data-position="left" data-position-fixed="true" data-display="overlay">
+                <div id="_mu_box">
+                    <div id="_mu_logo"><span></span></div>
+                    <div id="_mu_b"><a href="#idea-list" id="app-exit"><span id="_mu_b_note"></span><div id="_mu_b_name">Идеи</div><div id="_mu_b_sep"></div></a></div>
+                    <div id="_mu_b"><span id="_mu_b_about"></span><div id="_mu_b_name">О нас</div><div id="_mu_b_sep"></div></div>
+                    <div id="_mu_b"><a href="#" id="app-exit"><span id="_mu_b_exit"></span><div id="_mu_b_name">Выход</div><div id="_mu_b_sep"></div></a></div>
+                    <div data-role="footer" data-position="fixed" data-tap-toggle="false" style="border-width:0px 0;">
+                        <div class="copyright"><span class="app-version" style="color:#fff;">Версия: <span class="value"></span></span></div>
+                    </div>
+                </div>
+            </div><!-- /panel -->
+            <div data-role="header" id="_u_head">
+                <div id="_u_menu"><a href="#" id="btn-other" data-icon="ybi-footer-more"></a></div>
+                <div id="_u_back"><a href="#" data-rel="back"></a></div>
+                <div id="page-title" class="_u_tit2">Шаг 4 из 5</div>
+                <div id="_u_cr"><a href="#"></a></div>
             </div>
-            <div class="form-item">
-              <label for="market-dynamics" class="">Динамика</label>
-              <textarea id="market-dynamics" name="market-dynamics" placeholder="Динамика" rows="4" data-clear-btn="true"></textarea>
+            <div id="_box">
+                <div data-role="content" role="main" id="content" class="ui-content _pd0">
+                    <form action="" id="ideastep4-form" data-ajax="false">
+                        <div id="_box_topic" class="_info" for="idea-necessary-resources">Выгодна ли реализация?<span onclick="if(this.className=='active'){this.className='';}else{this.className='active';}"><div id="_topic_box"><div class="_sep"></div><div class="_desc">Описание</div></div></span></div>
+                        <div class="form-item _box_in">
+                            <label for="annual-sales-volume" class="ui-hidden-accessible">Годовой объём продаж (ед.)</label>
+                            <input type="number" id="annual-sales-volume" class="required" name="annual_sales_volume" placeholder="Годовой объём продаж (ед.)" data-clear-btn="true" />
+                        </div>
+                        <div class="form-item _box_in">
+                            <label for="average-price" class="ui-hidden-accessible">Средняя цена</label>
+                            <input type="number" id="average-price" class="required" name="average_price" placeholder="Средняя цена" data-clear-btn="true" />
+                        </div>
+                        <div class="form-item _box_in">
+                            <label for="annual-fixed-expense" class="ui-hidden-accessible">Постоянные ежегодные расходы</label>
+                            <input type="number" id="annual-fixed-expense" class="required" name="annual_fixed_expense" placeholder="Постоянные ежегодные расходы" data-clear-btn="true" />
+                        </div>
+                        <div class="form-item _box_in">
+                            <label for="variable-expense" class="ui-hidden-accessible">Переменные расходы</label>
+                            <input type="number" id="variable-expense" class="required" name="variable_expense" placeholder="Переменные расходы" data-clear-btn="true" />
+                        </div>
+                        <div class="form-item _box_in">
+                            <label for="investments" class="ui-hidden-accessible">Инвестиции</label>
+                            <input type="number" id="investments" class="required" name="investments" placeholder="Инвестиции" data-clear-btn="true" />
+                        </div>
+                        <input type="hidden" name="formula1" value="" />
+                        <input type="hidden" name="formula2" value="" />
+                        <input type="hidden" name="iid" value="" />
+                        <button id="submit-idea-steps" type="submit" class="_next" style="padding:0;">Перейти к шагу № 5<span></span></button>
+                        <div id="_step">
+                            <div id="_step_line"></div>
+                            <div id="_step_i" class="_1">1</div>
+                            <div id="_step_i" class="_2">2</div>
+                            <div id="_step_i" class="_3">3</div>
+                            <div id="_step_i" class="_4 done">4</div>
+                            <div id="_step_i" class="_5">5</div>
+                        </div>
+                    </form>
+                </div><!-- /content -->
             </div>
-            <div class="form-item">
-              <label for="market-trends" class="">Тенденции</label>
-              <textarea id="market-trends" name="dynamics-trends" placeholder="Тенденции" rows="4" data-clear-btn="true"></textarea>
+        </div><!-- /page -->  
+        <div data-role="page" id="idea-step-5" class="idea-step-page" data-theme="b" data-iid="">
+            <div data-role="panel" class="left-panel" data-position="left" data-position-fixed="true" data-display="overlay">
+                <div id="_mu_box">
+                    <div id="_mu_logo"><span></span></div>
+                    <div id="_mu_b"><a href="#idea-list" id="app-exit"><span id="_mu_b_note"></span><div id="_mu_b_name">Идеи</div><div id="_mu_b_sep"></div></a></div>
+                    <div id="_mu_b"><span id="_mu_b_about"></span><div id="_mu_b_name">О нас</div><div id="_mu_b_sep"></div></div>
+                    <div id="_mu_b"><a href="#" id="app-exit"><span id="_mu_b_exit"></span><div id="_mu_b_name">Выход</div><div id="_mu_b_sep"></div></a></div>
+                    <div data-role="footer" data-position="fixed" data-tap-toggle="false" style="border-width:0px 0;">
+                        <div class="copyright"><span class="app-version" style="color:#fff;">Версия: <span class="value"></span></span></div>
+                    </div>
+                </div>
+            </div><!-- /panel -->
+            <div data-role="header" id="_u_head">
+                <div id="_u_menu"><a href="#" id="btn-other" data-icon="ybi-footer-more"></a></div>
+                <div id="_u_back"><a href="#" data-rel="back"></a></div>
+                <div id="page-title" class="_u_tit2">Шаг 5 из 5</div>
+                <div id="_u_cr"><a href="#"></a></div>
             </div>
-          </div>
+            <div id="_box">
+                <div data-role="content" role="main" id="content" class="ui-content _pd0">
+                    <form action="" id="ideastep5-form" data-ajax="false">
+                        <div id="_box_topic" class="_info" for="idea-necessary-resources">Могу ли я это сделать?<span onclick="if(this.className=='active'){this.className='';}else{this.className='active';}"><div id="_topic_box"><div class="_sep"></div><div class="_desc">Описание</div></div></span></div>
+                        <div class="form-item _box_in">
+                            <label for="idea-income" class="ui-hidden-accessible">Доходы</label>
+                            <input type="number" id="idea-income" name="income" placeholder="Доходы" data-clear-btn="true" />
+                        </div>
+                        <div class="form-item _box_in">
+                            <label for="idea-investment-source-1" class="ui-hidden-accessible">Источники покрытия (свои)</label>
+                            <input type="number" id="idea-investment-source-1" name="investment-source-1" placeholder="Источники покрытия (свои)" data-clear-btn="true" />
+                        </div>
+                        <div class="form-item _box_in">
+                            <label for="idea-investment-source-2" class="ui-hidden-accessible">Источники покрытия (кредитные)</label>
+                            <input type="number" id="idea-investment-source-2" name="investment-source-2" placeholder="Источники покрытия (кредитные)" data-clear-btn="true" />
+                        </div>
+                        <div class="form-item _box_in">
+                            <label for="idea-investment-source-3" class="ui-hidden-accessible">Источники покрытия (инвестор)</label>
+                            <input type="number" id="idea-investment-source-3" name="investment-source-3" placeholder="Источники покрытия (инвестор)" data-clear-btn="true" />
+                        </div>
+                        <input type="hidden" name="uid" value="" />
+                        <input type="hidden" name="iid" value="" />
+                        <button id="submit-idea-steps" type="submit" class="_next" style="padding:0;">Далее<span></span></button>
+                        <div id="_step">
+                            <div id="_step_line"></div>
+                            <div id="_step_i" class="_1">1</div>
+                            <div id="_step_i" class="_2">2</div>
+                            <div id="_step_i" class="_3">3</div>
+                            <div id="_step_i" class="_4">4</div>
+                            <div id="_step_i" class="_5 done">5</div>
+                        </div>
+                    </form>
+                </div><!-- /content -->
+            </div>
+        </div><!-- /page -->
+        <div class="page-loader">
+            <div class="logo"></div>
+            <div class="message"></div>
+            <svg class="loader-circular" viewBox="25 25 50 50">
+                <defs>
+                    <linearGradient id="linear" x1="0%" y1="0%" x2="100%" y2="0%">
+                        <stop offset="0%" stop-color="#00FFA6"/>
+                        <stop offset="100%" stop-color="#00FFA6"/>
+                    </linearGradient>
+                </defs>
+                <circle class="path" cx="50" cy="50" r="20" fill="none" stroke="url(#linear)" stroke-width="1px" stroke-miterlimit="10"/>
+            </svg>
         </div>
-        
-        <div class="form-item">
-          <label for="idea-step3conclusion" class="">Выводы</label>
-          <textarea id="idea-step3conclusion" name="step3conclusion" placeholder="Выводы" rows="4" data-clear-btn="true"></textarea>
-        </div>-->
-
-        <input type="hidden" name="iid" value="" />
-
-        <button class="ui-btn ui-btn-submit ui-btn-ybi ui-corner-all ui-btn-icon-right ui-icon-ybi-stepforward" type="submit" id="submit-idea-steps">Следующий шаг</button>
-      </form>
-    </div><!-- /content -->
-
-    <div data-role="footer" id="footer" data-position="fixed" data-tap-toggle="false">
-      <div id="footer-navbar" data-role="navbar" data-grid="c">
-        <ul>
-          <li><a href="#idea-list" class="btn-idea" class="ui-btn-active">Идеи</a></li>
-          <!--<li><a href="#" id="btn-book">Книги</a></li>
-          <li><a href="services.html" id="btn-service">Услуги</a></li>
-          <li><a href="story.html" id="btn-story">Истории</a></li>-->
-          <li><a href="#" id="btn-service">Услуги</a></li>
-          <li><a href="#" id="btn-story">Истории</a></li>
-          <li><a href="#" id="btn-other" data-icon="ybi-footer-more">Еще</a></li>
-        </ul>
-      </div><!-- /navbar -->
-    </div><!-- /footer -->
-  </div><!-- /page -->
-  
-  
-  <div data-role="page" id="idea-step-4" class="idea-step-page" data-theme="b" data-iid="">
-    <div data-role="panel" class="left-panel" data-position="left" data-position-fixed="true" data-display="overlay">
-      <div data-role="header">
-        <h3>Меню</h3>
-      </div>
-      <div data-role="content">
-        <ul data-role="listview" id="menu">
-          <li><a href="#idea-list" class="btn-idea" class="ui-link">Блокнот идей</a></li>
-          <li><a href="#" id="btn-service" class="ui-link">Услуги</a></li>
-          <li><a href="#" id="btn-story" class="ui-link">Истории</a></li>
-          <li><a href="#" id="btn-book" class="ui-link">Книги</a></li>
-          <li><a href="#" id="app-exit" class="ui-link">Выход</a></li>
-        </ul>
-      </div>
-      
-      <div data-role="footer" data-position="fixed" data-tap-toggle="false">
-        <div class="copyright"><span class="app-version">Версия: <span class="value"></span></span></div>
-      </div>
-    </div><!-- /panel -->
-    
-    <div data-role="header" id="header">
-			<h1 id="page-title">4. Выгодна ли реализация?</h1>
-      <div data-role="controlgroup" data-type="horizontal" class="ui-mini ui-btn-right">
-        <a href="#idea-single" class="ui-btn ui-btn-ybi ui-corner-all ui-shadow ui-btn-icon-notext ui-btn-icon-right ui-icon-ybi-back">Close</a>
-      </div>
-    </div><!-- /header -->
-
-    <div data-role="content" role="main" id="content" class="ui-content">
-      <form action="" id="ideastep4-form" data-ajax="false">
-        <div class="form-item">
-          <label for="annual-sales-volume" class="">Годовой объём продаж (ед.)</label>
-          <input type="number" id="annual-sales-volume" class="required" name="annual_sales_volume" placeholder="Годовой объём продаж (ед.)" data-clear-btn="true" />
-        </div>
-        <div class="form-item">
-          <label for="average-price" class="">Средняя цена</label>
-          <input type="number" id="average-price" class="required" name="average_price" placeholder="Средняя цена" data-clear-btn="true" />
-        </div>
-        <div class="form-item">
-          <label for="annual-fixed-expense" class="">Постоянные ежегодные расходы</label>
-          <input type="number" id="annual-fixed-expense" class="required" name="annual_fixed_expense" placeholder="Постоянные ежегодные расходы" data-clear-btn="true" />
-        </div>
-        <div class="form-item">
-          <label for="variable-expense" class="">Переменные расходы</label>
-          <input type="number" id="variable-expense" class="required" name="variable_expense" placeholder="Переменные расходы" data-clear-btn="true" />
-        </div>
-        <div class="form-item">
-          <label for="investments" class="">Инвестиции</label>
-          <input type="number" id="investments" class="required" name="investments" placeholder="Инвестиции" data-clear-btn="true" />
-        </div>
-        
-        <!--<div class="real-unreal-status ui-grid-a">
-          <div class="ui-block-a">
-            <label for="idea-real">Реально</label>
-            <input type="radio" id="idea-real" name="idea-real-unreal" value="idea-real" checked="checked">
-          </div>
-          <div class="ui-block-b">
-            <label for="idea-unreal">Не реально</label>
-            <input type="radio" id="idea-unreal" name="idea-real-unreal" value="idea-unreal">
-          </div>
-        </div>-->
-
-        <input type="hidden" name="formula1" value="" />
-        <input type="hidden" name="formula2" value="" />
-        <input type="hidden" name="iid" value="" />
-
-        <button class="ui-btn ui-btn-submit ui-btn-ybi ui-corner-all ui-btn-icon-right ui-icon-ybi-stepforward" type="submit" id="submit-idea-steps">Следующий шаг</button>
-      </form>
-    </div><!-- /content -->
-
-    <div data-role="footer" id="footer" data-position="fixed" data-tap-toggle="false">
-      <div id="footer-navbar" data-role="navbar" data-grid="c">
-        <ul>
-          <li><a href="#idea-list" class="btn-idea" class="ui-btn-active">Идеи</a></li>
-          <!--<li><a href="#" id="btn-book">Книги</a></li>
-          <li><a href="services.html" id="btn-service">Услуги</a></li>
-          <li><a href="story.html" id="btn-story">Истории</a></li>-->
-          <li><a href="#" id="btn-service">Услуги</a></li>
-          <li><a href="#" id="btn-story">Истории</a></li>
-          <li><a href="#" id="btn-other" data-icon="ybi-footer-more">Еще</a></li>
-        </ul>
-      </div><!-- /navbar -->
-    </div><!-- /footer -->
-  </div><!-- /page -->
-  
-  
-  <div data-role="page" id="idea-step-5" class="idea-step-page" data-theme="b" data-iid="">
-    <div data-role="panel" class="left-panel" data-position="left" data-position-fixed="true" data-display="overlay">
-      <div data-role="header">
-        <h3>Меню</h3>
-      </div>
-      <div data-role="content">
-        <ul data-role="listview" id="menu">
-          <li><a href="#idea-list" class="btn-idea" class="ui-link">Блокнот идей</a></li>
-          <li><a href="#" id="btn-service" class="ui-link">Услуги</a></li>
-          <li><a href="#" id="btn-story" class="ui-link">Истории</a></li>
-          <li><a href="#" id="btn-book" class="ui-link">Книги</a></li>
-          <li><a href="#" id="app-exit" class="ui-link">Выход</a></li>
-        </ul>
-      </div>
-      
-      <div data-role="footer" data-position="fixed" data-tap-toggle="false">
-        <div class="copyright"><span class="app-version">Версия: <span class="value"></span></span></div>
-      </div>
-    </div><!-- /panel -->
-    
-    <div data-role="header" id="header">
-			<h1 id="page-title">5. Могу ли я это сделать?</h1>
-      <div data-role="controlgroup" data-type="horizontal" class="ui-mini ui-btn-right">
-        <a href="#idea-single" class="ui-btn ui-btn-ybi ui-corner-all ui-shadow ui-btn-icon-notext ui-btn-icon-right ui-icon-ybi-back">Close</a>
-      </div>
-    </div><!-- /header -->
-
-    <div data-role="content" role="main" id="content" class="ui-content">
-      <form action="" id="ideastep5-form" data-ajax="false">
-        <div class="sliders-items">
-          <div class="item item-rating-competences">
-            <p>Оцени насколько у тебя/твоей команды есть необходимые компетенции для реализации данной идеи</p>
-            <label for="rating-competences" class="ui-hidden-accessible">Оценка компетенций:</label>
-            <input type="range" name="rating_competences" id="rating-competences" min="0" max="10" step="1" value="0">
-            <ul class="ruler">
-              <li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li>
-            </ul>
-          </div>
-          <div class="item item-rating-resources">
-            <p>Оцени, есть ли у тебя достаточные ресурсы для реализации проекта, либо возможности по их привлечению</p>
-            <label for="rating-resources" class="ui-hidden-accessible">Оценка ресурсов:</label>
-            <input type="range" name="rating_resources" id="rating-resources" min="0" max="10" step="1" value="0">
-            <ul class="ruler">
-              <li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li>
-            </ul>
-          </div>
-          <div class="item item-rating-business">
-            <p>Оцени, насколько хорошо ты знаком с данным типом бизнеса</p>
-            <label for="rating-business" class="ui-hidden-accessible">Оценка бизнеса:</label>
-            <input type="range" name="rating_business" id="rating-business" min="0" max="10" step="1" value="0">
-            <ul class="ruler">
-              <li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li>
-            </ul>
-          </div>
-          <div class="item item-rating-failure">
-            <p>Оцени, насколько негативным для тебя окажется провал в реализации данной идеи?</p>
-            <label for="rating-failure" class="ui-hidden-accessible">Оценка провала:</label>
-            <input type="range" name="rating_failure" id="rating-failure" min="0" max="10" step="1" value="0">
-            <ul class="ruler">
-              <li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li>
-            </ul>
-          </div>
-        </div>
-
-        <input type="hidden" name="gpa" value="0" />
-        <input type="hidden" name="iid" value="" />
-
-        <button class="ui-btn ui-btn-submit ui-btn-ybi ui-corner-all ui-btn-icon-right ui-icon-ybi-stepforward" type="submit" id="submit-idea-steps">Следующий шаг</button>
-      </form>
-    </div><!-- /content -->
-
-    <div data-role="footer" id="footer" data-position="fixed" data-tap-toggle="false">
-      <div id="footer-navbar" data-role="navbar" data-grid="c">
-        <ul>
-          <li><a href="#idea-list" class="btn-idea" class="ui-btn-active">Идеи</a></li>
-          <!--<li><a href="#" id="btn-book">Книги</a></li>
-          <li><a href="services.html" id="btn-service">Услуги</a></li>
-          <li><a href="story.html" id="btn-story">Истории</a></li>-->
-          <li><a href="#" id="btn-service">Услуги</a></li>
-          <li><a href="#" id="btn-story">Истории</a></li>
-          <li><a href="#" id="btn-other" data-icon="ybi-footer-more">Еще</a></li>
-        </ul>
-      </div><!-- /navbar -->
-    </div><!-- /footer -->
-  </div><!-- /page -->
-  
-  
-  <div class="page-loader">
-    <div class="logo"></div>
-    <div class="message"></div>
-    <svg class="loader-circular" viewBox="25 25 50 50">
-      <defs>
-        <linearGradient id="linear" x1="0%" y1="0%" x2="100%" y2="0%">
-          <stop offset="0%" stop-color="#00FFA6"/>
-          <stop offset="100%" stop-color="#00FFA6"/>
-        </linearGradient>
-      </defs>
-      <circle class="path" cx="50" cy="50" r="20" fill="none" stroke="url(#linear)" stroke-width="1px" stroke-miterlimit="10"/>
-    </svg>
-  </div>
-  
-  <div id="page-splash"></div>
-  
-  <script type="text/javascript" src="cordova.js"></script>
-  <script type="text/javascript" src="js/get-data.js"></script>
-  <script type="text/javascript" src="js/templates.js"></script>
-  <script type="text/javascript" src="js/main.js"></script>
-  <script type="text/javascript" src="js/jquery.mobile-1.4.5.min.js"></script>
-</body>
+        <div id="page-splash"></div>
+        <script type="text/javascript" src="cordova.js"></script>
+        <script type="text/javascript" src="js/get-data.js"></script>
+        <script type="text/javascript" src="js/templates.js"></script>
+        <script type="text/javascript" src="js/main.js"></script>
+        <script type="text/javascript" src="js/jquery.mobile-1.4.5.min.js"></script>
+    </body>
 </html>
