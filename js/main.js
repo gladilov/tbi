@@ -7,7 +7,7 @@
       uid = 0,
       userAuthorized = false,
       app = document.URL.indexOf( 'http://' ) === -1 && document.URL.indexOf( 'https://' ) === -1,
-      appVersion = '0.7.7';
+      appVersion = '0.7.8';
 
   // Namespace storage
   var ybi = $.initNamespaceStorage('ybi');
@@ -92,6 +92,7 @@
               $('.text-empty-data', $page).hide();
             
               $.each(data.items, function(groupStatus, ideaItems){
+                console.log(groupStatus);
                 // Insert idea status group
                 var $ideaStatusGroupHTML = $(tpl.ideaStatusGroupHTML( {'status': groupStatus, 'title': ideaGroupStatusTitles[groupStatus], 'count': ideaItems.length} ));
                 $ideaListContainer.append($ideaStatusGroupHTML);
@@ -477,6 +478,54 @@
               $('#annual-fixed-expense', $thisForm).val(data.item.annual_fixed_expense);
               $('#variable-expense', $thisForm).val(data.item.variable_expense);
               $('#investments', $thisForm).val(data.item.investments);
+              
+              $thisForm.data('updateStatus', true);
+            }
+            else {
+              $thisForm.data('updateStatus', false);
+            }
+          }
+        });
+      }
+      
+      
+      /* 
+       * СТРАНИЦА ПО ОЦЕНКЕ ИДЕИ: ШАГ 5 - загрузка из бд и отображение всех данных в форме
+       *
+       * TODO: Отображение ошибок при загрузке данных
+       *       Кэш данных
+       */
+      if ($page.is('#idea-step-5')) {
+        var iid = $page.data('iid'),
+            $thisForm = $('#ideastep5-form', $page);
+
+        // Reset form
+        $('.sliders-items .ui-slider-input', $thisForm).val('0').slider('refresh');
+        $('input[name="gpa"]', $thisForm).val('0');
+        
+        var request = $.ajax({
+          type: 'GET',
+          dataType: 'jsonp',
+          jsonpCallback: 'ideaStep5',
+          contentType: "application/json; charset=utf-8",
+          url: 'http://y-b-i.com/api/ideaSteps.php',
+          data: {'method': 'get', 'data': {'iid': iid}},
+          timeout: 8000,
+          cache: false,
+          async: true,
+        });
+        
+        request.done(function(data, textStatus, jqXHR) {
+          console.log(data);
+          // Success:
+          if (data.status == 'success') {
+            // Idea form update - insert data from idea to form
+            if (data.item && !$.isEmptyObject(data.item)) {
+              $('#rating-competences', $thisForm).val(data.item.rating_competences).slider('refresh');
+              $('#rating-resources', $thisForm).val(data.item.rating_resources).slider('refresh');
+              $('#rating-business', $thisForm).val(data.item.rating_business).slider('refresh');
+              $('#rating-failure', $thisForm).val(data.item.rating_failure).slider('refresh');
+              $('input[name="gpa"]', $thisForm).val(data.item.gpa);
               
               $thisForm.data('updateStatus', true);
             }
@@ -1132,7 +1181,7 @@
       //$step1Form.validate();
       $step1Form.submit(function(e){
         e.preventDefault();
-        var $thisForm = $(this)
+        var $thisForm = $(this),
             formUpdateStatus = $thisForm.data('updateStatus'),
             $marketVolume = $('#market-volume', $thisForm),
             $marketType = $('#market-type', $thisForm),
@@ -1221,7 +1270,7 @@
       //$('#ideastep2-form').validate();
       $('#ideastep2-form').submit(function(e){
         e.preventDefault();
-        var $thisForm = $(this)
+        var $thisForm = $(this),
             formUpdateStatus = $thisForm.data('updateStatus'),
             $authorConformity = $('#author-conformity', $thisForm),
             $authorInterest = $('#author-interest', $thisForm),
@@ -1386,16 +1435,16 @@
           if (formula1 <= 0) {
             message = 'Проект не выглядит прибыльным. Попробуй что-то поменять в своём проекте или в расчётах, либо откажись от данного проекта.';
           }
-          else if (formula1 > 0 && formula1 <= 24 && formula2 > 0 && formula2 <= 10) {
+          else if (formula1 > 0 && formula1 <= 24 && formula2 > 0 && formula2 <= 0.1) {
             message = 'Потенциально прибыльный, но не очень удачный проект с точки зрения вложения денег и времени. Попробуй что-то поменять в своём проекте или в расчётах, либо откажись от данного проекта.';
           }
-          else if (formula1 > 24 && formula2 > 0 && formula2 <= 10) {
+          else if (formula1 > 24 && formula2 > 0 && formula2 <= 0.1) {
             message = 'Проект может принести деньги, но текущие расчёты показывают, что выгоднее найти другие направления вложения денег и времени. Попробуй что-то поменять в своём проекте или в расчётах, либо откажись от данного проекта.';
           }
-          else if (formula1 > 0 && formula1 <= 24 && formula2 > 10) {
+          else if (formula1 > 0 && formula1 <= 24 && formula2 > 0.1) {
             message = 'Бизнес выглядит прибыльным, но требует несоразмерно больших инвестиций. Попробуй что-то поменять в своём проекте или в расчётах, либо откажись от данного проекта.';
           }
-          else if (formula1 > 24 && formula2 > 10) {
+          else if (formula1 > 24 && formula2 > 0.1) {
             message = 'Данный проект выглядит финансово интересным. Надеемся, что ты ничего не напутал во вводных цифрах ;)';
             type = 1;
           }
@@ -1408,14 +1457,14 @@
             }
             else {
               alert(message);
-              //$.mobile.pageContainer.pagecontainer("change", '#idea-single');
+              $.mobile.pageContainer.pagecontainer("change", '#idea-single');
             }
           }
           else if (type == 1) {
             if (app) { navigator.notification.alert(message, formSaveDataAndRedirect, 'Оценка идеи', 'Закрыть'); }
             else {
               alert(message);
-              //formSaveDataAndRedirect();
+              formSaveDataAndRedirect();
             }
           }
           
@@ -1446,18 +1495,120 @@
       
       
       // Idea step-5 form
-      // Set current user id into form
-      //$('input[name="uid"]', $('#ideastep5-form')).val(uid);
-      $('#ideastep5-form').validate();
+      //$('#ideastep5-form').validate();
       $('#ideastep5-form').submit(function(e){
         e.preventDefault();
         var $thisForm = $(this),
-            iid = $thisForm.find('input[name="iid"]').val();
+            formUpdateStatus = $thisForm.data('updateStatus'),
+            $ratingCompetences = $('#rating-competences', $thisForm),
+            $ratingResources = $('#rating-resources', $thisForm),
+            $ratingBusiness = $('#rating-business', $thisForm),
+            $ratingFailure = $('#rating-failure', $thisForm),
+            $gpa = $('input[name="gpa"]', $thisForm),
+            message = '',
+            iid = $('input[name="iid"]', $thisForm).val(),
+            method = 'post';
         
-        $('#idea-single').data('iid', iid);
+        if (formUpdateStatus === true) method = 'put';
         
-        if ($("#ideastep5-form:has(input.required.error)").length == 0) {
-          $(':mobile-pagecontainer').pagecontainer('change', '#idea-single', {transition: 'slide'});
+        var GPA = parseFloat(((parseInt($ratingCompetences.val()) + parseInt($ratingResources.val()) + parseInt($ratingBusiness.val()) + parseInt($ratingFailure.val())) / 4).toFixed(1));
+        $gpa.val(GPA);
+        
+        // GPA Messages
+        if (GPA <= 5.1) { message = 'Попробуй перестроить идею так, чтобы ты был более уверенным в её успешной реализации.'; }
+        else if (GPA > 5.1 && GPA <= 7.3) { message = 'Тебе, явно, нужно развивать компетенции в данной сфере, но шансы на успешную реализацию высоки.'; }
+        else if (GPA > 7.3) { message = 'Да, ты это точно можешь!'; }
+        
+        if (GPA > 5.1) {
+          if (app) {
+            navigator.notification.alert(message, formSaveDataAndRedirect, 'Оценка идеи', 'Закрыть');
+          }
+          else {
+            alert(message);
+            formSaveDataAndRedirect();
+          }
+        }
+        else {
+          $('#idea-single').data('iid', iid);
+          
+          if (app) {
+            navigator.notification.alert(message, function () { $.mobile.pageContainer.pagecontainer("change", '#idea-single'); }, 'Оценка идеи', 'Закрыть');
+          }
+          else {
+            alert(message);
+            $.mobile.pageContainer.pagecontainer("change", '#idea-single');
+          }
+        }
+        
+        function formSaveDataAndRedirect() {
+          var request = $.ajax({
+            type: 'GET',
+            dataType: 'jsonp',
+            jsonpCallback: 'ideaStep5',
+            contentType: "application/json; charset=utf-8",
+            url: 'http://y-b-i.com/api/ideaSteps.php',
+            data: {"method": method, "data": $thisForm.serialize()},
+            timeout: 8000,
+            cache: false,
+            async: true,
+          });
+          
+          request.done(function(data, textStatus, jqXHR) {
+            console.log(data);
+            
+            if (data.status == 'success') {
+              console.log('success');
+              
+              if (app) {
+                navigator.notification.confirm(
+                  'Буду ли реализовывать данную идею?',
+                  formConfirm,
+                  'Оценка идеи',
+                  ['Да','Нет']
+                );
+              }
+              else {
+                if (confirm('Буду ли реализовывать данную идею?')) {
+                  formConfirm(1);
+                }
+                else formConfirm(2);
+              }
+        
+              function formConfirm(buttonIndex) {
+                console.log(buttonIndex);
+                if (buttonIndex == 1) {
+                  var ideaStatus = 2;
+                }
+                else if (buttonIndex == 2) {
+                  var ideaStatus = 3;
+                }
+                
+                var request = $.ajax({
+                  type: 'GET',
+                  dataType: 'jsonp',
+                  jsonpCallback: 'ideaStatus',
+                  contentType: "application/json; charset=utf-8",
+                  url: 'http://y-b-i.com/api/idea.php',
+                  data: {"method": "put", "data": {'iid': iid, 'status': ideaStatus}},
+                  timeout: 8000,
+                  cache: false,
+                  async: true,
+                });
+                
+                request.done(function(data, textStatus, jqXHR) {
+                  console.log(data);
+                  
+                  if (app) {
+                    navigator.notification.alert(data.message, function () { $.mobile.pageContainer.pagecontainer("change", '#idea-list'); }, 'Оценка идеи', 'Закрыть');
+                  }
+                  else {
+                    alert(data.message);
+                    $.mobile.pageContainer.pagecontainer("change", '#idea-list');
+                  }
+                });
+              }
+            }
+          });
         }
       });
       

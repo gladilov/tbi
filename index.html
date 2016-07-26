@@ -485,7 +485,7 @@
     <div data-role="header" id="header">
 			<h1 id="page-title">1. Нужно ли это рынку?</h1>
       <div data-role="controlgroup" data-type="horizontal" class="ui-mini ui-btn-right">
-        <a href="#" class="ui-btn ui-btn-ybi ui-corner-all ui-shadow ui-btn-icon-notext ui-btn-icon-right ui-icon-ybi-back" data-rel="back">Back</a>
+        <a href="#idea-single" class="ui-btn ui-btn-ybi ui-corner-all ui-shadow ui-btn-icon-notext ui-btn-icon-right ui-icon-ybi-back">Close</a>
       </div>
     </div><!-- /header -->
 
@@ -564,7 +564,7 @@
     <div data-role="header" id="header">
 			<h1 id="page-title">2. Хочу ли я этим заниматься?</h1>
       <div data-role="controlgroup" data-type="horizontal" class="ui-mini ui-btn-right">
-        <a href="#" class="ui-btn ui-btn-ybi ui-corner-all ui-shadow ui-btn-icon-notext ui-btn-icon-right ui-icon-ybi-back" data-rel="back">Back</a>
+        <a href="#idea-single" class="ui-btn ui-btn-ybi ui-corner-all ui-shadow ui-btn-icon-notext ui-btn-icon-right ui-icon-ybi-back">Close</a>
       </div>
     </div><!-- /header -->
 
@@ -643,7 +643,7 @@
     <div data-role="header" id="header">
 			<h1 id="page-title">3. Можно ли это реализовать?</h1>
       <div data-role="controlgroup" data-type="horizontal" class="ui-mini ui-btn-right">
-        <a href="#" class="ui-btn ui-btn-ybi ui-corner-all ui-shadow ui-btn-icon-notext ui-btn-icon-right ui-icon-ybi-back" data-rel="back">Back</a>
+        <a href="#idea-single" class="ui-btn ui-btn-ybi ui-corner-all ui-shadow ui-btn-icon-notext ui-btn-icon-right ui-icon-ybi-back">Close</a>
       </div>
     </div><!-- /header -->
 
@@ -765,7 +765,7 @@
     <div data-role="header" id="header">
 			<h1 id="page-title">4. Выгодна ли реализация?</h1>
       <div data-role="controlgroup" data-type="horizontal" class="ui-mini ui-btn-right">
-        <a href="#" class="ui-btn ui-btn-ybi ui-corner-all ui-shadow ui-btn-icon-notext ui-btn-icon-right ui-icon-ybi-back" data-rel="back">Back</a>
+        <a href="#idea-single" class="ui-btn ui-btn-ybi ui-corner-all ui-shadow ui-btn-icon-notext ui-btn-icon-right ui-icon-ybi-back">Close</a>
       </div>
     </div><!-- /header -->
 
@@ -850,31 +850,48 @@
     <div data-role="header" id="header">
 			<h1 id="page-title">5. Могу ли я это сделать?</h1>
       <div data-role="controlgroup" data-type="horizontal" class="ui-mini ui-btn-right">
-        <a href="#" class="ui-btn ui-btn-ybi ui-corner-all ui-shadow ui-btn-icon-notext ui-btn-icon-right ui-icon-ybi-back" data-rel="back">Back</a>
+        <a href="#idea-single" class="ui-btn ui-btn-ybi ui-corner-all ui-shadow ui-btn-icon-notext ui-btn-icon-right ui-icon-ybi-back">Close</a>
       </div>
     </div><!-- /header -->
 
     <div data-role="content" role="main" id="content" class="ui-content">
       <form action="" id="ideastep5-form" data-ajax="false">
-        <div class="form-item">
-          <label for="idea-income" class="">Доходы</label>
-          <input type="number" id="idea-income" name="income" placeholder="Доходы" data-clear-btn="true" />
+        <div class="sliders-items">
+          <div class="item item-rating-competences">
+            <p>Оцени насколько у тебя/твоей команды есть необходимые компетенции для реализации данной идеи</p>
+            <label for="rating-competences" class="ui-hidden-accessible">Оценка компетенций:</label>
+            <input type="range" name="rating_competences" id="rating-competences" min="0" max="10" step="1" value="0">
+            <ul class="ruler">
+              <li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li>
+            </ul>
+          </div>
+          <div class="item item-rating-resources">
+            <p>Оцени, есть ли у тебя достаточные ресурсы для реализации проекта, либо возможности по их привлечению</p>
+            <label for="rating-resources" class="ui-hidden-accessible">Оценка ресурсов:</label>
+            <input type="range" name="rating_resources" id="rating-resources" min="0" max="10" step="1" value="0">
+            <ul class="ruler">
+              <li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li>
+            </ul>
+          </div>
+          <div class="item item-rating-business">
+            <p>Оцени, насколько хорошо ты знаком с данным типом бизнеса</p>
+            <label for="rating-business" class="ui-hidden-accessible">Оценка бизнеса:</label>
+            <input type="range" name="rating_business" id="rating-business" min="0" max="10" step="1" value="0">
+            <ul class="ruler">
+              <li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li>
+            </ul>
+          </div>
+          <div class="item item-rating-failure">
+            <p>Оцени, насколько негативным для тебя окажется провал в реализации данной идеи?</p>
+            <label for="rating-failure" class="ui-hidden-accessible">Оценка провала:</label>
+            <input type="range" name="rating_failure" id="rating-failure" min="0" max="10" step="1" value="0">
+            <ul class="ruler">
+              <li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li>
+            </ul>
+          </div>
         </div>
 
-        <div class="form-item">
-          <label for="idea-investment-source-1" class="">Источники покрытия (свои)</label>
-          <input type="number" id="idea-investment-source-1" name="investment-source-1" placeholder="Источники покрытия (свои)" data-clear-btn="true" />
-        </div>
-        <div class="form-item">
-          <label for="idea-investment-source-2" class="">Источники покрытия (кредитные)</label>
-          <input type="number" id="idea-investment-source-2" name="investment-source-2" placeholder="Источники покрытия (кредитные)" data-clear-btn="true" />
-        </div>
-        <div class="form-item">
-          <label for="idea-investment-source-3" class="">Источники покрытия (инвестор)</label>
-          <input type="number" id="idea-investment-source-3" name="investment-source-3" placeholder="Источники покрытия (инвестор)" data-clear-btn="true" />
-        </div>
-
-        <input type="hidden" name="uid" value="" />
+        <input type="hidden" name="gpa" value="0" />
         <input type="hidden" name="iid" value="" />
 
         <button class="ui-btn ui-btn-submit ui-btn-ybi ui-corner-all ui-btn-icon-right ui-icon-ybi-stepforward" type="submit" id="submit-idea-steps">Следующий шаг</button>
