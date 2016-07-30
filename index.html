@@ -15,26 +15,25 @@
     </head>
     <body>
         <div data-role="page" id="signin-welcome" data-theme="d" style="background:linear-gradient(to bottom, #0A8292, #84C7CF);">
-                <div id="_swipe">
-                    <div id="_swipe_box">
-                        <div id="signin-welcome-1" class="_act"><div id="_wl" style="background:url('../img/logo.svg');background-size:100% 100%;background-position:50% 50%;"></div></div>
-                        <div id="signin-welcome-2" class="_none">2</div>
-                        <div id="signin-welcome-3" class="_none">3</div>
-                        <div id="signin-welcome-4" class="_none">4</div>
-                    </div>
-                    <div id="_wt">Листайте, чтобы узнать больше</div>
-                    <div id="_wp">
-                        <ul>
-                            <li class="_act" onclick="_wp(0);"></li>
-                            <li onclick="_wp(1);"></li>
-                            <li onclick="_wp(2);"></li>
-                            <li onclick="_wp(3);"></li>
-                        </ul>
-                    </div>
+            <div id="_swipe">
+                <div id="_swipe_box">
+                    <div id="signin-welcome-1" class="_act"><div id="_wl" style="background:url('img/logo.svg');background-size:100% 100%;background-position:50% 50%;"></div></div>
+                    <div id="signin-welcome-2" class="_none"></div>
+                    <div id="signin-welcome-3" class="_none"></div>
+                    <div id="signin-welcome-4" class="_none"></div>
                 </div>
-                <a href="#signin-signup" data-ajax="false"><div id="_ws">ЗАРЕГИСТРИРОВАТЬСЯ</div></a>
-                <a href="#signin-login" data-ajax="false"><div id="_wli">ВОЙТИ</div></a>
+                <div id="_wt">Листайте, чтобы узнать больше</div>
+                <div id="_wp">
+                    <ul>
+                        <li class="_act" onclick="_wp(0);"></li>
+                        <li onclick="_wp(1);"></li>
+                        <li onclick="_wp(2);"></li>
+                        <li onclick="_wp(3);"></li>
+                    </ul>
+                </div>
             </div>
+            <a href="#signin-signup" data-ajax="false"><div id="_ws">ЗАРЕГИСТРИРОВАТЬСЯ</div></a>
+            <a href="#signin-login" data-ajax="false"><div id="_wli">ВОЙТИ</div></a>
         </div>
         <div data-role="page" id="signin-login" data-theme="d" data-tap-toggle="false">
             <div data-role="tabs" id="tabs-signin-login" class="_pd0">
@@ -188,8 +187,8 @@
             
             <div data-role="header" id="_u_head">
                 <div id="_u_menu"><a href="#" id="btn-other" data-icon="ybi-footer-more"></a></div>
-                <div id="_u_back"><a href="#idea-list"></a></div>
-                <div id="_u_tit2">Новая идея</div>
+                <div id="_u_back"><a href="#" data-rel="back"></a></div>
+                <div id="page-title" class="_u_tit2">Новая идея</div>
                 <div id="_u_op"></div>
             </div><!-- /header -->
             <div id="_box">
@@ -299,7 +298,7 @@
                 <div id="_u_back"><a href="#idea-list"></a></div>
                 <div id="page-title" class="with-btn-2 _u_tit2">Заголовок идеи</div>
                 <div id="_u_sha"><a href="#" data-rel="popup" data-transition="fade"></a></div>
-                <div id="_u_add"><a href="#idea-add"></a></div>
+                <div id="_u_add"><a href="#idea-add" class="idea-edit" data-iid=""></a></div>
             </div>
             <div id="_box">
                 <div data-role="content" role="main" id="content" class="ui-content _pd0">
