@@ -7,7 +7,7 @@
       uid = 0,
       userAuthorized = false,
       app = document.URL.indexOf( 'http://' ) === -1 && document.URL.indexOf( 'https://' ) === -1,
-      appVersion = '0.8.0';
+      appVersion = '0.8.1';
 
   // Namespace storage
   var ybi = $.initNamespaceStorage('ybi');
@@ -565,9 +565,9 @@
     
     // StatusBar
     if (app && StatusBar) {
-      StatusBar.overlaysWebView(false);
+      StatusBar.overlaysWebView(true);
       if (cordova.platformId == 'android') {
-        StatusBar.backgroundColorByHexString("#16635D");
+        StatusBar.backgroundColorByHexString("#03405E");
       }
     }
       
@@ -1065,6 +1065,10 @@
         if (iid) method = 'put';
         console.log(method);
         console.log(uid);
+        
+        //var formData = new FormData($(this)[0]);
+        //console.log(formData);
+        
         
         if ($("#ideaadd-form:has(input.required.error)").length == 0) {
           // Show splash
