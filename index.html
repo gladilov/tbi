@@ -11,23 +11,26 @@
         <script type="text/javascript" src="js/jquery-1.12.1.min.js"></script>
         <script type="text/javascript" src="js/jquery.validate.min.js"></script>
         <script type="text/javascript" src="js/jquery.storageapi.min.js"></script>
-        <script>function _wp(t){var b=document.getElementById('_wp');var u=b.children[0].children;for(var i=0;i<u.length;i++){if(i==t){u[i].className='_act';}else{u[i].className='';}}}</script>
+        <script type="text/javascript" src="js/hammer.js"></script>
     </head>
     <body>
         <div data-role="page" id="signin-welcome" data-theme="d" style="background:linear-gradient(to bottom, #0A8292, #84C7CF);">
-            <div data-role="tabs" id="tabs-signin-welcome">
-                <div id="signin-welcome-1"><div id="_wl"></div></div>
-                <div id="signin-welcome-2">2</div>
-                <div id="signin-welcome-3">3</div>
-                <div id="signin-welcome-4">4</div>
-                <div id="_wt">Листайте, чтобы узнать больше</div>
-                <div id="_wp" data-role="navbar">
-                    <ul>
-                        <li class="_act" onclick="_wp(0);"><a href="#signin-welcome-1" data-ajax="false"></a></li>
-                        <li onclick="_wp(1);"><a href="#signin-welcome-2" data-ajax="false"></a></li>
-                        <li onclick="_wp(2);"><a href="#signin-welcome-3" data-ajax="false"></a></li>
-                        <li onclick="_wp(3);"><a href="#signin-welcome-4" data-ajax="false"></a></li>
-                    </ul>
+                <div id="_swipe">
+                    <div id="_swipe_box">
+                        <div id="signin-welcome-1" class="_act"><div id="_wl" style="background:url('../img/logo.svg');background-size:100% 100%;background-position:50% 50%;"></div></div>
+                        <div id="signin-welcome-2" class="_none">2</div>
+                        <div id="signin-welcome-3" class="_none">3</div>
+                        <div id="signin-welcome-4" class="_none">4</div>
+                    </div>
+                    <div id="_wt">Листайте, чтобы узнать больше</div>
+                    <div id="_wp">
+                        <ul>
+                            <li class="_act" onclick="_wp(0);"></li>
+                            <li onclick="_wp(1);"></li>
+                            <li onclick="_wp(2);"></li>
+                            <li onclick="_wp(3);"></li>
+                        </ul>
+                    </div>
                 </div>
                 <a href="#signin-signup" data-ajax="false"><div id="_ws">ЗАРЕГИСТРИРОВАТЬСЯ</div></a>
                 <a href="#signin-login" data-ajax="false"><div id="_wli">ВОЙТИ</div></a>
@@ -586,7 +589,7 @@
                     <div id="_mu_b"><span id="_mu_b_about"></span><div id="_mu_b_name">О нас</div><div id="_mu_b_sep"></div></div>
                     <div id="_mu_b"><a href="#" id="app-exit"><span id="_mu_b_exit"></span><div id="_mu_b_name">Выход</div><div id="_mu_b_sep"></div></a></div>
                     <div data-role="footer" data-position="fixed" data-tap-toggle="false" style="border-width:0px 0;">
-                        <div class="copyright"><span class="app-version" style="color:#fff;">Версия: <span class="value"></span></span></div>
+                        <div class="copyright"><span class="app-version">Версия: <span class="value"></span></span></div>
                     </div>
                 </div>
             </div><!-- /panel -->
@@ -618,7 +621,7 @@
                         </div>
                         <input type="hidden" name="uid" value="" />
                         <input type="hidden" name="iid" value="" />
-                        <button id="submit-idea-steps" type="submit" class="_next" style="padding:0;">Далее<span></span></button>
+                        <button id="submit-idea-steps" type="submit" class="_next">Далее<span></span></button>
                         <div id="_step">
                             <div id="_step_line"></div>
                             <div id="_step_i" class="_1">1</div>
@@ -637,8 +640,8 @@
             <svg class="loader-circular" viewBox="25 25 50 50">
                 <defs>
                     <linearGradient id="linear" x1="0%" y1="0%" x2="100%" y2="0%">
-                        <stop offset="0%" stop-color="#00FFA6"/>
-                        <stop offset="100%" stop-color="#00FFA6"/>
+                        <stop offset="0%" stop-color="#053C57"/>
+                        <stop offset="100%" stop-color="#053C57"/>
                     </linearGradient>
                 </defs>
                 <circle class="path" cx="50" cy="50" r="20" fill="none" stroke="url(#linear)" stroke-width="1px" stroke-miterlimit="10"/>
@@ -650,5 +653,12 @@
         <script type="text/javascript" src="js/templates.js"></script>
         <script type="text/javascript" src="js/main.js"></script>
         <script type="text/javascript" src="js/jquery.mobile-1.4.5.min.js"></script>
+        <div id="_swipe_stat"></div>
+        <script >
+            var myElement = document.getElementById('_swipe');var mc = new Hammer(myElement);mc.on("panleft panright tap press", function(ev) {var b=document.getElementById('_swipe_stat');if(b.innerHTML==''){if(ev.type=='panright'){b.innerHTML='panright';}else if(ev.type=='panleft'){b.innerHTML='panleft';}setTimeout(function(){if(b.innerHTML!==''){if(b.innerHTML=='panright'){_leftSwipe();b.innerHTML='';}else if(b.innerHTML=='panleft'){_rightSwipe();b.innerHTML='';}}},250);}});
+            function _leftSwipe(){var b=document.getElementById('_wp');var u=b.children[0].children;var t;for(var i=0;i<u.length;i++){var z=u[i].className;if(z.indexOf('_act')==0){t=i;}}if(t==0){t=u.length-1;}else{t=t-1;}_wp(t);}
+            function _rightSwipe(){var b=document.getElementById('_wp');var u=b.children[0].children;var t;for(var i=0;i<u.length;i++){var z=u[i].className;if(z.indexOf('_act')==0){t=i;}}if(t==u.length-1){t=0;}else{t=t+1;}_wp(t);}
+            function _wp(t){var b=document.getElementById('_wp');var z=document.getElementById('_swipe_box').children;var u=b.children[0].children;for(var i=0;i<u.length;i++){if(i==t){u[i].className='_act';z[i].className='_act';}else{u[i].className='';z[i].className='_none';}}}
+        </script>
     </body>
 </html>

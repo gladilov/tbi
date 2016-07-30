@@ -4,7 +4,7 @@
 <widget xmlns     = "http://www.w3.org/ns/widgets"
         xmlns:gap = "http://phonegap.com/ns/1.0"
         id        = "com.ybi.app"
-        version   = "0.8.0">
+        version   = "0.8.1">
         
   <name>Бизнес Идеи</name>
   <description>Блокнот бизнес идей</description>
@@ -15,7 +15,7 @@
   <allow-navigation href="http://y-b-i.com/*" />
   <allow-intent href="http://y-b-i.com/*" />
   
-  <preference name="phonegap-version" value="cli-6.1.0" />
+  <preference name="phonegap-version" value="cli-6.3.0" />
   <gap:platform name="android" />
   <gap:platform name="ios" />
   
@@ -34,7 +34,7 @@
   <preference name="auto-hide-splash-screen" value="true"/>
   <preference name="android-build-tool" value="gradle" />
   <preference name="StatusBarOverlaysWebView" value="false" />
-  <preference name="StatusBarBackgroundColor" value="#16635D" />
+  <preference name="StatusBarBackgroundColor" value="#03405E" />
   <preference name="StatusBarStyle" value="lightcontent" />
   <preference name="CordovaWebViewEngine" value="CDVWKWebViewEngine" />
   
