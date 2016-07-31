@@ -210,7 +210,4 @@ div.idea-status-group div.ui-collapsible-content ul li.idea-item:before{content:
 #_swipe_box div._act{display:block;}
 div.copyright div.app-version{color:#fff;}
 #submit-idea-steps{padding:0;}
-div.ui-collapsible-content ol.ui-listview li{
-    font-size: 4vw;
-    padding-left: 4vw;
-}
+div.ui-collapsible-content ol.ui-listview li{font-size: 4vw;}
