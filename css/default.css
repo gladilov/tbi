@@ -210,4 +210,18 @@ div.idea-status-group div.ui-collapsible-content ul li.idea-item:before{content:
 #_swipe_box div._act{display:block;}
 div.copyright div.app-version{color:#fff;}
 #submit-idea-steps{padding:0;}
-div.ui-collapsible-content ol.ui-listview li{font-size: 4vw;}
+.ui-collapsible-content>.ui-listview:not(.ui-listview-inset){margin:0;}
+div ol li{font-size: 4vw;line-height: 4vw;}
+div.desc.ui-collapsible p,div.ui-collapsible-content p{
+    font-size: 4vw;line-height: 4vw;padding-left:2vw;
+}
+ol.ui-listview>li>.ui-btn:first-child:before, ol.ui-listview>li.ui-li-static:before, ol.ui-listview>li.ui-field-contain>label:before, ol.ui-listview>li.ui-field-contain>.ui-controlgroup-label:before {
+    display: inline-block;
+    font-size: 4vw;
+    padding-right: 2vw;
+    min-width: 4vw;
+    line-height: 4vw;
+    vertical-align: middle;
+    counter-increment: listnumbering;
+    content: counter(listnumbering) ".";
+}
