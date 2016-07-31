@@ -127,7 +127,7 @@
             <div data-role="panel" class="left-panel" data-position="left" data-position-fixed="true" data-display="overlay">
                 <div id="_mu_box">
                     <div id="_mu_logo"><span></span></div>
-                    <div id="_mu_b"><span id="_mu_b_note"></span><div id="_mu_b_name">Идеи</div><div id="_mu_b_sep"></div></div>
+                    <div id="_mu_b"><a href="#idea-list"><span id="_mu_b_note"></span><div id="_mu_b_name">Идеи</div><div id="_mu_b_sep"></div></a></div>
                     <div id="_mu_b"><span id="_mu_b_about"></span><div id="_mu_b_name">О нас</div><div id="_mu_b_sep"></div></div>
                     <div id="_mu_b"><a href="#" id="app-exit"><span id="_mu_b_exit"></span><div id="_mu_b_name">Выход</div><div id="_mu_b_sep"></div></a></div>
                     <div data-role="footer" data-position="fixed" data-tap-toggle="false" style="border-width:0px 0;">
@@ -176,7 +176,7 @@
             <div data-role="panel" class="left-panel" data-position="left" data-position-fixed="true" data-display="overlay">
                 <div id="_mu_box">
                     <div id="_mu_logo"><span></span></div>
-                    <div id="_mu_b"><span id="_mu_b_note"></span><div id="_mu_b_name">Идеи</div><div id="_mu_b_sep"></div></div>
+                    <div id="_mu_b"><a href="#idea-list"><span id="_mu_b_note"></span><div id="_mu_b_name">Идеи</div><div id="_mu_b_sep"></div></a></div>
                     <div id="_mu_b"><span id="_mu_b_about"></span><div id="_mu_b_name">О нас</div><div id="_mu_b_sep"></div></div>
                     <div id="_mu_b"><a href="#" id="app-exit"><span id="_mu_b_exit"></span><div id="_mu_b_name">Выход</div><div id="_mu_b_sep"></div></a></div>
                     <div data-role="footer" data-position="fixed" data-tap-toggle="false" style="border-width:0px 0;">
@@ -285,7 +285,7 @@
             <div data-role="panel" class="left-panel" data-position="left" data-position-fixed="true" data-display="overlay">
                 <div id="_mu_box">
                     <div id="_mu_logo"><span></span></div>
-                    <div id="_mu_b"><a href="#idea-list" id="app-exit"><span id="_mu_b_note"></span><div id="_mu_b_name">Идеи</div><div id="_mu_b_sep"></div></a></div>
+                    <div id="_mu_b"><a href="#idea-list"><span id="_mu_b_note"></span><div id="_mu_b_name">Идеи</div><div id="_mu_b_sep"></div></a></div>
                     <div id="_mu_b"><span id="_mu_b_about"></span><div id="_mu_b_name">О нас</div><div id="_mu_b_sep"></div></div>
                     <div id="_mu_b"><a href="#" id="app-exit"><span id="_mu_b_exit"></span><div id="_mu_b_name">Выход</div><div id="_mu_b_sep"></div></a></div>
                     <div data-role="footer" data-position="fixed" data-tap-toggle="false" style="border-width:0px 0;">
@@ -295,7 +295,7 @@
             </div><!-- /panel -->
             <div data-role="header" id="_u_head">
                 <div id="_u_menu"><a href="#" id="btn-other" data-icon="ybi-footer-more"></a></div>
-                <div id="_u_back"><a href="#idea-list"></a></div>
+                <div id="_u_back"><a href="#" data-rel="back"></a></div>
                 <div id="page-title" class="with-btn-2 _u_tit2">Заголовок идеи</div>
                 <div id="_u_sha"><a href="#" data-rel="popup" data-transition="fade"></a></div>
                 <div id="_u_add"><a href="#idea-add" class="idea-edit" data-iid=""></a></div>
@@ -347,7 +347,7 @@
             <div data-role="panel" class="left-panel" data-position="left" data-position-fixed="true" data-display="overlay">
                 <div id="_mu_box">
                     <div id="_mu_logo"><span></span></div>
-                    <div id="_mu_b"><a href="#idea-list" id="app-exit"><span id="_mu_b_note"></span><div id="_mu_b_name">Идеи</div><div id="_mu_b_sep"></div></a></div>
+                    <div id="_mu_b"><a href="#idea-list"><span id="_mu_b_note"></span><div id="_mu_b_name">Идеи</div><div id="_mu_b_sep"></div></a></div>
                     <div id="_mu_b"><span id="_mu_b_about"></span><div id="_mu_b_name">О нас</div><div id="_mu_b_sep"></div></div>
                     <div id="_mu_b"><a href="#" id="app-exit"><span id="_mu_b_exit"></span><div id="_mu_b_name">Выход</div><div id="_mu_b_sep"></div></a></div>
                     <div data-role="footer" data-position="fixed" data-tap-toggle="false" style="border-width:0px 0;">
@@ -366,7 +366,7 @@
                     <form action="" id="ideastep1-form" data-ajax="false">
                         <div class="sliders-items">
                             <div class="item item-market-volume">
-                                <div id="_box_topic" class="_info" for="idea-necessary-resources">Соответствие идеи рынку<span onclick="if(this.className=='active'){this.className='';}else{this.className='active';}"><div id="_topic_box"><div class="_sep"></div><div class="_desc">Описание</div></div></span></div>
+                                <div id="_box_topic" class="_info" for="idea-necessary-resources">Соответствие идеи рынку<span onclick="if(this.className=='active'){this.className='';}else{this.className='active';}"><div id="_topic_box"><div class="_sep"></div><div class="_desc">Для первичной оценки достаточности спроса необходимо приблизительно оценить объём и потенциал рынка (см. методичку – ссылка), а также лично пообщаться с минимум 5 потенциальными клиентами.</div></div></span></div>
                                 <div id="_progress">
                                     <p class="_progress_tit">Текущий объём рынка для реализации моей бизнес-идеи (0 – крайне небольшой локальный рынок, 5 - средний национальный рынок, 10 - большой глобальный рынок)</p>
                                     <label for="market-volume" class="ui-hidden-accessible">Объём рынка:</label>
@@ -410,7 +410,7 @@
             <div data-role="panel" class="left-panel" data-position="left" data-position-fixed="true" data-display="overlay">
                 <div id="_mu_box">
                     <div id="_mu_logo"><span></span></div>
-                    <div id="_mu_b"><a href="#idea-list" id="app-exit"><span id="_mu_b_note"></span><div id="_mu_b_name">Идеи</div><div id="_mu_b_sep"></div></a></div>
+                    <div id="_mu_b"><a href="#idea-list"><span id="_mu_b_note"></span><div id="_mu_b_name">Идеи</div><div id="_mu_b_sep"></div></a></div>
                     <div id="_mu_b"><span id="_mu_b_about"></span><div id="_mu_b_name">О нас</div><div id="_mu_b_sep"></div></div>
                     <div id="_mu_b"><a href="#" id="app-exit"><span id="_mu_b_exit"></span><div id="_mu_b_name">Выход</div><div id="_mu_b_sep"></div></a></div>
                     <div data-role="footer" data-position="fixed" data-tap-toggle="false" style="border-width:0px 0;">
@@ -429,7 +429,7 @@
                     <form action="" id="ideastep2-form" data-ajax="false">
                         <div class="sliders-items">
                             <div class="item item-market-volume">
-                                <div id="_box_topic" class="_info" for="idea-necessary-resources">Хочу ли я этим заниматься?<span onclick="if(this.className=='active'){this.className='';}else{this.className='active';}"><div id="_topic_box"><div class="_sep"></div><div class="_desc">Описание</div></div></span></div>
+                                <div id="_box_topic" class="_info" for="idea-necessary-resources">Хочу ли я этим заниматься?<span onclick="if(this.className=='active'){this.className='';}else{this.className='active';}"><div id="_topic_box"><div class="_sep"></div><div class="_desc">Для оценки соответствия данной идеи тебе, как автору данного проекта тебе необходимо проработать свои личные жизненные цели и узнать, что значит быть собственником/руководителем подобного бизнеса</div></div></span></div>
                                 <div id="_progress">
                                     <p class="_progress_tit">Оцени, насколько реализация данного проекта совпадает с твоими жизненными целями, органичениями и потребностями</p>
                                     <label for="author-conformity" class="ui-hidden-accessible">Оценка соответствия:</label>
@@ -473,7 +473,7 @@
             <div data-role="panel" class="left-panel" data-position="left" data-position-fixed="true" data-display="overlay">
                 <div id="_mu_box">
                     <div id="_mu_logo"><span></span></div>
-                    <div id="_mu_b"><a href="#idea-list" id="app-exit"><span id="_mu_b_note"></span><div id="_mu_b_name">Идеи</div><div id="_mu_b_sep"></div></a></div>
+                    <div id="_mu_b"><a href="#idea-list"><span id="_mu_b_note"></span><div id="_mu_b_name">Идеи</div><div id="_mu_b_sep"></div></a></div>
                     <div id="_mu_b"><span id="_mu_b_about"></span><div id="_mu_b_name">О нас</div><div id="_mu_b_sep"></div></div>
                     <div id="_mu_b"><a href="#" id="app-exit"><span id="_mu_b_exit"></span><div id="_mu_b_name">Выход</div><div id="_mu_b_sep"></div></a></div>
                     <div data-role="footer" data-position="fixed" data-tap-toggle="false" style="border-width:0px 0;">
@@ -490,7 +490,7 @@
             <div id="_box">
                 <div data-role="content" role="main" id="content" class="ui-content _pd0">
                     <form action="" id="ideastep3-form" data-ajax="false">
-                        <div id="_box_topic" class="_info" for="idea-necessary-resources">Могу ли я это сделать?<span onclick="if(this.className=='active'){this.className='';}else{this.className='active';}"><div id="_topic_box"><div class="_sep"></div><div class="_desc">Описание</div></div></span></div>
+                        <div id="_box_topic" class="_info" for="idea-necessary-resources">Могу ли я это сделать?<span onclick="if(this.className=='active'){this.className='';}else{this.className='active';}"><div id="_topic_box"><div class="_sep"></div><div class="_desc">Для оценки технической реализуемости необходимо провести необходимые эксперименты и пообщаться с соответствующими техническими специалистами.</div></div></span></div>
                         <div id="_progress" class="form-item">
                             <label for="technical-capability" class="_progress_tit">Реализация данной идеи является технически возможной?</label>
                             <select name="technical_capability" id="technical-capability" data-icon="ybi-carat">
@@ -526,7 +526,7 @@
             <div data-role="panel" class="left-panel" data-position="left" data-position-fixed="true" data-display="overlay">
                 <div id="_mu_box">
                     <div id="_mu_logo"><span></span></div>
-                    <div id="_mu_b"><a href="#idea-list" id="app-exit"><span id="_mu_b_note"></span><div id="_mu_b_name">Идеи</div><div id="_mu_b_sep"></div></a></div>
+                    <div id="_mu_b"><a href="#idea-list"><span id="_mu_b_note"></span><div id="_mu_b_name">Идеи</div><div id="_mu_b_sep"></div></a></div>
                     <div id="_mu_b"><span id="_mu_b_about"></span><div id="_mu_b_name">О нас</div><div id="_mu_b_sep"></div></div>
                     <div id="_mu_b"><a href="#" id="app-exit"><span id="_mu_b_exit"></span><div id="_mu_b_name">Выход</div><div id="_mu_b_sep"></div></a></div>
                     <div data-role="footer" data-position="fixed" data-tap-toggle="false" style="border-width:0px 0;">
@@ -543,7 +543,7 @@
             <div id="_box">
                 <div data-role="content" role="main" id="content" class="ui-content _pd0">
                     <form action="" id="ideastep4-form" data-ajax="false">
-                        <div id="_box_topic" class="_info" for="idea-necessary-resources">Выгодна ли реализация?<span onclick="if(this.className=='active'){this.className='';}else{this.className='active';}"><div id="_topic_box"><div class="_sep"></div><div class="_desc">Описание</div></div></span></div>
+                        <div id="_box_topic" class="_info" for="idea-necessary-resources">Выгодна ли реализация?<span onclick="if(this.className=='active'){this.className='';}else{this.className='active';}"><div id="_topic_box"><div class="_sep"></div><div class="_desc">Для оценки экономической выгодности необходимо объективно спрогнозировать возможные продажи (с учётом количества потенциальных клиентов и показателей конкурентов) и оценить все расходы, в том числе, узнав цены у потенциальных поставщиков (см. методичку). </div></div></span></div>
                         <div class="form-item _box_in">
                             <label for="annual-sales-volume" class="ui-hidden-accessible">Годовой объём продаж (ед.)</label>
                             <input type="number" id="annual-sales-volume" class="required" name="annual_sales_volume" placeholder="Годовой объём продаж (ед.)" data-clear-btn="true" />
@@ -584,7 +584,7 @@
             <div data-role="panel" class="left-panel" data-position="left" data-position-fixed="true" data-display="overlay">
                 <div id="_mu_box">
                     <div id="_mu_logo"><span></span></div>
-                    <div id="_mu_b"><a href="#idea-list" id="app-exit"><span id="_mu_b_note"></span><div id="_mu_b_name">Идеи</div><div id="_mu_b_sep"></div></a></div>
+                    <div id="_mu_b"><a href="#idea-list"><span id="_mu_b_note"></span><div id="_mu_b_name">Идеи</div><div id="_mu_b_sep"></div></a></div>
                     <div id="_mu_b"><span id="_mu_b_about"></span><div id="_mu_b_name">О нас</div><div id="_mu_b_sep"></div></div>
                     <div id="_mu_b"><a href="#" id="app-exit"><span id="_mu_b_exit"></span><div id="_mu_b_name">Выход</div><div id="_mu_b_sep"></div></a></div>
                     <div data-role="footer" data-position="fixed" data-tap-toggle="false" style="border-width:0px 0;">
@@ -601,8 +601,40 @@
             <div id="_box">
                 <div data-role="content" role="main" id="content" class="ui-content _pd0">
                     <form action="" id="ideastep5-form" data-ajax="false">
-                        <div id="_box_topic" class="_info" for="idea-necessary-resources">Могу ли я это сделать?<span onclick="if(this.className=='active'){this.className='';}else{this.className='active';}"><div id="_topic_box"><div class="_sep"></div><div class="_desc">Описание</div></div></span></div>
-                        <div class="form-item _box_in">
+                        <div id="_box_topic" class="_info" for="idea-necessary-resources">Могу ли я это сделать?<span onclick="if(this.className=='active'){this.className='';}else{this.className='active';}"><div id="_topic_box"><div class="_sep"></div><div class="_desc">Для оценки своего потенциала в реализации идеи необходимо понять необходимые ресурсы и компетенции и оценить их наличие или возможность привлечения.</div></div></span></div>
+                        <div class="item item-market-type">
+                            <div id="_progress">
+                                <p class="_progress_tit">Оцени насколько у тебя/твоей команды есть необходимые компетенции для реализации данной идеи</p>
+                                <label for="author-interest" class="ui-hidden-accessible">Оценка интереса:</label>
+                                <input type="range" name="author_interest" id="author-interest" min="0" max="10" step="1" value="0">
+                                <div id="_progress_bar_mark"><div id="_pbi" class="_0"><span></span></div><div id="_pbi" class="_1"><span></span></div><div id="_pbi" class="_2"><span></span></div><div id="_pbi" class="_3"><span></span></div><div id="_pbi" class="_4"><span></span></div><div id="_pbi" class="_5" ><span></span></div><div id="_pbi" class="_6"><span></span></div><div id="_pbi" class="_7"><span></span></div><div id="_pbi" class="_8"><span></span></div><div id="_pbi" class="_9"><span></span></div><div id="_pbi" class="_10"><span></span></div></div>
+                            </div>
+                        </div>
+                        <div class="item item-market-type">
+                            <div id="_progress">
+                                <p class="_progress_tit">Оцени, есть ли у тебя достаточные ресурсы для реализации проекта, либо возможности по их привлечению</p>
+                                <label for="author-interest" class="ui-hidden-accessible">Оценка интереса:</label>
+                                <input type="range" name="author_interest" id="author-interest" min="0" max="10" step="1" value="0">
+                                <div id="_progress_bar_mark"><div id="_pbi" class="_0"><span></span></div><div id="_pbi" class="_1"><span></span></div><div id="_pbi" class="_2"><span></span></div><div id="_pbi" class="_3"><span></span></div><div id="_pbi" class="_4"><span></span></div><div id="_pbi" class="_5" ><span></span></div><div id="_pbi" class="_6"><span></span></div><div id="_pbi" class="_7"><span></span></div><div id="_pbi" class="_8"><span></span></div><div id="_pbi" class="_9"><span></span></div><div id="_pbi" class="_10"><span></span></div></div>
+                            </div>
+                        </div>
+                        <div class="item item-market-type">
+                            <div id="_progress">
+                                <p class="_progress_tit">Оцени, насколько хорошо ты знаком с данным типом бизнеса</p>
+                                <label for="author-interest" class="ui-hidden-accessible">Оценка интереса:</label>
+                                <input type="range" name="author_interest" id="author-interest" min="0" max="10" step="1" value="0">
+                                <div id="_progress_bar_mark"><div id="_pbi" class="_0"><span></span></div><div id="_pbi" class="_1"><span></span></div><div id="_pbi" class="_2"><span></span></div><div id="_pbi" class="_3"><span></span></div><div id="_pbi" class="_4"><span></span></div><div id="_pbi" class="_5" ><span></span></div><div id="_pbi" class="_6"><span></span></div><div id="_pbi" class="_7"><span></span></div><div id="_pbi" class="_8"><span></span></div><div id="_pbi" class="_9"><span></span></div><div id="_pbi" class="_10"><span></span></div></div>
+                            </div>
+                        </div>
+                        <div class="item item-market-type">
+                            <div id="_progress">
+                                <p class="_progress_tit">Оцени, насколько негативным для тебя окажется провал в реализации данной идеи?</p>
+                                <label for="author-interest" class="ui-hidden-accessible">Оценка интереса:</label>
+                                <input type="range" name="author_interest" id="author-interest" min="0" max="10" step="1" value="0">
+                                <div id="_progress_bar_mark"><div id="_pbi" class="_0"><span></span></div><div id="_pbi" class="_1"><span></span></div><div id="_pbi" class="_2"><span></span></div><div id="_pbi" class="_3"><span></span></div><div id="_pbi" class="_4"><span></span></div><div id="_pbi" class="_5" ><span></span></div><div id="_pbi" class="_6"><span></span></div><div id="_pbi" class="_7"><span></span></div><div id="_pbi" class="_8"><span></span></div><div id="_pbi" class="_9"><span></span></div><div id="_pbi" class="_10"><span></span></div></div>
+                            </div>
+                        </div>
+                        <!--<div class="form-item _box_in">
                             <label for="idea-income" class="ui-hidden-accessible">Доходы</label>
                             <input type="number" id="idea-income" name="income" placeholder="Доходы" data-clear-btn="true" />
                         </div>
@@ -617,7 +649,7 @@
                         <div class="form-item _box_in">
                             <label for="idea-investment-source-3" class="ui-hidden-accessible">Источники покрытия (инвестор)</label>
                             <input type="number" id="idea-investment-source-3" name="investment-source-3" placeholder="Источники покрытия (инвестор)" data-clear-btn="true" />
-                        </div>
+                        </div>-->
                         <input type="hidden" name="uid" value="" />
                         <input type="hidden" name="iid" value="" />
                         <button id="submit-idea-steps" type="submit" class="_next">Далее<span></span></button>
