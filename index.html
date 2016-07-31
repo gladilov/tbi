@@ -2,7 +2,7 @@
 <html lang="RU-ru">
     <head>
         <meta charset="UTF-8" />
-        <meta http-equiv="Content-Security-Policy" content="default-src http://y-b-i.com; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline' http://y-b-i.com; connect-src 'self' http://y-b-i.com; img-src 'self' data:; font-src 'self' 'unsafe-inline' http://y-b-i.com" />
+        <meta http-equiv="Content-Security-Policy" content="default-src http://y-b-i.com; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline' http://y-b-i.com; connect-src 'self' http://y-b-i.com https://oauth.io; img-src 'self' data:; font-src 'self' 'unsafe-inline' http://y-b-i.com" />
         <meta name="format-detection" content="telephone=no" />
         <meta name="viewport" content="user-scalable=no, initial-scale=1, minimum-scale=1, maximum-scale=1">
         <title>Бизнес-идеи</title>
@@ -12,117 +12,9 @@
         <script type="text/javascript" src="js/jquery.validate.min.js"></script>
         <script type="text/javascript" src="js/jquery.storageapi.min.js"></script>
         <script type="text/javascript" src="js/hammer.js"></script>
+        <script type="text/javascript" src="js/oauth.min.js"></script>
     </head>
     <body>
-        <div data-role="page" id="signin-welcome" data-theme="d" style="background:linear-gradient(to bottom, #0A8292, #84C7CF);">
-            <div id="_swipe">
-                <div id="_swipe_box">
-                    <div id="signin-welcome-1" class="_act"><div id="_wl" style="background:url('img/logo.svg');background-size:100% 100%;background-position:50% 50%;"></div></div>
-                    <div id="signin-welcome-2" class="_none"></div>
-                    <div id="signin-welcome-3" class="_none"></div>
-                    <div id="signin-welcome-4" class="_none"></div>
-                </div>
-                <div id="_wt">Листайте, чтобы узнать больше</div>
-                <div id="_wp">
-                    <ul>
-                        <li class="_act" onclick="_wp(0);"></li>
-                        <li onclick="_wp(1);"></li>
-                        <li onclick="_wp(2);"></li>
-                        <li onclick="_wp(3);"></li>
-                    </ul>
-                </div>
-            </div>
-            <a href="#signin-signup" data-ajax="false"><div id="_ws">ЗАРЕГИСТРИРОВАТЬСЯ</div></a>
-            <a href="#signin-login" data-ajax="false"><div id="_wli">ВОЙТИ</div></a>
-        </div>
-        <div data-role="page" id="signin-login" data-theme="d" data-tap-toggle="false">
-            <div data-role="tabs" id="tabs-signin-login" class="_pd0">
-                <div id="_sgh">
-                    <a href="#signin-welcome" data-ajax="false"><div id="_sghb"></div></a>
-                    <div id="_sght">Вход</div>
-                </div>       
-                <div data-role="popup" id="popup-forgot-password" class="w90" data-overlay-theme="a" data-theme="b">
-                    <div data-role="header">
-                        <h2>Забыли пароль</h2>
-                        <a href="#" class="ui-btn ui-btn-ybi ui-corner-all ui-shadow ui-btn-icon-notext ui-btn-right ui-icon-ybi-cancel" data-rel="back">Ok</a>
-                    </div>
-                    <form method="post" id="forgot-password-form" class="ui-content">
-                        <div class="form-item form-item-forgot-password-email">
-                            <label for="forgot-password-email" class="ui-hidden-accessible">Ваша эл. почта</label>
-                            <input type="email" id="forgot-password-email" class="required" name="mail" value="" placeholder="Ваша эл. почта" autocomplete="off" />
-                        </div>
-                        <input type="submit" value="Напомнить проль">
-                    </form>
-                </div><!-- Forgot password popup -->
-                <div data-role="content" role="main" id="content" class="_pd0 ui-content">
-                    <form method="post" id="signin-form" class="_sgf">
-                        <div id="_sg_i" class="form-item form-item-signin-email">
-                            <label for="signin-email" class="ui-hidden-accessible">Ваша эл. почта</label>
-                            <span id="_sg_im"></span>
-                            <input name="mail" id="signin-email" class="required" type="email" placeholder="Введите почту" autocomplete="off">
-                        </div>
-                        <div id="_sg_i" class="form-item form-item-signin-password">
-                            <label for="signin-password" class="ui-hidden-accessible">Пароль</label>
-                            <span id="_sg_ip"></span>
-                            <input name="pass" id="signin-password" class="required" placeholder="Введите пароль" type="password" value="" autocomplete="off">
-                        </div>
-                        <input id="_sgs" type="submit" value="Войти">
-                        <div class="form__description"><a id="_sg_link" href="#popup-forgot-password" data-rel="popup" data-transition="fade" data-position-to="window">Забыл пароль...</a></div>
-                    </form>
-                    <div id="_sg_p"><div id="_sg_pl"></div><span id="_sg_plt">ИЛИ</span></div>
-                    <div id="_sg_dc">Войти через соц. сети</div>
-                    <div id="_soc"><span id="_vk"></span><span id="_fb"></span></div>
-                </div>
-            </div>
-        </div>
-        <div data-role="page" id="signin-signup" data-theme="d" data-tap-toggle="false">
-            <div data-role="tabs" id="tabs-signin-signup" class="_pd0">
-                <div id="_sgh">
-                    <a href="#signin-welcome" data-ajax="false"><div id="_sghb"></div></a>
-                    <div id="_sght">Регистрация</div>
-                </div>
-                <div data-role="popup" id="popup-license" class="w90" data-overlay-theme="a" data-theme="b">
-                    <div data-role="header">
-                        <h2>Лицензия</h2>
-                        <a href="#" class="ui-btn ui-btn-ybi ui-corner-all ui-shadow ui-btn-icon-notext ui-btn-right ui-icon-ybi-cancel" data-rel="back">Ok</a>
-                    </div>
-                    <div class="ui-content">
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam tincidunt fermentum mauris, sed faucibus arcu tempus ac. Donec vel blandit ipsum. Duis nibh ipsum, sagittis et nunc sit amet, scelerisque fermentum elit. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.</p>
-                        <p>Phasellus dolor nibh, maximus sed turpis vel, sodales placerat tellus. Nunc tincidunt bibendum nibh vitae blandit. Sed sit amet condimentum libero. Praesent ut congue lacus. Aliquam in scelerisque erat.</p>
-                    </div>
-                </div><!-- License popup -->
-                <div data-role="popup" id="popup-confidentiality" class="w90" data-overlay-theme="a" data-theme="b">
-                    <div data-role="header"><h2>Конфиденциальность</h2><a href="#" class="ui-btn ui-btn-ybi ui-corner-all ui-shadow ui-btn-icon-notext ui-btn-right ui-icon-ybi-cancel" data-rel="back">Ok</a></div>
-                    <div class="ui-content"><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam tincidunt fermentum mauris, sed faucibus arcu tempus ac. Donec vel blandit ipsum. Duis nibh ipsum, sagittis et nunc sit amet, scelerisque fermentum elit. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Phasellus dolor nibh, maximus sed turpis vel, sodales placerat tellus. Nunc tincidunt bibendum nibh vitae blandit. Sed sit amet condimentum libero. Praesent ut congue lacus. Aliquam in scelerisque erat.</p></div>
-                </div><!-- Confidentiality popup -->
-                <div data-role="content" role="main" id="content" class="_pd0 ui-content">
-                    <form method="post" id="signin-form" class="_sgf" data-ajax="false">
-                        <div id="_sg_i" class="form-item form-item-signup-name">
-                            <label for="signup-name" class="ui-hidden-accessible">Введите имя</label>
-                            <span id="_sg_in"></span>
-                            <input type="text" id="signup-name" class="required" name="name" placeholder="Введите имя" autocomplete="off" />
-                        </div>
-                        <div id="_sg_i" class="form-item form-item-signin-email">
-                            <label for="signin-email" class="ui-hidden-accessible">Введите эл. почта</label>
-                            <span id="_sg_im"></span>
-                            <input name="mail" id="signin-email" class="required" type="email" placeholder="Введите почту" autocomplete="off">
-                        </div>
-                        <div id="_sg_i" class="form-item form-item-signin-password">
-                            <label for="signin-password" class="ui-hidden-accessible">Пароль</label>
-                            <span id="_sg_ip"></span>
-                            <input name="pass" id="signin-password" class="required" placeholder="Введите пароль" type="password" value="" autocomplete="off">
-                        </div>
-                        <input id="_sgs" type="submit" value="Зарегистрировать">
-                        <div class="form__description">
-                            <span id="_sg_link"><a href="#popup-license" class="form__license" data-rel="popup" data-transition="fade" data-position-to="window">Лицензия</a> и <a href="#popup-confidentiality" class="form__conf" data-rel="popup" data-transition="fade" data-position-to="window">конфеденциальность</a></span>
-                        </div>
-                    </form>
-                    <div id="_sg_p"><div id="_sg_pl"></div><span id="_sg_plt">ИЛИ</span></div>
-                    <div id="_sg_dc">Войти через соц. сети</div>
-                    <div id="_soc"><span id="_vk"></span><span id="_fb"></span></div>
-                </div>
-            </div>
-        </div>
         <div data-role="page" id="idea-list" data-theme="d">
             <div data-role="panel" class="left-panel" data-position="left" data-position-fixed="true" data-display="overlay">
                 <div id="_mu_box">
@@ -658,6 +550,116 @@
                 </div><!-- /content -->
             </div>
         </div><!-- /page -->
+        <div data-role="page" id="signin-welcome" data-theme="d" style="background:linear-gradient(to bottom, #0A8292, #84C7CF);">
+            <div id="_swipe">
+                <div id="_swipe_box">
+                    <div id="signin-welcome-1" class="_act"><div id="_wl" style="background:url('img/logo.svg');background-size:100% 100%;background-position:50% 50%;"></div></div>
+                    <div id="signin-welcome-2" class="_none"></div>
+                    <div id="signin-welcome-3" class="_none"></div>
+                    <div id="signin-welcome-4" class="_none"></div>
+                </div>
+                <div id="_wt">Листайте, чтобы узнать больше</div>
+                <div id="_wp">
+                    <ul>
+                        <li class="_act" onclick="_wp(0);"></li>
+                        <li onclick="_wp(1);"></li>
+                        <li onclick="_wp(2);"></li>
+                        <li onclick="_wp(3);"></li>
+                    </ul>
+                </div>
+            </div>
+            <a href="#signin-signup" data-ajax="false"><div id="_ws">ЗАРЕГИСТРИРОВАТЬСЯ</div></a>
+            <a href="#signin-login" data-ajax="false"><div id="_wli">ВОЙТИ</div></a>
+        </div><!-- /page -->
+        <div data-role="page" id="signin-login" data-theme="d" data-tap-toggle="false">
+            <div data-role="tabs" id="tabs-signin-login" class="_pd0">
+                <div id="_sgh">
+                    <a href="#signin-welcome" data-ajax="false"><div id="_sghb"></div></a>
+                    <div id="_sght">Вход</div>
+                </div>       
+                <div data-role="popup" id="popup-forgot-password" class="w90" data-overlay-theme="a" data-theme="b">
+                    <div data-role="header">
+                        <h2>Забыли пароль</h2>
+                        <a href="#" class="ui-btn ui-btn-ybi ui-corner-all ui-shadow ui-btn-icon-notext ui-btn-right ui-icon-ybi-cancel" data-rel="back">Ok</a>
+                    </div>
+                    <form method="post" id="forgot-password-form" class="ui-content">
+                        <div class="form-item form-item-forgot-password-email">
+                            <label for="forgot-password-email" class="ui-hidden-accessible">Ваша эл. почта</label>
+                            <input type="email" id="forgot-password-email" class="required" name="mail" value="" placeholder="Ваша эл. почта" autocomplete="off" />
+                        </div>
+                        <input type="submit" value="Напомнить проль">
+                    </form>
+                </div><!-- Forgot password popup -->
+                <div data-role="content" role="main" id="content" class="_pd0 ui-content">
+                    <form method="post" id="signin-form" class="_sgf">
+                        <div id="_sg_i" class="form-item form-item-signin-email">
+                            <label for="signin-email" class="ui-hidden-accessible">Ваша эл. почта</label>
+                            <span id="_sg_im"></span>
+                            <input name="mail" id="signin-email" class="required" type="email" placeholder="Введите почту" autocomplete="off">
+                        </div>
+                        <div id="_sg_i" class="form-item form-item-signin-password">
+                            <label for="signin-password" class="ui-hidden-accessible">Пароль</label>
+                            <span id="_sg_ip"></span>
+                            <input name="pass" id="signin-password" class="required" placeholder="Введите пароль" type="password" value="" autocomplete="off">
+                        </div>
+                        <input id="_sgs" type="submit" value="Войти">
+                        <div class="form__description"><a id="_sg_link" href="#popup-forgot-password" data-rel="popup" data-transition="fade" data-position-to="window">Забыл пароль...</a></div>
+                    </form>
+                    <div id="_sg_p"><div id="_sg_pl"></div><span id="_sg_plt">ИЛИ</span></div>
+                    <div id="_sg_dc">Войти через соц. сети</div>
+                    <div id="_soc"><span id="_vk"></span><span id="_fb"></span></div>
+                </div>
+            </div>
+        </div><!-- /page -->
+        <div data-role="page" id="signin-signup" data-theme="d" data-tap-toggle="false">
+            <div data-role="tabs" id="tabs-signin-signup" class="_pd0">
+                <div id="_sgh">
+                    <a href="#signin-welcome" data-ajax="false"><div id="_sghb"></div></a>
+                    <div id="_sght">Регистрация</div>
+                </div>
+                <div data-role="popup" id="popup-license" class="w90" data-overlay-theme="a" data-theme="b">
+                    <div data-role="header">
+                        <h2>Лицензия</h2>
+                        <a href="#" class="ui-btn ui-btn-ybi ui-corner-all ui-shadow ui-btn-icon-notext ui-btn-right ui-icon-ybi-cancel" data-rel="back">Ok</a>
+                    </div>
+                    <div class="ui-content">
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam tincidunt fermentum mauris, sed faucibus arcu tempus ac. Donec vel blandit ipsum. Duis nibh ipsum, sagittis et nunc sit amet, scelerisque fermentum elit. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.</p>
+                        <p>Phasellus dolor nibh, maximus sed turpis vel, sodales placerat tellus. Nunc tincidunt bibendum nibh vitae blandit. Sed sit amet condimentum libero. Praesent ut congue lacus. Aliquam in scelerisque erat.</p>
+                    </div>
+                </div><!-- License popup -->
+                <div data-role="popup" id="popup-confidentiality" class="w90" data-overlay-theme="a" data-theme="b">
+                    <div data-role="header"><h2>Конфиденциальность</h2><a href="#" class="ui-btn ui-btn-ybi ui-corner-all ui-shadow ui-btn-icon-notext ui-btn-right ui-icon-ybi-cancel" data-rel="back">Ok</a></div>
+                    <div class="ui-content"><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam tincidunt fermentum mauris, sed faucibus arcu tempus ac. Donec vel blandit ipsum. Duis nibh ipsum, sagittis et nunc sit amet, scelerisque fermentum elit. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Phasellus dolor nibh, maximus sed turpis vel, sodales placerat tellus. Nunc tincidunt bibendum nibh vitae blandit. Sed sit amet condimentum libero. Praesent ut congue lacus. Aliquam in scelerisque erat.</p></div>
+                </div><!-- Confidentiality popup -->
+                <div data-role="content" role="main" id="content" class="_pd0 ui-content">
+                    <form method="post" id="signup-form" class="_sgf" data-ajax="false">
+                        <div id="_sg_i" class="form-item form-item-signup-name">
+                            <label for="signup-name" class="ui-hidden-accessible">Введите имя</label>
+                            <span id="_sg_in"></span>
+                            <input type="text" id="signup-name" class="required" name="name" placeholder="Введите имя" autocomplete="off" />
+                        </div>
+                        <div id="_sg_i" class="form-item form-item-signup-email">
+                            <label for="signup-email" class="ui-hidden-accessible">Введите эл. почту</label>
+                            <span id="_sg_im"></span>
+                            <input name="mail" id="signup-email" class="required" type="email" placeholder="Введите почту" autocomplete="off">
+                        </div>
+                        <div id="_sg_i" class="form-item form-item-signup-password">
+                            <label for="signup-password" class="ui-hidden-accessible">Пароль</label>
+                            <span id="_sg_ip"></span>
+                            <input name="pass" id="signup-password" class="required" placeholder="Введите пароль" type="password" value="" autocomplete="off">
+                        </div>
+                        <input type="hidden" name="provider" value="email" />
+                        <input id="_sgs" type="submit" value="Зарегистрировать">
+                        <div class="form__description">
+                            <span id="_sg_link"><a href="#popup-license" class="form__license" data-rel="popup" data-transition="fade" data-position-to="window">Лицензия</a> и <a href="#popup-confidentiality" class="form__conf" data-rel="popup" data-transition="fade" data-position-to="window">конфеденциальность</a></span>
+                        </div>
+                    </form>
+                    <div id="_sg_p"><div id="_sg_pl"></div><span id="_sg_plt">ИЛИ</span></div>
+                    <div id="_sg_dc">Войти через соц. сети</div>
+                    <div id="_soc"><span id="_vk"></span><span id="_fb"></span></div>
+                </div>
+            </div>
+        </div><!-- /page -->
         <div class="page-loader">
             <div class="logo"></div>
             <div class="message"></div>
@@ -671,7 +673,18 @@
                 <circle class="path" cx="50" cy="50" r="20" fill="none" stroke="url(#linear)" stroke-width="1px" stroke-miterlimit="10"/>
             </svg>
         </div>
-        <div id="page-splash"></div>
+        <div id="page-splash">
+            <div class="message">Загрузка..</div>
+            <svg class="loader-circular" viewBox="25 25 50 50">
+                <defs>
+                    <linearGradient id="linear" x1="0%" y1="0%" x2="100%" y2="0%">
+                        <stop offset="0%" stop-color="#053C57"/>
+                        <stop offset="100%" stop-color="#053C57"/>
+                    </linearGradient>
+                </defs>
+                <circle class="path" cx="50" cy="50" r="20" fill="none" stroke="url(#linear)" stroke-width="1px" stroke-miterlimit="10"/>
+            </svg>
+        </div>
         <script type="text/javascript" src="cordova.js"></script>
         <script type="text/javascript" src="js/get-data.js"></script>
         <script type="text/javascript" src="js/templates.js"></script>

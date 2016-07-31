@@ -7,10 +7,13 @@
       uid = 0,
       userAuthorized = false,
       app = document.URL.indexOf( 'http://' ) === -1 && document.URL.indexOf( 'https://' ) === -1,
-      appVersion = '0.8.1';
+      appVersion = '0.8.2';
 
   // Namespace storage
   var ybi = $.initNamespaceStorage('ybi');
+  
+  //OAuth.io JavaScript SDK
+  OAuth.initialize('_OAJbDtopNIy0mZWB9UBjarHIb4');
 
   document.addEventListener('deviceready', deviceReady, false);
   if (!app) deviceReady();
@@ -40,7 +43,7 @@
       }
       
       if (userAuthorized === false) {
-        data.toPage = $("#signin-signup");
+        data.toPage = $("#signin-welcome");
       }
     }
   });
@@ -558,10 +561,159 @@
   $.when(deviceReadyDeferred, jqmReadyDeferred).then(doWhenBothFrameworksLoaded);
 
   function doWhenBothFrameworksLoaded() {
+    
+    // OAuth
+    $('#signin-signup #_vk').on('touchstart', function(e){
+      OAuth.popup('vk')
+          .done(function (OAuthResult) {
+              // the access_token is available via result.access_token
+              // but the http functions automagically wrap the jquery calls
+              
+              console.log("OAuth result (provider: " + OAuthResult.provider + "):");
+              console.log(OAuthResult);
+              
+              OAuthResult.me()
+                  .done(function(OAuthData) {
+                      console.log("VK name: " + OAuthData.name);
+                      console.log("VK id: " + OAuthData.id);
+                      console.log(OAuthData);
+                      
+                      /*********************************/
+                      // Show splash
+                      $('.message', $pageLoader).text('Регистрируем...');
+                      if (app) StatusBar.hide();
+                      $pageLoader.fadeIn(150);
+                      
+                      var request = $.ajax({
+                        type: 'GET',
+                        dataType: 'jsonp',
+                        jsonpCallback: 'userCreateSocial',
+                        contentType: "application/json; charset=utf-8",
+                        url: 'http://y-b-i.com/api/user.php',
+                        data: {"method": "post", "data": {"name": OAuthData.name, "provider": OAuthResult.provider, "provider_uid": OAuthData.id}},
+                        timeout: 8000,
+                        cache: false,
+                        async: true,
+                        crossDomain: true,
+                      });
+                      
+                      var state = request.state();
+                      
+                      request.done(function(data, textStatus, jqXHR) {
+                        // Success:
+                        if (data.status == 'success') {
+                          // Set user id
+                          ybi.localStorage.set('userAuthorized', true);
+                          ybi.localStorage.set('userAuthorizedUid', data.uid);
+                          userAuthorized = true;
+                          $('input[name="uid"]').val(data.uid);
+                          uid = data.uid;
+                          
+                          setTimeout(function() {
+                            // Hide splash
+                            $pageLoader.fadeOut(150);
+                            $('.message', $pageLoader).empty();
+
+                            if (app) {
+                              StatusBar.show();
+                              
+                              navigator.notification.alert(
+                                data.message,
+                                function () { $.mobile.pageContainer.pagecontainer("change", '#idea-list'); },
+                                'Регистрация',
+                                'Закрыть'
+                              );
+                            }
+                            else {
+                              $.mobile.pageContainer.pagecontainer("change", '#idea-list');
+                            }
+                          }, 2000);
+                        }
+                        // Error:
+                        else if (data.status == 'error') {
+                          console.log(data);
+                          
+                          setTimeout(function() {
+                            // Hide splash
+                            $pageLoader.fadeOut(150);
+                            $('.message', $pageLoader).empty();
+
+                            if (app) {
+                              StatusBar.show();
+                              
+                              navigator.notification.alert(
+                                data.message,
+                                null,
+                                'Регистрация',
+                                'Закрыть'
+                              );
+                            }
+                            else {
+                              console.log('Ошибка регистрации (data.message: "' + data.message + '")');
+                            }
+                          }, 2000);
+                        }
+                      });
+                      
+                      request.fail(function(jqXHR, textStatus, errorThrown) {
+                        setTimeout(function() {
+                          // Hide splash
+                          $pageLoader.fadeOut(150);
+                          $('.message', $pageLoader).empty();
+                          if (app) StatusBar.show();
+                          
+                          if (textStatus == 'timeout') {
+                            if (app) {
+                              navigator.notification.alert(
+                                'Ошибка регистрации - сервер не ответил в отведенное время. Попробуйте выполнить запрос позже.',
+                                null,
+                                'Регистрация',
+                                'Закрыть'
+                              );
+                            }
+                            else {
+                              console.log('Ошибка регистрации - сервер не ответил в отведенное время. Попробуйте выполнить запрос позже.');
+                            }
+                          }
+                          else {
+                            if (app) {
+                              navigator.notification.alert(
+                                'Ошибка регистрации. Попробуйте выполнить запрос повторно.',
+                                null,
+                                'Регистрация',
+                                'Закрыть'
+                              );
+                            }
+                            else {
+                              console.log('Ошибка регистрации (textStatus: "' + textStatus + '").');
+                            }
+                          }
+                        }, 2000);
+                      });
+                      /*********************************/
+
+
+                      
+                  })
+                  .fail(function( jqXHR, textStatus, errorThrown) {
+                      console.log("OAuth request error: " + textStatus);
+                  });
+          })
+          .fail(function (e) {
+              console.log('OAuth request error: ' + e.message);
+          });
+    });
+    // Rendome new user pass:
+    console.log(Math.floor((Math.random() * 89999) + 10000));
+    
+    
+    
     if (app && device && device.platform && device.platform == 'IOS') { $.mobile.hashListeningEnabled = false;/* temp */ }
     
     // CSS Splash container
-    $('#page-splash').fadeOut(500);
+    setTimeout(function() {
+      $('#page-splash').fadeOut(500);
+    }, 2000);
     
     // StatusBar
     if (app && StatusBar) {
@@ -644,7 +796,7 @@
             userAuthorized = false;
             uid = 0;
             $('input[name="uid"]').val('');
-            $(':mobile-pagecontainer').pagecontainer('change', '#signin-signup');
+            $(':mobile-pagecontainer').pagecontainer('change', '#signin-welcome');
           }
         }
         else {
@@ -723,7 +875,7 @@
           userAuthorized = false;
           uid = 0;
           $('input[name="uid"]').val('');
-          $(':mobile-pagecontainer').pagecontainer('change', '#signin-signup');
+          $(':mobile-pagecontainer').pagecontainer('change', '#signin-welcome');
         }
       });
 
