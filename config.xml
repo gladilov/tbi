@@ -4,7 +4,7 @@
 <widget xmlns     = "http://www.w3.org/ns/widgets"
         xmlns:gap = "http://phonegap.com/ns/1.0"
         id        = "com.ybi.app"
-        version   = "0.8.2">
+        version   = "0.8.3">
         
   <name>Бизнес Идеи</name>
   <description>Блокнот бизнес идей</description>
@@ -52,7 +52,7 @@
   <plugin name="cordova-plugin-device" source="npm" />
   <plugin name="cordova-plugin-dialogs" source="pgb" />
   <!-- <plugin name="cordova-plugin-inappbrowser" spec="1.0.1" source="pgb" /> -->
-  <!-- <plugin name="cordova-plugin-inappbrowser" source="npm" /> -->
+  <plugin name="cordova-plugin-inappbrowser" source="npm" />
   <plugin name="cordova-plugin-network-information" source="pgb" />
   <plugin name="cordova-plugin-console" source="pgb" />
   <plugin name="onesignal-cordova-plugin" source="npm" />

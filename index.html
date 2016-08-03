@@ -2,7 +2,7 @@
 <html lang="RU-ru">
     <head>
         <meta charset="UTF-8" />
-        <meta http-equiv="Content-Security-Policy" content="default-src http://y-b-i.com; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline' http://y-b-i.com; connect-src 'self' http://y-b-i.com https://oauth.io; img-src 'self' data:; font-src 'self' 'unsafe-inline' http://y-b-i.com" />
+        <meta http-equiv="Content-Security-Policy" content="default-src http://y-b-i.com http://*.auth0.com; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline' http://y-b-i.com http://*.auth0.com; connect-src 'self' http://y-b-i.com https://oauth.io http://*.auth0.com; img-src 'self' data: http://*.auth0.com; font-src 'self' 'unsafe-inline' http://y-b-i.com" />
         <meta name="format-detection" content="telephone=no" />
         <meta name="viewport" content="user-scalable=no, initial-scale=1, minimum-scale=1, maximum-scale=1">
         <title>Бизнес-идеи</title>
@@ -13,6 +13,8 @@
         <script type="text/javascript" src="js/jquery.storageapi.min.js"></script>
         <script type="text/javascript" src="js/hammer.js"></script>
         <script type="text/javascript" src="js/oauth.min.js"></script>
+        <!-- Auth0 lock script -->
+        <script type="text/javascript" src="js/auth0-lock.min.js"></script>
     </head>
     <body>
         <div data-role="page" id="idea-list" data-theme="d">
@@ -80,46 +82,46 @@
                 <div data-role="content" role="main" id="content" class="ui-content _pd0">
                     <div id="ideaadd-form-wrap">
                         <form action="" id="ideaadd-form" data-ajax="false">
-                            <div class="form-item _box_in">
-                                <label for="idea-name" class="ui-hidden-accessible">Название идеи</label>
+                            <div class="form-item _box_in" data-form-group="title">
+                                <label for="idea-title" class="ui-hidden-accessible">Название идеи</label>
                                 <input id="idea-title" class="required" type="text" name="title" placeholder="Название идеи" data-clear-btn="true" style="outline:none;">
                             </div>
-                            <div class="form-item _box_txt">
+                            <div class="form-item _box_txt" data-form-group="description" data-form-group-prev="title">
                                 <label for="idea-description" class="ui-hidden-accessible">Описание идеи</label>              
                                 <textarea id="idea-description" class="required-" name="description" placeholder="Описание идеи" rows="4" data-clear-btn="true"></textarea>
                             </div>
-                            <div class="form-item form-item-multiple form-item-idea-audience">
+                            <div class="form-item form-item-multiple form-item-idea-audience" data-form-group="audience" data-form-group-prev="description">
                                 <div id="_box_topic" for="idea-audience">Целевая аудитория<span><a href="#" class="form-item-add"></a></span></div>
                                 <div data-role="controlgroup" class="controlgroup _box_input">
                                     <input type="text" id="idea-audience" class="multiple required-" name="audience" placeholder="Аудитория" data-clear-btn="true" />
                                 </div>
                             </div>
-                            <div class="form-item form-item-multiple form-item-idea-keyvalue">
+                            <div class="form-item form-item-multiple form-item-idea-keyvalue" data-form-group="values" data-form-group-prev="audience">
                                 <div id="_box_topic" for="idea-keyvalue">Ключевые ценности<span><a href="#" class="form-item-add"></a></span></div>
                                 <div data-role="controlgroup" class="controlgroup _box_input">
                                     <input type="text" id="idea-keyvalue" class="multiple required-" name="keyvalue" placeholder="Ценность" data-clear-btn="true" />
                                 </div>
                             </div>
-                            <div class="form-item form-item-multiple form-item-idea-sales-channel">
+                            <div class="form-item form-item-multiple form-item-idea-sales-channel" data-form-group="sales-channel" data-form-group-prev="values">
                                 <div id="_box_topic" for="idea-sales-channel">Каналы сбыта<span><a href="#" class="form-item-add"></a></span></div>
                                 <div data-role="controlgroup" class="controlgroup _box_input">
                                     <input type="text" id="idea-sales-channel" class="multiple required-" name="sales_channel" placeholder="Каналы сбыта" data-clear-btn="true" />
                                 </div>
                             </div>
-                            <div class="form-item form-item-multiple form-item-idea-team">
+                            <div class="form-item form-item-multiple form-item-idea-team" data-form-group="team" data-form-group-prev="sales-channel">
                                 <div id="_box_topic" for="idea-team">Команда<span><a href="#" class="form-item-add"></a></span></div>
                                 <div data-role="controlgroup" class="controlgroup _box_input">
                                     <input type="text" id="idea-team" class="multiple required-" name="team" placeholder="Команда" data-clear-btn="true" />
                                 </div>
                             </div>
-                            <div class="form-item form-item-multiple form-item-idea-dates">
+                            <div class="form-item form-item-multiple form-item-idea-dates" data-form-group="dates" data-form-group-prev="team">
                                 <div id="_box_topic" for="idea-dates">Ближайшие шаги<span><a href="#" class="form-item-add"></a></span></div>
                                 <div data-role="controlgroup" class="controlgroup _box_input">
                                     <input type="date" id="idea-dates" class="multiple required-" name="dates" placeholder="Ближайшие шаги" data-clear-btn="true" />
                                 </div>
                             </div>
-                            <div id="_box_topic">Категория</div>
-                            <div class="form-item">
+                            <div class="form-item form-item-idea-category" data-form-group="category" data-form-group-prev="dates">
+                                <div id="_box_topic">Категория</div>
                                 <label for="idea-category" class="ui-hidden-accessible">Категория</label>
                                 <select name="category" id="idea-category" data-icon="ybi-carat">
                                     <option value="none">Без категории</option>
@@ -129,30 +131,31 @@
                                     <option value="Высокие технологии">Высокие технологии</option>
                                 </select>
                             </div>
-                            <div id="_box_topic">Продукт</div>
-                            <div class="form-item _box_in">
-                                <label for="idea-product" class="ui-hidden-accessible">Продукт</label>
-                                <input type="text" id="idea-product" class="required-" name="product" placeholder="Продукт" data-clear-btn="true" />
+                            <div class="form-item form-item-multiple form-item-idea-product" data-form-group="product" data-form-group-prev="category">
+                                <div id="_box_topic" for="idea-product">Продукт<span><a href="#" class="form-item-add"></a></span></div>
+                                <div data-role="controlgroup" class="controlgroup _box_input">
+                                    <input type="text" id="idea-product" class="multiple required-" name="product" placeholder="Продукт" data-clear-btn="true" />
+                                </div>
                             </div>
-                            <div class="form-item form-item-multiple form-item-idea-necessary-resources">
+                            <div class="form-item form-item-multiple form-item-idea-necessary-resources" data-form-group="necessary-resources" data-form-group-prev="product">
                                 <div id="_box_topic" for="idea-necessary-resources">Необходимые ресурсы<span><a href="#" class="form-item-add"></a></span></div>
                                 <div data-role="controlgroup" class="controlgroup _box_input">
                                     <input type="text" id="idea-necessary-resources" class="multiple required-" name="necessary_resources" placeholder="Необходимые ресурсы" data-clear-btn="true" />
                                 </div>
                             </div>
-                            <div class="form-item form-item-multiple form-item-idea-competitive-advantages">
+                            <div class="form-item form-item-multiple form-item-idea-competitive-advantages" data-form-group="competitive-advantages" data-form-group-prev="necessary-resources">
                                 <div id="_box_topic" for="idea-competitive-advantages">Конкурентные преимущества<span><a href="#" class="form-item-add"></a></span></div>
                                 <div data-role="controlgroup" class="controlgroup _box_input">
                                     <input type="text" id="idea-competitive-advantages" class="multiple required-" name="competitive_advantages" placeholder="Конкурентные преимущества" data-clear-btn="true" />
                                 </div>
                             </div>
-                            <div class="form-item form-item-multiple form-item-idea-helpful-people">
+                            <div class="form-item form-item-multiple form-item-idea-helpful-people" data-form-group="helpful-people" data-form-group-prev="competitive-advantages">
                                 <div id="_box_topic" for="idea-helpful-people">Полезные люди<span><a href="#" class="form-item-add"></a></span></div>
                                 <div data-role="controlgroup" class="controlgroup _box_input">
                                     <input type="text" id="idea-helpful-people" class="multiple required-" name="helpful_people" placeholder="Полезные люди" data-clear-btn="true" />
                                 </div>
                             </div>
-                            <div class="form-item form-item-multiple form-item-idea-key-hypotheses">
+                            <div class="form-item form-item-multiple form-item-idea-key-hypotheses" data-form-group="key-hypotheses" data-form-group-prev="helpful-people">
                                 <div id="_box_topic" for="idea-key-hypotheses">Ключевые гипотезы<span><a href="#" class="form-item-add"></a></span></div>
                                 <div data-role="controlgroup" class="controlgroup _box_input">
                                     <input type="text" id="idea-key-hypotheses" class="multiple required-" name="key_hypotheses" placeholder="Ключевые гипотезы" data-clear-btn="true" />
@@ -183,13 +186,13 @@
                 <div id="_u_back"><a href="#" data-rel="back"></a></div>
                 <div id="page-title" class="with-btn-2 _u_tit2">Заголовок идеи</div>
                 <div id="_u_sha"><a href="#" data-rel="popup" data-transition="fade"></a></div>
-                <div id="_u_add"><a href="#idea-add" class="idea-edit" data-iid=""></a></div>
+                <div id="_u_add" class="ui-screen-hidden"><a href="#idea-add" class="idea-edit" data-iid=""></a></div>
             </div>
             <div id="_box">
                 <div data-role="content" role="main" id="content" class="ui-content _pd0">
                     <div id="idea-single-accordion" class="accordion" data-role="collapsibleset" data-inset="false">
                         <div class="steps" data-role="collapsible" data-content-theme="false">
-                            <h3>Шаги реализации<span class="ui-li-count">0</span></h3>
+                            <h3>Оценка идеи<span class="ui-li-count">0</span></h3>
                             <ul class="progress">
                                 <li><a href="#idea-step-1" class="idea-step-edit" data-iid="">1</a></li>
                                 <li><a href="#idea-step-2" class="idea-step-edit" data-iid="">2</a></li>
@@ -203,22 +206,16 @@
                                 <a href="#idea-step-1" class="idea-step-edit ui-btn ui-btn-ybi ui-corner-all ui-shadow ui-btn-icon-notext ui-btn-icon-right ui-icon-ybi-forward" data-iid="">Go on</a>
                             </div>
                         </div>
-                        <div class="team" data-role="collapsible" data-content-theme="false"><h3>Команда</h3><ol data-role="listview"></ol></div>
-                        <div class="desc" data-role="collapsible" data-content-theme="false"><h3>Описание</h3><p></p></div>
-                        <div class="product" data-role="collapsible" data-content-theme="false"><h3>Продукт</h3><p></p></div>
-                        <div class="audience" data-role="collapsible" data-content-theme="false"><h3>Целевая аудитория</h3><ol data-role="listview"></ol></div>
-                        <div class="values" data-role="collapsible" data-content-theme="false"><h3>Ценности идеи</h3><ol data-role="listview"></ol></div>
-                        <div class="sales-channel" data-role="collapsible" data-content-theme="false"><h3>Каналы сбыта</h3><ol data-role="listview"></ol></div>
-                        <div class="competitive-advantages" data-role="collapsible" data-content-theme="false"><h3>Конкурентные преимущества</h3><ol data-role="listview"></ol></div>
-                        <div class="necessary-resources" data-role="collapsible" data-content-theme="false"><h3>Необходимые ресурсы</h3><ol data-role="listview"></ol></div>
-                        <div class="helpful-people" data-role="collapsible" data-content-theme="false">
-                            <h3>Полезные люди</h3>
-                            <ol data-role="listview"></ol>
-                        </div>
-                        <div class="key-hypotheses" data-role="collapsible" data-content-theme="false">
-                            <h3>Ключевые гипотезы</h3>
-                            <ol data-role="listview"></ol>
-                        </div>
+                        <div class="content-group-wrap team" data-role="collapsible" data-content-theme="false" data-content-group-type="list"><h3>Команда<a href="#" class="group-edit-link" data-form-group="team"></a></h3><ol data-role="listview"></ol></div>
+                        <div class="content-group-wrap desc" data-role="collapsible" data-content-theme="false" data-content-group-type="text"><h3>Описание<a href="#" class="group-edit-link" data-form-group="description"></a></h3><p></p></div>
+                        <div class="content-group-wrap product" data-role="collapsible" data-content-theme="false" data-content-group-type="list"><h3>Продукт<a href="#" class="group-edit-link" data-form-group="product"></a></h3><ol data-role="listview"></ol></div>
+                        <div class="content-group-wrap audience" data-role="collapsible" data-content-theme="false" data-content-group-type="list"><h3>Целевая аудитория<a href="#" class="group-edit-link" data-form-group="audience"></a></h3><ol data-role="listview"></ol></div>
+                        <div class="content-group-wrap values" data-role="collapsible" data-content-theme="false" data-content-group-type="list"><h3>Ценности идеи<a href="#" class="group-edit-link" data-form-group="values"></a></h3><ol data-role="listview"></ol></div>
+                        <div class="content-group-wrap sales-channel" data-role="collapsible" data-content-theme="false" data-content-group-type="list"><h3>Каналы сбыта<a href="#" class="group-edit-link" data-form-group="sales-channel"></a></h3><ol data-role="listview"></ol></div>
+                        <div class="content-group-wrap competitive-advantages" data-role="collapsible" data-content-theme="false" data-content-group-type="list"><h3>Конкурентные преимущества<a href="#" class="group-edit-link" data-form-group="competitive-advantages"></a></h3><ol data-role="listview"></ol></div>
+                        <div class="content-group-wrap necessary-resources" data-role="collapsible" data-content-theme="false" data-content-group-type="list"><h3>Необходимые ресурсы<a href="#" class="group-edit-link" data-form-group="necessary-resources"></a></h3><ol data-role="listview"></ol></div>
+                        <div class="content-group-wrap helpful-people" data-role="collapsible" data-content-theme="false" data-content-group-type="list"><h3>Полезные люди<a href="#" class="group-edit-link" data-form-group="helpful-people"></a></h3><ol data-role="listview"></ol></div>
+                        <div class="content-group-wrap key-hypotheses" data-role="collapsible" data-content-theme="false" data-content-group-type="list"><h3>Ключевые гипотезы<a href="#" class="group-edit-link" data-form-group="key-hypotheses"></a></h3><ol data-role="listview"></ol></div>
                     </div>
                     <div class="links" data-role="controlgroup" data-type="horizontal">
                         <a href="#" class="interview-link">Интервью</a>
@@ -579,7 +576,7 @@
                 </div>       
                 <div data-role="popup" id="popup-forgot-password" class="w90" data-overlay-theme="a" data-theme="b">
                     <div data-role="header">
-                        <h2>Забыли пароль</h2>
+                        <h2>Забыл пароль</h2>
                         <a href="#" class="ui-btn ui-btn-ybi ui-corner-all ui-shadow ui-btn-icon-notext ui-btn-right ui-icon-ybi-cancel" data-rel="back">Ok</a>
                     </div>
                     <form method="post" id="forgot-password-form" class="ui-content">
@@ -587,7 +584,11 @@
                             <label for="forgot-password-email" class="ui-hidden-accessible">Ваша эл. почта</label>
                             <input type="email" id="forgot-password-email" class="required" name="mail" value="" placeholder="Ваша эл. почта" autocomplete="off" />
                         </div>
-                        <input type="submit" value="Напомнить проль">
+                        <div class="form-item form-item-forgot-password-email">
+                            <label for="forgot-password-pass" class="ui-hidden-accessible">Новый пароль</label>
+                            <input type="password" id="forgot-password-pass" class="required" name="pass" value="" placeholder="Новый пароль" autocomplete="off" />
+                        </div>
+                        <input type="submit" value="Обновить пароль">
                     </form>
                 </div><!-- Forgot password popup -->
                 <div data-role="content" role="main" id="content" class="_pd0 ui-content">

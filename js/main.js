@@ -6,14 +6,22 @@
       $pageLoader = $('.page-loader'),
       uid = 0,
       userAuthorized = false,
+      lock = null,
       app = document.URL.indexOf( 'http://' ) === -1 && document.URL.indexOf( 'https://' ) === -1,
-      appVersion = '0.8.2';
+      appVersion = '0.8.3';
 
   // Namespace storage
   var ybi = $.initNamespaceStorage('ybi');
   
   //OAuth.io JavaScript SDK
   OAuth.initialize('_OAJbDtopNIy0mZWB9UBjarHIb4');
+  
+  // Configure the Auth0Lock
+  lock = new Auth0Lock('1WDpVSt5zWtUrsC5JTkh1NhKoYzqUut1', 'gladilov.auth0.com', {
+    auth: { 
+      params: { scope: 'openid email' } //Details: https://auth0.com/docs/scopes
+    }
+  });
 
   document.addEventListener('deviceready', deviceReady, false);
   if (!app) deviceReady();
@@ -50,8 +58,9 @@
   
   // Before page show
   $(document).on('pagecontainerbeforeshow', function(e, data) {
-    if (typeof data.toPage === "object") {
+    if (typeof data.toPage === "object" && typeof data.prevPage === "object") {
       var $page = data.toPage,
+          $prevPage = data.prevPage,
           $pageTitle = $('#page-title', $page);
           
       // App version
@@ -87,15 +96,12 @@
         });
         
         request.done(function(data, textStatus, jqXHR) {
-          console.log(data);
-
           if (data.status == 'success') {
             if (data.items && !$.isEmptyObject(data.items)) {
               // Hide empty text
               $('.text-empty-data', $page).hide();
             
               $.each(data.items, function(groupStatus, ideaItems){
-                console.log(groupStatus);
                 // Insert idea status group
                 var $ideaStatusGroupHTML = $(tpl.ideaStatusGroupHTML( {'status': groupStatus, 'title': ideaGroupStatusTitles[groupStatus], 'count': ideaItems.length} ));
                 $ideaListContainer.append($ideaStatusGroupHTML);
@@ -124,6 +130,180 @@
       }
       
       /* 
+       * СТРАНИЦА ОДНОЙ ИДЕИ - загрузка из бд и отображение всех данных на странице идеи
+       *
+       * TODO: Отображение ошибок при загрузке данных
+       *       Кэш данных
+       */
+      if ($page.is('#idea-single')) {
+
+        var iid = $page.data('iid'),
+            $ideaSingleContainer = $('#idea-single-accordion', $page),
+            $groupContainer = $ideaSingleContainer.children(),
+            $ideaEditLink = $('.idea-edit', $page);
+            
+        // Idea Add form vars
+        var $ideaAddPage = $('#idea-add'),
+            $ideaAddForm = $('#ideaadd-form', $ideaAddPage),
+            $ideaAddFormControlGroup = $('.controlgroup', $ideaAddForm),
+            $ideaAddFormInputText = $('input, textarea', $ideaAddForm);
+
+        
+        console.log(iid);
+        $ideaEditLink.data('iid', iid);
+            
+        // Очистка старых данных
+        //$pageTitle.html('Заголовок идеи');
+        //$ideaSingleContainer.find(' > .desc p').empty();
+        
+        var request = $.ajax({
+          type: 'GET',
+          dataType: 'jsonp',
+          jsonpCallback: 'ideasById',
+          contentType: "application/json; charset=utf-8",
+          url: 'http://y-b-i.com/api/idea.php',
+          data: {'method': 'get', 'data': {'iid': iid}},
+          timeout: 8000,
+          cache: false,
+          async: true,
+        });
+        
+        request.done(function(data, textStatus, jqXHR) {
+          console.log(data);
+          
+          if (data.status == 'success') {
+            var item = data.item;
+            $page.data('ideaData', item);
+            
+            // Single value fields:
+            // Title
+            $pageTitle.html(item.title);
+            // Description
+            $ideaSingleContainer.find(' > .desc p').html(item.description);
+            
+            // Steps group
+            var $stepProgress = $('.steps .progress', $ideaSingleContainer)
+                $itemsProgress = $stepProgress.children('li'),
+                $itemsProgressLink = $itemsProgress.children('a'),
+                $stepProgressInfo = $stepProgress.next('.progress-info'),
+                $stepEditLink = $('.idea-step-edit', $stepProgressInfo);
+                
+            $ideaSingleContainer.find(' > .steps .ui-li-count').html(item.step_complete);
+            $groupContainer.collapsible('collapse');
+            $itemsProgress.removeClass('completed current');
+            $stepProgressInfo.show();
+            $itemsProgressLink.data('iid', iid);
+            $stepEditLink.data('iid', iid);
+            
+            if (item.step_complete == '0') {
+              $('.step-current', $stepProgressInfo).html('1');
+              $stepEditLink.attr('href', '#idea-step-1');
+            }
+            else if (parseInt(item.step_complete) > 0) {
+              var $currentProgres = $itemsProgress.eq(parseInt(item.step_complete) - 1);
+              
+              $currentProgres.addClass('completed').prevAll().addClass('completed');
+              $currentProgres.next().addClass('current');
+              
+              if (parseInt(item.step_complete) < 5) {
+                $('.step-current', $stepProgressInfo).html(parseInt(item.step_complete) + 1);
+                $stepEditLink.attr('href', '#idea-step-' + (parseInt(item.step_complete) + 1));
+              }
+              else {
+                $('.step-current', $stepProgressInfo).html('1');
+                $stepEditLink.attr('href', '#idea-step-1');
+                $stepProgressInfo.hide();
+              }
+            }
+            
+            // Multiple value fields:
+            // Product group
+            $productItemsContainer = $ideaSingleContainer.find(' > .product ol');
+            $productItemsContainer.empty();
+            $.each(item.product, function(index, val){
+              $productItemsContainer.append('<li>' + val + '</li>');
+            });
+            $productItemsContainer.listview('refresh');
+            
+            // Audience group
+            $audienceItemsContainer = $ideaSingleContainer.find(' > .audience ol');
+            $audienceItemsContainer.empty();
+            $.each(item.audience, function(index, val){
+              $audienceItemsContainer.append('<li>' + val + '</li>');
+            });
+            $audienceItemsContainer.listview('refresh');
+            
+            // Keyvalue group
+            $keyvalueItemsContainer = $ideaSingleContainer.find(' > .values ol');
+            $keyvalueItemsContainer.empty();
+            $.each(item.keyvalue, function(index, val){
+              $keyvalueItemsContainer.append('<li>' + val + '</li>');
+            });
+            $keyvalueItemsContainer.listview('refresh');
+            
+            // Sales channel group
+            $salesChannelItemsContainer = $ideaSingleContainer.find(' > .sales-channel ol');
+            $salesChannelItemsContainer.empty();
+            $.each(item.sales_channel, function(index, val){
+              $salesChannelItemsContainer.append('<li>' + val + '</li>');
+            });
+            $salesChannelItemsContainer.listview('refresh');
+            
+            // Competitive advantages group
+            $competitiveAdvantagesItemsContainer = $ideaSingleContainer.find(' > .competitive-advantages ol');
+            $competitiveAdvantagesItemsContainer.empty();
+            $.each(item.competitive_advantages, function(index, val){
+              $competitiveAdvantagesItemsContainer.append('<li>' + val + '</li>');
+            });
+            $competitiveAdvantagesItemsContainer.listview('refresh');
+            
+            // Team group
+            $teamItemsContainer = $ideaSingleContainer.find(' > .team ol');
+            $teamItemsContainer.empty();
+            $.each(item.team, function(index, val){
+              $teamItemsContainer.append('<li>' + val + '</li>');
+            });
+            $teamItemsContainer.listview('refresh');
+            
+            // Necessary resources group
+            $necessaryResourcesItemsContainer = $ideaSingleContainer.find(' > .necessary-resources ol');
+            $necessaryResourcesItemsContainer.empty();
+            $.each(item.necessary_resources, function(index, val){
+              $necessaryResourcesItemsContainer.append('<li>' + val + '</li>');
+            });
+            $necessaryResourcesItemsContainer.listview('refresh');
+            
+            // Helpful people group
+            $helpfulPeopleItemsContainer = $ideaSingleContainer.find(' > .helpful-people ol');
+            $helpfulPeopleItemsContainer.empty();
+            $.each(item.helpful_people, function(index, val){
+              $helpfulPeopleItemsContainer.append('<li>' + val + '</li>');
+            });
+            $helpfulPeopleItemsContainer.listview('refresh');
+            
+            // Key hypotheses group
+            $keyHypothesesItemsContainer = $ideaSingleContainer.find(' > .key-hypotheses ol');
+            $keyHypothesesItemsContainer.empty();
+            $.each(item.key_hypotheses, function(index, val){
+              $keyHypothesesItemsContainer.append('<li>' + val + '</li>');
+            });
+            $keyHypothesesItemsContainer.listview('refresh');
+
+            
+            // Idea Add form update
+            $ideaAddPage.data('ideaData', item);
+            $('input[name="iid"]', $ideaAddForm).val(iid);
+            $ideaAddForm.trigger('create');
+            //$ideaAddFormInputText.textinput();
+            //$ideaAddFormControlGroup.controlgroup().trigger('create');
+            //$ideaAddFormControlGroup.controlgroup('container');
+            //$ideaAddFormControlGroup.enhanceWithin().controlgroup("refresh");
+            ideaAddPageUpdate();
+          }
+        });
+      }
+      
+      /* 
        * СТРАНИЦА ДОБАВЛЕНИЯ/РЕДАКТИРОВАНИЯ ИДЕИ - загрузка из бд и отображение всех данных в форме
        *
        * TODO: Отображение ошибок при загрузке данных
@@ -133,20 +313,20 @@
         var ideaData = $page.data('ideaData'),
             $ideaAddForm = $('#ideaadd-form', $page);
 
-        // Reset form
-        $pageTitle.text('Бизнес идея');
-        $('.ui-input-text > .ui-input-clear', $ideaAddForm).addClass('ui-input-clear-hidden');
-        $('input[type="text"], textarea', $ideaAddForm).val('');
-        $('#idea-category option', $ideaAddForm).attr('selected', false);
-        $('#idea-category option[value="none"]', $ideaAddForm).attr('selected', 'selected');
-        $('#idea-category', $ideaAddForm).selectmenu('refresh', true);
-        $('#idea-category-button > span', $ideaAddForm).text($('#idea-category option[value="none"]', $ideaAddForm).text());
-        //$('.form-item-idea-audience, .form-item-idea-keyvalue', $ideaAddForm).find('.ui-input-text:not(:first-child)').detach();
-        $('.form-item-multiple', $ideaAddForm).find('.ui-input-text:not(:first-child)').detach();
-        $('input[type="text"], textarea, select', $ideaAddForm).removeClass('error');
+        console.log($prevPage);
+        if ($prevPage.is('#idea-single')) {
+          
+        }
+        else {
+          $page.removeData('ideaData');
+          $page.removeData('iid');
+          $('#ideaadd-form input[name="iid"]', $page).val('');
+        }
+            
+        ideaAddPageUpdate();
             
         // Idea form update - insert data from idea to form
-        if (ideaData && typeof ideaData === "object") {
+        /*if (ideaData && typeof ideaData === "object") {
           $pageTitle.text(ideaData.title);
           $('#idea-title', $ideaAddForm).val(ideaData.title).textinput('refresh');
           if (ideaData.description) $('#idea-description', $ideaAddForm).val(ideaData.description);
@@ -294,7 +474,7 @@
           });
           
           console.log(ideaData);
-        }
+        }*/
       }
       
       /* 
@@ -544,8 +724,12 @@
   
   // Before page hide
   $(document).on('pagecontainerbeforehide', function(e, data) {
-    if (typeof data.prevPage === "object") {
+    //console.log(data);
+    
+    if (typeof data.toPage === "object" && typeof data.prevPage === "object") {
       var $page = data.prevPage;
+          $toPage = data.toPage,
+          $pageTitle = $('#page-title', $page);
           
       /* 
        * СТРАНИЦА ДОБАВЛЕНИЯ/РЕДАКТИРОВАНИЯ ИДЕИ
@@ -555,15 +739,207 @@
         $page.removeData('iid');
         $('#ideaadd-form input[name="iid"]', $page).val('');
       }
+      /* 
+       * СТРАНИЦА ОДНОЙ ИДЕИ
+       */
+      if ($page.is('#idea-single')) {
+        //$(this).removeData('iid');
+        //$('#idea-add').removeData('ideaData');
+      }
     }
   });
 
   $.when(deviceReadyDeferred, jqmReadyDeferred).then(doWhenBothFrameworksLoaded);
+  
+  var ideaAddPageUpdate = function() {
+    var $page = $('#idea-add'),
+        $pageTitle = $('#page-title', $page),
+        ideaData = $page.data('ideaData'),
+        $ideaAddForm = $('#ideaadd-form', $page);
+    
+    console.log('ideaEditPageUpdate');
+    
+    // Reset form
+    $pageTitle.text('Бизнес идея');
+    $('.ui-input-text > .ui-input-clear', $ideaAddForm).addClass('ui-input-clear-hidden');
+    $('input[type="text"], textarea', $ideaAddForm).val('');
+    $('#idea-category option', $ideaAddForm).attr('selected', false);
+    $('#idea-category option[value="none"]', $ideaAddForm).attr('selected', 'selected');
+    $('#idea-category', $ideaAddForm).selectmenu('refresh', true);
+    $('#idea-category-button > span', $ideaAddForm).text($('#idea-category option[value="none"]', $ideaAddForm).text());
+    //$('.form-item-idea-audience, .form-item-idea-keyvalue', $ideaAddForm).find('.ui-input-text:not(:first-child)').detach();
+    $('.form-item-multiple', $ideaAddForm).find('.ui-input-text:not(:first-child)').detach();
+    $('input[type="text"], textarea, select', $ideaAddForm).removeClass('error');
+    
+    // Idea form update - insert data from idea to form
+    if (ideaData && typeof ideaData === "object") {
+      $pageTitle.text(ideaData.title);
+      $('#idea-title', $ideaAddForm).val(ideaData.title).textinput('refresh');
+      if (ideaData.description) $('#idea-description', $ideaAddForm).val(ideaData.description);
+      
+      if (ideaData.category) {
+        $('#idea-category option', $ideaAddForm).attr('selected', false);
+        $('#idea-category option[value="' + ideaData.category + '"]', $ideaAddForm).attr('selected', 'selected');
+        $('#idea-category', $ideaAddForm).selectmenu('refresh', true);
+        $('#idea-category-button > span', $ideaAddForm).text(ideaData.category);
+      }
+      
+      if (ideaData.product && $.isArray(ideaData.product)) {
+        if (ideaData.product.length == 1) {
+          $('#idea-product', $ideaAddForm).val(ideaData.product[0]);
+        }
+        else {
+          var $productAddItem = $('.form-item-idea-product .form-item-add', $ideaAddForm);
+          $.each(ideaData.product, function(i, val) {
+            if (i == 0) { $('#idea-product', $ideaAddForm).val(val); }
+            else {
+              $productAddItem.trigger('click');
+              $('#idea-product-' + (i + 1), $ideaAddForm).val(val);
+            }
+          });
+        }
+      }
+      
+      if (ideaData.audience && $.isArray(ideaData.audience)) {
+        if (ideaData.audience.length == 1) {
+          $('#idea-audience', $ideaAddForm).val(ideaData.audience[0]);
+        }
+        else {
+          var $audienceAddItem = $('.form-item-idea-audience .form-item-add', $ideaAddForm);
+          $.each(ideaData.audience, function(i, val) {
+            if (i == 0) { $('#idea-audience', $ideaAddForm).val(val); }
+            else {
+              $audienceAddItem.trigger('click');
+              $('#idea-audience-' + (i + 1), $ideaAddForm).val(val);
+            }
+          });
+        }
+      }
+      
+      if (ideaData.keyvalue && $.isArray(ideaData.keyvalue)) {
+        if (ideaData.keyvalue.length == 1) {
+          $('#idea-keyvalue', $ideaAddForm).val(ideaData.keyvalue[0]);
+        }
+        else {
+          var $keyvalueAddItem = $('.form-item-idea-keyvalue .form-item-add', $ideaAddForm);
+          $.each(ideaData.keyvalue, function(i, val) {
+            if (i == 0) { $('#idea-keyvalue', $ideaAddForm).val(val); }
+            else {
+              $keyvalueAddItem.trigger('click');
+              $('#idea-keyvalue-' + (i + 1), $ideaAddForm).val(val);
+            }
+          });
+        }
+      }
+      
+      if (ideaData.sales_channel && $.isArray(ideaData.sales_channel)) {
+        if (ideaData.sales_channel.length == 1) {
+          $('#idea-sales-channel', $ideaAddForm).val(ideaData.keyvalue[0]);
+        }
+        else {
+          var $salesChannelAddItem = $('.form-item-idea-sales-channel .form-item-add', $ideaAddForm);
+          $.each(ideaData.sales_channel, function(i, val) {
+            if (i == 0) { $('#idea-sales-channel', $ideaAddForm).val(val); }
+            else {
+              $salesChannelAddItem.trigger('click');
+              $('#idea-sales-channel-' + (i + 1), $ideaAddForm).val(val);
+            }
+          });
+        }
+      }
+      
+      if (ideaData.competitive_advantages && $.isArray(ideaData.competitive_advantages)) {
+        if (ideaData.competitive_advantages.length == 1) {
+          $('#idea-competitive-advantages', $ideaAddForm).val(ideaData.keyvalue[0]);
+        }
+        else {
+          var $competitiveAdvantagesAddItem = $('.form-item-idea-competitive-advantages .form-item-add', $ideaAddForm);
+          $.each(ideaData.competitive_advantages, function(i, val) {
+            if (i == 0) { $('#idea-competitive-advantages', $ideaAddForm).val(val); }
+            else {
+              $competitiveAdvantagesAddItem.trigger('click');
+              $('#idea-competitive-advantages-' + (i + 1), $ideaAddForm).val(val);
+            }
+          });
+        }
+      }
+      
+      if (ideaData.team && $.isArray(ideaData.team)) {
+        if (ideaData.team.length == 1) {
+          $('#idea-team', $ideaAddForm).val(ideaData.team[0]);
+        }
+        else {
+          var $teamAddItem = $('.form-item-idea-team .form-item-add', $ideaAddForm);
+          $.each(ideaData.team, function(i, val) {
+            if (i == 0) { $('#idea-team', $ideaAddForm).val(val); }
+            else {
+              $teamAddItem.trigger('click');
+              $('#idea-team-' + (i + 1), $ideaAddForm).val(val);
+            }
+          });
+        }
+      }
+      
+      if (ideaData.necessary_resources && $.isArray(ideaData.necessary_resources)) {
+        if (ideaData.necessary_resources.length == 1) {
+          $('#idea-necessary-resources', $ideaAddForm).val(ideaData.necessary_resources[0]);
+        }
+        else {
+          var $necessaryResourcesAddItem = $('.form-item-idea-necessary-resources .form-item-add', $ideaAddForm);
+          $.each(ideaData.necessary_resources, function(i, val) {
+            if (i == 0) { $('#idea-necessary-resources', $ideaAddForm).val(val); }
+            else {
+              $necessaryResourcesAddItem.trigger('click');
+              $('#idea-necessary-resources-' + (i + 1), $ideaAddForm).val(val);
+            }
+          });
+        }
+      }
+      
+      if (ideaData.helpful_people && $.isArray(ideaData.helpful_people)) {
+        if (ideaData.helpful_people.length == 1) {
+          $('#idea-helpful-people', $ideaAddForm).val(ideaData.helpful_people[0]);
+        }
+        else {
+          var $helpfulPeopleAddItem = $('.form-item-idea-helpful-people .form-item-add', $ideaAddForm);
+          $.each(ideaData.helpful_people, function(i, val) {
+            if (i == 0) { $('#idea-helpful-people', $ideaAddForm).val(val); }
+            else {
+              $helpfulPeopleAddItem.trigger('click');
+              $('#idea-helpful-people-' + (i + 1), $ideaAddForm).val(val);
+            }
+          });
+        }
+      }
+      
+      if (ideaData.key_hypotheses && $.isArray(ideaData.key_hypotheses)) {
+        if (ideaData.key_hypotheses.length == 1) {
+          $('#idea-key-hypotheses', $ideaAddForm).val(ideaData.key_hypotheses[0]);
+        }
+        else {
+          var $keyHypothesesAddItem = $('.form-item-idea-key-hypotheses .form-item-add', $ideaAddForm);
+          $.each(ideaData.key_hypotheses, function(i, val) {
+            if (i == 0) { $('#idea-key-hypotheses', $ideaAddForm).val(val); }
+            else {
+              $keyHypothesesAddItem.trigger('click');
+              $('#idea-key-hypotheses-' + (i + 1), $ideaAddForm).val(val);
+            }
+          });
+        }
+      }
+
+      $ideaAddForm.find('div.ui-input-text input[type="text"]').each(function(i, el) {
+        if ($(this).val() != '') {
+          $(this).siblings('.ui-input-clear').removeClass('ui-input-clear-hidden');
+        }
+      });
+    }
+  }
 
   function doWhenBothFrameworksLoaded() {
     
     // OAuth
-    $('#signin-signup #_vk').on('touchstart', function(e){
+    /*$('#signin-signup #_vk').on('touchstart', function(e){
       OAuth.popup('vk')
           .done(function (OAuthResult) {
               // the access_token is available via result.access_token
@@ -578,7 +954,7 @@
                       console.log("VK id: " + OAuthData.id);
                       console.log(OAuthData);
                       
-                      /*********************************/
+                      //*********************************
                       // Show splash
                       $('.message', $pageLoader).text('Регистрируем...');
                       if (app) StatusBar.hide();
@@ -690,7 +1066,7 @@
                           }
                         }, 2000);
                       });
-                      /*********************************/
+                      //*********************************
 
 
                       
@@ -702,11 +1078,43 @@
           .fail(function (e) {
               console.log('OAuth request error: ' + e.message);
           });
-    });
+    });*/
     // Rendome new user pass:
-    console.log(Math.floor((Math.random() * 89999) + 10000));
+    //console.log(Math.floor((Math.random() * 89999) + 10000));
     
     
+    // Auth0Lock - Implement the login
+    var userProfile;
+    $('#signin-signup #_vk').on('touchstart', function(e){
+      lock.show();
+    });
+    $('#signin-signup #_fb').on('touchstart', function(e){
+      lock.show();
+    });
+    
+    lock.on("authenticated", function(authResult) {
+      lock.getProfile(authResult.idToken, function(error, profile) {
+        if (error) {
+          // Handle error
+          return;
+        }
+
+        ybi.localStorage.set('id_token', authResult.idToken);
+        console.log(authResult.idToken);
+      });
+    });
+    
+    var id_token = ybi.localStorage.get('id_token');
+    if (id_token) {
+      lock.getProfile(id_token, function (err, profile) {
+        if (err) {
+          return alert('There was an error getting the profile: ' + err.message);
+        }
+        // Display user information
+        alert(profile.nickname);
+      });
+    }
+
     
     if (app && device && device.platform && device.platform == 'IOS') { $.mobile.hashListeningEnabled = false;/* temp */ }
     
@@ -880,21 +1288,50 @@
       });
 
       
-      // Form-item multiple
-      $('.form-item-multiple').on('click', 'a.form-item-add', function(e) {
+      // Idea add form form-item multiple
+      $('#ideaadd-form .form-item-multiple').on('click', 'a.form-item-add', function(e) {
           e.preventDefault();
 
           var fieldItem = $(this).parents('.form-item'),
               controlGroup = fieldItem.find('.controlgroup'),
-              fieldNew = controlGroup.find('.ui-input-text:first-child').find('input').clone(),
+              $fieldNew = controlGroup.find('.ui-input-text:first-child').find('input').clone(),
+              $fieldLast = controlGroup.find('.ui-input-text:last-child').find('input'),
               num = fieldItem.find('.multiple').length;
+          
+          if ($fieldLast.val()) {
+            $fieldNew.attr({'id': $fieldNew.attr('id') + '-' + (num + 1), 'name': $fieldNew.attr('name') + '-' + (num + 1)}).val('');
+            
+            controlGroup.controlgroup('container').append($fieldNew);
+            $fieldNew.textinput();
+            controlGroup.controlgroup('refresh');
+          }
+          else {
+            $fieldLast.addClass('error-blink');
+            setTimeout(function() { $fieldLast.removeClass('error-blink'); }, 1000);
+          }
+      });
+      
+      // Form-item multiple in idea single (form-group)
+      /*$(document).on('click', '#idea-single-accordion .form-item-multiple a.form-item-add', function(e) {
+          e.preventDefault();
+          console.log('q2');
+          
+          var $fieldItem = $(this).parents('.form-item'),
+              $controlGroup = $('.controlgroup', $fieldItem),
+              $controlGroupChildren = $('.ui-controlgroup-controls', $controlGroup).children(),
+              fieldNew = $controlGroup.find('.ui-input-text:first-child').find('input').clone(),
+              num = $fieldItem.find('.multiple').length;
           
           fieldNew.attr({'id': fieldNew.attr('id') + '-' + (num + 1), 'name': fieldNew.attr('name') + '-' + (num + 1)}).val('');
           
-          controlGroup.controlgroup('container').append(fieldNew);
+          //$controlGroupChildren.unwrap();
+          
+          //$controlGroup.controlgroup().trigger('create');
+          //$fieldItem.trigger('create');
+          $controlGroup.controlgroup('container').append(fieldNew);
           fieldNew.textinput();
-          controlGroup.controlgroup('refresh');
-      });
+          $controlGroup.enhanceWithin().controlgroup("refresh");
+      });*/
       
       
       // Signin form
@@ -1147,19 +1584,92 @@
       $('#forgot-password-form').validate();
       $('#forgot-password-form').submit(function(e){
         e.preventDefault();
-        var $thisForm = $(this);
+        var $thisForm = $(this),
+            $inputMail = $('input[name="mail"]', $thisForm),
+            $inputPass = $('input[name="pass"]', $thisForm);
         
         if ($("#forgot-password-form:has(input.required.error)").length == 0) {
-          $thisForm.parents('#popup-forgot-password').find('.ui-icon-ybi-cancel').trigger('click');
           
-          if (app) {
-            setTimeout(function() { 
-              window.plugins.toast.showLongBottom('Пароль отправлен Вам на почту.', function(a){}, function(b){});
-            }, 750);
-          }
-          else {
-            setTimeout(function() { alert('Пароль отправлен Вам на почту.'); }, 750);
-          }
+          var request = $.ajax({
+            type: 'GET',
+            dataType: 'jsonp',
+            jsonpCallback: 'userForgotPassword',
+            contentType: "application/json; charset=utf-8",
+            url: 'http://y-b-i.com/api/user.php',
+            data: {'method': 'put', 'data': {'mail': $inputMail.val(), 'pass': $inputPass.val()}},
+            timeout: 8000,
+            cache: false,
+            async: true,
+            crossDomain: true,
+          });
+          
+          var state = request.state();
+          
+          request.done(function(data, textStatus, jqXHR) {
+            // Success:
+            if (data.status == 'success') {
+              // Reset form
+              $inputMail.val('');
+              $inputPass.val('');
+
+              $thisForm.parents('#popup-forgot-password').find('.ui-icon-ybi-cancel').trigger('click');
+              
+              if (app) {
+                setTimeout(function() { 
+                  window.plugins.toast.showLongBottom('Пароль успешно обновлен!', function(a){}, function(b){});
+                }, 750);
+              }
+              else {
+                setTimeout(function() { alert('Пароль успешно обновлен!'); }, 750);
+              }
+            }
+            // Error:
+            else if (data.status == 'error') {
+              //$inputMail.addClass('error');
+
+              if (app) {
+                navigator.notification.alert(
+                  data.message,
+                  null,
+                  'Забыл пароль',
+                  'Закрыть'
+                );
+              }
+              else {
+                alert(data.message);
+                console.log('Ошибка обновления пароля (data.message: "' + data.message + '")');
+              }
+            }
+          });
+          
+          request.fail(function(jqXHR, textStatus, errorThrown) {
+            if (textStatus == 'timeout') {
+              if (app) {
+                navigator.notification.alert(
+                  'Ошибка обновления пароля - сервер не ответил в отведенное время. Попробуйте выполнить запрос позже.',
+                  null,
+                  'Забыли пароль',
+                  'Закрыть'
+                );
+              }
+              else {
+                console.log('Ошибка обновления пароля - сервер не ответил в отведенное время. Попробуйте выполнить запрос позже.');
+              }
+            }
+            else {
+              if (app) {
+                navigator.notification.alert(
+                  'Ошибка отправки письма.',
+                  null,
+                  'Забыл пароль',
+                  'Закрыть'
+                );
+              }
+              else {
+                console.log('Ошибка отправки письма (textStatus: "' + textStatus + '").');
+              }
+            }
+          });
         }
       });
       
@@ -1787,162 +2297,68 @@
         
         $(hash).data('iid', iid);
       });
-
       
-      /* 
-       * СТРАНИЦА ОДНОЙ ИДЕИ - загрузка из бд и отображение всех данных на странице идеи
-       *
-       * TODO: Отображение ошибок при загрузке данных
-       *       Кэш данных
-       */
-      $('#idea-single').on('pagebeforeshow', function(event) {
-        var $this = $(this),
-            iid = $this.data('iid'),
-            $pageTitle = $('#page-title', $this),
-            $ideaSingleContainer = $('#idea-single-accordion', $this),
-            $groupContainer = $ideaSingleContainer.children(),
-            $ideaEditLink = $('.idea-edit', $this);
+      
+      // Idea GROUP-EDIT-LINK
+      $('.group-edit-link').on('click', function(e){
+      //$('#idea-single').on('click', '.group-edit-link', function(e){
+        e.preventDefault();
+        e.stopPropagation();
+        
+        var $ideaAddForm = $('#ideaadd-form'),
+            formGroup = $(this).data('formGroup'),
+            $ideaAddFormGroup = $('[data-form-group="' + formGroup + '"]', $ideaAddForm),
+            $groupContent = $(this).parents('.ui-collapsible-heading').siblings('.ui-collapsible-content'),
+            $groupContentWrap = $(this).parents('.content-group-wrap'),
+            groupContentWrapType = $groupContentWrap.data('contentGroupType');
 
-        $ideaEditLink.data('iid', iid);
-            
-        // Очистка старых данных
-        //$pageTitle.html('Заголовок идеи');
-        //$ideaSingleContainer.find(' > .desc p').empty();
-        
-        var request = $.ajax({
-          type: 'GET',
-          dataType: 'jsonp',
-          jsonpCallback: 'ideasById',
-          contentType: "application/json; charset=utf-8",
-          url: 'http://y-b-i.com/api/idea.php',
-          data: {'method': 'get', 'data': {'iid': iid}},
-          timeout: 8000,
-          cache: false,
-          async: true,
-        });
-        
-        request.done(function(data, textStatus, jqXHR) {
-          console.log(data);
+        if ($(this).is('.group-save-link')) {
+          $(this).removeClass('group-save-link');
+          var $groupContentFormItem = $groupContent.children('.form-item'),
+              formGroupPrev = $groupContentFormItem.data('formGroupPrev'),
+              $ideaAddFormGroupPrev = $('[data-form-group="' + formGroupPrev + '"]', $ideaAddForm),
+              $ListNew = $('<ol data-role="listview" style="display: none;"/>'),
+              $TextNew = $('<p style="display: none;"/>');
+              
+          $groupContentFormItem.children('.form-item-add').detach();
+          $groupContentFormItem.insertAfter($ideaAddFormGroupPrev);
+          $('#_box_topic', $groupContentFormItem).show();
           
-          if (data.status == 'success') {
-            var item = data.item;
-            $this.data('ideaData', item);
-            
-            // Single value fields:
-            // Title
-            $pageTitle.html(item.title);
-            // Description
-            $ideaSingleContainer.find(' > .desc p').html(item.description);
-            // Product
-            $ideaSingleContainer.find(' > .product p').html(item.product);
-            
-            // Steps group
-            var $stepProgress = $('.steps .progress', $ideaSingleContainer)
-                $itemsProgress = $stepProgress.children('li'),
-                $itemsProgressLink = $itemsProgress.children('a'),
-                $stepProgressInfo = $stepProgress.next('.progress-info'),
-                $stepEditLink = $('.idea-step-edit', $stepProgressInfo);
-                
-            $ideaSingleContainer.find(' > .steps .ui-li-count').html(item.step_complete);
-            $groupContainer.collapsible('collapse');
-            $itemsProgress.removeClass('completed current');
-            $stepProgressInfo.show();
-            $itemsProgressLink.data('iid', iid);
-            $stepEditLink.data('iid', iid);
-            
-            if (item.step_complete == '0') {
-              $('.step-current', $stepProgressInfo).html('1');
-              $stepEditLink.attr('href', '#idea-step-1');
-            }
-            else if (parseInt(item.step_complete) > 0) {
-              var $currentProgres = $itemsProgress.eq(parseInt(item.step_complete) - 1);
-              
-              $currentProgres.addClass('completed').prevAll().addClass('completed');
-              $currentProgres.next().addClass('current');
-              
-              if (parseInt(item.step_complete) < 5) {
-                $('.step-current', $stepProgressInfo).html(parseInt(item.step_complete) + 1);
-                $stepEditLink.attr('href', '#idea-step-' + (parseInt(item.step_complete) + 1));
+          // Update new data in idea single
+          if (groupContentWrapType == 'list') {
+            $ListNew.appendTo($groupContent);
+            $groupContentFormItem.find('input[type="text"]').each(function(i, el) {
+              var this_val = $(this).val();
+              if (this_val) {
+                $ListNew.append('<li>' + this_val + '</li>');
               }
-              else {
-                $('.step-current', $stepProgressInfo).html('1');
-                $stepEditLink.attr('href', '#idea-step-1');
-                $stepProgressInfo.hide();
-              }
-            }
-            
-            // Multiple value fields:
-            // Audience group
-            $audienceItemsContainer = $ideaSingleContainer.find(' > .audience ol');
-            $audienceItemsContainer.empty();
-            $.each(item.audience, function(index, val){
-              $audienceItemsContainer.append('<li>' + val + '</li>');
             });
-            $audienceItemsContainer.listview('refresh');
-            
-            // Keyvalue group
-            $keyvalueItemsContainer = $ideaSingleContainer.find(' > .values ol');
-            $keyvalueItemsContainer.empty();
-            $.each(item.keyvalue, function(index, val){
-              $keyvalueItemsContainer.append('<li>' + val + '</li>');
-            });
-            $keyvalueItemsContainer.listview('refresh');
-            
-            // Sales channel group
-            $salesChannelItemsContainer = $ideaSingleContainer.find(' > .sales-channel ol');
-            $salesChannelItemsContainer.empty();
-            $.each(item.sales_channel, function(index, val){
-              $salesChannelItemsContainer.append('<li>' + val + '</li>');
-            });
-            $salesChannelItemsContainer.listview('refresh');
-            
-            // Competitive advantages group
-            $competitiveAdvantagesItemsContainer = $ideaSingleContainer.find(' > .competitive-advantages ol');
-            $competitiveAdvantagesItemsContainer.empty();
-            $.each(item.competitive_advantages, function(index, val){
-              $competitiveAdvantagesItemsContainer.append('<li>' + val + '</li>');
-            });
-            $competitiveAdvantagesItemsContainer.listview('refresh');
-            
-            // Team group
-            $teamItemsContainer = $ideaSingleContainer.find(' > .team ol');
-            $teamItemsContainer.empty();
-            $.each(item.team, function(index, val){
-              $teamItemsContainer.append('<li>' + val + '</li>');
-            });
-            $teamItemsContainer.listview('refresh');
-            
-            // Necessary resources group
-            $necessaryResourcesItemsContainer = $ideaSingleContainer.find(' > .necessary-resources ol');
-            $necessaryResourcesItemsContainer.empty();
-            $.each(item.necessary_resources, function(index, val){
-              $necessaryResourcesItemsContainer.append('<li>' + val + '</li>');
-            });
-            $necessaryResourcesItemsContainer.listview('refresh');
-            
-            // Helpful people group
-            $helpfulPeopleItemsContainer = $ideaSingleContainer.find(' > .helpful-people ol');
-            $helpfulPeopleItemsContainer.empty();
-            $.each(item.helpful_people, function(index, val){
-              $helpfulPeopleItemsContainer.append('<li>' + val + '</li>');
-            });
-            $helpfulPeopleItemsContainer.listview('refresh');
-            
-            // Key hypotheses group
-            $keyHypothesesItemsContainer = $ideaSingleContainer.find(' > .key-hypotheses ol');
-            $keyHypothesesItemsContainer.empty();
-            $.each(item.key_hypotheses, function(index, val){
-              $keyHypothesesItemsContainer.append('<li>' + val + '</li>');
-            });
-            $keyHypothesesItemsContainer.listview('refresh');
-
+            $ListNew.listview().listview('refresh');
+            $ListNew.show();
           }
-        });
+          else if (groupContentWrapType == 'text') {
+            var this_val = $groupContentFormItem.find('.ui-input-text').val();
+            $TextNew.appendTo($groupContent).text(this_val).show();
+          }
+          
+          $ideaAddForm.submit();
+        }
+        else {
+          $(this).addClass('group-save-link');
+          $groupContent.children().detach();
+          $('#_box_topic', $ideaAddFormGroup).hide();
+          $('.form-item-add', $ideaAddFormGroup).clone().html('<span>+</span> Добавить').appendTo($ideaAddFormGroup);
+          $ideaAddFormGroup.appendTo($groupContent);
+        }
       });
       
-      $('#idea-single').on('pagebeforehide', function(event) {
-        //$(this).removeData('iid');
-      });
+      $('#idea-single-accordion [data-role="collapsible"]')
+        .on( "collapsiblecollapse", function(event, ui) {
+          //console.log('collapsiblecollapse');
+        })
+        .on( "collapsibleexpand", function(event, ui) {
+          //console.log('collapsibleexpand');
+        });
       
 
     //});
