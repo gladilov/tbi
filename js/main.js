@@ -8,7 +8,7 @@
       userAuthorized = false,
       lock = null,
       app = document.URL.indexOf( 'http://' ) === -1 && document.URL.indexOf( 'https://' ) === -1,
-      appVersion = '0.8.3';
+      appVersion = '0.8.4';
 
   // Namespace storage
   var ybi = $.initNamespaceStorage('ybi');
@@ -1177,6 +1177,8 @@
       document.addEventListener('backbutton', function(e){
         e.preventDefault();
 
+        // TODO: у незарегистрированных переходит на #idea-list
+        
         if ($('.ui-page-active').attr('id') == 'idea-list') {
           //$('#idea-list #app-exit').trigger('click');
           if (app) {
@@ -1727,6 +1729,7 @@
         if (iid) method = 'put';
         console.log(method);
         console.log(uid);
+        console.log($(this).serialize());
         
         //var formData = new FormData($(this)[0]);
         //console.log(formData);
@@ -2360,6 +2363,56 @@
           //console.log('collapsibleexpand');
         });
       
+      
+      // Media files add
+      $('#idea-add').on('click', '#_u_op', function(e){
+        $('#idea-add #idea-files').trigger('click');
+      });
+      
+      $('#idea-add').on('change', '#idea-files', function(e){
+        var ideaFiles = [],
+            $img = $('<img/>'),
+            $images = $('#images', $('#idea-add')),
+            $InputHiddenImage = $('<input/>', {'type':'hidden'}),
+            getIdeaFiles = function(i, length) {
+              console.log(i);
+              console.log(length);
+              
+              if (i == length) {
+                //console.log(ideaFiles);
+                $images.data('src', {ideaFiles});
+                console.log($images.data('src'));
+                $images.show();
+              }
+            };
+            
+        $images.children().detach();
+        
+        if (this.files) {
+          var files = this.files,
+              filesLength = files.length;
+
+          $.each(files, function(i, file) {
+            //var $imgThumb = $img.clone();
+            var $InputHiddenImageForm = $InputHiddenImage.clone();
+
+            var FR = new FileReader();
+            FR.onload = function(e) {
+              /*$imgThumb
+                .attr({'src': e.target.result, 'height': '75px'})
+                .appendTo($images);*/
+              
+              if (i > 0) $InputHiddenImageForm.attr({'value': e.target.result, 'name': 'image-' + (i+1)});
+              else $InputHiddenImageForm.attr({'value': e.target.result, 'name': 'image'});
+              $InputHiddenImageForm.appendTo($images);
+                
+              ideaFiles.push(e.target.result);
+              getIdeaFiles(i+1, filesLength);
+            };       
+            FR.readAsDataURL(file);
+          });
+        }
+      });
 
     //});
   }
