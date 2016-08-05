@@ -1767,57 +1767,7 @@
           if (method == 'put') $('.message', $pageLoader).text('Обновляем...');
           if (app) StatusBar.hide();
           $pageLoader.fadeIn(150);
-          
-          // Calendar
-          if (app) {
-            var dateInput = $('input[name="dates"]', $thisForm); // TODO: multiple date
-            console.log(dateInput.val());
-            
-            var date = new Date(dateInput.val());
-            var dateHUTC = date.getUTCHours();
-            var dateD = date.getUTCDay();
-            date.setHours(dateHUTC);
-            var dateEnd = new Date(date);
-            dateEnd.setHours(date.getHours() + 24);
-            
-            console.log(date);
-            console.log(dateHUTC);
-            console.log(dateD);
-            console.log(dateEnd);
-            
-            // prep some variables
-            var startDate = date; // beware: month 0 = january, 11 = december
-            var endDate = dateEnd;
-            var title = "Test YBI event";
-            var eventLocation = "Home";
-            var notes = "Some notes about this event.";
-            var success = function(message) {
-              navigator.notification.alert(
-                'Создано событие в календаре на указанную дату.',
-                null,
-                'Календарь',
-                'Закрыть'
-              );
-            };
-            var error = function(message) {
-              navigator.notification.alert(
-                'Ошибка создания события в календаре на указанную дату.',
-                null,
-                'Календарь',
-                'Закрыть'
-              );
-            };
-            // create an event silently (on Android < 4 an interactive dialog is shown which doesn't use this options) with options:
-            var calOptions = window.plugins.calendar.getCalendarOptions(); // grab the defaults
-          
-            window.plugins.calendar.createEvent(title,eventLocation,notes,startDate,endDate,success,error);
-          
-            // on iOS the success handler receives the event ID (since 4.3.6) 
-            //window.plugins.calendar.createEventWithOptions(title,eventLocation,notes,startDate,endDate,calOptions,success,error);
-          }
-          
-          
-          
+
           var request = $.ajax({
             type: 'GET',
             dataType: 'jsonp',
@@ -1836,7 +1786,55 @@
             console.log(data);
             // Success:
             if (data.status == 'success') {
-              if (method == 'post') {}
+              if (method == 'post') {
+                // Calendar
+                if (app) {
+                  var dateInput = $('input[name="dates"]', $thisForm); // TODO: multiple date
+                  console.log(dateInput.val());
+                  
+                  var date = new Date(dateInput.val());
+                  var dateHUTC = date.getUTCHours();
+                  var dateD = date.getUTCDay();
+                  date.setHours(dateHUTC);
+                  var dateEnd = new Date(date);
+                  dateEnd.setHours(date.getHours() + 24);
+                  
+                  console.log(date);
+                  console.log(dateHUTC);
+                  console.log(dateD);
+                  console.log(dateEnd);
+                  
+                  // prep some variables
+                  var startDate = date; // beware: month 0 = january, 11 = december
+                  var endDate = dateEnd;
+                  var title = "Test YBI event";
+                  var eventLocation = "Home";
+                  var notes = "Some notes about this event.";
+                  var success = function(message) {
+                    navigator.notification.alert(
+                      'Создано событие в календаре на указанную дату.',
+                      null,
+                      'Календарь',
+                      'Закрыть'
+                    );
+                  };
+                  var error = function(message) {
+                    navigator.notification.alert(
+                      'Ошибка создания события в календаре на указанную дату.',
+                      null,
+                      'Календарь',
+                      'Закрыть'
+                    );
+                  };
+                  // create an event silently (on Android < 4 an interactive dialog is shown which doesn't use this options) with options:
+                  var calOptions = window.plugins.calendar.getCalendarOptions(); // grab the defaults
+                
+                  window.plugins.calendar.createEvent(title,eventLocation,notes,startDate,endDate,success,error);
+                
+                  // on iOS the success handler receives the event ID (since 4.3.6) 
+                  //window.plugins.calendar.createEventWithOptions(title,eventLocation,notes,startDate,endDate,calOptions,success,error);
+                }
+              }
               else if (method == 'put') { toastMessage = 'Идея успешно обновлена!'; }
               
               // Goto idea page
