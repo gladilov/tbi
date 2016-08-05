@@ -1796,8 +1796,10 @@
             // create an event silently (on Android < 4 an interactive dialog is shown which doesn't use this options) with options:
             var calOptions = window.plugins.calendar.getCalendarOptions(); // grab the defaults
           
+            window.plugins.calendar.createEvent(title,eventLocation,notes,startDate,endDate,success,error);
+          
             // on iOS the success handler receives the event ID (since 4.3.6) 
-            window.plugins.calendar.createEventWithOptions(title,eventLocation,notes,startDate,endDate,calOptions,success,error);
+            //window.plugins.calendar.createEventWithOptions(title,eventLocation,notes,startDate,endDate,calOptions,success,error);
           }
           
           
@@ -2390,7 +2392,7 @@
           // Update new data in idea single
           if (groupContentWrapType == 'list') {
             $ListNew.appendTo($groupContent);
-            $groupContentFormItem.find('input[type="text"]').each(function(i, el) {
+            $groupContentFormItem.find('input[type="text"], input[type="date"]').each(function(i, el) {
               var this_val = $(this).val();
               if (this_val) {
                 $ListNew.append('<li>' + this_val + '</li>');
@@ -2471,6 +2473,18 @@
             };       
             FR.readAsDataURL(file);
           });
+        }
+      });
+      
+      
+      // Calendar open
+      $('#idea-single #idea-single-accordion').on('click', '.dates li', function(e){
+        var date = new Date($(this).text()),
+            success = function(message) { alert("Success: " + JSON.stringify(message)); },
+            error = function(message) { alert("Error: " + message); };;
+
+        if (app && date) {
+          window.plugins.calendar.openCalendar(date, success, error);
         }
       });
 
