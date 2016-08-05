@@ -8,7 +8,7 @@
       userAuthorized = false,
       lock = null,
       app = document.URL.indexOf( 'http://' ) === -1 && document.URL.indexOf( 'https://' ) === -1,
-      appVersion = '0.8.4';
+      appVersion = '0.8.5';
 
   // Namespace storage
   var ybi = $.initNamespaceStorage('ybi');
@@ -265,6 +265,14 @@
             });
             $teamItemsContainer.listview('refresh');
             
+            // Dates group
+            $datesItemsContainer = $ideaSingleContainer.find(' > .dates ol');
+            $datesItemsContainer.empty();
+            $.each(item.dates, function(index, val){
+              $datesItemsContainer.append('<li>' + val + '</li>');
+            });
+            $datesItemsContainer.listview('refresh');
+            
             // Necessary resources group
             $necessaryResourcesItemsContainer = $ideaSingleContainer.find(' > .necessary-resources ol');
             $necessaryResourcesItemsContainer.empty();
@@ -488,7 +496,8 @@
             $thisForm = $('#ideastep1-form', $page);
 
         // Reset form
-        $('.sliders-items .ui-slider-input', $thisForm).val('0').slider('refresh');
+        $('.sliders-items .ui-slider-input', $thisForm).val('5').slider('refresh');
+        $('.sliders-items .item-client-interest .ui-slider-input', $thisForm).val('50').slider('refresh');
         $('input[name="gpa"]', $thisForm).val('0');
         
         var request = $.ajax({
@@ -534,7 +543,7 @@
             $thisForm = $('#ideastep2-form', $page);
             
         // Reset form
-        $('.sliders-items .ui-slider-input', $thisForm).val('0').slider('refresh');
+        $('.sliders-items .ui-slider-input', $thisForm).val('5').slider('refresh');
         $('input[name="gpa"]', $thisForm).val('0');
         
         var request = $.ajax({
@@ -683,7 +692,7 @@
             $thisForm = $('#ideastep5-form', $page);
 
         // Reset form
-        $('.sliders-items .ui-slider-input', $thisForm).val('0').slider('refresh');
+        $('.sliders-items .ui-slider-input', $thisForm).val('5').slider('refresh');
         $('input[name="gpa"]', $thisForm).val('0');
         
         var request = $.ajax({
@@ -875,6 +884,22 @@
             else {
               $teamAddItem.trigger('click');
               $('#idea-team-' + (i + 1), $ideaAddForm).val(val);
+            }
+          });
+        }
+      }
+      
+      if (ideaData.dates && $.isArray(ideaData.dates)) {
+        if (ideaData.dates.length == 1) {
+          $('#idea-dates', $ideaAddForm).val(ideaData.dates[0]);
+        }
+        else {
+          var $datesAddItem = $('.form-item-idea-dates .form-item-add', $ideaAddForm);
+          $.each(ideaData.dates, function(i, val) {
+            if (i == 0) { $('#idea-dates', $ideaAddForm).val(val); }
+            else {
+              $datesAddItem.trigger('click');
+              $('#idea-dates-' + (i + 1), $ideaAddForm).val(val);
             }
           });
         }
@@ -1677,6 +1702,7 @@
       
       
       // Idea filter form
+      // TODO: for sort - http://tinysort.sjeiti.com/
       $('#idea-filter-sort-form').on('change', 'input', function(e){
         var $thisForm = $(this).parents('form'),
             $inputChange = $(this),
@@ -1742,6 +1768,40 @@
           if (app) StatusBar.hide();
           $pageLoader.fadeIn(150);
           
+          // Calendar
+          if (app) {
+            var dateInput = $('input[name="dates"]', $thisForm);
+            console.log(dateInput.val());
+            
+            var date = new Date(dateInput.val());
+            var dateHUTC = date.getUTCHours();
+            var dateD = date.getUTCDay();
+            date.setHours(dateHUTC);
+            var dateEnd = new Date(date);
+            dateEnd.setHours(date.getHours() + 24);
+            
+            console.log(date);
+            console.log(dateHUTC);
+            console.log(dateD);
+            console.log(dateEnd);
+            
+            // prep some variables
+            var startDate = date; // beware: month 0 = january, 11 = december
+            var endDate = dateEnd;
+            var title = "Test YBI event";
+            var eventLocation = "Home";
+            var notes = "Some notes about this event.";
+            var success = function(message) { alert("Success: " + JSON.stringify(message)); };
+            var error = function(message) { alert("Error: " + message); };
+            // create an event silently (on Android < 4 an interactive dialog is shown which doesn't use this options) with options:
+            var calOptions = window.plugins.calendar.getCalendarOptions(); // grab the defaults
+          
+            // on iOS the success handler receives the event ID (since 4.3.6) 
+            window.plugins.calendar.createEventWithOptions(title,eventLocation,notes,startDate,endDate,calOptions,success,error);
+          }
+          
+          
+          
           var request = $.ajax({
             type: 'GET',
             dataType: 'jsonp',
@@ -1749,7 +1809,7 @@
             contentType: "application/json; charset=utf-8",
             url: 'http://y-b-i.com/api/idea.php',
             data: {"method": method, "data": $(this).serialize()},
-            timeout: 8000,
+            timeout: 18000,
             cache: false,
             async: true,
           });

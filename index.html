@@ -102,7 +102,13 @@
                                     <input type="text" id="idea-keyvalue" class="multiple required-" name="keyvalue" placeholder="Ценность" data-clear-btn="true" />
                                 </div>
                             </div>
-                            <div class="form-item form-item-multiple form-item-idea-sales-channel" data-form-group="sales-channel" data-form-group-prev="values">
+                            <div class="form-item form-item-multiple form-item-idea-product" data-form-group="product" data-form-group-prev="values">
+                                <div id="_box_topic" for="idea-product">Продукт<span><a href="#" class="form-item-add"></a></span></div>
+                                <div data-role="controlgroup" class="controlgroup _box_input">
+                                    <input type="text" id="idea-product" class="multiple required-" name="product" placeholder="Продукт" data-clear-btn="true" />
+                                </div>
+                            </div>
+                            <div class="form-item form-item-multiple form-item-idea-sales-channel" data-form-group="sales-channel" data-form-group-prev="product">
                                 <div id="_box_topic" for="idea-sales-channel">Каналы сбыта<span><a href="#" class="form-item-add"></a></span></div>
                                 <div data-role="controlgroup" class="controlgroup _box_input">
                                     <input type="text" id="idea-sales-channel" class="multiple required-" name="sales_channel" placeholder="Каналы сбыта" data-clear-btn="true" />
@@ -131,13 +137,7 @@
                                     <option value="Высокие технологии">Высокие технологии</option>
                                 </select>
                             </div>
-                            <div class="form-item form-item-multiple form-item-idea-product" data-form-group="product" data-form-group-prev="category">
-                                <div id="_box_topic" for="idea-product">Продукт<span><a href="#" class="form-item-add"></a></span></div>
-                                <div data-role="controlgroup" class="controlgroup _box_input">
-                                    <input type="text" id="idea-product" class="multiple required-" name="product" placeholder="Продукт" data-clear-btn="true" />
-                                </div>
-                            </div>
-                            <div class="form-item form-item-multiple form-item-idea-necessary-resources" data-form-group="necessary-resources" data-form-group-prev="product">
+                            <div class="form-item form-item-multiple form-item-idea-necessary-resources" data-form-group="necessary-resources" data-form-group-prev="category">
                                 <div id="_box_topic" for="idea-necessary-resources">Необходимые ресурсы<span><a href="#" class="form-item-add"></a></span></div>
                                 <div data-role="controlgroup" class="controlgroup _box_input">
                                     <input type="text" id="idea-necessary-resources" class="multiple required-" name="necessary_resources" placeholder="Необходимые ресурсы" data-clear-btn="true" />
@@ -213,14 +213,15 @@
                                 <a href="#idea-step-1" class="idea-step-edit ui-btn ui-btn-ybi ui-corner-all ui-shadow ui-btn-icon-notext ui-btn-icon-right ui-icon-ybi-forward" data-iid="">Go on</a>
                             </div>
                         </div>
-                        <div class="content-group-wrap team" data-role="collapsible" data-content-theme="false" data-content-group-type="list"><h3>Команда<a href="#" class="group-edit-link" data-form-group="team"></a></h3><ol data-role="listview"></ol></div>
                         <div class="content-group-wrap desc" data-role="collapsible" data-content-theme="false" data-content-group-type="text"><h3>Описание<a href="#" class="group-edit-link" data-form-group="description"></a></h3><p></p></div>
-                        <div class="content-group-wrap product" data-role="collapsible" data-content-theme="false" data-content-group-type="list"><h3>Продукт<a href="#" class="group-edit-link" data-form-group="product"></a></h3><ol data-role="listview"></ol></div>
                         <div class="content-group-wrap audience" data-role="collapsible" data-content-theme="false" data-content-group-type="list"><h3>Целевая аудитория<a href="#" class="group-edit-link" data-form-group="audience"></a></h3><ol data-role="listview"></ol></div>
                         <div class="content-group-wrap values" data-role="collapsible" data-content-theme="false" data-content-group-type="list"><h3>Ценности идеи<a href="#" class="group-edit-link" data-form-group="values"></a></h3><ol data-role="listview"></ol></div>
+                        <div class="content-group-wrap product" data-role="collapsible" data-content-theme="false" data-content-group-type="list"><h3>Продукт<a href="#" class="group-edit-link" data-form-group="product"></a></h3><ol data-role="listview"></ol></div>
                         <div class="content-group-wrap sales-channel" data-role="collapsible" data-content-theme="false" data-content-group-type="list"><h3>Каналы сбыта<a href="#" class="group-edit-link" data-form-group="sales-channel"></a></h3><ol data-role="listview"></ol></div>
-                        <div class="content-group-wrap competitive-advantages" data-role="collapsible" data-content-theme="false" data-content-group-type="list"><h3>Конкурентные преимущества<a href="#" class="group-edit-link" data-form-group="competitive-advantages"></a></h3><ol data-role="listview"></ol></div>
+                        <div class="content-group-wrap team" data-role="collapsible" data-content-theme="false" data-content-group-type="list"><h3>Команда<a href="#" class="group-edit-link" data-form-group="team"></a></h3><ol data-role="listview"></ol></div>
+                        <div class="content-group-wrap dates" data-role="collapsible" data-content-theme="false" data-content-group-type="list"><h3>Ближайшие шаги<a href="#" class="group-edit-link" data-form-group="dates"></a></h3><ol data-role="listview"></ol></div>
                         <div class="content-group-wrap necessary-resources" data-role="collapsible" data-content-theme="false" data-content-group-type="list"><h3>Необходимые ресурсы<a href="#" class="group-edit-link" data-form-group="necessary-resources"></a></h3><ol data-role="listview"></ol></div>
+                        <div class="content-group-wrap competitive-advantages" data-role="collapsible" data-content-theme="false" data-content-group-type="list"><h3>Конкурентные преимущества<a href="#" class="group-edit-link" data-form-group="competitive-advantages"></a></h3><ol data-role="listview"></ol></div>
                         <div class="content-group-wrap helpful-people" data-role="collapsible" data-content-theme="false" data-content-group-type="list"><h3>Полезные люди<a href="#" class="group-edit-link" data-form-group="helpful-people"></a></h3><ol data-role="listview"></ol></div>
                         <div class="content-group-wrap key-hypotheses" data-role="collapsible" data-content-theme="false" data-content-group-type="list"><h3>Ключевые гипотезы<a href="#" class="group-edit-link" data-form-group="key-hypotheses"></a></h3><ol data-role="listview"></ol></div>
                     </div>
@@ -259,7 +260,7 @@
                                 <div id="_progress">
                                     <p class="_progress_tit">Текущий объём рынка для реализации моей бизнес-идеи (0 – крайне небольшой локальный рынок, 5 - средний национальный рынок, 10 - большой глобальный рынок)</p>
                                     <label for="market-volume" class="ui-hidden-accessible">Объём рынка:</label>
-                                    <input type="range" name="market_volume" id="market-volume" min="0" max="10" step="1" value="0">
+                                    <input type="range" name="market_volume" id="market-volume" min="0" max="10" step="1" value="5">
                                     <div id="_progress_bar_mark"><div id="_pbi" class="_0"><span></span></div><div id="_pbi" class="_1"><span></span></div><div id="_pbi" class="_2"><span></span></div><div id="_pbi" class="_3"><span></span></div><div id="_pbi" class="_4"><span></span></div><div id="_pbi" class="_5" ><span></span></div><div id="_pbi" class="_6"><span></span></div><div id="_pbi" class="_7"><span></span></div><div id="_pbi" class="_8"><span></span></div><div id="_pbi" class="_9"><span></span></div><div id="_pbi" class="_10"><span></span></div></div>
                                 </div>
                             </div>
@@ -267,7 +268,7 @@
                                 <div id="_progress">
                                     <p class="_progress_tit">Рынок для реализации моей бизнес-идеи является (0 – падающим, 5 - стабильным, 10 - быстрорастущим)</p>
                                     <label for="market-type" class="ui-hidden-accessible">Тип рынка:</label>
-                                    <input type="range" name="market_type" id="market-type" min="0" max="10" step="1" value="0">
+                                    <input type="range" name="market_type" id="market-type" min="0" max="10" step="1" value="5">
                                     <div id="_progress_bar_mark"><div id="_pbi" class="_0"><span></span></div><div id="_pbi" class="_1"><span></span></div><div id="_pbi" class="_2"><span></span></div><div id="_pbi" class="_3"><span></span></div><div id="_pbi" class="_4"><span></span></div><div id="_pbi" class="_5" ><span></span></div><div id="_pbi" class="_6"><span></span></div><div id="_pbi" class="_7"><span></span></div><div id="_pbi" class="_8"><span></span></div><div id="_pbi" class="_9"><span></span></div><div id="_pbi" class="_10"><span></span></div></div>
                                 </div>
                             </div>
@@ -275,7 +276,7 @@
                                 <div id="_progress">
                                     <p class="_progress_tit">Какой процент из тех потенциальных клиентов, с которыми я пообщался, высказали свою заинтересованность в продукте?</p>
                                     <label for="client-interest" class="ui-hidden-accessible">Заинтересованность клиентов:</label>
-                                    <input type="range" name="client_interest" id="client-interest" min="0" max="100" step="10" value="0">
+                                    <input type="range" name="client_interest" id="client-interest" min="0" max="100" step="10" value="50">
                                     <div id="_progress_bar_mark"><div id="_pbi" class="_0"><span></span></div><div id="_pbi" class="_1"><span></span></div><div id="_pbi" class="_2"><span></span></div><div id="_pbi" class="_3"><span></span></div><div id="_pbi" class="_4"><span></span></div><div id="_pbi" class="_5" ><span></span></div><div id="_pbi" class="_6"><span></span></div><div id="_pbi" class="_7"><span></span></div><div id="_pbi" class="_8"><span></span></div><div id="_pbi" class="_9"><span></span></div><div id="_pbi" class="_10"><span></span></div></div>
                                 </div>
                             </div>
@@ -322,7 +323,7 @@
                                 <div id="_progress">
                                     <p class="_progress_tit">Оцени, насколько реализация данного проекта совпадает с твоими жизненными целями, органичениями и потребностями</p>
                                     <label for="author-conformity" class="ui-hidden-accessible">Оценка соответствия:</label>
-                                    <input type="range" name="author_conformity" id="author-conformity" min="0" max="10" step="1" value="0">
+                                    <input type="range" name="author_conformity" id="author-conformity" min="0" max="10" step="1" value="5">
                                     <div id="_progress_bar_mark"><div id="_pbi" class="_0"><span></span></div><div id="_pbi" class="_1"><span></span></div><div id="_pbi" class="_2"><span></span></div><div id="_pbi" class="_3"><span></span></div><div id="_pbi" class="_4"><span></span></div><div id="_pbi" class="_5" ><span></span></div><div id="_pbi" class="_6"><span></span></div><div id="_pbi" class="_7"><span></span></div><div id="_pbi" class="_8"><span></span></div><div id="_pbi" class="_9"><span></span></div><div id="_pbi" class="_10"><span></span></div></div>
                                 </div>
                             </div>
@@ -330,7 +331,7 @@
                                 <div id="_progress">
                                     <p class="_progress_tit">Оцени свой уровень интересна к сфере данной идеи</p>
                                     <label for="author-interest" class="ui-hidden-accessible">Оценка интереса:</label>
-                                    <input type="range" name="author_interest" id="author-interest" min="0" max="10" step="1" value="0">
+                                    <input type="range" name="author_interest" id="author-interest" min="0" max="10" step="1" value="5">
                                     <div id="_progress_bar_mark"><div id="_pbi" class="_0"><span></span></div><div id="_pbi" class="_1"><span></span></div><div id="_pbi" class="_2"><span></span></div><div id="_pbi" class="_3"><span></span></div><div id="_pbi" class="_4"><span></span></div><div id="_pbi" class="_5" ><span></span></div><div id="_pbi" class="_6"><span></span></div><div id="_pbi" class="_7"><span></span></div><div id="_pbi" class="_8"><span></span></div><div id="_pbi" class="_9"><span></span></div><div id="_pbi" class="_10"><span></span></div></div>
                                 </div>
                             </div>
@@ -338,7 +339,7 @@
                                 <div id="_progress">
                                     <p class="_progress_tit">Оцени, насколько ты хочешь стать №1 в сфере реализации данной идеи</p>
                                     <label for="author-leadership" class="ui-hidden-accessible">Оценка лидерства:</label>
-                                    <input type="range" name="author_leadership" id="author-leadership" min="0" max="10" step="1" value="0">
+                                    <input type="range" name="author_leadership" id="author-leadership" min="0" max="10" step="1" value="5">
                                     <div id="_progress_bar_mark"><div id="_pbi" class="_0"><span></span></div><div id="_pbi" class="_1"><span></span></div><div id="_pbi" class="_2"><span></span></div><div id="_pbi" class="_3"><span></span></div><div id="_pbi" class="_4"><span></span></div><div id="_pbi" class="_5" ><span></span></div><div id="_pbi" class="_6"><span></span></div><div id="_pbi" class="_7"><span></span></div><div id="_pbi" class="_8"><span></span></div><div id="_pbi" class="_9"><span></span></div><div id="_pbi" class="_10"><span></span></div></div>
                                 </div>
                             </div>
@@ -495,7 +496,7 @@
                             <div id="_progress">
                                 <p class="_progress_tit">Оцени насколько у тебя/твоей команды есть необходимые компетенции для реализации данной идеи</p>
                                 <label for="rating-competences" class="ui-hidden-accessible">Оценка интереса:</label>
-                                <input type="range" name="rating_competences" id="rating-competences" min="0" max="10" step="1" value="0">
+                                <input type="range" name="rating_competences" id="rating-competences" min="0" max="10" step="1" value="5">
                                 <div id="_progress_bar_mark"><div id="_pbi" class="_0"><span></span></div><div id="_pbi" class="_1"><span></span></div><div id="_pbi" class="_2"><span></span></div><div id="_pbi" class="_3"><span></span></div><div id="_pbi" class="_4"><span></span></div><div id="_pbi" class="_5" ><span></span></div><div id="_pbi" class="_6"><span></span></div><div id="_pbi" class="_7"><span></span></div><div id="_pbi" class="_8"><span></span></div><div id="_pbi" class="_9"><span></span></div><div id="_pbi" class="_10"><span></span></div></div>
                             </div>
                         </div>
@@ -503,7 +504,7 @@
                             <div id="_progress">
                                 <p class="_progress_tit">Оцени, есть ли у тебя достаточные ресурсы для реализации проекта, либо возможности по их привлечению</p>
                                 <label for="rating-resources" class="ui-hidden-accessible">Оценка интереса:</label>
-                                <input type="range" name="rating_resources" id="rating-resources" min="0" max="10" step="1" value="0">
+                                <input type="range" name="rating_resources" id="rating-resources" min="0" max="10" step="1" value="5">
                                 <div id="_progress_bar_mark"><div id="_pbi" class="_0"><span></span></div><div id="_pbi" class="_1"><span></span></div><div id="_pbi" class="_2"><span></span></div><div id="_pbi" class="_3"><span></span></div><div id="_pbi" class="_4"><span></span></div><div id="_pbi" class="_5" ><span></span></div><div id="_pbi" class="_6"><span></span></div><div id="_pbi" class="_7"><span></span></div><div id="_pbi" class="_8"><span></span></div><div id="_pbi" class="_9"><span></span></div><div id="_pbi" class="_10"><span></span></div></div>
                             </div>
                         </div>
@@ -511,7 +512,7 @@
                             <div id="_progress">
                                 <p class="_progress_tit">Оцени, насколько хорошо ты знаком с данным типом бизнеса</p>
                                 <label for="rating-business" class="ui-hidden-accessible">Оценка интереса:</label>
-                                <input type="range" name="rating_business" id="rating-business" min="0" max="10" step="1" value="0">
+                                <input type="range" name="rating_business" id="rating-business" min="0" max="10" step="1" value="5">
                                 <div id="_progress_bar_mark"><div id="_pbi" class="_0"><span></span></div><div id="_pbi" class="_1"><span></span></div><div id="_pbi" class="_2"><span></span></div><div id="_pbi" class="_3"><span></span></div><div id="_pbi" class="_4"><span></span></div><div id="_pbi" class="_5" ><span></span></div><div id="_pbi" class="_6"><span></span></div><div id="_pbi" class="_7"><span></span></div><div id="_pbi" class="_8"><span></span></div><div id="_pbi" class="_9"><span></span></div><div id="_pbi" class="_10"><span></span></div></div>
                             </div>
                         </div>
@@ -519,7 +520,7 @@
                             <div id="_progress">
                                 <p class="_progress_tit">Оцени, насколько негативным для тебя окажется провал в реализации данной идеи?</p>
                                 <label for="rating-failure" class="ui-hidden-accessible">Оценка интереса:</label>
-                                <input type="range" name="rating_failure" id="rating-failure" min="0" max="10" step="1" value="0">
+                                <input type="range" name="rating_failure" id="rating-failure" min="0" max="10" step="1" value="5">
                                 <div id="_progress_bar_mark"><div id="_pbi" class="_0"><span></span></div><div id="_pbi" class="_1"><span></span></div><div id="_pbi" class="_2"><span></span></div><div id="_pbi" class="_3"><span></span></div><div id="_pbi" class="_4"><span></span></div><div id="_pbi" class="_5" ><span></span></div><div id="_pbi" class="_6"><span></span></div><div id="_pbi" class="_7"><span></span></div><div id="_pbi" class="_8"><span></span></div><div id="_pbi" class="_9"><span></span></div><div id="_pbi" class="_10"><span></span></div></div>
                             </div>
                         </div>
