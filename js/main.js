@@ -1770,7 +1770,7 @@
           
           // Calendar
           if (app) {
-            var dateInput = $('input[name="dates"]', $thisForm);
+            var dateInput = $('input[name="dates"]', $thisForm); // TODO: multiple date
             console.log(dateInput.val());
             
             var date = new Date(dateInput.val());
@@ -1791,8 +1791,22 @@
             var title = "Test YBI event";
             var eventLocation = "Home";
             var notes = "Some notes about this event.";
-            var success = function(message) { alert("Success: " + JSON.stringify(message)); };
-            var error = function(message) { alert("Error: " + message); };
+            var success = function(message) {
+              navigator.notification.alert(
+                'Создано событие в календаре на указанную дату.',
+                null,
+                'Календарь',
+                'Закрыть'
+              );
+            };
+            var error = function(message) {
+              navigator.notification.alert(
+                'Ошибка создания события в календаре на указанную дату.',
+                null,
+                'Календарь',
+                'Закрыть'
+              );
+            };
             // create an event silently (on Android < 4 an interactive dialog is shown which doesn't use this options) with options:
             var calOptions = window.plugins.calendar.getCalendarOptions(); // grab the defaults
           
@@ -2480,8 +2494,8 @@
       // Calendar open
       $('#idea-single #idea-single-accordion').on('click', '.dates li', function(e){
         var date = new Date($(this).text()),
-            success = function(message) { alert("Success: " + JSON.stringify(message)); },
-            error = function(message) { alert("Error: " + message); };;
+            success = function(message) { /*alert("Success: " + JSON.stringify(message));*/ },
+            error = function(message) { /*alert("Error: " + message);*/ };
 
         if (app && date) {
           window.plugins.calendar.openCalendar(date, success, error);
