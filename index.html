@@ -170,6 +170,7 @@
                             
                             <input type="hidden" name="uid" value="" />
                             <input type="hidden" name="iid" value="" />
+                            <input type="hidden" name="form_complete" value="0" />
                             <button type="submit" class="_box_submit" style="width: 90%;padding:0;outline:none;margin-bottom: 2.4vh;">Сохранить</button>
                         </form>
                     </div>
@@ -201,11 +202,16 @@
                         <div class="steps" data-role="collapsible" data-content-theme="false">
                             <h3>Оценка идеи<span class="ui-li-count">0</span></h3>
                             <ul class="progress">
-                                <li><a href="#idea-step-1" class="idea-step-edit" data-iid="">1</a></li>
+                                <!--<li><a href="#idea-step-1" class="idea-step-edit" data-iid="">1</a></li>
                                 <li><a href="#idea-step-2" class="idea-step-edit" data-iid="">2</a></li>
                                 <li><a href="#idea-step-3" class="idea-step-edit" data-iid="">3</a></li>
                                 <li><a href="#idea-step-4" class="idea-step-edit" data-iid="">4</a></li>
-                                <li><a href="#idea-step-5" class="idea-step-edit" data-iid="">5</a></li>
+                                <li><a href="#idea-step-5" class="idea-step-edit" data-iid="">5</a></li>-->
+                                <li>1</li>
+                                <li>2</li>
+                                <li>3</li>
+                                <li>4</li>
+                                <li>5</li>
                             </ul>
                             <div class="progress-info">
                                 <p class="step-cirrent">Ceйчас — Шаг <span class="step-current">1</span>:</p>
@@ -224,10 +230,11 @@
                         <div class="content-group-wrap competitive-advantages" data-role="collapsible" data-content-theme="false" data-content-group-type="list"><h3>Конкурентные преимущества<a href="#" class="group-edit-link" data-form-group="competitive-advantages"></a></h3><ol data-role="listview"></ol></div>
                         <div class="content-group-wrap helpful-people" data-role="collapsible" data-content-theme="false" data-content-group-type="list"><h3>Полезные люди<a href="#" class="group-edit-link" data-form-group="helpful-people"></a></h3><ol data-role="listview"></ol></div>
                         <div class="content-group-wrap key-hypotheses" data-role="collapsible" data-content-theme="false" data-content-group-type="list"><h3>Ключевые гипотезы<a href="#" class="group-edit-link" data-form-group="key-hypotheses"></a></h3><ol data-role="listview"></ol></div>
+                        <div class="content-group-wrap files" data-role="collapsible" data-content-theme="false" data-content-group-type="list"><h3>Медиа<a href="#" class="group-edit-link ui-screen-hidden" data-form-group="files"></a></h3><ol data-role="listview"></ol></div>
                     </div>
                     <div class="links" data-role="controlgroup" data-type="horizontal">
-                        <a href="#" class="interview-link">Интервью</a>
-                        <a href="#" class="media-link">Медиа</a>
+                        <a href="#" class="interview-link ui-screen-hidden">Интервью</a>
+                        <a href="#" class="media-link ui-screen-hidden">Медиа</a>
                         <a href="#" class="idea-share ui-btn ui-btn-ybi ui-corner-all ui-shadow ui-btn-icon-notext ui-btn-icon-right ui-icon-ybi-share">Share</a>
                     </div>
                 </div><!-- /content -->

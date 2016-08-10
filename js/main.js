@@ -8,7 +8,7 @@
       userAuthorized = false,
       lock = null,
       app = document.URL.indexOf( 'http://' ) === -1 && document.URL.indexOf( 'https://' ) === -1,
-      appVersion = '0.8.5';
+      appVersion = '0.8.6';
 
   // Namespace storage
   var ybi = $.initNamespaceStorage('ybi');
@@ -175,6 +175,10 @@
             var item = data.item;
             $page.data('ideaData', item);
             
+            // Hide idea steps if form not complete
+            if (item.form_complete != '1') { $groupContainer.filter('.steps').addClass('ui-screen-hidden'); }
+            else { $groupContainer.filter('.steps').removeClass('ui-screen-hidden'); }
+            
             // Single value fields:
             // Title
             $pageTitle.html(item.title);
@@ -307,6 +311,36 @@
             //$ideaAddFormControlGroup.controlgroup('container');
             //$ideaAddFormControlGroup.enhanceWithin().controlgroup("refresh");
             ideaAddPageUpdate();
+            
+            
+            // Idea files
+            var requestFiles = $.ajax({
+              type: 'GET',
+              dataType: 'jsonp',
+              jsonpCallback: 'fileByIdea',
+              contentType: "application/json; charset=utf-8",
+              url: 'http://y-b-i.com/api/file.php',
+              data: {'method': 'get', 'data': {'iid': iid}},
+              timeout: 8000,
+              cache: false,
+              async: true,
+            });
+            
+            requestFiles.done(function(data, textStatus, jqXHR) {
+              console.log(data);
+              
+              if (data.status == 'success') {
+                var filePath = 'http://dev.y-b-i.com/files/';
+                // Files group
+                $filesItemsContainer = $ideaSingleContainer.find(' > .files ol');
+                $filesItemsContainer.empty();
+                $.each(data.files, function(index, file){
+                  $filesItemsContainer.append('<li><a href="' + filePath + file.name + '" class="ui-link-inherit" data-ajax="false" rel="external">' + file.name + '</li>');
+                });
+                $filesItemsContainer.listview('refresh');
+              }
+            });
+            
           }
         });
       }
@@ -1748,6 +1782,8 @@
       $('#ideaadd-form').submit(function(e){
         e.preventDefault();
         var $thisForm = $(this),
+            fileInput = $('#idea-files', $thisForm)[0],
+            formComplete = 0,
             method = 'post',
             iid = $('input[name="iid"]', $thisForm).val(),
             toastMessage = 'Идея успешно добавлена!';
@@ -1755,12 +1791,18 @@
         if (iid) method = 'put';
         console.log(method);
         console.log(uid);
-        console.log($(this).serialize());
         
-        //var formData = new FormData($(this)[0]);
-        //console.log(formData);
+        // Form complete status
+        $('input[type="text"], textarea', $thisForm).each(function(i, e) {
+          if ($(this).val() == '') {
+            formComplete = 0;
+            return false;
+          }
+          formComplete = 1;
+        });
         
-        
+        $('input[name="form_complete"]', $thisForm).val(formComplete);
+
         if ($("#ideaadd-form:has(input.required.error)").length == 0) {
           // Show splash
           $('.message', $pageLoader).text('Добавляем...');
@@ -1775,7 +1817,7 @@
             contentType: "application/json; charset=utf-8",
             url: 'http://y-b-i.com/api/idea.php',
             data: {"method": method, "data": $(this).serialize()},
-            timeout: 18000,
+            timeout: 8000,
             cache: false,
             async: true,
           });
@@ -1786,6 +1828,31 @@
             console.log(data);
             // Success:
             if (data.status == 'success') {
+              
+              // Files upload
+              var formData = new FormData(); //FormData object
+              
+              for (i = 0; i < fileInput.files.length; i++) {
+                //Appending each file to FormData object
+                formData.append(data.iid + '_' + i, fileInput.files[i]);
+              }
+
+              if (window.FormData === undefined) {
+                alert('На устройстве нет поддержки FormData для загрузки файлов.');
+              }
+              else {
+                var request = $.ajax({
+                  type: 'POST',
+                  url: 'http://y-b-i.com/api/file.php',
+                  data: formData,
+                  timeout: 8000,
+                  contentType: false,
+                  processData: false,
+                  cache: false,
+                  async: true,
+                });
+              }
+              
               if (method == 'post') {
                 // Calendar
                 if (app) {
@@ -1836,6 +1903,10 @@
                 }
               }
               else if (method == 'put') { toastMessage = 'Идея успешно обновлена!'; }
+              
+              // Hide idea steps if form not complete
+              if (data.form_complete != 1) { $('#idea-single #idea-single-accordion > .steps').addClass('ui-screen-hidden'); }
+              else { $('#idea-single #idea-single-accordion > .steps').removeClass('ui-screen-hidden'); }
               
               // Goto idea page
               $('#idea-single').data('iid', data.iid);
@@ -2443,20 +2514,19 @@
         $('#idea-add #idea-files').trigger('click');
       });
       
-      $('#idea-add').on('change', '#idea-files', function(e){
+      /*$('#idea-add').on('change', '#idea-files', function(e){
         var ideaFiles = [],
             $img = $('<img/>'),
             $images = $('#images', $('#idea-add')),
             $InputHiddenImage = $('<input/>', {'type':'hidden'}),
             getIdeaFiles = function(i, length) {
-              console.log(i);
               console.log(length);
               
               if (i == length) {
                 //console.log(ideaFiles);
                 $images.data('src', {ideaFiles});
-                console.log($images.data('src'));
-                $images.show();
+                //console.log($images.data('src'));
+                //$images.show();
               }
             };
             
@@ -2467,26 +2537,23 @@
               filesLength = files.length;
 
           $.each(files, function(i, file) {
-            //var $imgThumb = $img.clone();
             var $InputHiddenImageForm = $InputHiddenImage.clone();
 
             var FR = new FileReader();
             FR.onload = function(e) {
-              /*$imgThumb
-                .attr({'src': e.target.result, 'height': '75px'})
-                .appendTo($images);*/
+              //$img.clone().attr({'src': e.target.result, 'height': '75px'}).appendTo($images);
               
               if (i > 0) $InputHiddenImageForm.attr({'value': e.target.result, 'name': 'image-' + (i+1)});
               else $InputHiddenImageForm.attr({'value': e.target.result, 'name': 'image'});
-              $InputHiddenImageForm.appendTo($images);
-                
+              //$InputHiddenImageForm.appendTo($images);
+              
               ideaFiles.push(e.target.result);
               getIdeaFiles(i+1, filesLength);
             };       
             FR.readAsDataURL(file);
           });
         }
-      });
+      });*/
       
       
       // Calendar open

@@ -1655,3 +1655,14 @@ div#shareblock ul li {
   z-index: 1000;
   background-color: #E0FFD3;
 }
+
+#page-splash .message {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 10em;
+  height: 1em;
+  margin: 1.5em 0 0 -5em;
+  text-align: center;
+  color: #00FFA6;
+}
