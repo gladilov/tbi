@@ -177,6 +177,7 @@ div.idea-status-group div.ui-collapsible-content ul li.idea-item .idea-title a.i
 div.idea-status-group div.ui-collapsible-content ul li.idea-item .progress{width:100%;height:10vw;float: left;left:0;bottom:0;}
 div.idea-status-group div.ui-collapsible-content ul li.idea-item .progress li{width: 5vw;height: 100%;box-sizing: border-box;border: 1px solid #353C54;float: left;margin-left: 2vw;}
 div.idea-status-group div.ui-collapsible-content ul li.idea-item .progress li.completed{background:#92D1DA;}
+div.idea-status-group div.ui-collapsible-content ul li.idea-item .progress li.fail{background:#f66666;}
 div.idea-status-group div.ui-collapsible-content ul li.idea-item .stats{max-width:100%;float:right;margin-top: 2vh;margin-bottom: 2vh;display: none;}
 #idea-list-accordion .ui-collapsible-content ul.stats li {display: inline;margin-bottom:1.2vh;}
 #idea-list-accordion .ui-collapsible-content ul.stats li:before {content: url('../img/arrowup.png');margin-left:1em;position: relative;top:3px;right:6px;}
