@@ -66,9 +66,10 @@
   
   <plugin name="cordova-plugin-calendar" source="npm" />
   
+  <!--<plugin name="cordova-vk" source="npm" />-->
   <plugin name="cordova-plugin-facebook4" source="npm">
     <param name="APP_ID" value="1625961994381152" />
-    <param name="APP_NAME" value="ybitest_" />
+    <param name="APP_NAME" value="YBI test" />
   </plugin>
 
   <!--<feature name="Device">
