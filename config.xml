@@ -65,6 +65,7 @@
   <plugin name="cordova-plugin-x-socialsharing" source="npm" />
   
   <plugin name="cordova-plugin-calendar" source="npm" />
+  <plugin name="cordova-plugin-iosexitapp" source="npm" />
   
   <!--<plugin name="cordova-vk" source="npm" />-->
   <plugin name="cordova-plugin-facebook4" source="npm">
