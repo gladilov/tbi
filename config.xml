@@ -124,6 +124,8 @@
   </platform>
   
   <platform name="android">
+    <preference name="android-minSdkVersion" value="15" />
+    
     <icon src="res/icon/android/ldpi.png" qualifier="ldpi" />
     <icon src="res/icon/android/mdpi.png" qualifier="mdpi" />
     <icon src="res/icon/android/hdpi.png" qualifier="hdpi" />
