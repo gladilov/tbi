@@ -8,20 +8,20 @@
       userAuthorized = false,
       lock = null,
       app = document.URL.indexOf( 'http://' ) === -1 && document.URL.indexOf( 'https://' ) === -1,
-      appVersion = '0.8.7';
+      appVersion = '0.8.8';
 
   // Namespace storage
   var ybi = $.initNamespaceStorage('ybi');
   
   //OAuth.io JavaScript SDK
-  OAuth.initialize('_OAJbDtopNIy0mZWB9UBjarHIb4');
+  //OAuth.initialize('_OAJbDtopNIy0mZWB9UBjarHIb4');
   
   // Configure the Auth0Lock
-  lock = new Auth0Lock('1WDpVSt5zWtUrsC5JTkh1NhKoYzqUut1', 'gladilov.auth0.com', {
+  /*lock = new Auth0Lock('1WDpVSt5zWtUrsC5JTkh1NhKoYzqUut1', 'gladilov.auth0.com', {
     auth: { 
       params: { scope: 'openid email' } //Details: https://auth0.com/docs/scopes
     }
-  });
+  });*/
 
   document.addEventListener('deviceready', deviceReady, false);
   if (!app) deviceReady();
@@ -1000,6 +1000,19 @@
 
   function doWhenBothFrameworksLoaded() {
     
+    $('#signin-signup #_fb').on('touchstart', function(e){
+      alert('touchstart');
+
+            facebookConnectPlugin.login(['email'], function(response){
+                alert('logged in successfully');
+                alert(JSON.stringify(response.authResponse));
+            }, function(err){
+                alert('an error occured while trying to login. please try again.');
+            });
+      
+      alert('touchend');
+    });
+    
     // OAuth
     /*$('#signin-signup #_vk').on('touchstart', function(e){
       OAuth.popup('vk')
@@ -1146,15 +1159,18 @@
     
     
     // Auth0Lock - Implement the login
-    var userProfile;
+    /*var userProfile;
     $('#signin-signup #_vk').on('touchstart', function(e){
       lock.show();
     });
     $('#signin-signup #_fb').on('touchstart', function(e){
+      alert(111);
       lock.show();
+      alert(222);
     });
     
     lock.on("authenticated", function(authResult) {
+      console.log(authResult);
       lock.getProfile(authResult.idToken, function(error, profile) {
         if (error) {
           // Handle error
@@ -1175,7 +1191,7 @@
         // Display user information
         alert(profile.nickname);
       });
-    }
+    }*/
 
     
     if (app && device && device.platform && device.platform == 'IOS') { $.mobile.hashListeningEnabled = false;/* temp */ }
