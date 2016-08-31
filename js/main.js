@@ -1002,7 +1002,7 @@
     
     $('#signin-signup #_fb').on('touchstart', function(e){
       if (app) {
-        facebookConnectPlugin.login(['email'], function(response){
+        facebookConnectPlugin.login(["email", "public_profile", "user_friends"], function(response){
             //alert('logged in successfully');
             //alert(JSON.stringify(response.authResponse));
             
