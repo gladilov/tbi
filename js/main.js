@@ -1004,9 +1004,9 @@
       if (app) {
         facebookConnectPlugin.login(["email", "public_profile", "user_friends"], function(response){
             //alert('logged in successfully');
-            //alert(JSON.stringify(response.authResponse));
+            alert(JSON.stringify(response.authResponse));
             
-            var request = $.ajax({
+            /*var request = $.ajax({
               type: 'GET',
               dataType: 'jsonp',
               jsonpCallback: 'userCreateSocial',
@@ -1088,7 +1088,7 @@
                   console.log('Ошибка регистрации (textStatus: "' + textStatus + '").');
                 }
               }
-            });
+            });*/
             
         }, function(err){
             alert('An error occured while trying to login. please try again.');
