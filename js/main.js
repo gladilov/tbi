@@ -1009,9 +1009,9 @@
 
             facebookConnectPlugin.api(fbUserId + "/?fields=id,name,email&locale=ru", ["email", "public_profile"],
               function onSuccess (result) {
-                alert("id: " + result.id);
-                alert("name: " + result.name);
-                alert("email: " + result.email);
+                //alert("id: " + result.id);
+                //alert("name: " + result.name);
+                //alert("email: " + result.email);
                 /* logs:
                   {
                     "id": "1243062202384351",
