@@ -1321,6 +1321,8 @@
       
     // Idea share
     $(document).on('click', 'a.idea-share', function(e){
+      e.preventDefault();
+      
       var $activePage = $('.ui-page-active');
       
       if ($activePage.is('#idea-single')) {
