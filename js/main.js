@@ -1400,7 +1400,7 @@
           pdf.htmlToPDF({
                 data: '<html>' +
                         '<h1>'Моя бизнес идея "' + ideaTitle + '"'</h1>' +
-                        '<div style="margin-top: 40px;"><h3 style="background: #92D1DA; color: #063E5A;">Описание</h3><p>' + ideaDesc + '</p></div>'
+                        '<div style="margin-top: 40px;"><h3 style="background: #92D1DA; color: #063E5A;">Описание</h3><p>' + ideaDesc + '</p></div>' +
                       '</html>',
                 documentSize: "A4",
                 landscape: "portrait",
