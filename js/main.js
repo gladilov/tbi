@@ -1011,7 +1011,7 @@
             //facebookConnectPlugin.api(String requestPath, Array permissions, Function success, Function failure);
             facebookConnectPlugin.api(fbUserId + "/?fields=id,name,email&locale=ru", ["email", "public_profile"],
               function onSuccess (result) {
-                alert(result);
+                alert(JSON.stringify(result));
                 /* logs:
                   {
                     "id": "1243062202384351",
