@@ -1373,7 +1373,9 @@
       }
     });
     
-    // Idea share - sms
+    if (device.platform === "iOS") $('a.idea-share-link.pdf').removeClass('disable');
+    
+    // Idea share
     $(document).on('click', 'a.idea-share-link', function(e){
       e.preventDefault();
       
@@ -1397,8 +1399,6 @@
           });
         }
         else if ($(this).is('.pdf') && device.platform === "iOS") {
-          $(this).removeClass('disable');
-          
           pdf.htmlToPDF({
                 data: '<html>' +
                         '<h1>Моя бизнес идея "' + ideaTitle + '"</h1>' +
