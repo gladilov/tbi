@@ -1112,14 +1112,14 @@
             alert('An error occured while trying to login. please try again.');
         });
       }
-      else alert('Coming soon (only for app).');
+      else alert('Coming soon (now only for app).');
     });
     
     $('#signin-signup #_vk').on('touchstart', function(e){
       if (app) {
 
       }
-      else alert('Coming soon (only for app).');
+      else alert('Coming soon (now only for app).');
     });
     
     // OAuth
@@ -1381,35 +1381,57 @@
           ideaTitle = $('#page-title', $activePage).text(),
           ideaDesc = $('.content-group-wrap.desc .ui-collapsible-content p', $activePage).text();
       
-      if ($(this).is('.sms')) {
-        // Want to share a prefilled SMS text?
-        window.plugins.socialsharing.shareViaSMS('Моя бизнес идея "' + ideaTitle + '". ' + ideaDesc, null /* see the note below */, function(msg) {console.log('ok: ' + msg)}, function(msg) {alert('error: ' + msg)});
-        // Want to prefill some phonenumbers as well? Pass this instead of null. Important notes: For stable usage of shareViaSMS on Android 4.4 and up you require to add at least one phonenumber! Also, on Android make sure you use v4.0.3 or higher of this plugin, otherwise sharing multiple numbers to non-Samsung devices will fail -->
-        //window.plugins.socialsharing.shareViaSMS('My cool message', '0612345678,0687654321', function(msg) {console.log('ok: ' + msg)}, function(msg) {alert('error: ' + msg)});
-        // Need a subject and even image sharing? It's only supported on iOS for now and falls back to just message sharing on Android
-        //window.plugins.socialsharing.shareViaSMS({'message':'My cool message', 'subject':'The subject', 'image':'https://www.google.nl/images/srpr/logo4w.png'}, '0612345678,0687654321', function(msg) {console.log('ok: ' + msg)}, function(msg) {alert('error: ' + msg)});
-      }
-      else if ($(this).is('.mail')) {
-        var onSuccess = function(result) {
-          console.log("Share completed? " + result.completed); // On Android apps mostly return false even while it's true
-          console.log("Shared to app: " + result.app); // On Android result.app is currently empty. On iOS it's empty when sharing is cancelled (result.completed=false)
+      if (app) {
+        if ($(this).is('.sms')) {
+          // Want to share a prefilled SMS text?
+          window.plugins.socialsharing.shareViaSMS('Моя бизнес идея "' + ideaTitle + '". ' + ideaDesc, null /* see the note below */, function(msg) {console.log('ok: ' + msg)}, function(msg) {alert('error: ' + msg)});
+          // Want to prefill some phonenumbers as well? Pass this instead of null. Important notes: For stable usage of shareViaSMS on Android 4.4 and up you require to add at least one phonenumber! Also, on Android make sure you use v4.0.3 or higher of this plugin, otherwise sharing multiple numbers to non-Samsung devices will fail -->
+          //window.plugins.socialsharing.shareViaSMS('My cool message', '0612345678,0687654321', function(msg) {console.log('ok: ' + msg)}, function(msg) {alert('error: ' + msg)});
+          // Need a subject and even image sharing? It's only supported on iOS for now and falls back to just message sharing on Android
+          //window.plugins.socialsharing.shareViaSMS({'message':'My cool message', 'subject':'The subject', 'image':'https://www.google.nl/images/srpr/logo4w.png'}, '0612345678,0687654321', function(msg) {console.log('ok: ' + msg)}, function(msg) {alert('error: ' + msg)});
         }
+        else if ($(this).is('.mail')) {
+          cordova.plugins.email.open({
+            subject: 'Моя бизнес идея "' + ideaTitle + '"',
+            body: ideaDesc
+          });
+          
+          /*var onSuccess = function(result) {
+            console.log("Share completed? " + result.completed); // On Android apps mostly return false even while it's true
+            console.log("Shared to app: " + result.app); // On Android result.app is currently empty. On iOS it's empty when sharing is cancelled (result.completed=false)
+          }
 
-        var onError = function(msg) {
-          alert("Sharing failed with message: " + msg);
+          var onError = function(msg) {
+            alert("Sharing failed with message: " + msg);
+          }
+          
+          if (device.platform === "iOS") {
+            window.plugins.socialsharing.shareViaEmail(
+              'Моя бизнес идея "' + ideaTitle + '". ' + ideaDesc, // can contain HTML tags, but support on Android is rather limited:  http://stackoverflow.com/questions/15136480/how-to-send-html-content-with-image-through-android-default-email-client
+              null,
+              [], // TO: must be null or an array
+              [], // CC: must be null or an array
+              null, // BCC: must be null or an array
+              [], // FILES: can be null, a string, or an array
+              onSuccess, // called when sharing worked, but also when the user cancelled sharing via email. On iOS, the callbacks' boolean result parameter is true when sharing worked, false if cancelled. On Android, this parameter is always true so it can't be used). See section "Notes about the successCallback" below.
+              onError // called when sh*t hits the fan
+            );
+          }
+          else {
+            window.plugins.socialsharing.shareViaEmail(
+              ideaDesc, // can contain HTML tags, but support on Android is rather limited:  http://stackoverflow.com/questions/15136480/how-to-send-html-content-with-image-through-android-default-email-client
+              'Моя бизнес идея "' + ideaTitle + '"',
+              [], // TO: must be null or an array
+              [], // CC: must be null or an array
+              null, // BCC: must be null or an array
+              [], // FILES: can be null, a string, or an array
+              onSuccess, // called when sharing worked, but also when the user cancelled sharing via email. On iOS, the callbacks' boolean result parameter is true when sharing worked, false if cancelled. On Android, this parameter is always true so it can't be used). See section "Notes about the successCallback" below.
+              onError // called when sh*t hits the fan
+            );
+          }*/
         }
-        
-        window.plugins.socialsharing.shareViaEmail(
-          ideaDesc, // can contain HTML tags, but support on Android is rather limited:  http://stackoverflow.com/questions/15136480/how-to-send-html-content-with-image-through-android-default-email-client
-          'Моя бизнес идея "' + ideaTitle + '"',
-          [], // TO: must be null or an array
-          [], // CC: must be null or an array
-          null, // BCC: must be null or an array
-          [], // FILES: can be null, a string, or an array
-          onSuccess, // called when sharing worked, but also when the user cancelled sharing via email. On iOS, the callbacks' boolean result parameter is true when sharing worked, false if cancelled. On Android, this parameter is always true so it can't be used). See section "Notes about the successCallback" below.
-          onError // called when sh*t hits the fan
-        );
       }
+      else alert('Coming soon (now only for app).');
     });
     
       
