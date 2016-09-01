@@ -1002,9 +1002,26 @@
     
     $('#signin-signup #_fb').on('touchstart', function(e){
       if (app) {
-        facebookConnectPlugin.login(["email", "public_profile", "user_friends"], function(response){
-            //alert('logged in successfully');
+        //facebookConnectPlugin.login(["email", "public_profile", "user_friends"], function(response){
+        facebookConnectPlugin.login(["public_profile"], function(response){
             alert(JSON.stringify(response.authResponse));
+            
+            var fbUserId = response.authResponse.userID;
+            //facebookConnectPlugin.api(String requestPath, Array permissions, Function success, Function failure);
+            facebookConnectPlugin.api(fbUserId + "/?fields=id,name,email&locale=ru", ["email", "public_profile"],
+              function onSuccess (result) {
+                alert("Result: ", result);
+                /* logs:
+                  {
+                    "id": "1243062202384351",
+                    "name": "Алексей Гладилов",
+                    "email": "a.gladilov@yandex.ru"
+                  }
+                */
+              }, function onError (error) {
+                alert("Failed: ", error);
+              }
+            );
             
             /*var request = $.ajax({
               type: 'GET',
