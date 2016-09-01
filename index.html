@@ -193,8 +193,24 @@
                 <div id="_u_menu"><a href="#" id="btn-other" data-icon="ybi-footer-more"></a></div>
                 <div id="_u_back"><a href="#" data-rel="back"></a></div>
                 <div id="page-title" class="with-btn-2 _u_tit2">Заголовок идеи</div>
-                <div id="_u_sha"><a href="#" class="idea-share"></a></div>
+                <div id="_u_sha"><a href="#popup-idea-share" class="idea-share" data-rel="popup" data-transition="fade" data-position-to="window"></a></div>
                 <div id="_u_add" class="ui-screen-hidden"><a href="#idea-add" class="idea-edit" data-iid=""></a></div>
+            </div>
+            <div data-role="popup" id="popup-idea-share" class="w90" data-overlay-theme="a" data-theme="b">
+                <div data-role="header">
+                    <h2>Поделиться идеей</h2>
+                    <a href="#" class="ui-btn ui-btn-ybi ui-btn-icon-notext ui-btn-right ui-icon-ybi-cancel" data-rel="back">Cancel</a>
+                </div>
+                
+                <div class="ui-content">
+                  <ul class="share-wrap" data-role="listview">
+                    <li><a href="#" class="idea-share-link mail">Отправить по почте</a></li>
+                    <li><a href="#" class="idea-share-link sms">Отправить по смс</a></li>
+                    <li><a href="#" class="idea-share-link pdf">Экспорт в пдф</a></li>
+                    <li><a href="#" class="idea-share-link startupcup">Отправить в StartUp Cup</a></li>
+                  </ul>
+                </div>
+                
             </div>
             <div id="_box">
                 <div data-role="content" role="main" id="content" class="ui-content _pd0">

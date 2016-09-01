@@ -61,9 +61,11 @@
   <plugin name="cordova-plugin-splashscreen" source="npm" />
   <plugin name="cordova-plugin-wkwebview-engine" source="npm" />
   
+  <plugin name="cordova-plugin-file-transfer" source="npm" />
+  
   <plugin name="cordova-plugin-x-toast" source="npm" />
   <plugin name="cordova-plugin-x-socialsharing" source="npm" />
-  <plugin name="cordova-plugin-actionsheet" source="npm" />
+  <!--<plugin name="cordova-plugin-actionsheet" source="npm" />-->
   
   <!--<plugin name="cordova-pdf-generator" source="npm" />-->
   <plugin name="cordova-plugin-calendar" source="npm" />
