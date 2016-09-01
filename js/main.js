@@ -1007,10 +1007,11 @@
             alert(JSON.stringify(response.authResponse));
             
             var fbUserId = response.authResponse.userID;
+            alert(fbUserId);
             //facebookConnectPlugin.api(String requestPath, Array permissions, Function success, Function failure);
             facebookConnectPlugin.api(fbUserId + "/?fields=id,name,email&locale=ru", ["email", "public_profile"],
               function onSuccess (result) {
-                alert("Result: ", result);
+                alert(result);
                 /* logs:
                   {
                     "id": "1243062202384351",
@@ -1019,7 +1020,7 @@
                   }
                 */
               }, function onError (error) {
-                alert("Failed: ", error);
+                alert(error);
               }
             );
             
