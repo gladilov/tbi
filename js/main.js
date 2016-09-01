@@ -2050,7 +2050,7 @@
               
               if (method == 'post') {
                 // Calendar
-                if (app) {
+                /*if (app) {
                   var dateInput = $('input[name="dates"]', $thisForm); // TODO: multiple date
                   console.log(dateInput.val());
                   
@@ -2095,7 +2095,7 @@
                 
                   // on iOS the success handler receives the event ID (since 4.3.6) 
                   //window.plugins.calendar.createEventWithOptions(title,eventLocation,notes,startDate,endDate,calOptions,success,error);
-                }
+                }*/
               }
               else if (method == 'put') { toastMessage = 'Идея успешно обновлена!'; }
               
