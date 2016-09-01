@@ -1004,11 +1004,9 @@
       if (app) {
         //facebookConnectPlugin.login(["email", "public_profile", "user_friends"], function(response){
         facebookConnectPlugin.login(["public_profile"], function(response){
-            alert(JSON.stringify(response.authResponse));
-            
+            //alert(JSON.stringify(response.authResponse));
             var fbUserId = response.authResponse.userID;
-            alert(fbUserId);
-            //facebookConnectPlugin.api(String requestPath, Array permissions, Function success, Function failure);
+
             facebookConnectPlugin.api(fbUserId + "/?fields=id,name,email&locale=ru", ["email", "public_profile"],
               function onSuccess (result) {
                 alert("id: " + result.id);
@@ -1020,96 +1018,96 @@
                     "name": "Алексей Гладилов",
                     "email": "a.gladilov@yandex.ru"
                   }*/
+                  
+                var request = $.ajax({
+                  type: 'GET',
+                  dataType: 'jsonp',
+                  jsonpCallback: 'userCreateSocial',
+                  contentType: "application/json; charset=utf-8",
+                  url: 'http://y-b-i.com/api/user.php',
+                  data: {"method": "post", "data": {"name": result.name, "mail": result.email, "provider": 'fb', "provider_uid": result.id}},
+                  timeout: 8000,
+                  cache: false,
+                  async: true,
+                  crossDomain: true,
+                });
+                
+                var state = request.state();
+                          
+                request.done(function(data, textStatus, jqXHR) {
+                  // Success:
+                  if (data.status == 'success') {
+                    // Set user id
+                    ybi.localStorage.set('userAuthorized', true);
+                    ybi.localStorage.set('userAuthorizedUid', data.uid);
+                    userAuthorized = true;
+                    $('input[name="uid"]').val(data.uid);
+                    uid = data.uid;
+                    
+                    if (app) {
+                      navigator.notification.alert(
+                        data.message,
+                        function () { $.mobile.pageContainer.pagecontainer("change", '#idea-list'); },
+                        'Регистрация',
+                        'Закрыть'
+                      );
+                    }
+                    else {
+                      $.mobile.pageContainer.pagecontainer("change", '#idea-list');
+                    }
+                  }
+                  // Error:
+                  else if (data.status == 'error') {
+                    console.log(data);
+
+                    if (app) {
+                      navigator.notification.alert(
+                        data.message,
+                        null,
+                        'Регистрация',
+                        'Закрыть'
+                      );
+                    }
+                    else {
+                      console.log('Ошибка регистрации (data.message: "' + data.message + '")');
+                    }
+                  }
+                });
+                
+                request.fail(function(jqXHR, textStatus, errorThrown) {
+                  if (textStatus == 'timeout') {
+                    if (app) {
+                      navigator.notification.alert(
+                        'Ошибка регистрации - сервер не ответил в отведенное время. Попробуйте выполнить запрос позже.',
+                        null,
+                        'Регистрация',
+                        'Закрыть'
+                      );
+                    }
+                    else {
+                      console.log('Ошибка регистрации - сервер не ответил в отведенное время. Попробуйте выполнить запрос позже.');
+                    }
+                  }
+                  else {
+                    if (app) {
+                      navigator.notification.alert(
+                        'Ошибка регистрации. Попробуйте выполнить запрос повторно.',
+                        null,
+                        'Регистрация',
+                        'Закрыть'
+                      );
+                    }
+                    else {
+                      console.log('Ошибка регистрации (textStatus: "' + textStatus + '").');
+                    }
+                  }
+                });
                 
               }, function onError (error) {
                 alert(error);
               }
             );
-            
-            /*var request = $.ajax({
-              type: 'GET',
-              dataType: 'jsonp',
-              jsonpCallback: 'userCreateSocial',
-              contentType: "application/json; charset=utf-8",
-              url: 'http://y-b-i.com/api/user.php',
-              data: {"method": "post", "data": {"name": 'null', "provider": 'fb', "provider_uid": response.authResponse.userID}},
-              timeout: 8000,
-              cache: false,
-              async: true,
-              crossDomain: true,
-            });
-            
-            var state = request.state();
-                      
-            request.done(function(data, textStatus, jqXHR) {
-              // Success:
-              if (data.status == 'success') {
-                // Set user id
-                ybi.localStorage.set('userAuthorized', true);
-                ybi.localStorage.set('userAuthorizedUid', data.uid);
-                userAuthorized = true;
-                $('input[name="uid"]').val(data.uid);
-                uid = data.uid;
-                
-                if (app) {
-                  navigator.notification.alert(
-                    data.message,
-                    function () { $.mobile.pageContainer.pagecontainer("change", '#idea-list'); },
-                    'Регистрация',
-                    'Закрыть'
-                  );
-                }
-                else {
-                  $.mobile.pageContainer.pagecontainer("change", '#idea-list');
-                }
-              }
-              // Error:
-              else if (data.status == 'error') {
-                console.log(data);
 
-                if (app) {
-                  navigator.notification.alert(
-                    data.message,
-                    null,
-                    'Регистрация',
-                    'Закрыть'
-                  );
-                }
-                else {
-                  console.log('Ошибка регистрации (data.message: "' + data.message + '")');
-                }
-              }
-            });
-            
-            request.fail(function(jqXHR, textStatus, errorThrown) {
-              if (textStatus == 'timeout') {
-                if (app) {
-                  navigator.notification.alert(
-                    'Ошибка регистрации - сервер не ответил в отведенное время. Попробуйте выполнить запрос позже.',
-                    null,
-                    'Регистрация',
-                    'Закрыть'
-                  );
-                }
-                else {
-                  console.log('Ошибка регистрации - сервер не ответил в отведенное время. Попробуйте выполнить запрос позже.');
-                }
-              }
-              else {
-                if (app) {
-                  navigator.notification.alert(
-                    'Ошибка регистрации. Попробуйте выполнить запрос повторно.',
-                    null,
-                    'Регистрация',
-                    'Закрыть'
-                  );
-                }
-                else {
-                  console.log('Ошибка регистрации (textStatus: "' + textStatus + '").');
-                }
-              }
-            });*/
-            
         }, function(err){
             alert('An error occured while trying to login. please try again.');
         });
