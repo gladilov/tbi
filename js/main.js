@@ -2025,9 +2025,9 @@
             if (data.status == 'success') {
               
               // Files upload
-              //var formData = new FormData(); //FormData object
+              var formData = new FormData(); //FormData object
               
-              /*for (i = 0; i < fileInput.files.length; i++) {
+              for (i = 0; i < fileInput.files.length; i++) {
                 //Appending each file to FormData object
                 formData.append(data.iid + '_' + i, fileInput.files[i]);
               }
@@ -2046,7 +2046,7 @@
                   cache: false,
                   async: true,
                 });
-              }*/
+              }
               
               if (method == 'post') {
                 // Calendar
