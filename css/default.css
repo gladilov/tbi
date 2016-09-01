@@ -283,5 +283,4 @@ div.form-item._box_in div.ui-input-text a.ui-input-clear.ui-btn.ui-icon-delete.u
 #popup-idea-share .share-wrap li {}
 #popup-idea-share .share-wrap li a { display:block; padding: .85em 1em; /*color: #252525;*/ color: #053D58; border-color: #053D58; }
 #popup-idea-share .share-wrap li:first-child a { border-width: 0; }
-#popup-idea-share .share-wrap li a.pdf,
-#popup-idea-share .share-wrap li a.startupcup { color: rgba(0,0,0,.3); }
+#popup-idea-share .share-wrap li a.disable { color: rgba(0,0,0,.3); }
