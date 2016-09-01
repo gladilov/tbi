@@ -1395,40 +1395,17 @@
             subject: 'Моя бизнес идея "' + ideaTitle + '"',
             body: ideaDesc
           });
-          
-          /*var onSuccess = function(result) {
-            console.log("Share completed? " + result.completed); // On Android apps mostly return false even while it's true
-            console.log("Shared to app: " + result.app); // On Android result.app is currently empty. On iOS it's empty when sharing is cancelled (result.completed=false)
-          }
-
-          var onError = function(msg) {
-            alert("Sharing failed with message: " + msg);
-          }
-          
-          if (device.platform === "iOS") {
-            window.plugins.socialsharing.shareViaEmail(
-              'Моя бизнес идея "' + ideaTitle + '". ' + ideaDesc, // can contain HTML tags, but support on Android is rather limited:  http://stackoverflow.com/questions/15136480/how-to-send-html-content-with-image-through-android-default-email-client
-              null,
-              [], // TO: must be null or an array
-              [], // CC: must be null or an array
-              null, // BCC: must be null or an array
-              [], // FILES: can be null, a string, or an array
-              onSuccess, // called when sharing worked, but also when the user cancelled sharing via email. On iOS, the callbacks' boolean result parameter is true when sharing worked, false if cancelled. On Android, this parameter is always true so it can't be used). See section "Notes about the successCallback" below.
-              onError // called when sh*t hits the fan
-            );
-          }
-          else {
-            window.plugins.socialsharing.shareViaEmail(
-              ideaDesc, // can contain HTML tags, but support on Android is rather limited:  http://stackoverflow.com/questions/15136480/how-to-send-html-content-with-image-through-android-default-email-client
-              'Моя бизнес идея "' + ideaTitle + '"',
-              [], // TO: must be null or an array
-              [], // CC: must be null or an array
-              null, // BCC: must be null or an array
-              [], // FILES: can be null, a string, or an array
-              onSuccess, // called when sharing worked, but also when the user cancelled sharing via email. On iOS, the callbacks' boolean result parameter is true when sharing worked, false if cancelled. On Android, this parameter is always true so it can't be used). See section "Notes about the successCallback" below.
-              onError // called when sh*t hits the fan
-            );
-          }*/
+        }
+        else if ($(this).is('.pdf')) {
+          pdf.htmlToPDF({
+                data: '<html>' +
+                        '<h1>'Моя бизнес идея "' + ideaTitle + '"'</h1>' +
+                        '<div style="margin-top: 40px;"><h3 style="background: #92D1DA; color: #063E5A;">Описание</h3><p>' + ideaDesc + '</p></div>'
+                      '</html>',
+                documentSize: "A4",
+                landscape: "portrait",
+                type: "share" //use share to open the open-with-menu. 
+            }, this.success, this.failure);
         }
       }
       else alert('Coming soon (now only for app).');
