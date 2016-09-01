@@ -1327,7 +1327,7 @@
         var ideaTitle = $activePage.find('#page-title').text();
         
         // this is the complete list of currently supported params you can pass to the plugin (all optional)
-        var options = {
+        /*var options = {
           message: 'Бизнес идея "' + ideaTitle + '"', // not supported on some apps (Facebook, Instagram)
           subject: 'Бизнес идея "' + ideaTitle + '"', // fi. for email
           files: ['', ''], // an array of filenames either locally or remotely
@@ -1344,7 +1344,29 @@
           console.log("Sharing failed with message: " + msg);
         }
 
-        window.plugins.socialsharing.shareWithOptions(options, onSuccess, onError);
+        window.plugins.socialsharing.shareWithOptions(options, onSuccess, onError);*/
+        
+        
+        var sheetCallback = function(buttonIndex) {
+          setTimeout(function() {
+            // like other Cordova plugins (prompt, confirm) the buttonIndex is 1-based (first button is index 1)
+            alert('button index clicked: ' + buttonIndex);
+          });
+        };
+        
+        var options = {
+            'androidTheme': window.plugins.actionsheet.ANDROID_THEMES.THEME_HOLO_LIGHT, // default is THEME_TRADITIONAL
+            'title': 'Поделиться идеей.',
+            'buttonLabels': ['Отправить по почте', 'Отправить по смс', 'Экспорт в пдф', 'Отправить в StartUp Cup'],
+            'androidEnableCancelButton' : true, // default false
+            'winphoneEnableCancelButton' : true, // default false
+            'addCancelButtonWithLabel': 'Отмена',
+            //'addDestructiveButtonWithLabel' : 'Delete it',
+            'position': [20, 40] // for iPad pass in the [x, y] position of the popover
+        };
+        // Depending on the buttonIndex, you can now call shareViaFacebook or shareViaTwitter
+        // of the SocialSharing plugin (https://github.com/EddyVerbruggen/SocialSharing-PhoneGap-Plugin)
+        window.plugins.actionsheet.show(options, callback);
       }
     });
       
