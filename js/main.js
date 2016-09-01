@@ -1011,14 +1011,16 @@
             //facebookConnectPlugin.api(String requestPath, Array permissions, Function success, Function failure);
             facebookConnectPlugin.api(fbUserId + "/?fields=id,name,email&locale=ru", ["email", "public_profile"],
               function onSuccess (result) {
-                alert(JSON.stringify(result));
+                alert("id: " + result.id);
+                alert("name: " + result.name);
+                alert("email: " + result.email);
                 /* logs:
                   {
                     "id": "1243062202384351",
                     "name": "Алексей Гладилов",
                     "email": "a.gladilov@yandex.ru"
-                  }
-                */
+                  }*/
+                
               }, function onError (error) {
                 alert(error);
               }
