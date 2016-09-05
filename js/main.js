@@ -1398,6 +1398,7 @@
             to: '',
             subject: 'Моя бизнес идея "' + ideaTitle + '"',
             body: ideaDesc,
+            isHTML: false,
           });
         }
         else if ($(this).is('.pdf') && device.platform === "iOS") {
