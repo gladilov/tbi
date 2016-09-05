@@ -1396,7 +1396,7 @@
           cordova.plugins.email.isAvailable(
               function (isAvailable) {
                   alert(isAvailable);
-                  alert('Service is not available') unless isAvailable;
+                  if (!isAvailable) alert('Service is not available');
               }
           );
           
