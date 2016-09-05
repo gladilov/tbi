@@ -1399,11 +1399,23 @@
               }
           );
           
-          var emailFields = {
+          /*
             to: 'a.gladilov@yandex',
             subject: 'Моя бизнес идея "' + ideaTitle + '"',
             body: ideaDesc,
             isHTML: false,
+          */
+            
+          var emailFields = {
+            app:           mailto,
+            subject:       '',
+            body:          '',
+            to:            [],
+            cc:            [],
+            bcc:           [],
+            attachments:   [],
+            isHtml:        true,
+            chooserHeader: 'Выполнить с помощью'
           };
           
           cordova.plugins.email.open(emailFields, function (e) {
