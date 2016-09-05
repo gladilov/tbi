@@ -1393,13 +1393,12 @@
           //window.plugins.socialsharing.shareViaSMS({'message':'My cool message', 'subject':'The subject', 'image':'https://www.google.nl/images/srpr/logo4w.png'}, '0612345678,0687654321', function(msg) {console.log('ok: ' + msg)}, function(msg) {alert('error: ' + msg)});
         }
         else if ($(this).is('.mail')) {
-          cordova.plugins.email.isAvailable().then(function() {
-            // is available
-            alert('cordova.plugins.email - is available');
-          }, function () {
-            // not available
-            alert('cordova.plugins.email - not available');
-          });
+          cordova.plugins.email.isAvailable(
+              function (isAvailable) {
+                  alert(isAvailable);
+                  alert('Service is not available') unless isAvailable;
+              }
+          );
           
           var emailFields = {
             subject: 'Моя бизнес идея "' + ideaTitle + '"',
@@ -1407,10 +1406,9 @@
             isHTML: false,
           };
           
-          cordova.plugins.email.open(emailFields).then(null, function () {
-            // user cancelled email
-            alert('user cancelled email');
-          });
+          cordova.plugins.email.open(emailFields, function () {
+              alert('email view dismissed');
+          }, this);
           
           /*cordova.plugins.email.open({
             app: 'mailto',
