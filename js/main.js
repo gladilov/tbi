@@ -1394,8 +1394,10 @@
         }
         else if ($(this).is('.mail')) {
           cordova.plugins.email.open({
+            app: 'mailto',
+            to: '',
             subject: 'Моя бизнес идея "' + ideaTitle + '"',
-            body: ideaDesc
+            body: ideaDesc,
           });
         }
         else if ($(this).is('.pdf') && device.platform === "iOS") {
