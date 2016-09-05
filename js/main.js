@@ -1395,19 +1395,20 @@
         else if ($(this).is('.mail')) {
           cordova.plugins.email.isAvailable(
               function (isAvailable) {
-                  alert(isAvailable);
-                  if (!isAvailable) alert('Service is not available');
+                  if (!isAvailable) alert('Функция не поддерживается на данном устройстве.');
               }
           );
           
           var emailFields = {
+            to: 'a.gladilov@yandex',
             subject: 'Моя бизнес идея "' + ideaTitle + '"',
             body: ideaDesc,
             isHTML: false,
           };
           
-          cordova.plugins.email.open(emailFields, function () {
-              alert('email view dismissed');
+          cordova.plugins.email.open(emailFields, function (e) {
+              alert(e);
+              alert('finished or canceled');
           }, this);
           
           /*cordova.plugins.email.open({
