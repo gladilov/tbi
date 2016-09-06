@@ -1119,7 +1119,8 @@
     $('#signin-signup #_vk').on('touchstart', function(e){
       if (app && device.platform === "iOS") {
         VkSdk.init('5612981');
-        VkSdk.initiateLogin(['email', 'offline']);
+        VkSdk.initiateLogin(['photos', 'offline']);
+        //VkSdk.initiateLogin(['email', 'offline']);
         
         document.addEventListener('vkSdk.newToken', function(token) {
           alert('New token is ' + token);
@@ -1131,7 +1132,7 @@
           alert(JSON.stringify(user));
         });
       }
-      else alert('Coming soon (now only for IOS app).');
+      else alert('Coming soon (now only for iOS app).');
     });
     
     // OAuth
@@ -1314,8 +1315,8 @@
       });
     }*/
     
-    alert(device.platform);
-    alert(cordova.platformId);
+    //alert(device.platform); // Android, iOS
+    //alert(cordova.platformId); // android, ios
 
     
     if (app && device.platform === "iOS") { $.mobile.hashListeningEnabled = false;/* temp */ }
