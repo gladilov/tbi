@@ -1315,7 +1315,7 @@
     }*/
 
     
-    if (app && device.platform == 'IOS') { $.mobile.hashListeningEnabled = false;/* temp */ }
+    if (app && device.platform === "iOS") { $.mobile.hashListeningEnabled = false;/* temp */ }
     
     // CSS Splash container
     setTimeout(function() {
