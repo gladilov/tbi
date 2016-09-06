@@ -1124,15 +1124,12 @@
         //VkSdk.initiateLogin(['email', 'offline']);
         
         document.addEventListener('vkSdk.newToken', function(token) {
-          alert(JSON.stringify(token));
           var vkUserId = token.detail.userId;
-          alert(vkUserId);
           
           VkSdk.getUser(vkUserId, 
             function(user) {
               var vkUserName = user[0].first_name + ' ' + user[0].last_name;
-              alert(vkUserName);
-              
+
               var request = $.ajax({
                 type: 'GET',
                 dataType: 'jsonp',
