@@ -45,6 +45,8 @@
   // First page before load - check userAuthorized
   $(document).on('pagecontainerbeforechange', function(e, data) {
     alert('pagecontainerbeforechange');
+    alert(ybi.localStorage.get('userAuthorized'));
+    alert(ybi.localStorage.get('userAuthorizedUid'));
     
     if (typeof data.toPage === "object" && data.toPage.is('#idea-list') && typeof data.absUrl === "undefined") {
       alert('pagecontainerbeforechange object');
@@ -1269,7 +1271,8 @@
         if (app) {
           function appExitConfirm(buttonIndex) {
             if (buttonIndex == 1) {
-              ybi.localStorage.set('userAuthorized', false);
+              //ybi.localStorage.set('userAuthorized', false);
+              ybi.localStorage.remove('userAuthorized');
               ybi.localStorage.remove('userAuthorizedUid');
               userAuthorized = false;
               uid = 0;
@@ -1284,9 +1287,7 @@
                 VkSdk.logout();
               }
               ybi.localStorage.remove('userAuthorizedProvider');
-              
-              
-              
+
               navigator.app.exitApp();
             }
           }
