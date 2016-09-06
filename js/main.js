@@ -1117,20 +1117,28 @@
     
     
     $('#signin-signup #_vk').on('touchstart', function(e){
-      if (app && device.platform === "iOS") {
+      if (app/* && device.platform === "iOS"*/) {
         VkSdk.init('5612981');
         VkSdk.initiateLogin(['email', 'offline']);
         //VkSdk.initiateLogin(['email', 'offline']);
         
         document.addEventListener('vkSdk.newToken', function(token) {
           alert(JSON.stringify(token));
-          alert(token.detail.userId);
+          var vkUserId = token.detail.userId;
+          alert(vkUserId);
+          
+          VkSdk.getUser(vkUserId, 
+            function(success) {
+              alert(success);
+              alert(JSON.stringify(success));
+            },
+            function(error) {
+              alert(error);
+              alert(JSON.stringify(error));
+            }
+          );
         });
-        
-        /*VkSdk.getUser('', function(user) {
-          alert(user);
-          alert(JSON.stringify(user));
-        });*/
+      
       }
       else alert('Coming soon (now only for iOS app).');
     });
