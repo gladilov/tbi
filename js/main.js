@@ -44,7 +44,11 @@
   
   // First page before load - check userAuthorized
   $(document).on('pagecontainerbeforechange', function(e, data) {
+    alert('pagecontainerbeforechange');
+    
     if (typeof data.toPage === "object" && data.toPage.is('#idea-list') && typeof data.absUrl === "undefined") {
+      alert('pagecontainerbeforechange object');
+      
       if (ybi.localStorage.isSet('userAuthorized')) {
         userAuthorized = ybi.localStorage.get('userAuthorized');
         uid = ybi.localStorage.get('userAuthorizedUid');
@@ -59,7 +63,12 @@
   
   // Before page show
   $(document).on('pagecontainerbeforeshow', function(e, data) {
+    alert('pagecontainerbeforeshow');
+    //userAuthorizedProvider = ybi.localStorage.get('userAuthorizedProvider');
+    
     if (typeof data.toPage === "object" && typeof data.prevPage === "object") {
+      alert('pagecontainerbeforeshow object');
+      
       var $page = data.toPage,
           $prevPage = data.prevPage,
           $pageTitle = $('#page-title', $page);
@@ -370,157 +379,6 @@
         }
             
         ideaAddPageUpdate();
-            
-        // Idea form update - insert data from idea to form
-        /*if (ideaData && typeof ideaData === "object") {
-          $pageTitle.text(ideaData.title);
-          $('#idea-title', $ideaAddForm).val(ideaData.title).textinput('refresh');
-          if (ideaData.description) $('#idea-description', $ideaAddForm).val(ideaData.description);
-          if (ideaData.product) $('#idea-product', $ideaAddForm).val(ideaData.product);
-          
-          if (ideaData.category) {
-            $('#idea-category option', $ideaAddForm).attr('selected', false);
-            $('#idea-category option[value="' + ideaData.category + '"]', $ideaAddForm).attr('selected', 'selected');
-            $('#idea-category', $ideaAddForm).selectmenu('refresh', true);
-            $('#idea-category-button > span', $ideaAddForm).text(ideaData.category);
-          }
-          
-          if (ideaData.audience && $.isArray(ideaData.audience)) {
-            if (ideaData.audience.length == 1) {
-              $('#idea-audience', $ideaAddForm).val(ideaData.audience[0]);
-            }
-            else {
-              var $audienceAddItem = $('.form-item-idea-audience .form-item-add', $ideaAddForm);
-              $.each(ideaData.audience, function(i, val) {
-                if (i == 0) { $('#idea-audience', $ideaAddForm).val(val); }
-                else {
-                  $audienceAddItem.trigger('click');
-                  $('#idea-audience-' + (i + 1), $ideaAddForm).val(val);
-                }
-              });
-            }
-          }
-          
-          if (ideaData.keyvalue && $.isArray(ideaData.keyvalue)) {
-            if (ideaData.keyvalue.length == 1) {
-              $('#idea-keyvalue', $ideaAddForm).val(ideaData.keyvalue[0]);
-            }
-            else {
-              var $keyvalueAddItem = $('.form-item-idea-keyvalue .form-item-add', $ideaAddForm);
-              $.each(ideaData.keyvalue, function(i, val) {
-                if (i == 0) { $('#idea-keyvalue', $ideaAddForm).val(val); }
-                else {
-                  $keyvalueAddItem.trigger('click');
-                  $('#idea-keyvalue-' + (i + 1), $ideaAddForm).val(val);
-                }
-              });
-            }
-          }
-          
-          if (ideaData.sales_channel && $.isArray(ideaData.sales_channel)) {
-            if (ideaData.sales_channel.length == 1) {
-              $('#idea-sales-channel', $ideaAddForm).val(ideaData.keyvalue[0]);
-            }
-            else {
-              var $salesChannelAddItem = $('.form-item-idea-sales-channel .form-item-add', $ideaAddForm);
-              $.each(ideaData.sales_channel, function(i, val) {
-                if (i == 0) { $('#idea-sales-channel', $ideaAddForm).val(val); }
-                else {
-                  $salesChannelAddItem.trigger('click');
-                  $('#idea-sales-channel-' + (i + 1), $ideaAddForm).val(val);
-                }
-              });
-            }
-          }
-          
-          if (ideaData.competitive_advantages && $.isArray(ideaData.competitive_advantages)) {
-            if (ideaData.competitive_advantages.length == 1) {
-              $('#idea-competitive-advantages', $ideaAddForm).val(ideaData.keyvalue[0]);
-            }
-            else {
-              var $competitiveAdvantagesAddItem = $('.form-item-idea-competitive-advantages .form-item-add', $ideaAddForm);
-              $.each(ideaData.competitive_advantages, function(i, val) {
-                if (i == 0) { $('#idea-competitive-advantages', $ideaAddForm).val(val); }
-                else {
-                  $competitiveAdvantagesAddItem.trigger('click');
-                  $('#idea-competitive-advantages-' + (i + 1), $ideaAddForm).val(val);
-                }
-              });
-            }
-          }
-          
-          if (ideaData.team && $.isArray(ideaData.team)) {
-            if (ideaData.team.length == 1) {
-              $('#idea-team', $ideaAddForm).val(ideaData.team[0]);
-            }
-            else {
-              var $teamAddItem = $('.form-item-idea-team .form-item-add', $ideaAddForm);
-              $.each(ideaData.team, function(i, val) {
-                if (i == 0) { $('#idea-team', $ideaAddForm).val(val); }
-                else {
-                  $teamAddItem.trigger('click');
-                  $('#idea-team-' + (i + 1), $ideaAddForm).val(val);
-                }
-              });
-            }
-          }
-          
-          if (ideaData.necessary_resources && $.isArray(ideaData.necessary_resources)) {
-            if (ideaData.necessary_resources.length == 1) {
-              $('#idea-necessary-resources', $ideaAddForm).val(ideaData.necessary_resources[0]);
-            }
-            else {
-              var $necessaryResourcesAddItem = $('.form-item-idea-necessary-resources .form-item-add', $ideaAddForm);
-              $.each(ideaData.necessary_resources, function(i, val) {
-                if (i == 0) { $('#idea-necessary-resources', $ideaAddForm).val(val); }
-                else {
-                  $necessaryResourcesAddItem.trigger('click');
-                  $('#idea-necessary-resources-' + (i + 1), $ideaAddForm).val(val);
-                }
-              });
-            }
-          }
-          
-          if (ideaData.helpful_people && $.isArray(ideaData.helpful_people)) {
-            if (ideaData.helpful_people.length == 1) {
-              $('#idea-helpful-people', $ideaAddForm).val(ideaData.helpful_people[0]);
-            }
-            else {
-              var $helpfulPeopleAddItem = $('.form-item-idea-helpful-people .form-item-add', $ideaAddForm);
-              $.each(ideaData.helpful_people, function(i, val) {
-                if (i == 0) { $('#idea-helpful-people', $ideaAddForm).val(val); }
-                else {
-                  $helpfulPeopleAddItem.trigger('click');
-                  $('#idea-helpful-people-' + (i + 1), $ideaAddForm).val(val);
-                }
-              });
-            }
-          }
-          
-          if (ideaData.key_hypotheses && $.isArray(ideaData.key_hypotheses)) {
-            if (ideaData.key_hypotheses.length == 1) {
-              $('#idea-key-hypotheses', $ideaAddForm).val(ideaData.key_hypotheses[0]);
-            }
-            else {
-              var $keyHypothesesAddItem = $('.form-item-idea-key-hypotheses .form-item-add', $ideaAddForm);
-              $.each(ideaData.key_hypotheses, function(i, val) {
-                if (i == 0) { $('#idea-key-hypotheses', $ideaAddForm).val(val); }
-                else {
-                  $keyHypothesesAddItem.trigger('click');
-                  $('#idea-key-hypotheses-' + (i + 1), $ideaAddForm).val(val);
-                }
-              });
-            }
-          }
-
-          $ideaAddForm.find('div.ui-input-text input[type="text"]').each(function(i, el) {
-            if ($(this).val() != '') {
-              $(this).siblings('.ui-input-clear').removeClass('ui-input-clear-hidden');
-            }
-          });
-          
-          console.log(ideaData);
-        }*/
       }
       
       /* 
@@ -1000,7 +858,27 @@
   }
 
   function doWhenBothFrameworksLoaded() {
+    //alert(device.platform); // Android, iOS
+    //alert(cordova.platformId); // android, ios
+
     
+    if (app && device.platform === "iOS") { $.mobile.hashListeningEnabled = false;/* temp */ }
+    
+    // CSS Splash container
+    setTimeout(function() {
+      $('#page-splash').fadeOut(500);
+    }, 2000);
+    
+    // StatusBar
+    if (app && StatusBar) {
+      StatusBar.overlaysWebView(false);
+      if (cordova.platformId == 'android') {
+        StatusBar.backgroundColorByHexString("#03405E");
+      }
+    }
+    
+    
+    // Social login - fb
     $('#signin-signup #_fb, #signin-login #_fb').on('touchstart', function(e){
       if (app) {
         //facebookConnectPlugin.login(["email", "public_profile", "user_friends"], function(response){
@@ -1119,6 +997,7 @@
     });
     
     
+    // Social login - vk
     $('#signin-signup #_vk, #signin-login #_vk').on('touchstart', function(e){
       if (app && device.platform === "iOS") {
         VkSdk.init('5612981');
@@ -1226,264 +1105,10 @@
       }
       else alert('Coming soon (now only for iOS app).');
     });
-    
-    // OAuth
-    /*$('#signin-signup #_vk').on('touchstart', function(e){
-      OAuth.popup('vk')
-          .done(function (OAuthResult) {
-              // the access_token is available via result.access_token
-              // but the http functions automagically wrap the jquery calls
-              
-              console.log("OAuth result (provider: " + OAuthResult.provider + "):");
-              console.log(OAuthResult);
-              
-              OAuthResult.me()
-                  .done(function(OAuthData) {
-                      console.log("VK name: " + OAuthData.name);
-                      console.log("VK id: " + OAuthData.id);
-                      console.log(OAuthData);
-                      
-                      //*********************************
-                      // Show splash
-                      $('.message', $pageLoader).text('Регистрируем...');
-                      if (app) StatusBar.hide();
-                      $pageLoader.fadeIn(150);
-                      
-                      var request = $.ajax({
-                        type: 'GET',
-                        dataType: 'jsonp',
-                        jsonpCallback: 'userCreateSocial',
-                        contentType: "application/json; charset=utf-8",
-                        url: 'http://y-b-i.com/api/user.php',
-                        data: {"method": "post", "data": {"name": OAuthData.name, "provider": OAuthResult.provider, "provider_uid": OAuthData.id}},
-                        timeout: 8000,
-                        cache: false,
-                        async: true,
-                        crossDomain: true,
-                      });
-                      
-                      var state = request.state();
-                      
-                      request.done(function(data, textStatus, jqXHR) {
-                        // Success:
-                        if (data.status == 'success') {
-                          // Set user id
-                          ybi.localStorage.set('userAuthorized', true);
-                          ybi.localStorage.set('userAuthorizedUid', data.uid);
-                          userAuthorized = true;
-                          $('input[name="uid"]').val(data.uid);
-                          uid = data.uid;
-                          
-                          setTimeout(function() {
-                            // Hide splash
-                            $pageLoader.fadeOut(150);
-                            $('.message', $pageLoader).empty();
-
-                            if (app) {
-                              StatusBar.show();
-                              
-                              navigator.notification.alert(
-                                data.message,
-                                function () { $.mobile.pageContainer.pagecontainer("change", '#idea-list'); },
-                                'Регистрация',
-                                'Закрыть'
-                              );
-                            }
-                            else {
-                              $.mobile.pageContainer.pagecontainer("change", '#idea-list');
-                            }
-                          }, 2000);
-                        }
-                        // Error:
-                        else if (data.status == 'error') {
-                          console.log(data);
-                          
-                          setTimeout(function() {
-                            // Hide splash
-                            $pageLoader.fadeOut(150);
-                            $('.message', $pageLoader).empty();
-
-                            if (app) {
-                              StatusBar.show();
-                              
-                              navigator.notification.alert(
-                                data.message,
-                                null,
-                                'Регистрация',
-                                'Закрыть'
-                              );
-                            }
-                            else {
-                              console.log('Ошибка регистрации (data.message: "' + data.message + '")');
-                            }
-                          }, 2000);
-                        }
-                      });
-                      
-                      request.fail(function(jqXHR, textStatus, errorThrown) {
-                        setTimeout(function() {
-                          // Hide splash
-                          $pageLoader.fadeOut(150);
-                          $('.message', $pageLoader).empty();
-                          if (app) StatusBar.show();
-                          
-                          if (textStatus == 'timeout') {
-                            if (app) {
-                              navigator.notification.alert(
-                                'Ошибка регистрации - сервер не ответил в отведенное время. Попробуйте выполнить запрос позже.',
-                                null,
-                                'Регистрация',
-                                'Закрыть'
-                              );
-                            }
-                            else {
-                              console.log('Ошибка регистрации - сервер не ответил в отведенное время. Попробуйте выполнить запрос позже.');
-                            }
-                          }
-                          else {
-                            if (app) {
-                              navigator.notification.alert(
-                                'Ошибка регистрации. Попробуйте выполнить запрос повторно.',
-                                null,
-                                'Регистрация',
-                                'Закрыть'
-                              );
-                            }
-                            else {
-                              console.log('Ошибка регистрации (textStatus: "' + textStatus + '").');
-                            }
-                          }
-                        }, 2000);
-                      });
-                      //*********************************
 
 
-                      
-                  })
-                  .fail(function( jqXHR, textStatus, errorThrown) {
-                      console.log("OAuth request error: " + textStatus);
-                  });
-          })
-          .fail(function (e) {
-              console.log('OAuth request error: ' + e.message);
-          });
-    });*/
-    // Rendome new user pass:
-    //console.log(Math.floor((Math.random() * 89999) + 10000));
-    
-    
-    // Auth0Lock - Implement the login
-    /*var userProfile;
-    $('#signin-signup #_vk').on('touchstart', function(e){
-      lock.show();
-    });
-    $('#signin-signup #_fb').on('touchstart', function(e){
-      alert(111);
-      lock.show();
-      alert(222);
-    });
-    
-    lock.on("authenticated", function(authResult) {
-      console.log(authResult);
-      lock.getProfile(authResult.idToken, function(error, profile) {
-        if (error) {
-          // Handle error
-          return;
-        }
-
-        ybi.localStorage.set('id_token', authResult.idToken);
-        console.log(authResult.idToken);
-      });
-    });
-    
-    var id_token = ybi.localStorage.get('id_token');
-    if (id_token) {
-      lock.getProfile(id_token, function (err, profile) {
-        if (err) {
-          return alert('There was an error getting the profile: ' + err.message);
-        }
-        // Display user information
-        alert(profile.nickname);
-      });
-    }*/
-    
-    //alert(device.platform); // Android, iOS
-    //alert(cordova.platformId); // android, ios
-
-    
-    if (app && device.platform === "iOS") { $.mobile.hashListeningEnabled = false;/* temp */ }
-    
-    // CSS Splash container
-    setTimeout(function() {
-      $('#page-splash').fadeOut(500);
-    }, 2000);
-    
-    // StatusBar
-    if (app && StatusBar) {
-      StatusBar.overlaysWebView(false);
-      if (cordova.platformId == 'android') {
-        StatusBar.backgroundColorByHexString("#03405E");
-      }
-    }
-      
-      
     // Idea share
-    $(document).on('click', 'a.idea-share', function(e){
-      //e.preventDefault();
-      
-      var $activePage = $('.ui-page-active');
-      
-      if ($activePage.is('#idea-single')) {
-        var ideaTitle = $activePage.find('#page-title').text();
-        
-        // this is the complete list of currently supported params you can pass to the plugin (all optional)
-        /*var options = {
-          message: 'Бизнес идея "' + ideaTitle + '"', // not supported on some apps (Facebook, Instagram)
-          subject: 'Бизнес идея "' + ideaTitle + '"', // fi. for email
-          files: ['', ''], // an array of filenames either locally or remotely
-          url: 'http://www.y-b-i.com',
-          chooserTitle: 'Поделиться' // Android only, you can override the default share sheet title
-        }
-
-        var onSuccess = function(result) {
-          console.log("Share completed? " + result.completed); // On Android apps mostly return false even while it's true
-          console.log("Shared to app: " + result.app); // On Android result.app is currently empty. On iOS it's empty when sharing is cancelled (result.completed=false)
-        }
-
-        var onError = function(msg) {
-          console.log("Sharing failed with message: " + msg);
-        }
-
-        window.plugins.socialsharing.shareWithOptions(options, onSuccess, onError);*/
-        
-        /*
-        var sheetCallback = function(buttonIndex) {
-          setTimeout(function() {
-            // like other Cordova plugins (prompt, confirm) the buttonIndex is 1-based (first button is index 1)
-            alert('button index clicked: ' + buttonIndex);
-          });
-        };
-        
-        var options = {
-            'androidTheme': window.plugins.actionsheet.ANDROID_THEMES.THEME_HOLO_LIGHT, // default is THEME_TRADITIONAL
-            'title': 'Поделиться идеей.',
-            'buttonLabels': ['Отправить по почте', 'Отправить по смс', 'Экспорт в пдф', 'Отправить в StartUp Cup'],
-            'androidEnableCancelButton' : true, // default false
-            'winphoneEnableCancelButton' : true, // default false
-            'addCancelButtonWithLabel': 'Отмена',
-            //'addDestructiveButtonWithLabel' : 'Delete it',
-            'position': [20, 40] // for iPad pass in the [x, y] position of the popover
-        };
-        // Depending on the buttonIndex, you can now call shareViaFacebook or shareViaTwitter
-        // of the SocialSharing plugin (https://github.com/EddyVerbruggen/SocialSharing-PhoneGap-Plugin)
-        window.plugins.actionsheet.show(options, callback);
-        */
-      }
-    });
-    
     if (app && device.platform === "iOS") $('a.idea-share-link.pdf').removeClass('disable');
-    
-    // Idea share
     $(document).on('click', 'a.idea-share-link', function(e){
       e.preventDefault();
       
@@ -1506,13 +1131,6 @@
                   if (!isAvailable) alert('Функция не поддерживается на данном устройстве.');
               }
           );
-          
-          /*
-            to: 'a.gladilov@yandex',
-            subject: 'Моя бизнес идея "' + ideaTitle + '"',
-            body: ideaDesc,
-            isHTML: false,
-          */
             
           var emailFields = {
             app: 'mailto',
@@ -1525,20 +1143,11 @@
             isHtml: false,
             chooserHeader: 'Выполнить с помощью'
           };
-            //chooserHeader: 'Выполнить с помощью'
-            //chooserHeader: 'Open with'
           
           cordova.plugins.email.open(emailFields, function (e) {
               //alert(e);
               //alert('finished or canceled');
           }, this);
-          
-          /*cordova.plugins.email.open({
-            app: 'mailto',
-            subject: 'Моя бизнес идея "' + ideaTitle + '"',
-            body: ideaDesc,
-            isHTML: false,
-          });*/
         }
         else if ($(this).is('.pdf') && device.platform === "iOS") {
           pdf.htmlToPDF({
@@ -1555,8 +1164,7 @@
       }
       else alert('Coming soon (now only for app).');
     });
-    
-      
+
     
     // When you load each page
     $(document).on('pagecontainershow', function(event, ui) {
