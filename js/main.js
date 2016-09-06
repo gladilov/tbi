@@ -1119,12 +1119,12 @@
     $('#signin-signup #_vk').on('touchstart', function(e){
       if (app && device.platform === "iOS") {
         VkSdk.init('5612981');
-        VkSdk.initiateLogin(['photos', 'offline']);
+        VkSdk.initiateLogin(['email', 'offline']);
         //VkSdk.initiateLogin(['email', 'offline']);
         
         document.addEventListener('vkSdk.newToken', function(token) {
-          alert('New token is ' + token);
           alert(JSON.stringify(token));
+          alert(token.detail.userId);
         });
         
         /*VkSdk.getUser('', function(user) {
