@@ -4,7 +4,7 @@
 <widget xmlns     = "http://www.w3.org/ns/widgets"
         xmlns:gap = "http://phonegap.com/ns/1.0"
         id        = "com.ybi.app"
-        version   = "0.8.8">
+        version   = "0.8.9">
         
   <name>Бизнес Идеи</name>
   <description>Блокнот бизнес идей</description>
@@ -72,7 +72,9 @@
   <plugin name="cordova-plugin-calendar" source="npm" />
   <plugin name="cordova-plugin-iosexitapp" source="npm" />
   
-  <!--<plugin name="cordova-vk" source="npm" />-->
+  <plugin name="cordova-vk" source="npm">
+    <param name="VK_APP_ID" value="5612981" />
+  </plugin>
   <plugin name="cordova-plugin-facebook4" source="npm">
     <param name="APP_ID" value="1625961994381152" />
     <param name="APP_NAME" value="YBI test" />

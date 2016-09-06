@@ -8,7 +8,7 @@
       userAuthorized = false,
       lock = null,
       app = document.URL.indexOf( 'http://' ) === -1 && document.URL.indexOf( 'https://' ) === -1,
-      appVersion = '0.8.8';
+      appVersion = '0.8.9';
 
   // Namespace storage
   var ybi = $.initNamespaceStorage('ybi');
@@ -1117,7 +1117,12 @@
     
     $('#signin-signup #_vk').on('touchstart', function(e){
       if (app) {
-
+        VkSdk.init('5612981');
+        VkSdk.initiateLogin(['photos', 'offline']);
+        
+        document.addEventListener('vkSdk.newToken', function(token) {
+          alert('New token is ' + token);
+        });
       }
       else alert('Coming soon (now only for app).');
     });
