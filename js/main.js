@@ -1117,7 +1117,7 @@
     
     
     $('#signin-signup #_vk').on('touchstart', function(e){
-      if (app && device.platform == 'IOS') {
+      if (app && device.platform === "iOS") {
         VkSdk.init('5612981');
         VkSdk.initiateLogin(['email', 'offline']);
         
@@ -1313,6 +1313,9 @@
         alert(profile.nickname);
       });
     }*/
+    
+    alert(device.platform);
+    alert(cordova.platformId);
 
     
     if (app && device.platform === "iOS") { $.mobile.hashListeningEnabled = false;/* temp */ }
