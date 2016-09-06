@@ -8,6 +8,7 @@
       userAuthorized = false,
       lock = null,
       app = document.URL.indexOf( 'http://' ) === -1 && document.URL.indexOf( 'https://' ) === -1,
+      goTo = function(to) { $.mobile.pageContainer.pagecontainer("change", to); },
       appVersion = '0.8.9';
 
   // Namespace storage
@@ -1048,7 +1049,8 @@
                     if (app) {
                       navigator.notification.alert(
                         data.message,
-                        function () { $.mobile.pageContainer.pagecontainer("change", '#idea-list'); },
+                        //function () { $.mobile.pageContainer.pagecontainer("change", '#idea-list'); },
+                        function () { goTo('#idea-list'); },
                         'Регистрация',
                         'Закрыть'
                       );
@@ -1117,7 +1119,7 @@
     });
     
     
-    $('#signin-signup #_vk, ##signin-login #_vk').on('touchstart', function(e){
+    $('#signin-signup #_vk, #signin-login #_vk').on('touchstart', function(e){
       if (app && device.platform === "iOS") {
         VkSdk.init('5612981');
         //VkSdk.initiateLogin(['email', 'offline']);
@@ -1159,7 +1161,13 @@
                   if (app) {
                     navigator.notification.alert(
                       data.message,
-                      function () { alert('goto: #idea-list'); setTimeout(function() { $.mobile.pageContainer.pagecontainer("change", '#idea-list'); }, 2000); },
+                      function () {
+                        alert('goto: #idea-list');
+                        setTimeout(function() { 
+                          //$.mobile.pageContainer.pagecontainer("change", '#idea-list');
+                          goTo('#idea-list');
+                        }, 2000);
+                      },
                       'Регистрация',
                       'Закрыть'
                     );
