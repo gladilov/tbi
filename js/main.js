@@ -1161,13 +1161,7 @@
                   if (app) {
                     navigator.notification.alert(
                       data.message,
-                      function () {
-                        alert('goto: #idea-list');
-                        setTimeout(function() { 
-                          //$.mobile.pageContainer.pagecontainer("change", '#idea-list');
-                          goTo('#idea-list');
-                        }, 2000);
-                      },
+                      function () { goTo('#idea-list'); },
                       'Регистрация',
                       'Закрыть'
                     );
