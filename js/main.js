@@ -1115,6 +1115,11 @@
       else alert('Coming soon (now only for app).');
     });
     
+    // Hide vk button
+    if (app && device.platform != 'IOS') {
+      $('#signin-login #_vk, #signin-signup #_vk').hide();
+    }
+    
     $('#signin-signup #_vk').on('touchstart', function(e){
       if (app) {
         VkSdk.init('5612981');
@@ -1122,6 +1127,12 @@
         
         document.addEventListener('vkSdk.newToken', function(token) {
           alert('New token is ' + token);
+          alert(JSON.stringify(token));
+        });
+        
+        VkSdk.getUser('', function(user) {
+          alert(user);
+          alert(JSON.stringify(user));
         });
       }
       else alert('Coming soon (now only for app).');
@@ -1308,7 +1319,7 @@
     }*/
 
     
-    if (app && device && device.platform && device.platform == 'IOS') { $.mobile.hashListeningEnabled = false;/* temp */ }
+    if (app && device.platform == 'IOS') { $.mobile.hashListeningEnabled = false;/* temp */ }
     
     // CSS Splash container
     setTimeout(function() {

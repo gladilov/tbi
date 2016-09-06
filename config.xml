@@ -130,8 +130,6 @@
   </platform>
   
   <platform name="android">
-    <plugin name="cordova-vk" source="npm" />
-  
     <preference name="android-minSdkVersion" value="15" />
     
     <icon src="res/icon/android/ldpi.png" qualifier="ldpi" />
