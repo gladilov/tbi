@@ -9,6 +9,9 @@
       lock = null,
       app = document.URL.indexOf( 'http://' ) === -1 && document.URL.indexOf( 'https://' ) === -1,
       goTo = function(to) { $.mobile.pageContainer.pagecontainer("change", to); },
+      exitApp = function() {
+        
+      },
       appVersion = '0.8.9';
 
   // Namespace storage
@@ -46,8 +49,8 @@
   $(document).on('pagecontainerbeforechange', function(e, data) {
     alert(ybi.localStorage.get('userAuthorized'));
     alert(ybi.localStorage.get('userAuthorizedUid'));
+            ybi.localStorage.remove('userAuthorized');
             ybi.localStorage.remove('userAuthorizedUid');
-            ybi.localStorage.remove('userAuthorizedProvider');
     alert(ybi.localStorage.get('userAuthorized'));
     alert(ybi.localStorage.get('userAuthorizedUid'));
     
@@ -1186,7 +1189,8 @@
           if (app) {
             function appExitConfirm(buttonIndex) {
               if (buttonIndex == 1) {
-                ybi.localStorage.set('userAuthorized', false);
+                //ybi.localStorage.set('userAuthorized', false);
+                ybi.localStorage.remove('userAuthorized');
                 ybi.localStorage.remove('userAuthorizedUid');
                 ybi.localStorage.remove('userAuthorizedProvider');
                 userAuthorized = false;
@@ -1204,7 +1208,8 @@
             );
           }
           else {
-            ybi.localStorage.set('userAuthorized', false);
+            //ybi.localStorage.set('userAuthorized', false);
+            ybi.localStorage.remove('userAuthorized');
             ybi.localStorage.remove('userAuthorizedUid');
             ybi.localStorage.remove('userAuthorizedProvider');
             userAuthorized = false;
@@ -1266,7 +1271,10 @@
         
         if (app) {
           function appExitConfirm(buttonIndex) {
+            alert('buttonIndex - ' + buttonIndex);
+            
             if (buttonIndex == 1) {
+              
               //ybi.localStorage.set('userAuthorized', false);
               ybi.localStorage.remove('userAuthorized');
               ybi.localStorage.remove('userAuthorizedUid');
@@ -1296,7 +1304,8 @@
           );
         }
         else {
-          ybi.localStorage.set('userAuthorized', false);
+          //ybi.localStorage.set('userAuthorized', false);
+          ybi.localStorage.remove('userAuthorized');
           ybi.localStorage.remove('userAuthorizedUid');
           ybi.localStorage.remove('userAuthorizedProvider');
           userAuthorized = false;
