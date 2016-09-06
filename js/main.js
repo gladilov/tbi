@@ -1000,7 +1000,7 @@
 
   function doWhenBothFrameworksLoaded() {
     
-    $('#signin-signup #_fb').on('touchstart', function(e){
+    $('#signin-signup #_fb, #signin-login #_fb').on('touchstart', function(e){
       if (app) {
         //facebookConnectPlugin.login(["email", "public_profile", "user_friends"], function(response){
         facebookConnectPlugin.login(["public_profile"], function(response){
@@ -1117,16 +1117,16 @@
     });
     
     
-    $('#signin-signup #_vk').on('touchstart', function(e){
-      if (app/* && device.platform === "iOS"*/) {
+    $('#signin-signup #_vk, ##signin-login #_vk').on('touchstart', function(e){
+      if (app && device.platform === "iOS") {
         VkSdk.init('5612981');
-        VkSdk.initiateLogin(['email', 'offline']);
         //VkSdk.initiateLogin(['email', 'offline']);
+        VkSdk.initiateLogin(['offline']);
         
         document.addEventListener('vkSdk.newToken', function(token) {
           var vkUserId = token.detail.userId;
           
-          VkSdk.getUser(vkUserId, 
+          VkSdk.getUser(vkUserId,
             function(user) {
               var vkUserName = user[0].first_name + ' ' + user[0].last_name;
 
@@ -1159,7 +1159,7 @@
                   if (app) {
                     navigator.notification.alert(
                       data.message,
-                      function () { $.mobile.pageContainer.pagecontainer("change", '#idea-list'); },
+                      function () { alert('goto: #idea-list'); setTimeout(function() { $.mobile.pageContainer.pagecontainer("change", '#idea-list'); }, 2000); },
                       'Регистрация',
                       'Закрыть'
                     );
