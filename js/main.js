@@ -1131,7 +1131,7 @@
             function(user) {
               alert(JSON.stringify(user));
               
-              var vkUserName = user.first_name + ' ' + user.last_name;
+              var vkUserName = user[0].first_name + ' ' + user[0].last_name;
               alert(vkUserName);
               
               /*var request = $.ajax({
