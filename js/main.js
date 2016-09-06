@@ -13,7 +13,6 @@
 
   // Namespace storage
   var ybi = $.initNamespaceStorage('ybi');
-  var storage = window.localStorage;
   
   //OAuth.io JavaScript SDK
   //OAuth.initialize('_OAJbDtopNIy0mZWB9UBjarHIb4');
@@ -47,8 +46,10 @@
   $(document).on('pagecontainerbeforechange', function(e, data) {
     alert(ybi.localStorage.get('userAuthorized'));
     alert(ybi.localStorage.get('userAuthorizedUid'));
-    alert(storage.getItem('userAuthorized'));
-    alert(storage.getItem('userAuthorizedUid'));
+            ybi.localStorage.remove('userAuthorizedUid');
+            ybi.localStorage.remove('userAuthorizedProvider');
+    alert(ybi.localStorage.get('userAuthorized'));
+    alert(ybi.localStorage.get('userAuthorizedUid'));
     
     if (typeof data.toPage === "object" && data.toPage.is('#idea-list') && typeof data.absUrl === "undefined") {
       if (ybi.localStorage.isSet('userAuthorized')) {
