@@ -1116,8 +1116,8 @@
     });
     
     // Hide vk button
-    if (app && device.platform != 'IOS') {
-      $('#signin-login #_vk, #signin-signup #_vk').hide();
+    if (app && device.platform == 'IOS') {
+      $('#signin-login #_vk, #signin-signup #_vk').show();
     }
     
     $('#signin-signup #_vk').on('touchstart', function(e){
