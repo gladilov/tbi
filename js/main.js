@@ -1040,6 +1040,7 @@
                     // Set user id
                     ybi.localStorage.set('userAuthorized', true);
                     ybi.localStorage.set('userAuthorizedUid', data.uid);
+                    ybi.localStorage.set('userAuthorizedProvider', 'fb');
                     userAuthorized = true;
                     $('input[name="uid"]').val(data.uid);
                     uid = data.uid;
@@ -1129,18 +1130,16 @@
           
           VkSdk.getUser(vkUserId, 
             function(user) {
-              alert(JSON.stringify(user));
-              
               var vkUserName = user[0].first_name + ' ' + user[0].last_name;
               alert(vkUserName);
               
-              /*var request = $.ajax({
+              var request = $.ajax({
                 type: 'GET',
                 dataType: 'jsonp',
                 jsonpCallback: 'userCreateSocial',
                 contentType: "application/json; charset=utf-8",
                 url: 'http://y-b-i.com/api/user.php',
-                data: {"method": "post", "data": {"name": result.name, "mail": result.email, "provider": 'vk', "provider_uid": result.id}},
+                data: {"method": "post", "data": {"name": vkUserName, "mail": '', "provider": 'vk', "provider_uid": vkUserId}},
                 timeout: 8000,
                 cache: false,
                 async: true,
@@ -1155,6 +1154,7 @@
                   // Set user id
                   ybi.localStorage.set('userAuthorized', true);
                   ybi.localStorage.set('userAuthorizedUid', data.uid);
+                  ybi.localStorage.set('userAuthorizedProvider', 'vk');
                   userAuthorized = true;
                   $('input[name="uid"]').val(data.uid);
                   uid = data.uid;
@@ -1216,7 +1216,7 @@
                     console.log('Ошибка регистрации (textStatus: "' + textStatus + '").');
                   }
                 }
-              });*/
+              });
             },
             function(error) {
               alert('Ошибка регистрации.');
@@ -1583,6 +1583,7 @@
               if (buttonIndex == 1) {
                 ybi.localStorage.set('userAuthorized', false);
                 ybi.localStorage.remove('userAuthorizedUid');
+                ybi.localStorage.remove('userAuthorizedProvider');
                 userAuthorized = false;
                 uid = 0;
                 $('input[name="uid"]').val('');
@@ -1600,6 +1601,7 @@
           else {
             ybi.localStorage.set('userAuthorized', false);
             ybi.localStorage.remove('userAuthorizedUid');
+            ybi.localStorage.remove('userAuthorizedProvider');
             userAuthorized = false;
             uid = 0;
             $('input[name="uid"]').val('');
@@ -1665,6 +1667,19 @@
               userAuthorized = false;
               uid = 0;
               $('input[name="uid"]').val('');
+              
+              // Social logout
+              userAuthorizedProvider = ybi.localStorage.get('userAuthorizedProvider');
+              if (userAuthorizedProvider === 'fb') {
+                facebookConnectPlugin.logout();
+              }
+              else if (userAuthorizedProvider === 'vk') {
+                VkSdk.logout();
+              }
+              ybi.localStorage.remove('userAuthorizedProvider');
+              
+              
+              
               navigator.app.exitApp();
             }
           }
@@ -1679,6 +1694,7 @@
         else {
           ybi.localStorage.set('userAuthorized', false);
           ybi.localStorage.remove('userAuthorizedUid');
+          ybi.localStorage.remove('userAuthorizedProvider');
           userAuthorized = false;
           uid = 0;
           $('input[name="uid"]').val('');
@@ -1776,6 +1792,7 @@
               // Set user id
               ybi.localStorage.set('userAuthorized', true);
               ybi.localStorage.set('userAuthorizedUid', data.uid);
+              ybi.localStorage.set('userAuthorizedProvider', 'email');
               userAuthorized = true;
               $('input[name="uid"]').val(data.uid);
               uid = data.uid;
@@ -1888,6 +1905,7 @@
               // Set user id
               ybi.localStorage.set('userAuthorized', true);
               ybi.localStorage.set('userAuthorizedUid', data.uid);
+              ybi.localStorage.set('userAuthorizedProvider', 'email');
               userAuthorized = true;
               $('input[name="uid"]').val(data.uid);
               uid = data.uid;
