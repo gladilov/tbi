@@ -10,7 +10,22 @@
       app = document.URL.indexOf( 'http://' ) === -1 && document.URL.indexOf( 'https://' ) === -1,
       goTo = function(to) { $.mobile.pageContainer.pagecontainer("change", to); },
       exitApp = function() {
+        //ybi.localStorage.set('userAuthorized', false);
+        ybi.localStorage.remove('userAuthorized');
+        ybi.localStorage.remove('userAuthorizedUid');
+        userAuthorized = false;
+        uid = 0;
+        $('input[name="uid"]').val('');
         
+        // Social logout
+        userAuthorizedProvider = ybi.localStorage.get('userAuthorizedProvider');
+        if (userAuthorizedProvider === 'fb') {
+          if (app) facebookConnectPlugin.logout();
+        }
+        else if (userAuthorizedProvider === 'vk') {
+          if (app) VkSdk.logout();
+        }
+        ybi.localStorage.remove('userAuthorizedProvider');
       },
       appVersion = '0.8.9';
 
@@ -47,14 +62,10 @@
   
   // First page before load - check userAuthorized
   $(document).on('pagecontainerbeforechange', function(e, data) {
-    alert(ybi.localStorage.get('userAuthorized'));
-    alert(ybi.localStorage.get('userAuthorizedUid'));
-            ybi.localStorage.remove('userAuthorized');
-            ybi.localStorage.remove('userAuthorizedUid');
-    alert(ybi.localStorage.get('userAuthorized'));
-    alert(ybi.localStorage.get('userAuthorizedUid'));
-    
     if (typeof data.toPage === "object" && data.toPage.is('#idea-list') && typeof data.absUrl === "undefined") {
+      alert(ybi.localStorage.get('userAuthorized'));
+      alert(ybi.localStorage.get('userAuthorizedUid'));
+      
       if (ybi.localStorage.isSet('userAuthorized')) {
         userAuthorized = ybi.localStorage.get('userAuthorized');
         uid = ybi.localStorage.get('userAuthorizedUid');
@@ -1190,12 +1201,15 @@
             function appExitConfirm(buttonIndex) {
               if (buttonIndex == 1) {
                 //ybi.localStorage.set('userAuthorized', false);
-                ybi.localStorage.remove('userAuthorized');
+                /*ybi.localStorage.remove('userAuthorized');
                 ybi.localStorage.remove('userAuthorizedUid');
                 ybi.localStorage.remove('userAuthorizedProvider');
                 userAuthorized = false;
                 uid = 0;
-                $('input[name="uid"]').val('');
+                $('input[name="uid"]').val('');*/
+                
+                exitApp();
+                
                 navigator.app.exitApp();
               }
             }
@@ -1209,13 +1223,17 @@
           }
           else {
             //ybi.localStorage.set('userAuthorized', false);
-            ybi.localStorage.remove('userAuthorized');
+            /*ybi.localStorage.remove('userAuthorized');
             ybi.localStorage.remove('userAuthorizedUid');
             ybi.localStorage.remove('userAuthorizedProvider');
             userAuthorized = false;
             uid = 0;
-            $('input[name="uid"]').val('');
-            $(':mobile-pagecontainer').pagecontainer('change', '#signin-welcome');
+            $('input[name="uid"]').val('');*/
+            
+            exitApp();
+            
+            //$(':mobile-pagecontainer').pagecontainer('change', '#signin-welcome');
+            goTo('#signin-welcome');
           }
         }
         else {
@@ -1276,7 +1294,7 @@
             if (buttonIndex == 1) {
               
               //ybi.localStorage.set('userAuthorized', false);
-              ybi.localStorage.remove('userAuthorized');
+              /*ybi.localStorage.remove('userAuthorized');
               ybi.localStorage.remove('userAuthorizedUid');
               userAuthorized = false;
               uid = 0;
@@ -1290,7 +1308,9 @@
               else if (userAuthorizedProvider === 'vk') {
                 VkSdk.logout();
               }
-              ybi.localStorage.remove('userAuthorizedProvider');
+              ybi.localStorage.remove('userAuthorizedProvider');*/
+              
+              exitApp();
 
               navigator.app.exitApp();
             }
@@ -1305,13 +1325,17 @@
         }
         else {
           //ybi.localStorage.set('userAuthorized', false);
-          ybi.localStorage.remove('userAuthorized');
+          /*ybi.localStorage.remove('userAuthorized');
           ybi.localStorage.remove('userAuthorizedUid');
           ybi.localStorage.remove('userAuthorizedProvider');
           userAuthorized = false;
           uid = 0;
-          $('input[name="uid"]').val('');
-          $(':mobile-pagecontainer').pagecontainer('change', '#signin-welcome');
+          $('input[name="uid"]').val('');*/
+          
+          exitApp();
+          
+          //$(':mobile-pagecontainer').pagecontainer('change', '#signin-welcome');
+          goTo('#signin-welcome');
         }
       });
 
