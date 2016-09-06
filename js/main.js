@@ -13,6 +13,7 @@
 
   // Namespace storage
   var ybi = $.initNamespaceStorage('ybi');
+  var storage = window.localStorage;
   
   //OAuth.io JavaScript SDK
   //OAuth.initialize('_OAJbDtopNIy0mZWB9UBjarHIb4');
@@ -44,13 +45,12 @@
   
   // First page before load - check userAuthorized
   $(document).on('pagecontainerbeforechange', function(e, data) {
-    alert('pagecontainerbeforechange');
     alert(ybi.localStorage.get('userAuthorized'));
     alert(ybi.localStorage.get('userAuthorizedUid'));
+    alert(storage.getItem('userAuthorized'));
+    alert(storage.getItem('userAuthorizedUid'));
     
     if (typeof data.toPage === "object" && data.toPage.is('#idea-list') && typeof data.absUrl === "undefined") {
-      alert('pagecontainerbeforechange object');
-      
       if (ybi.localStorage.isSet('userAuthorized')) {
         userAuthorized = ybi.localStorage.get('userAuthorized');
         uid = ybi.localStorage.get('userAuthorizedUid');
@@ -65,12 +65,7 @@
   
   // Before page show
   $(document).on('pagecontainerbeforeshow', function(e, data) {
-    alert('pagecontainerbeforeshow');
-    //userAuthorizedProvider = ybi.localStorage.get('userAuthorizedProvider');
-    
     if (typeof data.toPage === "object" && typeof data.prevPage === "object") {
-      alert('pagecontainerbeforeshow object');
-      
       var $page = data.toPage,
           $prevPage = data.prevPage,
           $pageTitle = $('#page-title', $page);
