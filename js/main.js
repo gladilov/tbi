@@ -1407,16 +1407,18 @@
           */
             
           var emailFields = {
-            app:           mailto,
-            subject:       '',
-            body:          '',
-            to:            [],
-            cc:            [],
-            bcc:           [],
-            attachments:   [],
-            isHtml:        true,
-            chooserHeader: 'Выполнить с помощью'
+            app: 'mailto',
+            subject: 'Моя бизнес идея "' + ideaTitle + '"',
+            body: ideaDesc,
+            to: [],
+            cc: [],
+            bcc: [],
+            attachments: [],
+            isHtml: false,
+            chooserHeader: 'Open with'
           };
+            //chooserHeader: 'Выполнить с помощью'
+            //chooserHeader: 'Open with'
           
           cordova.plugins.email.open(emailFields, function (e) {
               alert(e);
