@@ -1127,10 +1127,10 @@
           alert(JSON.stringify(token));
         });
         
-        VkSdk.getUser('', function(user) {
+        /*VkSdk.getUser('', function(user) {
           alert(user);
           alert(JSON.stringify(user));
-        });
+        });*/
       }
       else alert('Coming soon (now only for iOS app).');
     });
