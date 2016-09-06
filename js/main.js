@@ -1115,13 +1115,9 @@
       else alert('Coming soon (now only for app).');
     });
     
-    // Hide vk button
-    if (app && device.platform == 'IOS') {
-      $('#signin-login #_vk, #signin-signup #_vk').show();
-    }
     
     $('#signin-signup #_vk').on('touchstart', function(e){
-      if (app) {
+      if (app && device.platform == 'IOS') {
         VkSdk.init('5612981');
         VkSdk.initiateLogin(['photos', 'offline']);
         
@@ -1135,7 +1131,7 @@
           alert(JSON.stringify(user));
         });
       }
-      else alert('Coming soon (now only for app).');
+      else alert('Coming soon (now only for IOS app).');
     });
     
     // OAuth
@@ -1431,14 +1427,14 @@
             bcc: [],
             attachments: [],
             isHtml: false,
-            chooserHeader: 'Open with'
+            chooserHeader: 'Выполнить с помощью'
           };
             //chooserHeader: 'Выполнить с помощью'
             //chooserHeader: 'Open with'
           
           cordova.plugins.email.open(emailFields, function (e) {
-              alert(e);
-              alert('finished or canceled');
+              //alert(e);
+              //alert('finished or canceled');
           }, this);
           
           /*cordova.plugins.email.open({
