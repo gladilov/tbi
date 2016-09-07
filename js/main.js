@@ -49,7 +49,7 @@
   });
 
   $(document).on('exitApp', function() {
-    alert('exitApp trigger');
+    //alert('exitApp trigger');
     
     //ybi.localStorage.set('userAuthorized', false);
     ybi.localStorage.remove('userAuthorized');
@@ -71,10 +71,10 @@
   
   // First page before load - check userAuthorized
   $(document).on('pagecontainerbeforechange', function(e, data) {
-    //if (typeof data.toPage === "object" && data.toPage.is('#idea-list') && typeof data.absUrl === "undefined") {
-    if (typeof data.toPage === "object" && data.toPage.not('#signin-welcome') && data.toPage.not('#signin-login') && data.toPage.not('#signin-signup')) {
-      alert(ybi.localStorage.get('userAuthorized'));
-      alert(ybi.localStorage.get('userAuthorizedUid'));
+    if (typeof data.toPage === "object" && data.toPage.is('#idea-list') && typeof data.absUrl === "undefined") {
+    //if (typeof data.toPage === "object" && data.toPage.not('#signin-welcome') && data.toPage.not('#signin-login') && data.toPage.not('#signin-signup')) {
+      //alert(ybi.localStorage.get('userAuthorized'));
+      //alert(ybi.localStorage.get('userAuthorizedUid'));
       
       if (ybi.localStorage.isSet('userAuthorized')) {
         userAuthorized = ybi.localStorage.get('userAuthorized');
@@ -83,8 +83,8 @@
       }
       
       if (userAuthorized === false) {
-        //data.toPage = $("#signin-welcome");
-        goTo('#signin-welcome');
+        data.toPage = $("#signin-welcome");
+        //goTo('#signin-welcome');
       }
     }
   });
