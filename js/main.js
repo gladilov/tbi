@@ -1210,7 +1210,7 @@
                 
                 exitApp();
                 
-                navigator.app.exitApp();
+                setTimeout(function() { navigator.app.exitApp(); }, 0);
               }
             }
 
@@ -1312,7 +1312,7 @@
               
               exitApp();
 
-              navigator.app.exitApp();
+              setTimeout(function() { navigator.app.exitApp(); }, 0);
             }
           }
 
