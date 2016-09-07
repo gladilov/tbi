@@ -47,6 +47,27 @@
     
     jqmReadyDeferred.resolve();
   });
+
+  $(document).on('exitApp', function() {
+    alert('exitApp trigger');
+    
+    //ybi.localStorage.set('userAuthorized', false);
+    ybi.localStorage.remove('userAuthorized');
+    ybi.localStorage.remove('userAuthorizedUid');
+    userAuthorized = false;
+    uid = 0;
+    $('input[name="uid"]').val('');
+    
+    // Social logout
+    userAuthorizedProvider = ybi.localStorage.get('userAuthorizedProvider');
+    if (userAuthorizedProvider === 'fb') {
+      if (app) facebookConnectPlugin.logout();
+    }
+    else if (userAuthorizedProvider === 'vk') {
+      if (app) VkSdk.logout();
+    }
+    ybi.localStorage.remove('userAuthorizedProvider');
+  });
   
   // First page before load - check userAuthorized
   $(document).on('pagecontainerbeforechange', function(e, data) {
@@ -1196,7 +1217,8 @@
                 uid = 0;
                 $('input[name="uid"]').val('');*/
                 
-                exitApp();
+                //exitApp();
+                $(document).trigger('exitApp');
                 
                 setTimeout(function() { navigator.app.exitApp(); }, 500);
               }
@@ -1218,7 +1240,8 @@
             uid = 0;
             $('input[name="uid"]').val('');*/
             
-            exitApp();
+            //exitApp();
+            $(document).trigger('exitApp');
             
             //$(':mobile-pagecontainer').pagecontainer('change', '#signin-welcome');
             goTo('#signin-welcome');
@@ -1298,7 +1321,8 @@
               }
               ybi.localStorage.remove('userAuthorizedProvider');*/
               
-              exitApp();
+              //exitApp();
+              $(document).trigger('exitApp');
 
               setTimeout(function() { navigator.app.exitApp(); }, 500);
             }
@@ -1320,7 +1344,8 @@
           uid = 0;
           $('input[name="uid"]').val('');*/
           
-          exitApp();
+          //exitApp();
+          $(document).trigger('exitApp');
           
           //$(':mobile-pagecontainer').pagecontainer('change', '#signin-welcome');
           goTo('#signin-welcome');
