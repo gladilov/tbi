@@ -71,10 +71,6 @@
   
   // First page before load - check userAuthorized
   $(document).on('pagecontainerbeforechange', function(e, data) {
-    if (typeof data.toPage === "object" && data.toPage.is('#idea-list') && typeof data.absUrl === "undefined") {
-      alert(ybi.localStorage.get('userAuthorized'));
-      alert(ybi.localStorage.get('userAuthorizedUid'));
-      
       if (ybi.localStorage.isSet('userAuthorized')) {
         userAuthorized = ybi.localStorage.get('userAuthorized');
         uid = ybi.localStorage.get('userAuthorizedUid');
@@ -84,6 +80,13 @@
       if (userAuthorized === false) {
         data.toPage = $("#signin-welcome");
       }
+      
+      
+    if (typeof data.toPage === "object" && data.toPage.is('#idea-list') && typeof data.absUrl === "undefined") {
+      alert(ybi.localStorage.get('userAuthorized'));
+      alert(ybi.localStorage.get('userAuthorizedUid'));
+      
+
     }
   });
   
