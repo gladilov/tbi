@@ -6,7 +6,7 @@
       $pageLoader = $('.page-loader'),
       uid = 0,
       userAuthorized = false,
-      lock = null,
+      ybi = $.initNamespaceStorage('ybi'), // Namespace storage
       app = document.URL.indexOf( 'http://' ) === -1 && document.URL.indexOf( 'https://' ) === -1,
       goTo = function(to) { $.mobile.pageContainer.pagecontainer("change", to); },
       exitApp = function() {
@@ -29,18 +29,6 @@
       },
       appVersion = '0.8.9';
 
-  // Namespace storage
-  var ybi = $.initNamespaceStorage('ybi');
-  
-  //OAuth.io JavaScript SDK
-  //OAuth.initialize('_OAJbDtopNIy0mZWB9UBjarHIb4');
-  
-  // Configure the Auth0Lock
-  /*lock = new Auth0Lock('1WDpVSt5zWtUrsC5JTkh1NhKoYzqUut1', 'gladilov.auth0.com', {
-    auth: { 
-      params: { scope: 'openid email' } //Details: https://auth0.com/docs/scopes
-    }
-  });*/
 
   document.addEventListener('deviceready', deviceReady, false);
   if (!app) deviceReady();
