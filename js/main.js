@@ -83,7 +83,8 @@
       }
       
       if (userAuthorized === false) {
-        data.toPage = $("#signin-welcome");
+        //data.toPage = $("#signin-welcome");
+        goTo('#signin-welcome');
       }
     }
   });
