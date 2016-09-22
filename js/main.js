@@ -27,7 +27,8 @@
         }
         ybi.localStorage.remove('userAuthorizedProvider');
       },
-      appVersion = '0.8.9';
+      filePath = 'http://dev.y-b-i.com/files/',
+      appVersion = '0.9.0';
 
 
   document.addEventListener('deviceready', deviceReady, false);
@@ -183,7 +184,6 @@
             $ideaAddForm = $('#ideaadd-form', $ideaAddPage),
             $ideaAddFormControlGroup = $('.controlgroup', $ideaAddForm),
             $ideaAddFormInputText = $('input, textarea', $ideaAddForm);
-
         
         console.log(iid);
         $ideaEditLink.data('iid', iid);
@@ -366,12 +366,11 @@
               console.log(data);
               
               if (data.status == 'success') {
-                var filePath = 'http://dev.y-b-i.com/files/';
                 // Files group
                 $filesItemsContainer = $ideaSingleContainer.find(' > .files ol');
                 $filesItemsContainer.empty();
                 $.each(data.files, function(index, file){
-                  $filesItemsContainer.append('<li><a href="' + filePath + file.name + '" class="ui-link-inherit" data-ajax="false" rel="external">' + file.name + '</li>');
+                  $filesItemsContainer.append('<li><a href="' + filePath + file.name + '" class="ui-link-inherit" data-ajax="false" rel="external">' + file.name + '</a></li>');
                 });
                 $filesItemsContainer.listview('refresh');
               }
@@ -1154,6 +1153,16 @@
                   if (!isAvailable) alert('Функция не поддерживается на данном устройстве.');
               }
           );
+          
+          var emailAttachments = [],
+              $ideaFileItem = $('#idea-single .content-group-wrap.files .ui-listview li');
+          
+          if ($ideaFileItem.length) {
+            $ideaFileItem.each(function(i, e) {
+              var fileUrl = $(this).children('a').attr('href');
+              emailAttachments.push(fileUrl);
+            });
+          }
             
           var emailFields = {
             app: 'mailto',
@@ -1162,7 +1171,7 @@
             to: [],
             cc: [],
             bcc: [],
-            attachments: [],
+            attachments: emailAttachments,
             isHtml: false,
             chooserHeader: 'Выполнить с помощью'
           };
@@ -1788,6 +1797,7 @@
       $('#ideaadd-form').submit(function(e){
         e.preventDefault();
         var $thisForm = $(this),
+            $pageActive = $('.ui-page-active'),
             fileInput = $('#idea-files', $thisForm)[0],
             formComplete = 0,
             method = 'post',
@@ -1834,31 +1844,8 @@
             console.log(data);
             // Success:
             if (data.status == 'success') {
-              
-              // Files upload
-              var formData = new FormData(); //FormData object
-              
-              for (i = 0; i < fileInput.files.length; i++) {
-                //Appending each file to FormData object
-                formData.append(data.iid + '_' + i, fileInput.files[i]);
-              }
 
-              if (window.FormData === undefined) {
-                alert('На устройстве нет поддержки FormData для загрузки файлов.');
-              }
-              else {
-                var request = $.ajax({
-                  type: 'POST',
-                  url: 'http://y-b-i.com/api/file.php',
-                  data: formData,
-                  timeout: 8000,
-                  contentType: false,
-                  processData: false,
-                  cache: false,
-                  async: true,
-                });
-              }
-              
+              // Calendar
               if (method == 'post') {
                 // Calendar
                 /*if (app) {
@@ -1914,20 +1901,79 @@
               if (data.form_complete != 1) { $('#idea-single #idea-single-accordion > .steps').addClass('ui-screen-hidden'); }
               else { $('#idea-single #idea-single-accordion > .steps').removeClass('ui-screen-hidden'); }
               
-              // Goto idea page
               $('#idea-single').data('iid', data.iid);
-              $(':mobile-pagecontainer').pagecontainer('change', '#idea-single');
               
-              setTimeout(function() {
-                // Hide splash
-                $pageLoader.fadeOut(150);
-                $('.message', $pageLoader).empty();
-                if (app) {
-                  StatusBar.show();
-                  window.plugins.toast.showLongBottom(toastMessage, function(a){}, function(b){});
+              // Files upload
+              if (fileInput.files.length > 0) {
+                var formData = new FormData(); //FormData object
+
+                for (i = 0; i < fileInput.files.length; i++) {
+                  //Appending each file to FormData object
+                  formData.append(data.iid + '_' + i, fileInput.files[i]);
                 }
-                else console.log(toastMessage);
-              }, 2000);
+
+                if (window.FormData === undefined) {
+                  alert('На устройстве нет поддержки FormData для загрузки файлов.');
+                }
+                else {
+                  var requestFile = $.ajax({
+                    type: 'POST',
+                    url: 'http://y-b-i.com/api/file.php',
+                    data: formData,
+                    timeout: 8000,
+                    contentType: false,
+                    processData: false,
+                    cache: false,
+                    async: false,
+                  });
+                  
+                  var stateFile = requestFile.state();
+                  
+                  requestFile.done(function(data, textStatus, jqXHR) {
+                    console.log(data);
+                    // Success:
+                    if (data.status == 'success') {
+                      if ($pageActive.is('#idea-single')) {
+                        var $fileList = $('#idea-single .content-group-wrap.files .ui-listview'),
+                            $fileItem = '<li><a href="' + filePath + data.filename + '" class="ui-link-inherit" data-ajax="false" rel="external">' + data.filename + '</a></li>';
+                        
+                        $fileList.append($fileItem);
+                        $fileList.listview('refresh');
+                      }
+                      
+                      // Goto idea page
+                      $(':mobile-pagecontainer').pagecontainer('change', '#idea-single');
+                      
+                      setTimeout(function() {
+                        // Hide splash
+                        $pageLoader.fadeOut(150);
+                        $('.message', $pageLoader).empty();
+                        if (app) {
+                          StatusBar.show();
+                          window.plugins.toast.showLongBottom(toastMessage, function(a){}, function(b){});
+                        }
+                        else console.log(toastMessage);
+                      }, 2000);
+                    }
+                  });
+                  
+                }
+              }
+              else {
+                // Goto idea page
+                $(':mobile-pagecontainer').pagecontainer('change', '#idea-single');
+                
+                setTimeout(function() {
+                  // Hide splash
+                  $pageLoader.fadeOut(150);
+                  $('.message', $pageLoader).empty();
+                  if (app) {
+                    StatusBar.show();
+                    window.plugins.toast.showLongBottom(toastMessage, function(a){}, function(b){});
+                  }
+                  else console.log(toastMessage);
+                }, 2000);
+              }
             }
             // Error:
             else if (data.status == 'error') {
@@ -2497,7 +2543,7 @@
       
       
       // Idea GROUP-EDIT-LINK
-      $('.group-edit-link').on('click', function(e){
+      $('.group-edit-link:not(.files)').on('click', function(e){
       //$('#idea-single').on('click', '.group-edit-link', function(e){
         e.preventDefault();
         e.stopPropagation();
@@ -2548,6 +2594,32 @@
           $ideaAddFormGroup.appendTo($groupContent);
         }
       });
+      
+      // Idea GROUP-EDIT-LINK (files)
+      $('.group-edit-link.files').on('click', function(e){
+        e.preventDefault();
+        e.stopPropagation();
+        
+        var $ideaAddForm = $('#ideaadd-form');
+
+        if ($(this).is('.group-save-link')) {
+          $(this).removeClass('group-save-link');
+          $ideaAddForm.submit();
+        }
+        else {
+          $(this).addClass('group-save-link');
+          $('#idea-files', $ideaAddForm).trigger('click');
+        }
+      });
+      
+      // Add files on 'idea-single' page
+      $('#idea-add').on('change', '#idea-files', function(e){
+        var $pageActive = $('.ui-page-active');
+        if ($pageActive.is('#idea-single')) {
+          $('.group-edit-link.files').addClass('group-save-link');
+        }
+      });
+      
       
       $('#idea-single-accordion [data-role="collapsible"]')
         .on( "collapsiblecollapse", function(event, ui) {

@@ -173,6 +173,7 @@ div.idea-status-group h3.ui-collapsible-heading span{float: right;width: 12vw;he
 div.idea-status-group div.ui-collapsible-content{float: left;margin-top: -3vw;margin-bottom: 3vw;width: 100%;height: auto;border-top: 1px solid #353C54;padding: 0;}
 div.idea-status-group div.ui-collapsible-content ul li.idea-item{width: calc(100%);padding: 0 4vw;float: left;box-sizing: border-box;position: relative;border-bottom: 1px solid #AFAFAF;}
 div.idea-status-group div.ui-collapsible-content ul li.idea-item .idea-title{width: 100%;height: 12vw;line-height: 12vw;float: left;font-size: 4vw;padding-left: 2vw;margin: 4vw 0;border-left: 4px solid #93D1D9;}
+div.idea-status-group div.ui-collapsible-content ul li.idea-item .idea-title > a.idea-link{display: block; width: calc(100% - 18vw);}
 div.idea-status-group div.ui-collapsible-content ul li.idea-item .progress{width: 12vw;height: 12vw;float: left;right: 4vw;top: 4vw;position: absolute;background:#fff;background-image:url(../img/idea_0.png);background-position: 50% 50%;background-size:100% 100%;}
 div.idea-status-group div.ui-collapsible-content ul li.idea-item .progress:before{width: 12vw;height: 12vw;float: left;content: "0%";text-align: center;line-height: 12vw;font-size: 3.75vw;color: #053C57;font-weight: 600;}
 div.idea-status-group div.ui-collapsible-content ul li.idea-item .progress li{width:12vw;height:12vw;position: absolute;display: none;background:#fff;}
@@ -224,7 +225,8 @@ div.idea-status-group div.ui-collapsible-content ul li.idea-item .stats{max-widt
 #idea-single-accordion .ui-collapsible-content ul.stats li .stats-value {font: normal 1em/1 open_sanslight;}
 #idea-single-accordion .ui-collapsible-content ul.stats li .stats-desc {margin-top: 4px;font: normal 0.929em open_sanslight;}
 #idea-single-accordion div h3 a.group-edit-link{z-index: 2;position: absolute;right: -10vw;padding-left: 0vw;left: inherit;top: 2vw;background: #05232E;background-image: url('../img/edit.png');background-size: 50% 50%;background-position: 50% 50%;background-repeat: no-repeat;width: 8vw;height: 8vw;border-radius: 2vw;}
-#idea-single-accordion div h3 a.group-save-link{background-image: url('../img/tick.png');}
+#idea-single-accordion div h3 a.group-edit-link.files{background-image: url('../img/open-folder.png');background-size: 20px 20px;}
+#idea-single-accordion div h3 a.group-save-link{background-image: url('../img/tick.png') !important; background-size: 14px 12px !important;}
 #idea-single-accordion div h3.ui-collapsible-heading-collapsed a.group-edit-link{display: none;}
 #idea-single-accordion .ui-collapsible-content .form-item {width: calc(100% - 4vw);margin: 0 2vw;}
 #idea-single-accordion .ui-collapsible-content .form-item .controlgroup {}
