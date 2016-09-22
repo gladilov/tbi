@@ -1157,12 +1157,14 @@
           var emailAttachments = [],
               $ideaFileItem = $('#idea-single .content-group-wrap.files .ui-listview li');
           
-          if ($ideaFileItem.length) {
+          /*if ($ideaFileItem.length) {
             $ideaFileItem.each(function(i, e) {
               var fileUrl = $(this).children('a').attr('href');
               emailAttachments.push(fileUrl);
             });
-          }
+          }*/
+          emailAttachments.push('file://icon.png');
+          
           
           if (app && device.platform === "iOS") {
             pdf.htmlToPDF({
