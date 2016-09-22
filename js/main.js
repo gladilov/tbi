@@ -1164,17 +1164,18 @@
             });
           }
           
-          pdf.htmlToPDF({
-                data: '<html>' +
-                        '<h1>Моя бизнес идея "' + ideaTitle + '"</h1>' +
-                        '<div style="margin-top: 30px;"><h3 style="padding:5px 10px; background: #92D1DA; color: #063E5A;">Описание</h3><p>' + ideaDesc + '</p></div>' +
-                      '</html>',
-                documentSize: "A4",
-                landscape: "portrait",
-                type: "share" //use share to open the open-with-menu.
-                //type: "base64"
-            }, function(pdf){ emailAttachments.push(pdf); }, this.failure);
-
+          if (app && device.platform === "iOS") {
+            pdf.htmlToPDF({
+                  data: '<html>' +
+                          '<h1>Моя бизнес идея "' + ideaTitle + '"</h1>' +
+                          '<div style="margin-top: 30px;"><h3 style="padding:5px 10px; background: #92D1DA; color: #063E5A;">Описание</h3><p>' + ideaDesc + '</p></div>' +
+                        '</html>',
+                  documentSize: "A4",
+                  landscape: "portrait",
+                  //type: "share" //use share to open the open-with-menu.
+                  type: "base64"
+              }, function(pdf){ emailAttachments.push(pdf); }, this.failure);
+          }
             
           var emailFields = {
             app: 'mailto',
