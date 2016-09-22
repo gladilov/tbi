@@ -1666,18 +1666,3 @@ div#shareblock ul li {
   text-align: center;
   color: #00FFA6;
 }
-
-div.idea-status-group h3.ui-collapsible-heading span{
-    float: right;
-    width: 14vw;
-    height: 9vw;
-    font-size: 4vw;
-    line-height: 9vw;
-    color: #fff;
-    background: #1F6682;
-    text-align: center;
-    border-width: 0px;
-    right: 1.5vw;
-    top: 1.5vw;
-    margin-top: 0;
-}
